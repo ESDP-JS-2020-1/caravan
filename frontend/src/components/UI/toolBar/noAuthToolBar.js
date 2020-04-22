@@ -6,7 +6,6 @@ const NoAuthUserToolBar = () => {
     return (
         <>
             <Button color='inherit' component={NavLink} to='/login' exact>Login</Button>
-            <Button color='inherit' component={NavLink} to='/register' exact>SignUp</Button>
         </>
     );
 };
