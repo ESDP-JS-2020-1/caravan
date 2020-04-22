@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {ConnectedRouter} from "connected-react-router";
 import * as serviceWorker from './serviceWorker';
-import {history, store} from "./store/configureStore";
+import store, {history} from "./store/configureStore";
 import App from './App';
 
 const app = (
