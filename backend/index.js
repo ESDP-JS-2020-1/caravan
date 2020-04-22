@@ -14,7 +14,9 @@ app.use(express.static('public'));
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOptions);
 
-    app.listen(`Server started port ${port}!`)
+    app.listen(config.port, () => {
+        console.log(`Server started on ${config.port} port!`)
+    })
 };
 
 run().catch(e => {
