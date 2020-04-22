@@ -16,6 +16,7 @@ const FormElement = props => {
             className={classes.root}
             label={props.title}
             variant="filled"
+            error={!!props.error}
             type={props.type}
             name={props.propertyName} id={props.propertyName}
             value={props.value}
