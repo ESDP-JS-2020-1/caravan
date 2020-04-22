@@ -16,7 +16,7 @@ app.use(express.static('public'));
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOptions);
 
-    app.use('/user', user);
+    app.use('/users', user);
 
     app.listen(port)
 };
