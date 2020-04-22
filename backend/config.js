@@ -3,7 +3,7 @@ const rootPath = __dirname;
 
 module.exports = {
     rootPath,
-    uploadPath: path.join(rootPath, 'public/uploads'),
+    userAvatar: path.join(rootPath, 'public/uploads/userAvatar'),
     database: 'mongodb://localhost/caravan',
     databaseOptions: {
         useNewUrlParser: true,
