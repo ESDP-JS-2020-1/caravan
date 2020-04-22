@@ -1,11 +1,12 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {logoutUserGet} from "../../../store/actions/usersActions";
+import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
-import {NavLink} from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 const AuthUserToolBar = () => {
 
@@ -13,6 +14,10 @@ const AuthUserToolBar = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const open = Boolean(anchorEl);
+
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -27,6 +32,15 @@ const AuthUserToolBar = () => {
 
     return (
         <>
+            <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+            >
+                <Avatar alt={user.displayName}/>
+            </IconButton>
             <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -45,7 +59,6 @@ const AuthUserToolBar = () => {
                 <ListItem disabled>Привет, {user.displayName}!</ListItem>
                 <Divider/>
                 <Divider/>
-                <MenuItem component={NavLink} to={`/users/${user._id}`} exact>Профиль</MenuItem>
                 <MenuItem onClick={logout}>Выйти</MenuItem>
             </Menu>
         </>
