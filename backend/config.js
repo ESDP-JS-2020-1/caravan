@@ -10,4 +10,5 @@ module.exports = {
         useUnifiedTopology: true,
         useCreateIndex: true
     },
+    port: 8000,
 };
