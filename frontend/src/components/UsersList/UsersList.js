@@ -13,8 +13,6 @@ const UsersList = () => {
 
     const users = useSelector(state => state.users.users)
 
-    console.log(users);
-
     useEffect(() => {
         dispatch(getUsers())
     }, [dispatch])
@@ -36,11 +34,15 @@ const UsersList = () => {
             <List>
                 {users && users.map((user, index) => {
                     return (
-                        <UserItem
-                            displayName={user.displayName}
-                            number={index+1}
-                            role={user.role}
-                        />
+                        <>
+                            <UserItem
+                                key={user._id}
+                                displayName={user.displayName}
+                                number={index+1}
+                                role={user.role}
+                            />
+
+                        </>
                     )
                 })}
             </List>
