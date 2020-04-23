@@ -83,7 +83,7 @@ class Login extends Component {
                                 )}
                             </Box>
                             <Box component="span" style={this.formBtn}>
-                                <Button style={this.formBtn.button} variant="contained" type="submit" color="primary">
+                                <Button style={this.formBtn.button} variant="contained" type="submit" color="primary" id="btn">
                                     Login
                                 </Button>
                             </Box>
