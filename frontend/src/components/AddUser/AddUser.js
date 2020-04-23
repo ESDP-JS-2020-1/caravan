@@ -8,8 +8,36 @@ import {addUser} from "../../store/actions/usersActions";
 import {useDispatch, useSelector} from "react-redux";
 import Alert from "@material-ui/lab/Alert";
 import MuiPhoneNumber from 'material-ui-phone-number'
+import {Container} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
+const useStyles = makeStyles({
+    formBtn: {
+        marginTop: '1%',
+        display: 'block',
+        textAlign: 'center',
+    },
+    formButton: {
+        fontWeight: 'bold',
+        width: '100%',
+        minHeight: '50px'
+    },
+    typography: {
+        color: '#0d47a1',
+        textAlign: 'center',
+    },
+    typographyText: {
+        borderBottom: '2px solid #0d47a1',
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+        marginBottom: '3%',
+    },
+    phoneInput: {
+        width: '100%',
+    }
+});
 const AddUser = () => {
+    const classes = useStyles()
 
     const [user, setUser] = useState({
         username: '',
@@ -42,91 +70,109 @@ const AddUser = () => {
         dispatch(addUser(data))
     }
 
+
     return (
-        <Box mt={2}>
-            <form onSubmit={onSubmit}>
-                <Grid container direction='column' spacing={1}>
-                    <Grid item>
-                        <Typography variant='h4'>
+        <Container>
+            <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
+                <Box component="div" boxShadow={10} p={5}>
+                    <Box className={classes.typography} component={'span'}>
+                        <Typography className={classes.typographyText} variant="h6" gutterBottom>
                             Добавление нового пользователя
                         </Typography>
-                    </Grid>
-                    <Grid item>
-                        <FormElement
-                            propertyName='username'
-                            title='имя пользователя'
-                            value={user.username}
-                            onChange={inputChangeHandler}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <FormElement
-                            propertyName='password'
-                            title='пароль'
-                            value={user.password}
-                            onChange={inputChangeHandler}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <FormElement
-                            propertyName='displayName'
-                            title='отображаемое имя'
-                            value={user.displayName}
-                            onChange={inputChangeHandler}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <FormElement
-                            propertyName='role'
-                            title='роль'
-                            value={user.role}
-                            onChange={inputChangeHandler}
-                            type='select'
-                            options={roles}
-                        />
-                    </Grid>
-                    {user.role === 'market' && <>
-                        <Grid item>
-                            <FormElement
-                                propertyName='companyName'
-                                title='название компании'
-                                value={user.companyName}
-                                onChange={inputChangeHandler}
-                            />
+                    </Box>
+                    <form onSubmit={onSubmit}>
+                        <Grid container direction='column' spacing={1}>
+                            <Grid item>
+                                <FormElement
+                                    required
+                                    propertyName='username'
+                                    title='Имя пользователя'
+                                    value={user.username}
+                                    onChange={inputChangeHandler}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <FormElement
+                                    required
+                                    propertyName='password'
+                                    title='Пароль'
+                                    value={user.password}
+                                    onChange={inputChangeHandler}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <FormElement
+                                    propertyName='displayName'
+                                    title='Отображаемое имя'
+                                    value={user.displayName}
+                                    onChange={inputChangeHandler}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <FormElement
+                                    propertyName='role'
+                                    title='Роль'
+                                    value={user.role}
+                                    onChange={inputChangeHandler}
+                                    type='select'
+                                    options={roles}
+                                />
+                            </Grid>
+                            {user.role === 'market' && <>
+                                <Grid item>
+                                    <FormElement
+                                        propertyName='companyName'
+                                        title='Название компании'
+                                        value={user.companyName}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+                                <Grid item>
+                                    <FormElement
+                                        propertyName='address'
+                                        title='Адрес компании'
+                                        value={user.address}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+                            </>}
+                            <Grid item>
+                                <FormElement
+                                    propertyName='avatar'
+                                    title='avatar'
+                                    value={user.avatar}
+                                    onChange={fileChangeHandler}
+                                    type='file'
+                                />
+                            </Grid>
+                            <Grid item>
+                                <MuiPhoneNumber
+                                    required
+                                    className={classes.phoneInput}
+                                    defaultCountry={'kg'}
+                                    onChange={phoneChangeHandler}
+                                />
+                            </Grid>
+                            {error && <Grid item>
+                                <Alert severity='error'>{error}</Alert>
+                            </Grid>}
+                            <Grid item>
+                                <Box className={classes.formBtn} component="span">
+                                    <Button
+                                        className={classes.formButton}
+                                        variant='contained'
+                                        color='primary'
+                                        type='submit'
+                                    >
+                                        Добавить
+                                    </Button>
+                                </Box>
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <FormElement
-                                propertyName='address'
-                                title='адрес компании'
-                                value={user.address}
-                                onChange={inputChangeHandler}
-                            />
-                        </Grid>
-                    </>}
-                    <Grid item>
-                        <FormElement
-                            propertyName='avatar'
-                            title='avatar'
-                            value={user.avatar}
-                            onChange={fileChangeHandler}
-                            type='file'
-                        />
-                    </Grid>
-                    <Grid item>
-                        <MuiPhoneNumber
-                            defaultCountry={'kg'}
-                            onChange={phoneChangeHandler}
-                        />
-                    </Grid>
-                    {error && <Grid item>
-                        <Alert severity='error'>{error}</Alert>
-                    </Grid>}
-                    <Grid item>
-                        <Button variant='contained' color='primary' type='submit'>Добавить</Button>
-                    </Grid>
-                </Grid>
-            </form>
-        </Box>
+                    </form>
+                </Box>
+            </Grid>
+        </Container>
     );
 };
 
