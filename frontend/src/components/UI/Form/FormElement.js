@@ -7,6 +7,8 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -16,6 +18,9 @@ const useStyles = makeStyles(() => ({
     input: {
         display: 'none',
     },
+    select: {
+        width: '100%'
+    }
 }));
 const FormElement = props => {
     const classes = useStyles();
@@ -62,7 +67,8 @@ const FormElement = props => {
 
     if (props.type === 'select') {
         field = (
-            <>
+            <FormControl variant="filled" className={classes.select}>
+                <InputLabel htmlFor="role">{props.title}</InputLabel>
                 <Select
                     variant="outlined"
                     value={props.value}
@@ -75,7 +81,7 @@ const FormElement = props => {
                         <MenuItem value={option} key={option}>{option}</MenuItem>
                     ))}
                 </Select>
-            </>
+            </FormControl>
         )
     }
 
