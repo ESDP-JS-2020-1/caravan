@@ -48,6 +48,16 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
     }
 });
 
+router.get('/', isAuth, async (req, res) => {
+   try {
+       const users = await User.find().select({token: 0});
+
+       res.send(users)
+   } catch (e) {
+       res.status(500).send(e)
+   }
+});
+
 router.post('/sessions', async (req, res) => {
     req.user.addToken();
     req.user.save();
