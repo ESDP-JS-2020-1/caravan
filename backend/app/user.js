@@ -5,7 +5,11 @@ const path = require('path');
 
 const config = require('../config');
 const User = require('../models/User');
+
 const isAuth = require('../middleware/isAuth')
+const permit = require('../middleware/permit');
+
+
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -19,12 +23,20 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.post('/', isAuth, upload.single('avatar'), async (req, res) => {
+router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
+    const user = req.body;
+
     if(req.file){
         req.body.avatar = req.file.filename
     }
 
-    const newUser = new User(req.body);
+    const newUser = new User({
+        username: user.username,
+        password: user.password,
+        displayName: user.displayName,
+        role: user.role,
+        avatar: user.avatar
+    });
 
     try {
         newUser.addToken();
