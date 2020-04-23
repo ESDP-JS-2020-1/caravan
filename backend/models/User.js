@@ -28,8 +28,7 @@ const UserSchema = new mongoose.Schema({
         enum: ['courier', 'admin', 'operator', 'market'],
         default: 'market'
     },
-    avatar: String,
-    facebookId: String,
+    avatar: String
 });
 
 UserSchema.pre('save', async function (next) {
