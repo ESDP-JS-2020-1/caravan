@@ -7,7 +7,6 @@ const config = require('./config');
 const user = require('./app/user');
 
 const app = express();
-const port = 8000;
 
 app.use(cors());
 app.use(express.json());
@@ -18,7 +17,7 @@ const run = async () => {
 
     app.use('/users', user);
 
-    app.listen(port)
+    app.listen(config.port)
 };
 
 run().catch(e => {
