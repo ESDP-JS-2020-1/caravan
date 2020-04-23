@@ -16,7 +16,8 @@ const run = async () => {
         username: 'marketOne',
         password: '12345',
         token: '123',
-        displayName: 'Some market'
+        displayName: 'Some market',
+        role: 'admin'
     });
 
 
