@@ -3,7 +3,6 @@ const multer = require('multer');
 const {nanoid} = require('nanoid');
 const path = require('path');
 
-const authorization = require("../middleware/authorization");
 const config = require('../config');
 
 const User = require('../models/User');
@@ -38,7 +37,7 @@ router.post('/', upload.single('avatar'), async (req, res) => {
     }
 });
 
-router.post('/sessions', authorization, async (req, res) => {
+router.post('/sessions', async (req, res) => {
     req.user.addToken();
     req.user.save();
 
