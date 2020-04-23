@@ -1,4 +1,7 @@
 import {
+  GET_USERS_FAILURE,
+  GET_USERS_REQUEST,
+  GET_USERS_SUCCESS,
   LOGIN_USER_FAILURE,
   LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER,
   REGISTER_USER_FAILURE,
@@ -7,9 +10,10 @@ import {
 } from "../actions/usersActions";
 
 const initialState = {
-  registerLoading: false,
-  registerError: null,
   user: null,
+  users: [],
+  loading: false,
+  error: null,
   loginLoading: false,
   loginError: null,
 };
@@ -30,6 +34,12 @@ const usersReducer = (state = initialState, action) => {
       return {...state, loginLoading: false, loginError: action.error};
     case LOGOUT_USER:
       return {...state, user: null};
+    case GET_USERS_SUCCESS:
+      return {...state, users: action.users}
+    case GET_USERS_REQUEST:
+      return {...state, loading: true}
+    case GET_USERS_FAILURE:
+      return {...state, error: action.error}
 
     default:
       return state;
