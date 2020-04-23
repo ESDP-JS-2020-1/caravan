@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {loginUser} from "../../store/actions/usersActions";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Login extends Component {
     state = {
@@ -47,6 +48,13 @@ class Login extends Component {
     };
 
     render() {
+        if (this.props.loading) {
+            return (
+                <Box component="div" boxShadow={10}>
+                    <Spinner/>
+                </Box>
+            )
+        }
         return (
             <Container>
                 <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
