@@ -9,6 +9,12 @@ export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST';
 export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 
+export const LOGOUT_USER = 'LOGOUT_USER';
+
+export const GET_USERS_REQUEST = 'GET_USERS_REQUEST'
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS'
+export const GET_USERS_FAILURE = 'GET_USERS_FAILURE'
+
 export const registerUserRequest = () => ({type: REGISTER_USER_REQUEST});
 export const registerUserSuccess = () => ({type: REGISTER_USER_SUCCESS});
 export const registerUserFailure = error => ({type: REGISTER_USER_FAILURE, error});
@@ -17,27 +23,23 @@ export const loginUserRequest = () => ({type: LOGIN_USER_REQUEST});
 export const loginUserSuccess = user => ({type: LOGIN_USER_SUCCESS, user});
 export const loginUserFailure = error => ({type: LOGIN_USER_FAILURE, error});
 
-export const LOGOUT_USER = 'LOGOUT_USER';
+export const getUsersRequest = () => ({type: GET_USERS_REQUEST});
+export const getUsersSuccess = users => ({type: GET_USERS_SUCCESS, users});
+export const getUsersFailure = error => ({type: GET_USERS_FAILURE, error});
 
 export const logoutUser = () => {
     return {type: LOGOUT_USER};
 };
 
-export const registerUser = userData => {
-    return async dispatch => {
-        try {
-            dispatch(registerUserRequest());
-            await axiosApi.post('/users', userData);
-            dispatch(registerUserSuccess());
-            dispatch(push('/'));
-        } catch (error) {
-            if (error.response) {
-                dispatch(registerUserFailure(error.response.data));
-            } else {
-                dispatch(registerUserFailure({global: 'Network error or no internet'}));
-            }
-        }
-    }
+export const getUsers = () => async dispatch => {
+  try {
+      dispatch(getUsersRequest())
+
+      const resp = await axiosApi.get('/users');
+      dispatch(getUsersSuccess(resp.data))
+  } catch (e) {
+      dispatch(getUsersFailure(e))
+  }
 };
 
 export const loginUser = userData => {
