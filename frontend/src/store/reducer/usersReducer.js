@@ -1,4 +1,5 @@
 import {
+  ADD_USER_FAILURE,
   GET_USERS_FAILURE,
   GET_USERS_REQUEST,
   GET_USERS_SUCCESS,
@@ -40,6 +41,8 @@ const usersReducer = (state = initialState, action) => {
       return {...state, loading: true}
     case GET_USERS_FAILURE:
       return {...state, error: action.error}
+    case ADD_USER_FAILURE:
+      return {...state, error: action.error.response.data.message}
 
     default:
       return state;
