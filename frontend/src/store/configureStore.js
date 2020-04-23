@@ -24,6 +24,6 @@ const enhancers = composeEnhancers(applyMiddleware(...middleware));
 
 const persistedState = loadFromLocalStorage();
 
-const store = createStore(rootReducer, persistedState, enhancers);
+export const store = createStore(rootReducer, persistedState, enhancers);
 
 export default store;
