@@ -25,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start:test": "REACT_APP_ENV=test PORT=3010 react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

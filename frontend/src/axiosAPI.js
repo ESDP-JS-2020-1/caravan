@@ -1,9 +1,9 @@
 import axios from 'axios';
-import {apiURL} from "./apiURL";
+import apiURL from "./apiURL";
 import {store} from "./store/configureStore";
 
 const axiosApi = axios.create({
-    baseURL: apiURL
+    baseURL: apiURL.url
 });
 
 axiosApi.interceptors.request.use(config => {
@@ -13,6 +13,6 @@ axiosApi.interceptors.request.use(config => {
         config.headers.Authorization = 'token ' + token;
     }
     return config;
-})
+});
 
 export default axiosApi;
