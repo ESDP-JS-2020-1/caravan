@@ -1,53 +1,36 @@
 import React, {useEffect} from 'react';
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import {NavLink} from "react-router-dom";
+import MaterialTable from 'material-table';
 import {useDispatch, useSelector} from "react-redux";
 import {getUsers} from "../../store/actions/usersActions";
-import List from "@material-ui/core/List";
-import UserItem from "./UserItem/UserItem";
 
-const UsersList = () => {
+export default function MaterialTableDemo(props) {
+
     const dispatch = useDispatch()
-
-    const users = useSelector(state => state.users.users)
-
     useEffect(() => {
         dispatch(getUsers())
     }, [dispatch])
+    const users = useSelector(state => state.users.users)
 
-    return  (
-        <Box mt={2}>
-            <Grid container justify='flex-end'>
-                <Grid item>
-                    <Button
-                        variant='contained'
-                        color='primary'
-                        component={NavLink}
-                        to='/users/new'
-                    >
-                        Добавить пользователя
-                    </Button>
-                </Grid>
-            </Grid>
-            <List>
-                {users && users.map((user, index) => {
-                    return (
-                        <>
-                            <UserItem
-                                key={user._id}
-                                displayName={user.displayName}
-                                number={index+1}
-                                role={user.role}
-                            />
-
-                        </>
-                    )
-                })}
-            </List>
-        </Box>
+    return (
+        <MaterialTable
+            style={{marginTop: '5%'}}
+            title="Список пользователей"
+            columns={[
+                {title: 'Display Name', field: 'displayName'},
+                {title: 'Username', field: 'username'},
+                {title: 'Role', field: 'role'},
+            ]}
+            data={users ? users : []}
+            actions={[
+                {
+                    icon: 'edit',
+                    tooltip: 'save user',
+                    onClick: () => {
+                        props.history.push('/edit')
+                    }
+                }
+            ]}
+        />
     );
-};
+}
 
-export default UsersList;
