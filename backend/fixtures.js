@@ -18,6 +18,18 @@ const run = async () => {
         token: '123',
         displayName: 'Some market',
         role: 'admin'
+    }, {
+        username: 'userOne',
+        password: '12345',
+        token: '1234',
+        displayName: 'Гриша',
+        role: 'admin'
+    }, {
+        username: 'userTwo',
+        password: '12345',
+        token: '12345',
+        displayName: 'Игнат',
+        role: 'admin'
     });
 
 
