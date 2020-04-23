@@ -23,6 +23,22 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    phone: {
+      type: String,
+      required: true
+    },
+    companyName: {
+        type: String,
+        required: function() {
+            return this.role === 'market'
+        }
+    },
+    address: {
+        type: String,
+        required: function() {
+            return this.role === 'market'
+        }
+    },
     role: {
         type: String,
         enum: ['courier', 'admin', 'operator', 'market'],

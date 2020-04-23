@@ -36,7 +36,10 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
         password: user.password,
         displayName: user.displayName,
         role: user.role,
-        avatar: user.avatar
+        avatar: user.avatar,
+        address: user.address,
+        companyName: user.companyName,
+        phone: user.phone
     });
 
     try {
