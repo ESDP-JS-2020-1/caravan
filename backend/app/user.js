@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const {nanoid} = require('nanoid');
+const bcrypt = require('bcrypt');
 const path = require('path');
 
 const config = require('../config');
@@ -26,7 +27,7 @@ const upload = multer({storage});
 router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
     const user = req.body;
 
-    if(req.file){
+    if (req.file) {
         req.body.avatar = req.file.filename
     }
 
@@ -49,23 +50,35 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
 });
 
 router.get('/', isAuth, async (req, res) => {
-   try {
-       const users = await User.find().select({token: 0});
+    try {
+        const users = await User.find().select({token: 0});
 
-       res.send(users)
-   } catch (e) {
-       res.status(500).send(e)
-   }
+        res.send(users)
+    } catch (e) {
+        res.status(500).send(e)
+    }
 });
 
 router.post('/sessions', async (req, res) => {
-    req.user.addToken();
-    req.user.save();
 
-    res.send(req.user)
-});
+    const user = await User.findOne({username: req.body.username});
+    if (!user) {
+        res.status(404).send({message: 'Username or password not correct!'});
+    } else {
+        const correctPassword = await bcrypt.compare(req.body.password, user.password);
+        if (!correctPassword) {
+            return res.status(404).send({message: 'Username or password not correct!'});
+        }
+    }
 
-router.delete('/sessions', isAuth, async (req, res) => {
+        user.addToken();
+        user.save();
+
+        res.send(user)
+    }
+);
+
+router.delete('/sessions', async (req, res) => {
     const success = {message: "success"};
     try {
         const token = req.get('Authorization').split(' ')[1];
