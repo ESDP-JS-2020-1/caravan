@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation/Navigation";
 import "./index.css"
 import UsersList from "./components/UsersList/UsersList";
 import Container from "@material-ui/core/Container";
+import AddUser from "./components/AddUser/AddUser";
 function App() {
   return (
       <>
@@ -14,6 +15,7 @@ function App() {
             <Switch>
                 <Route path="/login" exact component={Login}/>
                 <Route path="/users" exact component={UsersList}/>
+                <Route path="/users/new" exact component={AddUser}/>
             </Switch>
         </Container>
       </>
