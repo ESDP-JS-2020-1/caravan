@@ -7,6 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import {connect} from "react-redux";
 import {loginUser} from "../../store/actions/usersActions";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 class Login extends Component {
     state = {
@@ -24,11 +25,37 @@ class Login extends Component {
 
         this.props.loginUser({...this.state});
     };
+    formBtn = {
+        marginTop: '1%',
+        display: 'block',
+        textAlign: 'center',
+        button: {
+            fontWeight: 'bold',
+            width: '100%',
+            minHeight: '50px'
+        }
+    };
+    typography = {
+        color: '#0d47a1',
+        textAlign: 'center',
+        text: {
+            borderBottom: '2px solid #0d47a1',
+            textTransform: 'uppercase',
+            fontWeight: 'bold',
+            marginBottom: '3%',
+        }
+    };
+
     render() {
         return (
             <Container>
-                <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={5} sm={6} ml={8}>
-                    <Box component="div">
+                <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
+                    <Box component="div" boxShadow={10} p={5}>
+                        <Box style={this.typography} component={'span'}>
+                            <Typography style={this.typography.text} variant="h6" gutterBottom>
+                                Login
+                            </Typography>
+                        </Box>
                         <form onSubmit={this.submitFormHandler}>
                             <FormElement
                                 required
@@ -55,8 +82,8 @@ class Login extends Component {
                                     <Alert severity="error">{this.props.error.error}</Alert>
                                 )}
                             </Box>
-                            <Box component="span">
-                                <Button type="submit" color="primary">
+                            <Box component="span" style={this.formBtn}>
+                                <Button style={this.formBtn.button} variant="contained" type="submit" color="primary">
                                     Login
                                 </Button>
                             </Box>
