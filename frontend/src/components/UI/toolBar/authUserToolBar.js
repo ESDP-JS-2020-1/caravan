@@ -7,7 +7,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import {NavLink} from "react-router-dom";
 
 const AuthUserToolBar = () => {
@@ -34,11 +33,6 @@ const AuthUserToolBar = () => {
 
     return (
         <>
-            {user.role === 'admin' && (
-                <Button variant='contained' component={NavLink} to='/users'>
-                    Список пользователей
-                </Button>
-            )}
             <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -65,6 +59,9 @@ const AuthUserToolBar = () => {
             >
                 <ListItem disabled>Привет, {user.displayName}!</ListItem>
                 <Divider/>
+                {user.role === 'admin' && (
+                    <MenuItem onClick={handleClose} component={NavLink} to='/users'>Список пользователей</MenuItem>
+                )}
                 <Divider/>
                 <MenuItem onClick={logout}>Выйти</MenuItem>
             </Menu>
