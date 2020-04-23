@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
-    marginBottom: '10px',
+    marginBottom: '2%',
   },
 }));
 const FormElement = props => {
