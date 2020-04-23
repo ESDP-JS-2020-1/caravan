@@ -4,9 +4,8 @@ const {nanoid} = require('nanoid');
 const path = require('path');
 
 const config = require('../config');
-
 const User = require('../models/User');
-
+const isAuth = require('../middleware/isAuth')
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -20,7 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.post('/', upload.single('avatar'), async (req, res) => {
+router.post('/', isAuth, upload.single('avatar'), async (req, res) => {
     if(req.file){
         req.body.avatar = req.file.filename
     }
@@ -44,7 +43,7 @@ router.post('/sessions', async (req, res) => {
     res.send(req.user)
 });
 
-router.delete('/sessions', async (req, res) => {
+router.delete('/sessions', isAuth, async (req, res) => {
     const success = {message: "success"};
     try {
         const token = req.get('Authorization').split(' ')[1];
