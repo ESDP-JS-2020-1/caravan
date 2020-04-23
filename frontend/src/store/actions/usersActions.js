@@ -1,5 +1,6 @@
 import axiosApi from "../../axiosAPI";
 import {push} from 'connected-react-router';
+import {toast} from "react-toastify";
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -49,6 +50,9 @@ export const loginUser = userData => {
             const response = await axiosApi.post('/users/sessions', userData);
             dispatch(loginUserSuccess(response.data));
             dispatch(push('/'));
+            toast.success('Вы успешно залогинились', {
+                position: toast.POSITION.TOP_CENTER
+            });
         } catch (error) {
             dispatch(loginUserFailure(error.response.data));
         }
