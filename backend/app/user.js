@@ -74,24 +74,36 @@ router.get('/:id', isAuth, async (req, res) => {
 
 router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
     const user = req.body;
-
-    await User.findOne({_id: req.params.id}).select({token: 0});
     try {
-        const newUser = User({
+        const whiteList = {
             username: user.username,
-            password: user.password,
             displayName: user.displayName,
             role: user.role,
-            avatar: user.avatar,
-            address: user.address,
-            companyName: user.companyName,
             phone: user.phone
-        });
+        };
 
-        newUser.addToken();
-        await newUser.save();
+        if(whiteList.role === 'market') {
+            whiteList.companyName = user.companyName;
+            whiteList.address = user.address;
+        }
 
-        res.send(newUser)
+        if (req.file) {
+            whiteList.avatar = req.file.filename
+        }
+
+        if(user.password) {
+            const salt = await bcrypt.genSalt(10);
+
+            whiteList.password = await bcrypt.hash(user.password, salt);
+        }
+
+        console.log(whiteList);
+
+        const updatedUser = await User.findOneAndUpdate({_id: req.params.id}, { $set: whiteList }, { returnNewDocument: true });
+
+        console.log(updatedUser);
+
+        res.send(updatedUser);
     } catch (e) {
         res.status(500).send(e)
     }
