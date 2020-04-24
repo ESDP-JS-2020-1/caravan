@@ -62,11 +62,10 @@ router.get('/', isAuth, async (req, res) => {
   }
 });
 
-router.get('/edit/:id', isAuth, async (req, res) => {
-    console.log(req.params.id);
+router.get('/:id', isAuth, async (req, res) => {
     try {
         const users = await User.findOne({_id: req.params.id}).select({token: 0});
-        console.log(users);
+
         res.send(users)
     } catch (e) {
         res.status(500).send(e)
@@ -146,7 +145,8 @@ router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
 
     const user = await User.findOne({_id: id});
 
-    if(!user) return res.status(404).send("User not found");
+    if(!user) return res.status(404).send({message: "User not found"});
+    if(user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
 
     await User.deleteOne({_id: user._id});
 
