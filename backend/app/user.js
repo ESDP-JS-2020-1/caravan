@@ -62,23 +62,6 @@ router.get('/', isAuth, async (req, res) => {
   }
 });
 
-
-router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    const user = await User.findOne({_id: id});
-
-    if(!user) return res.status(404).send("User not found");
-
-    await User.deleteOne({_id: user._id});
-
-    res.send('success')
-  } catch (e) {
-    res.status(500).send(e)
-  }
-});
-
 router.get('/edit/:id', isAuth, async (req, res) => {
     console.log(req.params.id);
     try {
@@ -155,6 +138,22 @@ router.delete('/sessions', async (req, res) => {
     res.send(success)
   }
 
+});
+
+router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const user = await User.findOne({_id: id});
+
+    if(!user) return res.status(404).send("User not found");
+
+    await User.deleteOne({_id: user._id});
+
+    res.send('success')
+  } catch (e) {
+    res.status(500).send(e)
+  }
 });
 
 module.exports = router;
