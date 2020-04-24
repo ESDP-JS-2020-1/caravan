@@ -23,6 +23,10 @@ export const GET_EDIT_USER_FAILURE = 'GET_EDIT_USER_FAILURE'
 export const ADD_USER_REQUEST = 'ADD_USER_REQUEST'
 export const ADD_USER_FAILURE = 'ADD_USER_FAILURE'
 
+export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST'
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'
+export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE'
+
 export const loginUserRequest = () => ({type: LOGIN_USER_REQUEST});
 export const loginUserSuccess = user => ({type: LOGIN_USER_SUCCESS, user});
 export const loginUserFailure = error => ({type: LOGIN_USER_FAILURE, error});
@@ -38,77 +42,93 @@ export const getEditUserFailure = error => ({type: GET_EDIT_USER_FAILURE, error}
 export const addUserRequest = () => ({type: ADD_USER_REQUEST})
 export const addUserFailure = error => ({type: ADD_USER_FAILURE, error})
 
-export const addUser = user => async dispatch => {
-    try {
-        dispatch(addUserRequest())
-        await axiosApi.post('/users', user)
+export const deleteUserRequest = () => ({type: DELETE_USER_REQUEST})
+export const deleteUserSuccess = () => ({type: DELETE_USER_SUCCESS})
+export const deleteUserFailure = error => ({type: DELETE_USER_FAILURE, error})
 
-        dispatch(push('/users'))
-    } catch (e) {
-        dispatch(addUserFailure(e))
-    }
+export const addUser = user => async dispatch => {
+  try {
+    dispatch(addUserRequest())
+    await axiosApi.post('/users', user)
+
+    dispatch(push('/users'))
+  } catch (e) {
+    dispatch(addUserFailure(e))
+  }
+}
+
+export const deleteUser = id => async dispatch => {
+  try {
+    dispatch(deleteUserRequest())
+    await axiosApi.delete('/users/'+id);
+
+    dispatch(push('/users'))
+    dispatch(deleteUserSuccess())
+  } catch (e) {
+    dispatch(deleteUserFailure(e))
+  }
 }
 
 export const logoutUser = () => {
-    return {type: LOGOUT_USER};
+  return {type: LOGOUT_USER};
 };
 
 export const getUsers = () => async dispatch => {
   try {
-      dispatch(getUsersRequest())
+    dispatch(getUsersRequest())
 
-      const resp = await axiosApi.get('/users');
-      dispatch(getUsersSuccess(resp.data))
+    const resp = await axiosApi.get('/users');
+    dispatch(getUsersSuccess(resp.data))
   } catch (e) {
-      dispatch(getUsersFailure(e))
+    dispatch(getUsersFailure(e))
   }
 };
 
 export const loginUser = userData => {
-    return async dispatch => {
-        try {
-            dispatch(loginUserRequest());
-            const response = await axiosApi.post('/users/sessions', userData);
-            dispatch(loginUserSuccess(response.data));
-            dispatch(push('/'));
-            toast.success('Вы успешно залогинились', {
-                position: toast.POSITION.TOP_CENTER
-            });
-        } catch (error) {
-            dispatch(loginUserFailure(error));
-        }
+  return async dispatch => {
+    try {
+      dispatch(loginUserRequest());
+      const response = await axiosApi.post('/users/sessions', userData);
+      dispatch(loginUserSuccess(response.data));
+      dispatch(push('/'));
+      toast.success('Вы успешно залогинились', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    } catch (error) {
+      dispatch(loginUserFailure(error));
     }
+  }
 };
 export const getEditUsers = (id) => async dispatch => {
-    try {
-        dispatch(getEditUserRequest())
+  try {
+    dispatch(getEditUserRequest())
 
-        const resp = await axiosApi.get(`/users/edit/${id}`);
-        console.log(resp.data);
-        dispatch(getEditUserSuccess(resp.data))
-    } catch (e) {
-        dispatch(getEditUserFailure(e))
-    }
+    const resp = await axiosApi.get(`/users/${id}`);
+
+    dispatch(getEditUserSuccess(resp.data))
+  } catch (e) {
+    dispatch(getEditUserFailure(e))
+  }
 };
 export const editUser = (userData) => {
-    return async (dispatch, getState) => {
-        try {
-            const token = getState().user.user;
-            const headers = {'Authorization': 'Token ' + token};
-            const response = await axiosApi.put(`/users/edit`, userData, {headers});
-            dispatch(loginUserSuccess(response.data));
-        } catch (error) {
-            console.log(error);
-        }
+  return async (dispatch, getState) => {
+    try {
+      const token = getState().user.user;
+      const headers = {'Authorization': 'Token ' + token};
+      const response = await axiosApi.put(`/users/edit`, userData, {headers});
+      dispatch(loginUserSuccess(response.data));
+    } catch (error) {
+      console.log(error);
     }
+  }
 };
 
 export const logoutUserGet = () => {
-    return async (dispatch, getState) => {
-        const token = getState().users.user.token;
-        const headers = {'Authorization': 'Token ' + token};
-        await axiosApi.delete('/users/sessions', {headers});
-        dispatch(logoutUser());
-        dispatch(push('/'))
-    }
+  return async (dispatch, getState) => {
+    const token = getState().users.user.token;
+    const headers = {'Authorization': 'Token ' + token};
+    await axiosApi.delete('/users/sessions', {headers});
+    dispatch(logoutUser());
+    dispatch(push('/'))
+  }
 };
