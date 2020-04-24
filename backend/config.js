@@ -18,7 +18,8 @@ module.exports = {
     databaseOptions: {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true
+        useCreateIndex: true,
+        useFindAndModify: false
     },
     port,
 };

@@ -13,7 +13,7 @@ const run = async () => {
     }
 
     await User.create({
-        username: 'marketOne',
+        username: '123',
         password: '12345',
         token: '123',
         displayName: 'Some market',
