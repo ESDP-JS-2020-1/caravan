@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     }
 });
 const AddUser = () => {
-    const classes = useStyles()
+    const classes = useStyles();
 
     const [user, setUser] = useState({
         username: '',
@@ -50,7 +50,7 @@ const AddUser = () => {
         address: ''
     });
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const error = useSelector(state => state.users.error);
 
@@ -58,17 +58,17 @@ const AddUser = () => {
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
 
-    const roles = ['admin', 'courier', 'operator', 'market']
+    const roles = ['admin', 'courier', 'operator', 'market'];
 
     const onSubmit = e => {
-        e.preventDefault()
+        e.preventDefault();
 
         const data = new FormData();
         Object.keys(user).forEach(value => {
             data.append(value, user[value])
-        })
+        });
         dispatch(addUser(data))
-    }
+    };
 
 
     return (
@@ -86,7 +86,7 @@ const AddUser = () => {
                                 <FormElement
                                     required
                                     propertyName='username'
-                                    title='Имя пользователя'
+                                    title='Логин'
                                     value={user.username}
                                     onChange={inputChangeHandler}
                                 />
