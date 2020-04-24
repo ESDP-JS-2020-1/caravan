@@ -12,76 +12,87 @@ export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 
 export const LOGOUT_USER = 'LOGOUT_USER';
 
-export const GET_USERS_REQUEST = 'GET_USERS_REQUEST'
-export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS'
-export const GET_USERS_FAILURE = 'GET_USERS_FAILURE'
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILURE = 'GET_USER_FAILURE';
 
-export const GET_EDIT_USER_REQUEST = 'GET_EDIT_USER_REQUEST'
-export const GET_EDIT_USER_SUCCESS = 'GET_EDIT_USER_SUCCESS'
-export const GET_EDIT_USER_FAILURE = 'GET_EDIT_USER_FAILURE'
+export const GET_USERS_REQUEST = 'GET_USERS_REQUEST';
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const GET_USERS_FAILURE = 'GET_USERS_FAILURE';
 
-export const ADD_USER_REQUEST = 'ADD_USER_REQUEST'
-export const ADD_USER_FAILURE = 'ADD_USER_FAILURE'
+export const ADD_USER_REQUEST = 'ADD_USER_REQUEST';
+export const ADD_USER_FAILURE = 'ADD_USER_FAILURE';
 
-export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST'
-export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'
-export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE'
+export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';
+export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
+export const DELETE_USER_FAILURE = 'DELETE_USER_FAILURE';
 
-export const loginUserRequest = () => ({type: LOGIN_USER_REQUEST});
-export const loginUserSuccess = user => ({type: LOGIN_USER_SUCCESS, user});
-export const loginUserFailure = error => ({type: LOGIN_USER_FAILURE, error});
+export const getUserRequest = () => ({type: GET_USER_REQUEST});
+export const getUserSuccess = users => ({type: GET_USER_SUCCESS, users});
+export const getUserFailure = error => ({type: GET_USER_FAILURE, error});
 
 export const getUsersRequest = () => ({type: GET_USERS_REQUEST});
 export const getUsersSuccess = users => ({type: GET_USERS_SUCCESS, users});
 export const getUsersFailure = error => ({type: GET_USERS_FAILURE, error});
 
-export const getEditUserRequest = () => ({type: GET_EDIT_USER_REQUEST});
-export const getEditUserSuccess = user => ({type: GET_EDIT_USER_SUCCESS, user});
-export const getEditUserFailure = error => ({type: GET_EDIT_USER_FAILURE, error});
+export const loginUserRequest = () => ({type: LOGIN_USER_REQUEST});
+export const loginUserSuccess = user => ({type: LOGIN_USER_SUCCESS, user});
+export const loginUserFailure = error => ({type: LOGIN_USER_FAILURE, error});
 
-export const addUserRequest = () => ({type: ADD_USER_REQUEST})
-export const addUserFailure = error => ({type: ADD_USER_FAILURE, error})
+export const addUserRequest = () => ({type: ADD_USER_REQUEST});
+export const addUserFailure = error => ({type: ADD_USER_FAILURE, error});
 
-export const deleteUserRequest = () => ({type: DELETE_USER_REQUEST})
-export const deleteUserSuccess = () => ({type: DELETE_USER_SUCCESS})
-export const deleteUserFailure = error => ({type: DELETE_USER_FAILURE, error})
+export const deleteUserRequest = () => ({type: DELETE_USER_REQUEST});
+export const deleteUserSuccess = () => ({type: DELETE_USER_SUCCESS});
+export const deleteUserFailure = error => ({type: DELETE_USER_FAILURE, error});
 
-export const addUser = user => async dispatch => {
+export const getUser = id => async dispatch => {
   try {
-    dispatch(addUserRequest())
-    await axiosApi.post('/users', user)
+    dispatch(getUserRequest());
 
-    dispatch(push('/users'))
+    const resp = await axiosApi.get('/users/'+id);
+    dispatch(getUserSuccess(resp.data))
   } catch (e) {
-    dispatch(addUserFailure(e))
+    dispatch(getUserFailure(e))
   }
-}
-
-export const deleteUser = id => async dispatch => {
-  try {
-    dispatch(deleteUserRequest())
-    await axiosApi.delete('/users/'+id);
-
-    dispatch(push('/users'))
-    dispatch(deleteUserSuccess())
-  } catch (e) {
-    dispatch(deleteUserFailure(e))
-  }
-}
-
-export const logoutUser = () => {
-  return {type: LOGOUT_USER};
 };
 
 export const getUsers = () => async dispatch => {
   try {
-    dispatch(getUsersRequest())
+    dispatch(getUsersRequest());
 
     const resp = await axiosApi.get('/users');
     dispatch(getUsersSuccess(resp.data))
   } catch (e) {
     dispatch(getUsersFailure(e))
   }
+};
+
+export const addUser = user => async dispatch => {
+  try {
+    dispatch(addUserRequest());
+    await axiosApi.post('/users', user);
+
+    dispatch(push('/users'))
+  } catch (e) {
+    dispatch(addUserFailure(e))
+  }
+};
+
+export const deleteUser = id => async dispatch => {
+  try {
+    dispatch(deleteUserRequest());
+    await axiosApi.delete('/users/'+id);
+
+    dispatch(push('/users'));
+    dispatch(deleteUserSuccess())
+  } catch (e) {
+    dispatch(deleteUserFailure(e))
+  }
+};
+
+export const logoutUser = () => {
+  return {type: LOGOUT_USER};
 };
 
 export const loginUser = userData => {
@@ -99,24 +110,13 @@ export const loginUser = userData => {
     }
   }
 };
-export const getEditUsers = (id) => async dispatch => {
-  try {
-    dispatch(getEditUserRequest())
 
-    const resp = await axiosApi.get(`/users/${id}`);
-
-    dispatch(getEditUserSuccess(resp.data))
-  } catch (e) {
-    dispatch(getEditUserFailure(e))
-  }
-};
-export const editUser = (userData) => {
+export const editUser = (userData, id) => {
   return async (dispatch, getState) => {
     try {
-      const token = getState().user.user;
-      const headers = {'Authorization': 'Token ' + token};
-      const response = await axiosApi.put(`/users/edit`, userData, {headers});
-      dispatch(loginUserSuccess(response.data));
+      const _id = await getState().users.user._id;
+      const response = await axiosApi.put(`/users/edit/${id}`, userData);
+      if(response.data._id === _id) dispatch(loginUserSuccess(response.data));
     } catch (error) {
       console.log(error);
     }
