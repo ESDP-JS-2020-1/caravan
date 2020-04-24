@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {Redirect} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -21,10 +20,10 @@ const styles = {
 const ROLES = ['market', 'courier', 'admin', 'operator'];
 
 const EditUser = (props) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getEditUsers(props.match.params.id));
-    }, [dispatch])
+    }, [dispatch]);
     const user = useSelector(state => state.users.editUser);
     const [state, setState] = useState(user);
 
@@ -46,9 +45,6 @@ const EditUser = (props) => {
     const changeFileHandler = e => {
         setState({...state, [e.target.name]: e.target.files[0]})
     };
-    if (user) {
-
-    }
     return  (
         <Grid container justify="center">
             <Grid item xs={12} md={10} lg={4}>

@@ -7,7 +7,7 @@ const path = require('path');
 const config = require('../config');
 const User = require('../models/User');
 
-const isAuth = require('../middleware/isAuth')
+const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
 
@@ -62,25 +62,25 @@ router.get('/', isAuth, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
+
 router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
   try {
     const id = req.params.id;
 
-    const user = await User.findOne({_id: id})
+    const user = await User.findOne({_id: id});
 
     if(!user) return res.status(404).send("User not found");
 
-    await User.deleteOne({_id: user._id})
+    await User.deleteOne({_id: user._id});
 
     res.send('success')
   } catch (e) {
     res.status(500).send(e)
   }
-})
-=======
+});
+
 router.get('/edit/:id', isAuth, async (req, res) => {
-    console.log(req.params.id)
+    console.log(req.params.id);
     try {
         const users = await User.findOne({_id: req.params.id}).select({token: 0});
         console.log(users);
@@ -114,7 +114,7 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
         res.status(500).send(e)
     }
 });
->>>>>>> сделал редактирование
+
 
 router.post('/sessions', async (req, res) => {
 
