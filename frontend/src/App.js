@@ -9,23 +9,25 @@ import Container from "@material-ui/core/Container";
 import AddUser from "./components/AddUser/AddUser";
 import EditUser from "./containers/EditUser/EditUser";
 import ReactNotification from 'react-notifications-component'
+import AddProduct from "./containers/AddProduct/AddProduct";
 
 
 function App() {
-  return (
-    <div>
-      <ReactNotification/>
-      <Navigation/>
-      <Container>
-        <Switch>
-          <Route path="/login" exact component={Login}/>
-          <Route path="/users" exact component={UsersList}/>
-          <Route path="/users/new" exact component={AddUser}/>
-          <Route path="/users/edit/:id" exact component={EditUser}/>
-        </Switch>
-      </Container>
-    </div>
-  );
+    return (
+        <div>
+            <ReactNotification/>
+            <Navigation/>
+            <Container>
+                <Switch>
+                    <Route path="/login" exact component={Login}/>
+                    <Route path="/users" exact component={UsersList}/>
+                    <Route path="/users/new" exact component={AddUser}/>
+                    <Route path="/users/edit/:id" exact component={EditUser}/>
+                    <Route path="/product/add" exact component={AddProduct}/>
+                </Switch>
+            </Container>
+        </div>
+    );
 }
 
 export default App;
