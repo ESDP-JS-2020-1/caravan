@@ -1,6 +1,8 @@
 import axiosApi from "../../axiosAPI";
 import {push} from 'connected-react-router';
 import {toast} from "react-toastify";
+import {store as notification} from "react-notifications-component";
+import config from '../../config'
 
 export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST';
 export const REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
@@ -100,10 +102,18 @@ export const loginUser = userData => {
     try {
       dispatch(loginUserRequest());
       const response = await axiosApi.post('/users/sessions', userData);
+
       dispatch(loginUserSuccess(response.data));
       dispatch(push('/'));
+
       toast.success('Вы успешно залогинились', {
         position: toast.POSITION.TOP_CENTER
+      });
+
+      notification.addNotification({
+        title: 'Логин',
+        message: `Вы успешно вошли, как ${response.data.displayName}`,
+        ...config.notification
       });
     } catch (error) {
       dispatch(loginUserFailure(error));
@@ -128,7 +138,15 @@ export const logoutUserGet = () => {
     const token = getState().users.user.token;
     const headers = {'Authorization': 'Token ' + token};
     await axiosApi.delete('/users/sessions', {headers});
+
     dispatch(logoutUser());
     dispatch(push('/'))
+
+    notification.addNotification({
+      title: "Логаут",
+      message: 'Вы успешно покинули свой аккаунт',
+      ...config.notification
+    });
+
   }
 };
