@@ -64,7 +64,7 @@ const AddUser = () => {
         e.preventDefault()
 
         const data = new FormData();
-        Object.keys(user).map(value => {
+        Object.keys(user).forEach(value => {
             data.append(value, user[value])
         })
         dispatch(addUser(data))
