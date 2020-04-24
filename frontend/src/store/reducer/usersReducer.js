@@ -1,5 +1,5 @@
 import {
-  ADD_USER_FAILURE,
+  ADD_USER_FAILURE, GET_EDIT_USER_FAILURE, GET_EDIT_USER_REQUEST, GET_EDIT_USER_SUCCESS,
   GET_USERS_FAILURE,
   GET_USERS_REQUEST,
   GET_USERS_SUCCESS,
@@ -13,6 +13,7 @@ import {
 const initialState = {
   user: null,
   users: [],
+  editUser: null,
   loading: false,
   error: null,
   loginLoading: false,
@@ -43,6 +44,10 @@ const usersReducer = (state = initialState, action) => {
       return {...state, error: action.error}
     case ADD_USER_FAILURE:
       return {...state, error: action.error.response.data.message}
+    case GET_EDIT_USER_SUCCESS:
+      return {...state, editUser: action.user}
+    case GET_EDIT_USER_FAILURE:
+      return {...state, error: action.error}
 
     default:
       return state;

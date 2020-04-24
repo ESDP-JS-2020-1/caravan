@@ -62,6 +62,7 @@ router.get('/', isAuth, async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
   try {
     const id = req.params.id;
@@ -77,6 +78,43 @@ router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
     res.status(500).send(e)
   }
 })
+=======
+router.get('/edit/:id', isAuth, async (req, res) => {
+    console.log(req.params.id)
+    try {
+        const users = await User.findOne({_id: req.params.id}).select({token: 0});
+        console.log(users);
+        res.send(users)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+});
+
+router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
+    const user = req.body;
+
+    await User.findOne({_id: req.params.id}).select({token: 0});
+    try {
+        const newUser = User({
+            username: user.username,
+            password: user.password,
+            displayName: user.displayName,
+            role: user.role,
+            avatar: user.avatar,
+            address: user.address,
+            companyName: user.companyName,
+            phone: user.phone
+        });
+
+        newUser.addToken();
+        await newUser.save();
+
+        res.send(newUser)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+});
+>>>>>>> сделал редактирование
 
 router.post('/sessions', async (req, res) => {
 

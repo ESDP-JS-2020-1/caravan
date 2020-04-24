@@ -7,6 +7,7 @@ import "./index.css"
 import UsersList from "./components/UsersList/UsersList";
 import Container from "@material-ui/core/Container";
 import AddUser from "./components/AddUser/AddUser";
+import EditUser from "./containers/EditUser/EditUser";
 function App() {
   return (
       <>
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/login" exact component={Login}/>
                 <Route path="/users" exact component={UsersList}/>
                 <Route path="/users/new" exact component={AddUser}/>
+                <Route path="/users/edit/:id" exact component={EditUser}/>
             </Switch>
         </Container>
       </>

@@ -16,6 +16,10 @@ export const GET_USERS_REQUEST = 'GET_USERS_REQUEST'
 export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS'
 export const GET_USERS_FAILURE = 'GET_USERS_FAILURE'
 
+export const GET_EDIT_USER_REQUEST = 'GET_EDIT_USER_REQUEST'
+export const GET_EDIT_USER_SUCCESS = 'GET_EDIT_USER_SUCCESS'
+export const GET_EDIT_USER_FAILURE = 'GET_EDIT_USER_FAILURE'
+
 export const ADD_USER_REQUEST = 'ADD_USER_REQUEST'
 export const ADD_USER_FAILURE = 'ADD_USER_FAILURE'
 
@@ -26,6 +30,10 @@ export const loginUserFailure = error => ({type: LOGIN_USER_FAILURE, error});
 export const getUsersRequest = () => ({type: GET_USERS_REQUEST});
 export const getUsersSuccess = users => ({type: GET_USERS_SUCCESS, users});
 export const getUsersFailure = error => ({type: GET_USERS_FAILURE, error});
+
+export const getEditUserRequest = () => ({type: GET_EDIT_USER_REQUEST});
+export const getEditUserSuccess = user => ({type: GET_EDIT_USER_SUCCESS, user});
+export const getEditUserFailure = error => ({type: GET_EDIT_USER_FAILURE, error});
 
 export const addUserRequest = () => ({type: ADD_USER_REQUEST})
 export const addUserFailure = error => ({type: ADD_USER_FAILURE, error})
@@ -68,6 +76,29 @@ export const loginUser = userData => {
             });
         } catch (error) {
             dispatch(loginUserFailure(error.response.data));
+        }
+    }
+};
+export const getEditUsers = (id) => async dispatch => {
+    try {
+        dispatch(getEditUserRequest())
+
+        const resp = await axiosApi.get(`/users/edit/${id}`);
+        console.log(resp.data);
+        dispatch(getEditUserSuccess(resp.data))
+    } catch (e) {
+        dispatch(getEditUserFailure(e))
+    }
+};
+export const editUser = (userData) => {
+    return async (dispatch, getState) => {
+        try {
+            const token = getState().user.user;
+            const headers = {'Authorization': 'Token ' + token};
+            const response = await axiosApi.put(`/users/edit`, userData, {headers});
+            dispatch(loginUserSuccess(response.data));
+        } catch (error) {
+            console.log(error);
         }
     }
 };
