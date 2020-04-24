@@ -1,5 +1,5 @@
 import {
-  ADD_USER_FAILURE, DELETE_USER_FAILURE, GET_EDIT_USER_FAILURE, GET_EDIT_USER_SUCCESS,
+  ADD_USER_FAILURE, DELETE_USER_FAILURE, GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS,
   GET_USERS_FAILURE,
   GET_USERS_REQUEST,
   GET_USERS_SUCCESS,
@@ -13,7 +13,7 @@ import {
 const initialState = {
   user: null,
   users: [],
-  editUser: null,
+  client: null,
   loading: false,
   error: null,
   loginLoading: false,
@@ -22,16 +22,13 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_EDIT_USER_SUCCESS:
-      return {...state, editUser: action.user}
-    case GET_EDIT_USER_FAILURE:
-      return {...state, error: action.error}
     case REGISTER_USER_REQUEST:
       return {...state, registerLoading: true};
     case REGISTER_USER_SUCCESS:
       return {...state, registerLoading: false, registerError: null};
     case REGISTER_USER_FAILURE:
       return {...state, registerError: action.error, registerLoading: false};
+
     case LOGIN_USER_REQUEST:
       return {...state, loginLoading: true};
     case LOGIN_USER_SUCCESS:
@@ -40,16 +37,26 @@ const usersReducer = (state = initialState, action) => {
       return {...state, loginLoading: false, loginError: action.error};
     case LOGOUT_USER:
       return {...state, user: null};
+
+    case GET_USER_SUCCESS:
+      return {...state, client: action.users};
+    case GET_USER_REQUEST:
+      return {...state, loading: true};
+    case GET_USER_FAILURE:
+      return {...state, error: action.error};
+
     case GET_USERS_SUCCESS:
-      return {...state, users: action.users}
+      return {...state, users: action.users};
     case GET_USERS_REQUEST:
-      return {...state, loading: true}
+      return {...state, loading: true};
     case GET_USERS_FAILURE:
-      return {...state, error: action.error}
+
+      return {...state, error: action.error};
     case ADD_USER_FAILURE:
-      return {...state, error: action.error.response.data.message}
+      return {...state, error: action.error.response.data.message};
+
     case DELETE_USER_FAILURE:
-      return {...state, error: action.error.response.data.message}
+      return {...state, error: action.error.response.data.message};
 
     default:
       return state;
