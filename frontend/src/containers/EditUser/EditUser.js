@@ -45,6 +45,9 @@ const EditUser = (props) => {
     const changeFileHandler = e => {
         setState({...state, [e.target.name]: e.target.files[0]})
     };
+    if (user) {
+
+    }
     return  (
         <Grid container justify="center">
             <Grid item xs={12} md={10} lg={4}>
