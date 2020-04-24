@@ -9,15 +9,18 @@ const useStyles = makeStyles((theme) => ({
             marginLeft: theme.spacing(2),
         },
     },
+    spinner: {
+        marginTop: '1%',
+        margin: '0 auto'
+    }
 }));
 
-export default function Spinner() {
+export default function CircularIndeterminate() {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-            <CircularProgress />
-            <CircularProgress color="secondary" />
+            <CircularProgress className={classes.spinner} color="secondary" />
         </div>
     );
 }
