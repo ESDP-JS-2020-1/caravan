@@ -62,27 +62,6 @@ router.get('/', isAuth, async (req, res) => {
   }
 });
 
-router.delete('/sessions', async (req, res) => {
-    const success = {message: "success"};
-    try {
-        const token = req.get('Authorization').split(' ')[1];
-
-        if (!token) return res.send(success);
-
-        const user = await User.findOne({token});
-
-        if (!user) return res.send(success);
-
-        user.addToken();
-        await user.save();
-
-        return res.send(success);
-
-    } catch (e) {
-        res.send(success)
-    }
-
-});
 
 router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
   try {
@@ -155,5 +134,27 @@ router.post('/sessions', async (req, res) => {
     res.send(user)
   }
 );
+
+router.delete('/sessions', async (req, res) => {
+  const success = {message: "success"};
+  try {
+    const token = req.get('Authorization').split(' ')[1];
+
+    if (!token) return res.send(success);
+
+    const user = await User.findOne({token});
+
+    if (!user) return res.send(success);
+
+    user.addToken();
+    await user.save();
+
+    return res.send(success);
+
+  } catch (e) {
+    res.send(success)
+  }
+
+});
 
 module.exports = router;

@@ -75,7 +75,7 @@ export const loginUser = userData => {
                 position: toast.POSITION.TOP_CENTER
             });
         } catch (error) {
-            dispatch(loginUserFailure(error.response.data));
+            dispatch(loginUserFailure(error));
         }
     }
 };
