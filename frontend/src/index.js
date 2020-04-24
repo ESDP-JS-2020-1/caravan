@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import * as serviceWorker from './serviceWorker';
 import store, {history} from "./store/configureStore";
 import App from './App';
+import 'react-notifications-component/dist/theme.css'
 
 const app = (
     <Provider store={store}>
