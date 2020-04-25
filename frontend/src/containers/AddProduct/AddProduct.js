@@ -2,16 +2,10 @@ import React, {useState} from 'react';
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import FormElement from "../../components/UI/Form/FormElement";
 import Button from "@material-ui/core/Button";
-import DeleteIcon from '@material-ui/icons/Delete';
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import IconButton from "@material-ui/core/IconButton";
+import AddProductItem from "./AddProductItem/AddProductItem";
 
 const useStyles = makeStyles((theme) => ({
   heading: {
@@ -105,58 +99,16 @@ const AddProduct = () => {
             <Grid container direction='column' spacing={1}>
 
               {product.map((p, i) => (
-                <Grid container key={i} alignItems='center' spacing={1}>
-                  <Grid item xs={11}>
-                    <ExpansionPanel expanded={expanded === 'panel' + i}
-                                    onChange={handleChange('panel' + i)}>
-                      <ExpansionPanelSummary
-                        expandIcon={<ExpandMoreIcon/>}
-                        aria-controls="panel1a-content"
-                        id={`panel${i}bh-header`}
-                      >
-                        <Typography className={classes.heading}>
-                          Название: {p.name}
-                          Количество: {p.amount}
-                        </Typography>
-                      </ExpansionPanelSummary>
-                      <ExpansionPanelDetails>
-                        <Box style={{width: '100%', marginBottom: "10px"}}>
-                          <Grid item>
-                            <FormElement
-                              required
-                              propertyName='name'
-                              title='Название'
-                              value={product[i].name}
-                              onChange={(e) => inputChangeHandler(e, i)}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <FormElement
-                              required
-                              propertyName='amount'
-                              title='Количество'
-                              value={product[i].amount}
-                              onChange={(e) => inputChangeHandler(e, i)}
-                            />
-                          </Grid>
-                          <Grid item>
-                            <FormElement
-                              propertyName='price'
-                              title='Цена'
-                              value={product[i].price}
-                              onChange={(e) => inputChangeHandler(e, i)}
-                            />
-                          </Grid>
-                        </Box>
-                      </ExpansionPanelDetails>
-                    </ExpansionPanel>
-                  </Grid>
-                  <Grid item xs={1}>
-                    <IconButton aria-label="delete" onClick={() => deleteProduct(i)}>
-                      <DeleteIcon fontSize="large"/>
-                    </IconButton>
-                  </Grid>
-                </Grid>
+                <AddProductItem
+                  product={product}
+                  expanded={expanded}
+                  classes={classes}
+                  onChange={inputChangeHandler}
+                  handleChange={handleChange}
+                  onRemove={deleteProduct}
+                  index={i}
+                  p={p}
+                />
               ))}
 
               {/*{error && <Grid item>*/}
