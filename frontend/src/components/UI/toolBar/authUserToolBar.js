@@ -39,6 +39,7 @@ const AuthUserToolBar = () => {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
+                id='user'
             >
                 <Avatar src={'http://localhost:8000/uploads/userAvatar/'+user.avatar} alt={user.displayName}/>
             </IconButton>
