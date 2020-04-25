@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -6,8 +6,9 @@ import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import AddProductItem from "./AddProductItem/AddProductItem";
-import {useDispatch} from "react-redux";
-import {addNewProduct} from "../../store/actions/productsActions";
+import {useDispatch, useSelector} from "react-redux";
+import {addNewProduct, createProductInit} from "../../store/actions/productsActions";
+import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -39,21 +40,29 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
     }
 }));
+
 const AddProduct = () => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
+
+    const error = useSelector(state => state.products.error)
 
     const [product, setProduct] = useState([{
         name: '',
         amount: '',
         price: '',
     }]);
+    const [expanded, setExpanded] = React.useState(false);
 
     const inputChangeHandler = (e, i) => {
         let newProduct = [...product];
         newProduct[i][e.target.name] = e.target.value;
         setProduct(newProduct)
+    };
+
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
     };
 
     const addProduct = (e) => {
@@ -81,15 +90,13 @@ const AddProduct = () => {
 
     const onSubmit = e => {
         e.preventDefault();
+
         dispatch(addNewProduct([...product]))
-
     };
 
-    const [expanded, setExpanded] = React.useState(false);
-
-    const handleChange = (panel) => (event, isExpanded) => {
-        setExpanded(isExpanded ? panel : false);
-    };
+    useEffect(() => {
+        dispatch(createProductInit())
+    }, [dispatch])
 
     return (
         <Container>
@@ -117,9 +124,9 @@ const AddProduct = () => {
                                 />
                             ))}
 
-                            {/*{error && <Grid item>*/}
-                            {/*    <Alert severity='error'>{error}</Alert>*/}
-                            {/*</Grid>}*/}
+                            {error && <Grid item>
+                                <Alert severity='error'>{error}</Alert>
+                            </Grid>}
                             <Grid item>
                                 <Box className={classes.formBtn} component="span">
                                     <Button
