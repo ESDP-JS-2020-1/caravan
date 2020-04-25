@@ -6,140 +6,144 @@ import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import AddProductItem from "./AddProductItem/AddProductItem";
+import {useDispatch} from "react-redux";
+import {addNewProduct} from "../../store/actions/productsActions";
 
 const useStyles = makeStyles((theme) => ({
-  heading: {
-    fontSize: theme.typography.pxToRem(15),
-    fontWeight: theme.typography.fontWeightRegular,
-  },
-  formBtn: {
-    marginTop: '1%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    textAlign: 'center',
-  },
-  formButton: {
-    fontWeight: 'bold',
-    width: '49%',
-    minHeight: '50px'
-  },
-  typography: {
-    color: '#0d47a1',
-    textAlign: 'center',
-  },
-  typographyText: {
-    borderBottom: '2px solid #0d47a1',
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    marginBottom: '3%',
-  },
-  phoneInput: {
-    width: '100%',
-  }
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+    },
+    formBtn: {
+        marginTop: '1%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        textAlign: 'center',
+    },
+    formButton: {
+        fontWeight: 'bold',
+        width: '49%',
+        minHeight: '50px'
+    },
+    typography: {
+        color: '#0d47a1',
+        textAlign: 'center',
+    },
+    typographyText: {
+        borderBottom: '2px solid #0d47a1',
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+        marginBottom: '3%',
+    },
+    phoneInput: {
+        width: '100%',
+    }
 }));
 const AddProduct = () => {
-  const classes = useStyles();
+    const classes = useStyles();
+    const dispatch = useDispatch();
 
-  const [product, setProduct] = useState([{
-    name: '',
-    amount: '',
-    price: '',
-  }]);
+    const [product, setProduct] = useState([{
+        name: '',
+        amount: '',
+        price: '',
+    }]);
 
-  const inputChangeHandler = (e, i) => {
-    let newProduct = [...product];
-    newProduct[i][e.target.name] = e.target.value;
-    setProduct(newProduct)
-  };
+    const inputChangeHandler = (e, i) => {
+        let newProduct = [...product];
+        newProduct[i][e.target.name] = e.target.value;
+        setProduct(newProduct)
+    };
 
-  const addProduct = (e) => {
-    e.preventDefault();
+    const addProduct = (e) => {
+        e.preventDefault();
 
-    const newProduct = product[0] ? [...product, {
-      name: '',
-      amount: '',
-      price: '',
-    }] : [{
-      name: '',
-      amount: '',
-      price: '',
-    }];
+        const newProduct = product[0] ? [...product, {
+            name: '',
+            amount: '',
+            price: '',
+        }] : [{
+            name: '',
+            amount: '',
+            price: '',
+        }];
 
-    setProduct(newProduct)
-  };
+        setProduct(newProduct)
+    };
 
-  const deleteProduct = id => {
-    const products = [...product];
-    products.splice(id, 1);
+    const deleteProduct = id => {
+        const products = [...product];
+        products.splice(id, 1);
 
-    setProduct(products);
-  };
+        setProduct(products);
+    };
 
-  const onSubmit = e => {
-    e.preventDefault();
+    const onSubmit = e => {
+        e.preventDefault();
+        dispatch(addNewProduct([...product]))
+    };
 
-  };
+    const [expanded, setExpanded] = React.useState(false);
 
-  const [expanded, setExpanded] = React.useState(false);
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
+    return (
+        <Container>
+            <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
+                <Box component="div" boxShadow={10} p={5}>
+                    <Box className={classes.typography} component={'span'}>
+                        <Typography className={classes.typographyText} variant="h6" gutterBottom>
+                            Добовление продуктов
+                        </Typography>
+                    </Box>
+                    <form onSubmit={onSubmit}>
+                        <Grid container direction='column' spacing={1}>
 
-  return (
-    <Container>
-      <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
-        <Box component="div" boxShadow={10} p={5}>
-          <Box className={classes.typography} component={'span'}>
-            <Typography className={classes.typographyText} variant="h6" gutterBottom>
-              Добовление продуктов
-            </Typography>
-          </Box>
-          <form onSubmit={onSubmit}>
-            <Grid container direction='column' spacing={1}>
+                            {product.map((p, i) => (
+                                <AddProductItem
+                                    key={i}
+                                    product={product}
+                                    expanded={expanded}
+                                    classes={classes}
+                                    onChange={inputChangeHandler}
+                                    handleChange={handleChange}
+                                    onRemove={deleteProduct}
+                                    index={i}
+                                    p={p}
+                                />
+                            ))}
 
-              {product.map((p, i) => (
-                <AddProductItem
-                  product={product}
-                  expanded={expanded}
-                  classes={classes}
-                  onChange={inputChangeHandler}
-                  handleChange={handleChange}
-                  onRemove={deleteProduct}
-                  index={i}
-                  p={p}
-                />
-              ))}
-
-              {/*{error && <Grid item>*/}
-              {/*    <Alert severity='error'>{error}</Alert>*/}
-              {/*</Grid>}*/}
-              <Grid item>
-                <Box className={classes.formBtn} component="span">
-                  <Button
-                    onClick={addProduct}
-                    className={classes.formButton}
-                    variant='contained'
-                    color='primary'
-                  >
-                    Добавить
-                  </Button>
-                  <Button
-                    className={classes.formButton}
-                    variant='contained'
-                    color='primary'
-                    type='submit'
-                  >
-                    Сохранить
-                  </Button>
+                            {/*{error && <Grid item>*/}
+                            {/*    <Alert severity='error'>{error}</Alert>*/}
+                            {/*</Grid>}*/}
+                            <Grid item>
+                                <Box className={classes.formBtn} component="span">
+                                    <Button
+                                        onClick={addProduct}
+                                        className={classes.formButton}
+                                        variant='contained'
+                                        color='primary'
+                                    >
+                                        Добавить
+                                    </Button>
+                                    <Button
+                                        className={classes.formButton}
+                                        variant='contained'
+                                        color='primary'
+                                        type='submit'
+                                    >
+                                        Сохранить
+                                    </Button>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </form>
                 </Box>
-              </Grid>
             </Grid>
-          </form>
-        </Box>
-      </Grid>
-    </Container>
-  );
+        </Container>
+    );
 };
 
 export default AddProduct;
