@@ -84,6 +84,7 @@ const AddUser = () => {
                         <Grid container direction='column' spacing={1}>
                             <Grid item>
                                 <FormElement
+                                    id='username'
                                     required
                                     propertyName='username'
                                     title='Логин'
@@ -93,6 +94,7 @@ const AddUser = () => {
                             </Grid>
                             <Grid item>
                                 <FormElement
+                                    id='password'
                                     required
                                     propertyName='password'
                                     title='Пароль'
@@ -102,6 +104,7 @@ const AddUser = () => {
                             </Grid>
                             <Grid item>
                                 <FormElement
+                                    id='displayName'
                                     propertyName='displayName'
                                     title='Отображаемое имя'
                                     value={user.displayName}
@@ -121,6 +124,7 @@ const AddUser = () => {
                             {user.role === 'market' && <>
                                 <Grid item>
                                     <FormElement
+                                        id='companyName'
                                         propertyName='companyName'
                                         title='Название компании'
                                         value={user.companyName}
@@ -129,6 +133,7 @@ const AddUser = () => {
                                 </Grid>
                                 <Grid item>
                                     <FormElement
+                                        id='address'
                                         propertyName='address'
                                         title='Адрес компании'
                                         value={user.address}
@@ -147,6 +152,7 @@ const AddUser = () => {
                             </Grid>
                             <Grid item>
                                 <MuiPhoneNumber
+                                    id='phone'
                                     required
                                     className={classes.phoneInput}
                                     defaultCountry={'kg'}
