@@ -16,6 +16,73 @@ When('нажимаю на кнопку {string}', btnName => {
 	I.click(btnName, '#btn');
 });
 
-Then('я вижу текст {string}', text => {
+When('я вижу текст {string}', text => {
  I.waitForText(text);
+});
+
+When('я залогинен как администратор:', table => {
+	I.amOnPage('/login');
+
+	const tableData = table.parse().rawData;
+
+	tableData.forEach(row => {
+		I.fillField(row[0], row[1]);
+	});
+
+	I.click("Login", '#btn');
+
+	I.waitForText('Вы успешно вошли, как Some market');
+});
+
+When('я нахожусь на корневой странице', () => {
+	I.amOnPage('/');
+});
+
+When('я нажму на иконку юзера {string}', btnName => {
+	I.click(btnName);
+});
+
+When('я нажму на кнопку {string}', btnName => {
+	I.click(btnName);
+});
+
+When('я попадаю на страницу со списком пользователей', () => {
+	I.amOnPage('/users');
+});
+
+When('если я нажму на кнопку {string}', btnName => {
+	I.click(btnName);
+});
+
+When('я попаду на страницу добавления нового пользователя', () => {
+	I.amOnPage('/users/new');
+});
+
+When('я заполняю поля формы добавления:',   table => {
+	const tableData = table.parse().rawData;
+
+	tableData.forEach(row => {
+		I.fillField(row[0], row[1]);
+	});
+});
+
+When('выбираю роль пользователя {string}', role => {
+	I.click("#role");
+	I.click(`#${role}Option`);
+});
+
+When('я заполняю поля формы для названия компании и адреса :', table => {
+	const tableData = table.parse().rawData;
+
+	tableData.forEach(row => {
+		I.fillField(row[0], row[1]);
+	});
+});
+
+When('нажимаю на кнопку  {string}', btnName => {
+	I.click(btnName);
+});
+
+When('я вижу текст после добавления {string}', text => {
+	I.waitForText(text);
 });
