@@ -75,7 +75,16 @@ export const addUser = user => async dispatch => {
     dispatch(addUserRequest());
     await axiosApi.post('/users', user);
 
-    dispatch(push('/users'))
+    dispatch(push('/users'));
+    toast.success('Пользователь добавлен успешно', {
+      position: toast.POSITION.TOP_CENTER
+    });
+
+    notification.addNotification({
+      title: 'Добавление пользователя',
+      message: `Пользователь добавлен успешно`,
+      ...config.notification
+    });
   } catch (e) {
     dispatch(addUserFailure(e))
   }
