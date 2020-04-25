@@ -41,10 +41,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 const AddProduct = () => {
     const classes = useStyles();
-<<<<<<< HEAD
+
     const dispatch = useDispatch();
-=======
->>>>>>> добавил key в AddProduct.js
 
     const [product, setProduct] = useState([{
         name: '',
@@ -83,11 +81,8 @@ const AddProduct = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-<<<<<<< HEAD
         dispatch(addNewProduct([...product]))
-=======
 
->>>>>>> добавил key в AddProduct.js
     };
 
     const [expanded, setExpanded] = React.useState(false);
