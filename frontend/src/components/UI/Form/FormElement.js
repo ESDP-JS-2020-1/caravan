@@ -70,6 +70,7 @@ const FormElement = props => {
             <FormControl variant="filled" className={classes.select}>
                 <InputLabel htmlFor="role">{props.title}</InputLabel>
                 <Select
+                    id='role'
                     variant="outlined"
                     value={props.value}
                     onChange={props.onChange}
@@ -78,7 +79,7 @@ const FormElement = props => {
                     fullWidth
                 >
                     {props.options.map(option => (
-                        <MenuItem value={option} key={option}>{option}</MenuItem>
+                        <MenuItem id={option+'Option'} value={option} key={option}>{option}</MenuItem>
                     ))}
                 </Select>
             </FormControl>
