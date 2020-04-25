@@ -6,7 +6,7 @@ import Navigation from "./components/Navigation/Navigation";
 import "./index.css"
 import UsersList from "./components/UsersList/UsersList";
 import Container from "@material-ui/core/Container";
-import AddUser from "./components/AddUser/AddUser";
+import AddUser from "./containers/AddUser/AddUser";
 import EditUser from "./containers/EditUser/EditUser";
 import ReactNotification from 'react-notifications-component'
 import AddProduct from "./containers/AddProduct/AddProduct";

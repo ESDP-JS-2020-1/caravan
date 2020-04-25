@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import FormElement from "../UI/Form/FormElement";
+import FormElement from "../../components/UI/Form/FormElement";
 import Button from "@material-ui/core/Button";
 import {addUser} from "../../store/actions/usersActions";
 import {useDispatch, useSelector} from "react-redux";

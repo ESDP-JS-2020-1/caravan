@@ -19,7 +19,7 @@ const run = async () => {
     app.use('/users', user);
     app.use('/products', products);
 
-    app.listen(() => console.log(`Server start on ${config.port} port!`))
+    app.listen(config.port)
 };
 
 run().catch(e => {
