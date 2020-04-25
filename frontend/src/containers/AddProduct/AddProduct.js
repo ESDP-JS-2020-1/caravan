@@ -61,12 +61,24 @@ const AddProduct = () => {
     const addProduct = (e) => {
         e.preventDefault();
 
-        const newProduct = [...product, {
+        const newProduct = product[0] ? [...product, {
+            name: '',
+            amount: '',
+            price: '',
+        }] : [{
             name: '',
             amount: '',
             price: '',
         }];
+
         setProduct(newProduct)
+    };
+
+    const deleteProduct = id => {
+        const products = [...product];
+       products.splice(id, 1);
+
+        setProduct(products);
     };
 
     const onSubmit = e => {
@@ -93,17 +105,18 @@ const AddProduct = () => {
                         <Grid container direction='column' spacing={1}>
 
                             {product.map((p, i) => (
-                                <Grid container>
+                                <Grid container key={i}>
                                     <Grid item xs={11}>
-                                        <ExpansionPanel key={i} expanded={expanded === 'panel'+i} onChange={handleChange('panel'+i)}>
+                                        <ExpansionPanel expanded={expanded === 'panel' + i}
+                                                        onChange={handleChange('panel' + i)}>
                                             <ExpansionPanelSummary
-                                                expandIcon={<ExpandMoreIcon />}
+                                                expandIcon={<ExpandMoreIcon/>}
                                                 aria-controls="panel1a-content"
                                                 id={`panel${i}bh-header`}
                                             >
                                                 <Typography className={classes.heading}>
-                                                    Название: {product[i].name}
-                                                    Количество: {product[i].amount}
+                                                    Название: {p.name}
+                                                    Количество: {p.amount}
                                                 </Typography>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
@@ -139,8 +152,8 @@ const AddProduct = () => {
                                         </ExpansionPanel>
                                     </Grid>
                                     <Grid item xs={1}>
-                                        <IconButton aria-label="delete">
-                                            <DeleteIcon fontSize="large" />
+                                        <IconButton aria-label="delete" onClick={() => deleteProduct(i)}>
+                                            <DeleteIcon fontSize="large"/>
                                         </IconButton>
                                     </Grid>
                                 </Grid>
