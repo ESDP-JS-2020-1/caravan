@@ -40,7 +40,7 @@ const AuthUserToolBar = () => {
                 onClick={handleMenu}
                 color="inherit"
             >
-                <Avatar alt={user.displayName}/>
+                <Avatar src={'http://localhost:8000/uploads/userAvatar/'+user.avatar} alt={user.displayName}/>
             </IconButton>
             <Menu
                 id="menu-appbar"
