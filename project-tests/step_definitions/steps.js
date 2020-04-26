@@ -86,3 +86,65 @@ When('нажимаю на кнопку  {string}', btnName => {
 When('я вижу текст после добавления {string}', text => {
 	I.waitForText(text);
 });
+
+
+
+
+Given('я залогинен как администратор:', table => {
+	I.amOnPage('/login');
+
+	const tableData = table.parse().rawData;
+
+	tableData.forEach(row => {
+		I.fillField(row[0], row[1]);
+	});
+
+	I.click("Login", '#btn');
+
+	I.waitForText('Вы успешно вошли, как Some market');
+});
+
+When('я нахожусь на корневой странице', () => {
+	I.amOnPage('/');
+});
+
+When('я нажму на иконку юзера {string}', btnName => {
+	I.click(btnName);
+});
+
+When('я нажму на кнопку {string}', btnName => {
+	I.click(btnName);
+});
+
+
+When('я попадаю на страницу добавления продукта', () => {
+	I.amOnPage('/product/add');
+});
+
+When('я кликаю на кнопку {string}', (btnName) => {
+	I.click(btnName, '#panel0bh-header');
+});
+
+When('я заполняю поля формы добавления', table => {
+	const tableData = table.parse().rawData;
+
+	tableData.forEach(row => {
+		I.fillField(row[0], row[1]);
+	});
+});
+
+When('если я нажму на кнопку {string}', btnName => {
+	I.click(btnName);
+});
+
+Then('я вижу сообщение {string}', (message) => {
+	I.waitForText(message);
+});
+
+
+
+
+
+
+
+
