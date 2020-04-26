@@ -180,6 +180,7 @@ const EditUser = props => {
                                     color="secondary"
                                     startIcon={<DeleteIcon/>}
                                     onClick={handleClickOpen}
+                                    id='deleteUser'
                                 >
                                     Удалить пользователя
                                 </Button>
@@ -207,6 +208,7 @@ const EditUser = props => {
                                 variant="contained"
                                 color="secondary"
                                 onClick={removeUser}
+                                id='yes'
                             >да</Button>
                         </Grid>
                     </Grid>
