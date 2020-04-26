@@ -1,3 +1,6 @@
+import {store as notification} from "react-notifications-component";
+import config from '../../config'
+
 import axiosApi from "../../axiosAPI";
 
 export const CREATE_PRODUCT_INIT = 'CREATE_PRODUCT_INIT';
@@ -17,6 +20,12 @@ export const addNewProduct = productData => async (dispatch) => {
     await axiosApi.post('/products', productData);
 
     dispatch(createProductSuccess())
+
+    notification.addNotification({
+      title: 'Добавление продукта',
+      message: `Продукт добавлен успешно`,
+      ...config.notification
+    });
   } catch (error) {
     dispatch(createProductError(error))
   }
