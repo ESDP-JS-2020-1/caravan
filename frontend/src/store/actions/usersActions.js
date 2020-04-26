@@ -97,6 +97,12 @@ export const deleteUser = id => async dispatch => {
 
     dispatch(push('/users'));
     dispatch(deleteUserSuccess())
+
+    notification.addNotification({
+      title: "Удаленик",
+      message: 'Пользователь успешно удален',
+      ...config.notification
+    });
   } catch (e) {
     dispatch(deleteUserFailure(e))
   }
