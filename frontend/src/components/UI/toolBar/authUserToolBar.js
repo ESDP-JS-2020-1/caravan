@@ -41,7 +41,7 @@ const AuthUserToolBar = () => {
                 color="inherit"
                 id='user'
             >
-                <Avatar src={'http://localhost:8000/uploads/userAvatar/'+user.avatar} alt={user.displayName}/>
+                <Avatar src={user.avatar ? 'http://localhost:8000/uploads/userAvatar/' + user.avatar : "/broken-image.jpg"} alt={user.displayName}/>
             </IconButton>
             <Menu
                 id="menu-appbar"
