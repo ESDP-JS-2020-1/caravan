@@ -38,8 +38,6 @@ export const addNewProduct = productData => async (dispatch) => {
   try {
     dispatch(createProductRequest());
 
-    console.log(productData);
-
     const products = productData.map(async (elem) => {
       const data = new FormData();
       Object.keys(elem).forEach(value => {
