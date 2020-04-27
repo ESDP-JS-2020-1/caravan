@@ -135,8 +135,8 @@ When('если я нажму на кнопку {string}', btnName => {
   I.click(btnName);
 });
 
-Then('я вижу сообщение {string}', (message) => {
-  I.waitForText(message);
+Then('я попадаю на страницу показа продуктов', () => {
+  I.amOnPage('/products')
 });
 
 
@@ -192,17 +192,11 @@ When('я нажму на кнопку {string}', btnName => {
   I.click(btnName);
 });
 
-When('я попадаю на страницу списка продуктов', () => {
+Then('я попадаю на страницу списка продуктов', () => {
   I.amOnPage('/products');
 });
 
-When('я нажимаю на кнопку {string}', (btnName) => {
-  I.click(btnName);
-});
 
-Then('я попадаю на страницу редактирования продукта', () => {
-  I.amOnPage('/product/edit');
-});
 
 
 
