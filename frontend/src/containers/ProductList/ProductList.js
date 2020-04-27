@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProductsList} from "../../store/actions/productsActions";
 import ProductListItem from "./ProductListItem/ProductListItem";
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 const ProductList = () => {
     const dispatch = useDispatch();
@@ -24,9 +25,14 @@ const ProductList = () => {
     ));
 
     return (
-        <Grid container>
-            {productsList}
-        </Grid>
+        <>
+            <Typography variant='h3'>
+                Cписок продуктов
+            </Typography>
+            <Grid container>
+                {productsList}
+            </Grid>
+        </>
     );
 };
 
