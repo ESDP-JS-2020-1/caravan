@@ -46,18 +46,27 @@ const AddProduct = () => {
 
     const dispatch = useDispatch();
 
-    const error = useSelector(state => state.products.error)
+    const error = useSelector(state => state.products.error);
 
     const [product, setProduct] = useState([{
         name: '',
         amount: '',
         price: '',
+        image: ''
     }]);
     const [expanded, setExpanded] = React.useState(false);
 
     const inputChangeHandler = (e, i) => {
         let newProduct = [...product];
         newProduct[i][e.target.name] = e.target.value;
+
+        setProduct(newProduct)
+    };
+
+    const fileChangeHandler = (e, i) => {
+        let newProduct = [...product];
+        newProduct[i][e.target.name] = e.target.files[0];
+
         setProduct(newProduct)
     };
 
@@ -72,10 +81,12 @@ const AddProduct = () => {
             name: '',
             amount: '',
             price: '',
+            image: ''
         }] : [{
             name: '',
             amount: '',
             price: '',
+            image: ''
         }];
 
         setProduct(newProduct)
@@ -88,15 +99,15 @@ const AddProduct = () => {
         setProduct(products);
     };
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
 
-        dispatch(addNewProduct([...product]))
+        dispatch(addNewProduct(product))
     };
 
     useEffect(() => {
         dispatch(createProductInit())
-    }, [dispatch])
+    }, [dispatch]);
 
     return (
         <Container>
@@ -118,6 +129,7 @@ const AddProduct = () => {
                                     classes={classes}
                                     onChange={inputChangeHandler}
                                     handleChange={handleChange}
+                                    fileChange={fileChangeHandler}
                                     onRemove={deleteProduct}
                                     index={i}
                                     p={p}
