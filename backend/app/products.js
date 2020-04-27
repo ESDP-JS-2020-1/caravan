@@ -1,6 +1,7 @@
 const express = require('express');
 
 const Product = require('../models/Product');
+const History = require('../models/History');
 
 const auth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
@@ -22,6 +23,13 @@ router.post('/', [auth, permit('admin')], async (req, res) => {
         const products = req.body;
 
         await Product.insertMany(products);
+
+        const history = new History({
+            title: req.currentUser.displayName + ' добавил продукт ' + products.name,
+            comment: req.body.comment,
+            type: req.body.type
+        });
+        await history.save();
 
         return res.send({message: 'success'});
     } catch (e) {

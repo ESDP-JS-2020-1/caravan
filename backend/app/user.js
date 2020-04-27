@@ -6,6 +6,7 @@ const path = require('path');
 
 const config = require('../config');
 const User = require('../models/User');
+const History = require('../models/History');
 
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
@@ -41,6 +42,13 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
     companyName: user.companyName,
     phone: user.phone
   });
+
+    const history = new History({
+        title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
+        comment: req.body.comment,
+        type: req.body.type
+    });
+    await history.save();
 
   try {
     newUser.addToken();
@@ -97,11 +105,14 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
             whiteList.password = await bcrypt.hash(user.password, salt);
         }
 
-        console.log(whiteList);
-
         const updatedUser = await User.findOneAndUpdate({_id: req.params.id}, { $set: whiteList }, { returnNewDocument: true });
 
-        console.log(updatedUser);
+        const history = new History({
+            title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
+            comment: req.body.comment,
+            type: req.body.type
+        });
+        await history.save();
 
         res.send(updatedUser);
     } catch (e) {
@@ -161,6 +172,13 @@ router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
     if(user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
 
     await User.deleteOne({_id: user._id});
+
+      const history = new History({
+          title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
+          comment: req.body.comment,
+          type: req.body.type
+      });
+      await history.save();
 
     res.send('success')
   } catch (e) {
