@@ -170,6 +170,47 @@ When('я вижу текст после удаления {string}', text => {
 });
 
 
+Given('я залогинен как администратор:', table => {
+  I.amOnPage('/login');
+
+  const tableData = table.parse().rawData;
+
+  tableData.forEach(row => {
+    I.fillField(row[0], row[1]);
+  });
+
+  I.click("Login", '#btn');
+
+  I.waitForText('Вы успешно вошли, как Some market');
+});
+
+When('я нахожусь на корневой странице', () => {
+  I.amOnPage('/');
+});
+
+When('я нажму на кнопку {string}', btnName => {
+  I.click(btnName);
+});
+
+When('я попадаю на страницу списка продуктов', () => {
+  I.amOnPage('/products');
+});
+
+When('я нажимаю на кнопку {string}', (btnName) => {
+  I.click(btnName);
+});
+
+Then('я попадаю на страницу редактирования продукта', () => {
+  I.amOnPage('/product/edit');
+});
+
+
+
+
+
+
+
+
 
 
 
