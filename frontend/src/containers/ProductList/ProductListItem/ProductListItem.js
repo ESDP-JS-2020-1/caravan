@@ -7,13 +7,13 @@ import TableRow from "@material-ui/core/TableRow";
 import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
-    offPadding: {
-        padding: '0'
-    }
-}));
-
 const UserListItem = props => {
+    const useStyles = makeStyles(() => ({
+        offPadding: {
+            padding: props.image ? '0px' : '10px 0'
+        }
+    }));
+
     const classes = useStyles();
     return (
         <TableRow>
