@@ -4,6 +4,13 @@ import {getProductsList} from "../../store/actions/productsActions";
 import ProductListItem from "./ProductListItem/ProductListItem";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
+import TableContainer from "@material-ui/core/TableContainer";
 
 const ProductList = () => {
     const dispatch = useDispatch();
@@ -13,16 +20,16 @@ const ProductList = () => {
         dispatch(getProductsList());
     }, [dispatch]);
 
-    const productsList = products.map((elem, id) => (
-       <Grid item xs={3} key={id} style={{padding: '5px'}}>
-           <ProductListItem
-               id={elem._id}
-               title={elem.name}
-               amount={elem.amount}
-               price={elem.price}
-           />
-       </Grid>
-    ));
+    const productsList = products.map((elem) => {
+        return (
+            <ProductListItem
+                key={elem._id}
+                title={elem.name}
+                amount={elem.amount}
+                price={elem.price}
+            />
+        )
+    });
 
     return (
         <>
@@ -30,7 +37,22 @@ const ProductList = () => {
                 Cписок продуктов
             </Typography>
             <Grid container>
-                {productsList}
+                <TableContainer component={Paper}>
+                    <Table aria-label="caption table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell><b>Фото</b></TableCell>
+                                <TableCell><b>Название</b></TableCell>
+                                <TableCell><b>Количество</b></TableCell>
+                                <TableCell><b>Цена</b></TableCell>
+                                <TableCell> </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {productsList}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Grid>
         </>
     );
