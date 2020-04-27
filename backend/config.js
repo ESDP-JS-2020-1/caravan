@@ -14,6 +14,7 @@ if (env === 'test') {
 module.exports = {
     rootPath,
     userAvatar: path.join(rootPath, 'public/uploads/userAvatar'),
+    productImage: path.join(rootPath, 'public/uploads/productImage'),
     database,
     databaseOptions: {
         useNewUrlParser: true,
