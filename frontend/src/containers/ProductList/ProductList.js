@@ -27,6 +27,7 @@ const ProductList = () => {
                 title={elem.name}
                 amount={elem.amount}
                 price={elem.price}
+                image={elem.image}
             />
         )
     });
