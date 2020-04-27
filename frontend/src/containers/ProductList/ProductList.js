@@ -11,8 +11,17 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+    offPadding: {
+        padding: '10px 0'
+    },
+    paddingLeft: {padding: '10px 0px 10px 20px'}
+}));
 
 const ProductList = () => {
+    const classes = useStyles();
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.productsList);
 
@@ -42,11 +51,11 @@ const ProductList = () => {
                     <Table aria-label="caption table">
                         <TableHead>
                             <TableRow>
-                                <TableCell><b>Фото</b></TableCell>
-                                <TableCell><b>Название</b></TableCell>
-                                <TableCell><b>Количество</b></TableCell>
-                                <TableCell><b>Цена</b></TableCell>
-                                <TableCell> </TableCell>
+                                <TableCell className={classes.paddingLeft}><b>Фото</b></TableCell>
+                                <TableCell className={classes.offPadding}><b>Название</b></TableCell>
+                                <TableCell className={classes.offPadding}><b>Количество</b></TableCell>
+                                <TableCell className={classes.offPadding}><b>Цена</b></TableCell>
+                                <TableCell className={classes.offPadding}> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
