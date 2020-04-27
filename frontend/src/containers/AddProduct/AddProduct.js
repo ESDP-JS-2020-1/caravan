@@ -154,6 +154,7 @@ const AddProduct = () => {
                                         variant='contained'
                                         color='primary'
                                         type='submit'
+                                        disabled={!product[0]}
                                     >
                                         Сохранить
                                     </Button>
