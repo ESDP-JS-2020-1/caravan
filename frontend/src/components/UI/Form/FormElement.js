@@ -37,7 +37,7 @@ const FormElement = props => {
         required={props.required}
         autoComplete={props.autoComplete}
         placeholder={props.placeholder}
-    />
+    />;
 
     if (props.type === 'file') {
         field = (
@@ -45,13 +45,13 @@ const FormElement = props => {
                 <input
                     accept="image/*"
                     className={classes.input}
-                    id="contained-button-file"
+                    id={"contained-button-file-"+props.index}
                     multiple
                     type="file"
                     name={props.propertyName}
                     onChange={props.onChange}
                 />
-                <label htmlFor="contained-button-file">
+                <label htmlFor={"contained-button-file-"+props.index}>
                     <div>
                         <Button variant="outlined" color="primary" component="span" startIcon={<PhotoCameraIcon/>}>
                             {props.title}
