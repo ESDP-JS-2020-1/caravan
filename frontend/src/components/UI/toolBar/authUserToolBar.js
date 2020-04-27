@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
 import {NavLink} from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 const AuthUserToolBar = () => {
 
@@ -33,6 +34,13 @@ const AuthUserToolBar = () => {
 
     return (
         <>
+            <Button
+                color="inherit"
+                component={NavLink}
+                to='/product/list'
+            >
+                Products list
+            </Button>
             <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
