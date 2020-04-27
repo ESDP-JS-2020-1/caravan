@@ -38,6 +38,7 @@ const AuthUserToolBar = () => {
                 color="inherit"
                 component={NavLink}
                 to='/products'
+                id='prod_list'
             >
                 Products list
             </Button>
