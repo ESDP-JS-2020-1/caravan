@@ -78,7 +78,7 @@ const EditUser = props => {
         dispatch(editUser(data, props.match.params.id))
     };
 
-    return (
+    return  (
         <Container>
             <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
                 <Box component="div" boxShadow={10} p={5}>
