@@ -5,10 +5,7 @@ const HistorySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    comment: {
-        type: String,
-        required: true
-    },
+    comment: String,
     type: {
         type: String,
         enum: ['edit', 'delete', 'add']
