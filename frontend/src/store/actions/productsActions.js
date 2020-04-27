@@ -37,7 +37,18 @@ export const getProductsList = () => async dispatch => {
 export const addNewProduct = productData => async (dispatch) => {
   try {
     dispatch(createProductRequest());
-    await axiosApi.post('/products', productData);
+
+    console.log(productData);
+
+    const products = productData.map(async (elem) => {
+      const data = new FormData();
+      Object.keys(elem).forEach(value => {
+        data.append(value, elem[value])
+      });
+      return await axiosApi.post('/products', data);
+    });
+
+    await Promise.all(products);
 
     dispatch(createProductSuccess());
 
