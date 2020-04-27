@@ -10,6 +10,8 @@ import AddUser from "./containers/AddUser/AddUser";
 import EditUser from "./containers/EditUser/EditUser";
 import ReactNotification from 'react-notifications-component'
 import AddProduct from "./containers/AddProduct/AddProduct";
+import ProductList from "./containers/ProductList/ProductList";
+import EditProduct from "./containers/EditProduct/EditProduct";
 
 
 function App() {
@@ -23,7 +25,9 @@ function App() {
                     <Route path="/users" exact component={UsersList}/>
                     <Route path="/users/new" exact component={AddUser}/>
                     <Route path="/users/edit/:id" exact component={EditUser}/>
+                    <Route path="/product/list" exact component={ProductList}/>
                     <Route path="/product/add" exact component={AddProduct}/>
+                    <Route path="/product/edit/:id" exact component={EditProduct}/>
                 </Switch>
             </Container>
         </div>
