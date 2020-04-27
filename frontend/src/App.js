@@ -25,7 +25,7 @@ function App() {
                     <Route path="/users" exact component={UsersList}/>
                     <Route path="/users/new" exact component={AddUser}/>
                     <Route path="/users/edit/:id" exact component={EditUser}/>
-                    <Route path="/product/list" exact component={ProductList}/>
+                    <Route path="/products" exact component={ProductList}/>
                     <Route path="/product/add" exact component={AddProduct}/>
                     <Route path="/product/edit/:id" exact component={EditProduct}/>
                 </Switch>

@@ -46,7 +46,7 @@ export const addNewProduct = productData => async (dispatch) => {
       message: `Продукт добавлен успешно`,
       ...config.notification
     });
-    dispatch(push('/product/list'))
+    dispatch(push('/products'))
   } catch (error) {
     dispatch(createProductError(error))
   }
