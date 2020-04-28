@@ -1,5 +1,5 @@
 import {store as notification} from "react-notifications-component";
-import config from '../../config'
+import config from '../../config';
 import {push} from 'connected-react-router';
 
 import axiosApi from "../../axiosAPI";
