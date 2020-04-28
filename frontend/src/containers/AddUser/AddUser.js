@@ -10,6 +10,9 @@ import Alert from "@material-ui/lab/Alert";
 import MuiPhoneNumber from 'material-ui-phone-number'
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -47,7 +50,10 @@ const AddUser = () => {
         phone: '',
         avatar: null,
         companyName: '',
-        address: ''
+        address: '',
+        carName: '',
+        carVolume: '',
+        carRefrigerator: false
     });
 
     const dispatch = useDispatch();
@@ -55,6 +61,12 @@ const AddUser = () => {
     const error = useSelector(state => state.users.error);
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
+    const radioChangeHandler = e => {
+        let bool = '';
+        if(e.target.value === 'true') bool = true;
+        if(e.target.value === 'false') bool = false;
+        setUser({...user, [e.target.name]: bool})
+    };
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
 
@@ -82,6 +94,7 @@ const AddUser = () => {
                     </Box>
                     <form onSubmit={onSubmit}>
                         <Grid container direction='column' spacing={1}>
+
                             <Grid item>
                                 <FormElement
                                     id='username'
@@ -92,6 +105,7 @@ const AddUser = () => {
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
+
                             <Grid item>
                                 <FormElement
                                     id='password'
@@ -102,6 +116,7 @@ const AddUser = () => {
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
+
                             <Grid item>
                                 <FormElement
                                     id='displayName'
@@ -112,6 +127,7 @@ const AddUser = () => {
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
+
                             <Grid item>
                                 <FormElement
                                     required
@@ -123,7 +139,37 @@ const AddUser = () => {
                                     options={roles}
                                 />
                             </Grid>
+
+                            {user.role === 'courier' && <>
+                                <Grid item>
+                                    <FormElement
+                                        id='carName'
+                                        propertyName='carName'
+                                        title='Название машины'
+                                        value={user.carName}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+
+                                <Grid item>
+                                    <FormElement
+                                        id='carVolume'
+                                        propertyName='carVolume'
+                                        title='Объем машины'
+                                        value={user.carVolume}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+
+                                {console.log(user)}
+                                <RadioGroup aria-label="gender" name="carRefrigerator" value={user.carRefrigerator} onChange={radioChangeHandler}>
+                                    <FormControlLabel value={true} control={<Radio />} label="Холодильник есть" />
+                                    <FormControlLabel value={false} control={<Radio />} label="Холодильника нет" />
+                                </RadioGroup>
+
+                            </>}
                             {user.role === 'market' && <>
+
                                 <Grid item>
                                     <FormElement
                                         id='companyName'
@@ -133,6 +179,7 @@ const AddUser = () => {
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>
+
                                 <Grid item>
                                     <FormElement
                                         id='address'
@@ -142,7 +189,9 @@ const AddUser = () => {
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>
+
                             </>}
+
                             <Grid item>
                                 <FormElement
                                     propertyName='avatar'
@@ -152,6 +201,7 @@ const AddUser = () => {
                                     type='file'
                                 />
                             </Grid>
+
                             <Grid item>
                                 <MuiPhoneNumber
                                     id='phone'
@@ -161,6 +211,7 @@ const AddUser = () => {
                                     onChange={phoneChangeHandler}
                                 />
                             </Grid>
+
                             {error && <Grid item>
                                 <Alert severity='error'>{error}</Alert>
                             </Grid>}
