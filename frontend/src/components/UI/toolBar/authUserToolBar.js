@@ -13,77 +13,88 @@ import Button from "@material-ui/core/Button";
 const AuthUserToolBar = () => {
 
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const open = Boolean(anchorEl);
+	const open = Boolean(anchorEl);
 
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+	const handleMenu = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
 
-    const dispatch = useDispatch();
-    const user = useSelector(state => state.users.user);
+	const dispatch = useDispatch();
+	const user = useSelector(state => state.users.user);
 
-    const logout = async () => {
-        await dispatch(logoutUserGet());
-    };
+	const logout = async () => {
+		await dispatch(logoutUserGet());
+	};
 
-    return (
-        <>
-            <Button
-                color="inherit"
-                component={NavLink}
-                to='/products'
-            >
-                Products list
-            </Button>
-            <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-                id='user'
-            >
-                <Avatar src={user.avatar ? 'http://localhost:8000/uploads/userAvatar/' + user.avatar : "/broken-image.jpg"} alt={user.displayName}/>
-            </IconButton>
-            <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-            >
-                <ListItem disabled>Привет, {user.displayName}!</ListItem>
-                <Divider/>
-                {user.role === 'admin' && (
-                    <MenuItem onClick={handleClose} component={NavLink} to='/users'>Список пользователей</MenuItem>
-                )}
-                <Divider/>
-                {user.role === 'admin' && (
-                    <MenuItem onClick={handleClose} component={NavLink} to='/product/add'>Добавить пробукты</MenuItem>
-                )}
-                <Divider/>
-                {user.role === 'admin' && (
-                    <MenuItem onClick={handleClose} component={NavLink} to='/history'>История</MenuItem>
-                )}
-                <Divider/>
-                <MenuItem onClick={logout}>Выйти</MenuItem>
-            </Menu>
-        </>
-    );
+	return (
+		<>
+			<Button
+				color="inherit"
+				component={NavLink}
+				to='/products'
+			>
+				Products list
+			</Button>
+			{user.role === 'market' && (
+				<Button
+					color="inherit"
+					component={NavLink}
+					to='/requests/new'
+				>
+					Create new request
+				</Button>
+			)}
+			<IconButton
+				aria-label="account of current user"
+				aria-controls="menu-appbar"
+				aria-haspopup="true"
+				onClick={handleMenu}
+				color="inherit"
+				id='user'
+			>
+				<Avatar
+					src={user.avatar ? 'http://localhost:8000/uploads/userAvatar/' + user.avatar : "/broken-image.jpg"}
+					alt={user.displayName}/>
+			</IconButton>
+			<Menu
+				id="menu-appbar"
+				anchorEl={anchorEl}
+				anchorOrigin={{
+					vertical: 'top',
+					horizontal: 'right',
+				}}
+				keepMounted
+				transformOrigin={{
+					vertical: 'top',
+					horizontal: 'right',
+				}}
+				open={open}
+				onClose={handleClose}
+			>
+				<ListItem disabled>Привет, {user.displayName}!</ListItem>
+				<Divider/>
+				{user.role === 'admin' && (
+					<MenuItem onClick={handleClose} component={NavLink} to='/users'>Список пользователей</MenuItem>
+				)}
+				<Divider/>
+				{user.role === 'admin' && (
+					<MenuItem onClick={handleClose} component={NavLink} to='/product/add'>Добавить пробукты</MenuItem>
+				)}
+				<Divider/>
+				{user.role === 'admin' && (
+					<MenuItem onClick={handleClose} component={NavLink} to='/history'>История</MenuItem>
+				)}
+				<Divider/>
+				<MenuItem onClick={logout}>Выйти</MenuItem>
+			</Menu>
+		</>
+	);
 };
 
 export default AuthUserToolBar;
