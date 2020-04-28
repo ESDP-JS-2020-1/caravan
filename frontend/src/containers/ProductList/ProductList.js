@@ -37,6 +37,7 @@ const ProductList = () => {
                 amount={elem.amount}
                 price={elem.price}
                 image={elem.image}
+                id={elem._id}
             />
         )
     });

@@ -9,6 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import FormElement from "../../components/UI/Form/FormElement";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -55,9 +58,12 @@ const EditProduct = (props) => {
     const changeHandler = e => (dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.value})));
     const onSubmit = e => {
         e.preventDefault();
-
+const formData = new FormData()
         dispatch(putEditProduct(props.match.params.id, editProduct))
     };
+
+    const [open , setOpen] = useState(false)
+    const handleOpenAndClose = ()=>(setOpen(!open))
 
     return (
         <Container>
@@ -105,7 +111,7 @@ const EditProduct = (props) => {
                                         className={classes.formButton}
                                         variant='contained'
                                         color='primary'
-                                        onClick={()=>dispatch(deleteProduct(props.match.params.id))}
+                                        onClick={handleOpenAndClose}
                                     >
                                         Удалить
                                     </Button>
@@ -115,6 +121,37 @@ const EditProduct = (props) => {
                     </form>
                 </Box>
             </Grid>
+            <Dialog onClose={handleOpenAndClose} aria-labelledby="simple-dialog-title" open={open}>
+                <DialogTitle id="simple-dialog-title">Вы уверены что хотите удалить этот продукт?</DialogTitle>
+                <DialogContent>
+                    <FormElement
+                        propertyName={'comment'}
+                        title={'Комментарий'}
+                        onChange={changeHandler}
+                        value={editProduct.comment}
+                    />
+                    {error && <Box mb={1}>
+                        <Alert severity="error">{error}</Alert>
+                    </Box>}
+                    <Grid container justify='flex-end' spacing={1}>
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleOpenAndClose}
+                            >нет</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={()=>dispatch(deleteProduct(props.match.params.id))}
+                                id='yes'
+                            >да</Button>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+            </Dialog>
         </Container>
     );
 };

@@ -71,7 +71,7 @@ export const addNewProduct = productData => async (dispatch) => {
             message: `Продукт добавлен успешно`,
             ...config.notification
         });
-        dispatch(push('/product/list'))
+        dispatch(push('/products'))
     } catch (error) {
         dispatch(createProductError(error))
     }
@@ -101,7 +101,7 @@ export const putEditProduct = (id, data) => {
                 message: `Продукт успешно изменён`,
                 ...config.notification
             });
-            dispatch(push('/product/list'));
+            dispatch(push('/products'));
         } catch (e) {
             dispatch(editProductFailure(e))
         }
@@ -121,7 +121,7 @@ export const deleteProduct = id => {
                 message: `Продукт успешно удален`,
                 ...config.notification
             });
-            dispatch(push('/product/list'));
+            dispatch(push('/products'));
         } catch (e) {
             dispatch(deleteProductFailure(e))
         }

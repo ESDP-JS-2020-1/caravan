@@ -2,10 +2,10 @@ const express = require('express');
 const multer = require('multer');
 const {nanoid} = require('nanoid');
 const path = require('path');
-
+const auth = require('../middleware/isAuth');
 const Product = require('../models/Product');
 const config = require('../config');
-const auth = require('../middleware/isAuth');
+
 const permit = require('../middleware/permit');
 
 const router = express.Router();
