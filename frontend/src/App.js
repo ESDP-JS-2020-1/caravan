@@ -12,6 +12,7 @@ import ReactNotification from 'react-notifications-component'
 import AddProduct from "./containers/AddProduct/AddProduct";
 import ProductList from "./containers/ProductList/ProductList";
 import EditProduct from "./containers/EditProduct/EditProduct";
+import Histories from "./containers/Histories/Histories";
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                     <Route path="/products" exact component={ProductList}/>
                     <Route path="/product/add" exact component={AddProduct}/>
                     <Route path="/product/edit/:id" exact component={EditProduct}/>
+                    <Route path="/history" exact component={Histories}/>
                 </Switch>
             </Container>
         </div>

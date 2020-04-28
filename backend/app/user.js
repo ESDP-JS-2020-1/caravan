@@ -49,7 +49,7 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
     const history = new History({
         title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
         comment: req.body.comment,
-        type: req.body.type
+        type: 'add'
     });
     await history.save();
 
@@ -118,7 +118,7 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
         const history = new History({
             title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
             comment: req.body.comment,
-            type: req.body.type
+            type: 'edit'
         });
         await history.save();
 
@@ -181,12 +181,21 @@ router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
 
         await User.deleteOne({_id: user._id});
 
+<<<<<<< HEAD
         const history = new History({
             title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
             comment: req.body.comment,
             type: req.body.type
         });
         await history.save();
+=======
+      const history = new History({
+          title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
+          comment: req.body.comment,
+          type: 'delete'
+      });
+      await history.save();
+>>>>>>> Реализовал Историю (Тикет №8)
 
         res.send('success')
     } catch (e) {

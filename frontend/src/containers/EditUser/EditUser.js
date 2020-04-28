@@ -15,7 +15,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
     formBtn: {
         marginTop: '1%',
         display: 'block',
@@ -38,8 +38,8 @@ const useStyles = makeStyles({
     },
     phoneInput: {
         width: '100%',
-    }
-});
+    },
+}));
 
 const EditUser = props => {
     const classes = useStyles();
@@ -50,6 +50,8 @@ const EditUser = props => {
 
     const [open, setOpen] = React.useState(false);
 
+    const [comment, setComment] = React.useState('');
+
     useEffect(() => {
         dispatch(getUser(props.match.params.id));
     }, [dispatch, props.match.params.id]);
@@ -57,12 +59,18 @@ const EditUser = props => {
     const error = useSelector(state => state.users.error);
 
     const removeUser = async () => {
-        await dispatch(deleteUser(props.match.params.id))
+        const remove = {
+            comment: comment
+        };
+        await dispatch(deleteUser(props.match.params.id, remove))
     };
 
     const inputChangeHandler = e => dispatch(getUserSuccess({...editClient, [e.target.name]: e.target.value}));
     const phoneChangeHandler = value => dispatch(getUserSuccess({...editClient, phone: value}));
     const fileChangeHandler = e => dispatch(getUserSuccess({...editClient, [e.target.name]: e.target.files[0]}));
+    const changeCommentInput = e => {
+        setComment(e.target.value)
+    };
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -70,11 +78,11 @@ const EditUser = props => {
 
     const onSubmit = e => {
         e.preventDefault();
-
         const data = new FormData();
         Object.keys(editClient).forEach(value => {
             data.append(value, editClient[value])
         });
+        data.append('comment', comment);
         dispatch(editUser(data, props.match.params.id))
     };
 
@@ -159,6 +167,14 @@ const EditUser = props => {
                                     onChange={phoneChangeHandler}
                                 />
                             </Grid>
+                            <Grid item>
+                                <FormElement
+                                    propertyName='comment'
+                                    title='Причина редактирования'
+                                    value={comment}
+                                    onChange={changeCommentInput}
+                                />
+                            </Grid>
                             {error && <Grid item>
                                 <Alert severity='error'>{error}</Alert>
                             </Grid>}
@@ -191,6 +207,14 @@ const EditUser = props => {
             </Grid>
             <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
                 <DialogTitle id="simple-dialog-title">Вы уверены что хотите удалить этого пользователя?</DialogTitle>
+                <Box ml={2} mr={2}>
+                <FormElement
+                    propertyName='comment'
+                    title='Причина удаления'
+                    value={comment}
+                    onChange={changeCommentInput}
+                />
+                </Box>
                 <DialogContent>
                     {error && <Box mb={1}>
                         <Alert severity="error">{error}</Alert>

@@ -94,10 +94,10 @@ export const addUser = user => async dispatch => {
   }
 };
 
-export const deleteUser = id => async dispatch => {
+export const deleteUser = (id, comment) => async dispatch => {
   try {
     dispatch(deleteUserRequest());
-    await axiosApi.delete('/users/'+id);
+    await axiosApi.delete(`/users/${id}`, {data: comment});
 
     dispatch(push('/users'));
     dispatch(deleteUserSuccess());
@@ -146,6 +146,7 @@ export const editUser = (userData, id) => {
       const _id = await getState().users.user._id;
       const response = await axiosApi.put(`/users/edit/${id}`, userData);
       if(response.data._id === _id) dispatch(loginUserSuccess(response.data));
+      dispatch(push('/users'))
     } catch (error) {
       console.log(error);
     }

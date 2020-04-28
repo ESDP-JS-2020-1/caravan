@@ -10,8 +10,6 @@ import Alert from "@material-ui/lab/Alert";
 import MuiPhoneNumber from 'material-ui-phone-number'
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -49,10 +47,7 @@ const AddUser = () => {
         phone: '',
         avatar: null,
         companyName: '',
-        address: '',
-        carName: '',
-        carVolume: '',
-        carRefrigerator: false
+        address: ''
     });
 
     const dispatch = useDispatch();
@@ -60,9 +55,6 @@ const AddUser = () => {
     const error = useSelector(state => state.users.error);
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
-    const checkboxChangeHandler = e => {
-        setUser({...user, carRefrigerator: e.target.checked});
-    };
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
 
@@ -90,7 +82,6 @@ const AddUser = () => {
                     </Box>
                     <form onSubmit={onSubmit}>
                         <Grid container direction='column' spacing={1}>
-
                             <Grid item>
                                 <FormElement
                                     id='username'
@@ -101,7 +92,6 @@ const AddUser = () => {
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
-
                             <Grid item>
                                 <FormElement
                                     id='password'
@@ -112,21 +102,17 @@ const AddUser = () => {
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
-
                             <Grid item>
                                 <FormElement
                                     id='displayName'
-                                    required
                                     propertyName='displayName'
                                     title='Отображаемое имя'
                                     value={user.displayName}
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
-
                             <Grid item>
                                 <FormElement
-                                    required
                                     propertyName='role'
                                     title='Роль'
                                     value={user.role}
@@ -135,45 +121,7 @@ const AddUser = () => {
                                     options={roles}
                                 />
                             </Grid>
-
-                            {user.role === 'courier' && <>
-                                <Grid item>
-                                    <FormElement
-                                        id='carName'
-                                        propertyName='carName'
-                                        title='Название машины'
-                                        value={user.carName}
-                                        onChange={inputChangeHandler}
-                                    />
-                                </Grid>
-
-                                <Grid item>
-                                    <FormElement
-                                        id='carVolume'
-                                        propertyName='carVolume'
-                                        title='Объем машины'
-                                        value={user.carVolume}
-                                        onChange={inputChangeHandler}
-                                    />
-                                </Grid>
-
-                                <FormControlLabel
-                                    style={{marginLeft: '0px'}}
-                                    control={
-                                        <Checkbox
-                                            id='carRefrigerator'
-                                            checked={user.carRefrigerator}
-                                            value={user.carRefrigerator}
-                                            onChange={checkboxChangeHandler}
-                                            inputProps={{ 'aria-label': 'primary checkbox' }}
-                                        />
-                                    }
-                                    label="Наличие холодильника"
-                                />
-
-                            </>}
                             {user.role === 'market' && <>
-
                                 <Grid item>
                                     <FormElement
                                         id='companyName'
@@ -183,7 +131,6 @@ const AddUser = () => {
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>
-
                                 <Grid item>
                                     <FormElement
                                         id='address'
@@ -193,9 +140,7 @@ const AddUser = () => {
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>
-
                             </>}
-
                             <Grid item>
                                 <FormElement
                                     propertyName='avatar'
@@ -205,7 +150,6 @@ const AddUser = () => {
                                     type='file'
                                 />
                             </Grid>
-
                             <Grid item>
                                 <MuiPhoneNumber
                                     id='phone'
@@ -215,7 +159,6 @@ const AddUser = () => {
                                     onChange={phoneChangeHandler}
                                 />
                             </Grid>
-
                             {error && <Grid item>
                                 <Alert severity='error'>{error}</Alert>
                             </Grid>}

@@ -38,7 +38,6 @@ const AuthUserToolBar = () => {
                 color="inherit"
                 component={NavLink}
                 to='/products'
-                id='prod_list'
             >
                 Products list
             </Button>
@@ -74,7 +73,7 @@ const AuthUserToolBar = () => {
                 )}
                 <Divider/>
                 {user.role === 'admin' && (
-                    <MenuItem onClick={handleClose} component={NavLink} to='/product/add'>Добавить продукты</MenuItem>
+                    <MenuItem onClick={handleClose} component={NavLink} to='/product/add'>Добавить пробукты</MenuItem>
                 )}
                 <Divider/>
                 <MenuItem onClick={logout}>Выйти</MenuItem>
