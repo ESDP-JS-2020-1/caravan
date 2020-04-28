@@ -13,66 +13,91 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableBody from "@material-ui/core/TableBody";
 import Paper from "@material-ui/core/Paper";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import Divider from "@material-ui/core/Divider";
 
 const UsersList = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const users = useSelector(state => state.users.users)
-  const currentUser = useSelector(state => state.users.user)
+  const users = useSelector(state => state.users.users);
+  const currentUser = useSelector(state => state.users.user);
 
   useEffect(() => {
     dispatch(getUsers())
-  }, [dispatch])
+  }, [dispatch]);
+
+  const roles = ['admin', 'operator', 'courier', 'market'];
 
   return (
     <Box mt={2}>
       <Grid container justify='flex-end'>
-        <Grid item>
-          <Button
+        <Button
             variant='contained'
             color='primary'
             component={NavLink}
             to='/users/new'
-          >
-            Добавить пользователя
-          </Button>
-        </Grid>
+        >
+          Добавить пользователя
+        </Button>
       </Grid>
-      <Grid item>
-        <TableContainer component={Paper}>
-          <Table aria-label="caption table">
-            <TableHead>
-              <TableRow>
-                <TableCell><b>Имя</b></TableCell>
-                <TableCell><b>Логин</b></TableCell>
-                <TableCell><b>Телефон</b></TableCell>
-                <TableCell><b>Название компании</b></TableCell>
-                <TableCell><b>Адрес</b></TableCell>
-                <TableCell><b>Роль</b></TableCell>
-                <TableCell> </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {users && users.map(user => {
-                const edit = currentUser.username !== user.username ? 'edit' : null;
+      <Grid container item>
 
-                return (
-                  <UserListItem
-                    key={user._id}
-                    id={user._id}
-                    edit={edit}
-                    displayName={user.displayName}
-                    username={user.username}
-                    phone={user.phone}
-                    companyName={user.companyName}
-                    address={user.address}
-                    role={user.role}
-                  />
-                )
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Grid item xs={2}>
+          <List component="nav" aria-label="main mailbox folders">
+            <div>
+              <ListItem component={NavLink} to={'/users'} style={{padding: '20px'}} button>
+                All users
+              </ListItem>
+              <Divider />
+            </div>
+            {roles.map((e, i) => (
+                <div key={i}>
+                  <ListItem component={NavLink} to={'/users/'+e} style={{padding: '20px'}} button>
+                    {e}
+                  </ListItem>
+                  <Divider />
+                </div>
+            ))}
+          </List>
+        </Grid>
+
+        <Grid item xs={10}>
+          <TableContainer component={Paper}>
+            <Table aria-label="caption table">
+              <TableHead>
+                <TableRow>
+                  <TableCell><b>Имя</b></TableCell>
+                  <TableCell><b>Логин</b></TableCell>
+                  <TableCell><b>Телефон</b></TableCell>
+                  <TableCell><b>Название компании</b></TableCell>
+                  <TableCell><b>Адрес</b></TableCell>
+                  <TableCell><b>Роль</b></TableCell>
+                  <TableCell> </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {users && users.map(user => {
+                  const edit = currentUser.username !== user.username ? 'edit' : null;
+                  return (
+                      <UserListItem
+                          key={user._id}
+                          id={user._id}
+                          edit={edit}
+                          displayName={user.displayName}
+                          username={user.username}
+                          phone={user.phone}
+                          companyName={user.companyName}
+                          address={user.address}
+                          role={user.role}
+                      />
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+
       </Grid>
     </Box>
   );
