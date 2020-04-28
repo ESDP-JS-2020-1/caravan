@@ -6,6 +6,7 @@ import thunkMiddleware from "redux-thunk";
 import {loadFromLocalStorage, localStorageMiddleware} from "./localStorage";
 import productsReducer from "./reducer/productsReducer";
 import historiesReducer from "./reducer/historiesReducer";
+import requestsReducer from "./reducer/requestsReducer";
 
 export const history = createBrowserHistory();
 
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     router: connectRouter(history),
     users: usersReducer,
     products: productsReducer,
-    histories: historiesReducer
+    histories: historiesReducer,
+    requests: requestsReducer,
 });
 
 const middleware = [
