@@ -211,3 +211,49 @@ Then('я попадаю на страницу списка продуктов', 
 
 
 
+
+Given('я залогинен как магазин:', (table) => {
+  I.amOnPage('/login');
+
+  const tableData = table.parse().rawData;
+
+  tableData.forEach(row => {
+    I.fillField(row[0], row[1]);
+  });
+
+  I.click("Login", '#btn');
+
+  I.waitForText('Вы успешно вошли, как Игнат');
+});
+
+When('я нахожусь на корневой странице', () => {
+  I.amOnPage('/');
+});
+
+When('я нажму на кнопку {string}', btnName => {
+  I.click(btnName);
+});
+
+When('я попадаю на страницу создания заявки', () => {
+  I.amOnPage('/requests/new');
+});
+
+When('я кликаю на кнопку {string}', (btnName) => {
+  I.click(btnName, '#panel0bh-header');
+});
+
+When('я заполняю поля формы добавления', table => {
+  const tableData = table.parse().rawData;
+
+  tableData.forEach(row => {
+    I.fillField(row[0], row[1]);
+  });
+});
+
+When('я нажму на кнопку {string}', btnName => {
+  I.click(btnName);
+});
+
+Then('я вижу сообщение {string}', () => {
+  I.waitForText('Заявка создана успешно');
+});
