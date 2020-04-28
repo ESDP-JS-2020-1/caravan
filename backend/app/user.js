@@ -15,33 +15,36 @@ const permit = require('../middleware/permit');
 const router = express.Router();
 
 const storage = multer.diskStorage({
-  destination: (req, file, cd) => {
-    cd(null, config.userAvatar)
-  },
-  filename: (req, file, cd) => {
-    cd(null, nanoid() + path.extname(file.originalname));
-  }
+    destination: (req, file, cd) => {
+        cd(null, config.userAvatar)
+    },
+    filename: (req, file, cd) => {
+        cd(null, nanoid() + path.extname(file.originalname));
+    }
 });
 
 const upload = multer({storage});
 
 router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
-  const user = req.body;
+    const user = req.body;
 
-  if (req.file) {
-    req.body.avatar = req.file.filename
-  }
+    if (req.file) {
+        req.body.avatar = req.file.filename
+    }
 
-  const newUser = new User({
-    username: user.username,
-    password: user.password,
-    displayName: user.displayName,
-    role: user.role,
-    avatar: user.avatar,
-    address: user.address,
-    companyName: user.companyName,
-    phone: user.phone
-  });
+    const newUser = new User({
+        username: user.username,
+        password: user.password,
+        displayName: user.displayName,
+        role: user.role,
+        avatar: user.avatar,
+        address: user.address,
+        companyName: user.companyName,
+        phone: user.phone,
+        carName: user.carName,
+        carVolume: user.carVolume,
+        carRefrigerator: user.carRefrigerator
+    });
 
     const history = new History({
         title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
@@ -50,24 +53,24 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
     });
     await history.save();
 
-  try {
-    newUser.addToken();
-    await newUser.save();
+    try {
+        newUser.addToken();
+        await newUser.save();
 
-    res.send(newUser)
-  } catch (e) {
-    res.status(404).send(e)
-  }
+        res.send(newUser)
+    } catch (e) {
+        res.status(404).send(e)
+    }
 });
 
 router.get('/', isAuth, async (req, res) => {
-  try {
-    const users = await User.find().select({token: 0});
+    try {
+        const users = await User.find().select({token: 0});
 
-    res.send(users)
-  } catch (e) {
-    res.status(500).send(e)
-  }
+        res.send(users)
+    } catch (e) {
+        res.status(500).send(e)
+    }
 });
 
 router.get('/:id', isAuth, async (req, res) => {
@@ -90,7 +93,7 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
             phone: user.phone
         };
 
-        if(whiteList.role === 'market') {
+        if (whiteList.role === 'market') {
             whiteList.companyName = user.companyName;
             whiteList.address = user.address;
         }
@@ -99,13 +102,13 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
             whiteList.avatar = req.file.filename
         }
 
-        if(user.password) {
+        if (user.password) {
             const salt = await bcrypt.genSalt(10);
 
             whiteList.password = await bcrypt.hash(user.password, salt);
         }
 
-        const updatedUser = await User.findOneAndUpdate({_id: req.params.id}, { $set: whiteList }, { returnNewDocument: true });
+        const updatedUser = await User.findOneAndUpdate({_id: req.params.id}, {$set: whiteList}, {returnNewDocument: true});
 
         const history = new History({
             title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
@@ -123,67 +126,67 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
 
 router.post('/sessions', async (req, res) => {
 
-    const user = await User.findOne({username: req.body.username});
-    if (!user) {
-      res.status(404).send({message: 'Username or password not correct!'});
-    } else {
-      const correctPassword = await bcrypt.compare(req.body.password, user.password);
-      if (!correctPassword) {
-        return res.status(404).send({message: 'Username or password not correct!'});
-      }
+        const user = await User.findOne({username: req.body.username});
+        if (!user) {
+            res.status(404).send({message: 'Username or password not correct!'});
+        } else {
+            const correctPassword = await bcrypt.compare(req.body.password, user.password);
+            if (!correctPassword) {
+                return res.status(404).send({message: 'Username or password not correct!'});
+            }
+        }
+
+        user.addToken();
+        user.save();
+
+        res.send(user)
     }
-
-    user.addToken();
-    user.save();
-
-    res.send(user)
-  }
 );
 
 router.delete('/sessions', async (req, res) => {
-  const success = {message: "success"};
-  try {
-    const token = req.get('Authorization').split(' ')[1];
+    const success = {message: "success"};
+    try {
+        const token = req.get('Authorization').split(' ')[1];
 
-    if (!token) return res.send(success);
+        if (!token) return res.send(success);
 
-    const user = await User.findOne({token});
+        const user = await User.findOne({token});
 
-    if (!user) return res.send(success);
+        if (!user) return res.send(success);
 
-    user.addToken();
-    await user.save();
+        user.addToken();
+        await user.save();
 
-    return res.send(success);
+        return res.send(success);
 
-  } catch (e) {
-    res.send(success)
-  }
+    } catch (e) {
+        res.send(success)
+    }
 
 });
 
 router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
-  try {
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
 
-    const user = await User.findOne({_id: id});
+        const user = await User.findOne({_id: id});
 
-    if(!user) return res.status(404).send({message: "User not found"});
-    if(user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
+        if (!user) return res.status(404).send({message: "User not found"});
+        if (user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
 
-    await User.deleteOne({_id: user._id});
+        await User.deleteOne({_id: user._id});
 
-      const history = new History({
-          title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
-          comment: req.body.comment,
-          type: req.body.type
-      });
-      await history.save();
+        const history = new History({
+            title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
+            comment: req.body.comment,
+            type: req.body.type
+        });
+        await history.save();
 
-    res.send('success')
-  } catch (e) {
-    res.status(500).send(e)
-  }
+        res.send('success')
+    } catch (e) {
+        res.status(500).send(e)
+    }
 });
 
 module.exports = router;
