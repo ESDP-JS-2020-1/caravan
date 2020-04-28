@@ -70,9 +70,25 @@ const UsersList = props => {
                   <TableCell><b>Имя</b></TableCell>
                   <TableCell><b>Логин</b></TableCell>
                   <TableCell><b>Телефон</b></TableCell>
-                  <TableCell><b>Название компании</b></TableCell>
-                  <TableCell><b>Адрес</b></TableCell>
+                  {props.match.params.id === 'market' && <>
+                    <TableCell><b>Название компании</b></TableCell>
+                    <TableCell><b>Адрес</b></TableCell>
+                  </>}
+                  {props.match.params.id === undefined && <>
+                    <TableCell><b>Название компании</b></TableCell>
+                    <TableCell><b>Адрес</b></TableCell>
+                  </>}
                   <TableCell><b>Роль</b></TableCell>
+                  {props.match.params.id === 'courier' && <>
+                    <TableCell><b>Название машины</b></TableCell>
+                    <TableCell><b>Объем машины</b></TableCell>
+                    <TableCell><b>Наличие холодильника</b></TableCell>
+                  </>}
+                  {props.match.params.id === undefined && <>
+                    <TableCell><b>Название машины</b></TableCell>
+                    <TableCell><b>Объем машины</b></TableCell>
+                    <TableCell><b>Наличие холодильника</b></TableCell>
+                  </>}
                   <TableCell> </TableCell>
                 </TableRow>
               </TableHead>
@@ -89,7 +105,11 @@ const UsersList = props => {
                           phone={user.phone}
                           companyName={user.companyName}
                           address={user.address}
+                          carName={user.carName}
+                          carVolume={user.carVolume}
+                          carRefrigerator={user.carRefrigerator}
                           role={user.role}
+                          paramsRole={props.match.params.id}
                       />
                   )
                 })}
