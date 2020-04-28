@@ -17,15 +17,15 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 
-const UsersList = () => {
+const UsersList = props => {
   const dispatch = useDispatch();
 
   const users = useSelector(state => state.users.users);
   const currentUser = useSelector(state => state.users.user);
 
   useEffect(() => {
-    dispatch(getUsers())
-  }, [dispatch]);
+    dispatch(getUsers(props.match.params.id))
+  }, [dispatch, props.match.params.id]);
 
   const roles = ['admin', 'operator', 'courier', 'market'];
 
