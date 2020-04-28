@@ -13,6 +13,7 @@ import AddProduct from "./containers/AddProduct/AddProduct";
 import ProductList from "./containers/ProductList/ProductList";
 import EditProduct from "./containers/EditProduct/EditProduct";
 import Histories from "./containers/Histories/Histories";
+import AddNewRequest from "./containers/AddNewRequest/AddNewRequest";
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
                     <Route path="/product/add" exact component={AddProduct}/>
                     <Route path="/product/edit/:id" exact component={EditProduct}/>
                     <Route path="/history" exact component={Histories}/>
+                    <Route path="/requests/new" exact component={AddNewRequest}/>
                 </Switch>
             </Container>
         </div>
