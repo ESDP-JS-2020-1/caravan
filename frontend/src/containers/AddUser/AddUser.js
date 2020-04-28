@@ -10,9 +10,8 @@ import Alert from "@material-ui/lab/Alert";
 import MuiPhoneNumber from 'material-ui-phone-number'
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Radio from "@material-ui/core/Radio";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -61,11 +60,8 @@ const AddUser = () => {
     const error = useSelector(state => state.users.error);
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
-    const radioChangeHandler = e => {
-        let bool = '';
-        if(e.target.value === 'true') bool = true;
-        if(e.target.value === 'false') bool = false;
-        setUser({...user, [e.target.name]: bool})
+    const checkboxChangeHandler = e => {
+        setUser({...user, carRefrigerator: e.target.checked});
     };
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
@@ -161,11 +157,18 @@ const AddUser = () => {
                                     />
                                 </Grid>
 
-                                {console.log(user)}
-                                <RadioGroup aria-label="gender" name="carRefrigerator" value={user.carRefrigerator} onChange={radioChangeHandler}>
-                                    <FormControlLabel value={true} control={<Radio />} label="Холодильник есть" />
-                                    <FormControlLabel value={false} control={<Radio />} label="Холодильника нет" />
-                                </RadioGroup>
+                                <FormControlLabel
+                                    style={{marginLeft: '0px'}}
+                                    control={
+                                        <Checkbox
+                                            checked={user.carRefrigerator}
+                                            value={user.carRefrigerator}
+                                            onChange={checkboxChangeHandler}
+                                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                                        />
+                                    }
+                                    label="Наличие холодильника"
+                                />
 
                             </>}
                             {user.role === 'market' && <>
