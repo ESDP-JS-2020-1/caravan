@@ -103,6 +103,12 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
             whiteList.address = user.address;
         }
 
+        if (whiteList.role === 'courier') {
+            whiteList.carName = user.carName;
+            whiteList.carVolume = user.carVolume;
+            whiteList.carRefrigerator = user.carRefrigerator;
+        }
+
         if (req.file) {
             whiteList.avatar = req.file.filename
         }
