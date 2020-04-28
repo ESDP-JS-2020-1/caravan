@@ -27,6 +27,24 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    carName: {
+        type: String,
+        required: function() {
+            return this.role === 'courier'
+        }
+    },
+    carVolume: {
+        type: String,
+        required: function() {
+            return this.role === 'courier'
+        }
+    },
+    carRefrigerator: {
+        type: Boolean,
+        required: function() {
+            return this.role === 'courier'
+        }
+    },
     companyName: {
         type: String,
         required: function() {
