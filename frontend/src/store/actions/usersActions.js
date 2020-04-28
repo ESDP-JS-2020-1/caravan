@@ -59,9 +59,13 @@ export const getUser = id => async dispatch => {
   }
 };
 
-export const getUsers = () => async dispatch => {
+export const getUsers = role => async dispatch => {
   try {
     dispatch(getUsersRequest());
+    if(role){
+      const resp = await axiosApi.get('/users?role='+role);
+      return dispatch(getUsersSuccess(resp.data))
+    }
 
     const resp = await axiosApi.get('/users');
     dispatch(getUsersSuccess(resp.data))
@@ -96,7 +100,7 @@ export const deleteUser = id => async dispatch => {
     await axiosApi.delete('/users/'+id);
 
     dispatch(push('/users'));
-    dispatch(deleteUserSuccess())
+    dispatch(deleteUserSuccess());
 
     notification.addNotification({
       title: "Удаленик",
@@ -155,7 +159,7 @@ export const logoutUserGet = () => {
     await axiosApi.delete('/users/sessions', {headers});
 
     dispatch(logoutUser());
-    dispatch(push('/'))
+    dispatch(push('/'));
 
     notification.addNotification({
       title: "Логаут",
