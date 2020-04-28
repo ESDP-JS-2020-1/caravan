@@ -16,6 +16,12 @@ import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 const UsersList = props => {
   const dispatch = useDispatch();
@@ -37,6 +43,7 @@ const UsersList = props => {
             color='primary'
             component={NavLink}
             to='/users/new'
+            endIcon={<PersonAddIcon />}
         >
           Добавить пользователя
         </Button>
@@ -55,6 +62,12 @@ const UsersList = props => {
                 <div key={i}>
                   <ListItem component={NavLink} to={'/users/'+e} style={{padding: '20px'}} button>
                     {e}
+                    <ListItemIcon style={{marginLeft: 'auto'}}>
+                      {e === 'operator' && <ContactPhoneIcon />}
+                      {e === 'admin' && <AccountBoxIcon />}
+                      {e === 'courier' && <LocalShippingIcon />}
+                      {e === 'market' && <ShoppingCartIcon />}
+                    </ListItemIcon>
                   </ListItem>
                   <Divider />
                 </div>
