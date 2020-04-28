@@ -35,6 +35,7 @@ const AddNewRequestItem = (
 							<Grid item>
 								<FormElement
 									required
+									id='title'
 									propertyName='title'
 									title='Название'
 									value={request[index].title}
@@ -44,6 +45,7 @@ const AddNewRequestItem = (
 							<Grid item>
 								<FormElement
 									required
+									id='amount'
 									propertyName='amount'
 									title='Количество'
 									value={request[index].amount}
@@ -52,6 +54,7 @@ const AddNewRequestItem = (
 							</Grid>
 							<Grid item>
 								<FormElement
+									id='comment'
 									propertyName='comment'
 									title='Комментарий'
 									value={request[index].comment}
