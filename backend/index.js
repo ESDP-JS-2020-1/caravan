@@ -7,6 +7,7 @@ const config = require('./config');
 const user = require('./app/user');
 const products = require('./app/products');
 const histories = require('./app/histories');
+const requests = require('./app/requests');
 
 const app = express();
 
@@ -20,6 +21,7 @@ const run = async () => {
     app.use('/users', user);
     app.use('/products', products);
     app.use('/histories', histories);
+    app.use('/requests', requests);
 
     app.listen(config.port)
 };
