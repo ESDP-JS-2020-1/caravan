@@ -14,6 +14,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DeleteIcon from '@material-ui/icons/Delete';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles(() => ({
     formBtn: {
@@ -65,6 +67,7 @@ const EditUser = props => {
         await dispatch(deleteUser(props.match.params.id, remove))
     };
 
+    const checkboxChangeHandler = e => dispatch(getUserSuccess({...editClient, carRefrigerator: e.target.checked}));
     const inputChangeHandler = e => dispatch(getUserSuccess({...editClient, [e.target.name]: e.target.value}));
     const phoneChangeHandler = value => dispatch(getUserSuccess({...editClient, phone: value}));
     const fileChangeHandler = e => dispatch(getUserSuccess({...editClient, [e.target.name]: e.target.files[0]}));
@@ -131,6 +134,42 @@ const EditUser = props => {
                                     options={roles}
                                 />
                             </Grid>
+                            {editClient.role === 'courier' && <>
+                                <Grid item>
+                                    <FormElement
+                                        id='carName'
+                                        propertyName='carName'
+                                        title='Название машины'
+                                        value={editClient.carName}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+
+                                <Grid item>
+                                    <FormElement
+                                        id='carVolume'
+                                        propertyName='carVolume'
+                                        title='Объем машины'
+                                        value={editClient.carVolume}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+
+                                <FormControlLabel
+                                    style={{marginLeft: '0px'}}
+                                    control={
+                                        <Checkbox
+                                            id='carRefrigerator'
+                                            checked={editClient.carRefrigerator}
+                                            value={editClient.carRefrigerator}
+                                            onChange={checkboxChangeHandler}
+                                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                                        />
+                                    }
+                                    label="Наличие холодильника"
+                                />
+
+                            </>}
                             {editClient.role === 'market' && <>
                                 <Grid item>
                                     <FormElement

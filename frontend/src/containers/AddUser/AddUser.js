@@ -61,9 +61,7 @@ const AddUser = () => {
     const error = useSelector(state => state.users.error);
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
-    const checkboxChangeHandler = e => {
-        setUser({...user, carRefrigerator: e.target.checked});
-    };
+    const checkboxChangeHandler = e => setUser({...user, carRefrigerator: e.target.checked});
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
 
