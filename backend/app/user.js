@@ -65,9 +65,14 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
 
 router.get('/', isAuth, async (req, res) => {
     try {
+        if(req.query.role){
+            const users = await User.find({role: req.query.role}).select({token: 0});
+
+            return res.send(users)
+        }
         const users = await User.find().select({token: 0});
 
-        res.send(users)
+        return res.send(users)
     } catch (e) {
         res.status(500).send(e)
     }
