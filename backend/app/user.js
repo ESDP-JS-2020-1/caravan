@@ -181,21 +181,12 @@ router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
 
         await User.deleteOne({_id: user._id});
 
-<<<<<<< HEAD
         const history = new History({
             title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
             comment: req.body.comment,
-            type: req.body.type
+            type: 'delete'
         });
         await history.save();
-=======
-      const history = new History({
-          title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
-          comment: req.body.comment,
-          type: 'delete'
-      });
-      await history.save();
->>>>>>> Реализовал Историю (Тикет №8)
 
         res.send('success')
     } catch (e) {

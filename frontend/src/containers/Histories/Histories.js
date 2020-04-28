@@ -63,7 +63,6 @@ const Histories = () => {
                                     <Chip
                                         size="small"
                                         label="Редактирование"
-                                        color=""
                                     />
                                 )}
                             </TableCell>

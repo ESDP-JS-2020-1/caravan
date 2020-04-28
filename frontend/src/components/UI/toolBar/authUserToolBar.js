@@ -76,6 +76,10 @@ const AuthUserToolBar = () => {
                     <MenuItem onClick={handleClose} component={NavLink} to='/product/add'>Добавить пробукты</MenuItem>
                 )}
                 <Divider/>
+                {user.role === 'admin' && (
+                    <MenuItem onClick={handleClose} component={NavLink} to='/history'>История</MenuItem>
+                )}
+                <Divider/>
                 <MenuItem onClick={logout}>Выйти</MenuItem>
             </Menu>
         </>

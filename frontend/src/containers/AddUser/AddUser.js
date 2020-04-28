@@ -10,6 +10,8 @@ import Alert from "@material-ui/lab/Alert";
 import MuiPhoneNumber from 'material-ui-phone-number'
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -47,7 +49,11 @@ const AddUser = () => {
         phone: '',
         avatar: null,
         companyName: '',
-        address: ''
+        address: '',
+        carName: '',
+        carVolume: '',
+        carRefrigerator: false,
+        comment: ''
     });
 
     const dispatch = useDispatch();
@@ -55,6 +61,9 @@ const AddUser = () => {
     const error = useSelector(state => state.users.error);
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
+    const checkboxChangeHandler = e => {
+        setUser({...user, carRefrigerator: e.target.checked});
+    };
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
 
@@ -121,6 +130,41 @@ const AddUser = () => {
                                     options={roles}
                                 />
                             </Grid>
+                            {user.role === 'courier' && <>
+                                <Grid item>
+                                    <FormElement
+                                        id='carName'
+                                        propertyName='carName'
+                                        title='Название машины'
+                                        value={user.carName}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+
+                                <Grid item>
+                                    <FormElement
+                                        id='carVolume'
+                                        propertyName='carVolume'
+                                        title='Объем машины'
+                                        value={user.carVolume}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+
+                                <FormControlLabel
+                                    style={{marginLeft: '0px'}}
+                                    control={
+                                        <Checkbox
+                                            id='carRefrigerator'
+                                            checked={user.carRefrigerator}
+                                            value={user.carRefrigerator}
+                                            onChange={checkboxChangeHandler}
+                                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                                        />
+                                    }
+                                    label="Наличие холодильника"
+                                />
+                            </>}
                             {user.role === 'market' && <>
                                 <Grid item>
                                     <FormElement
@@ -157,6 +201,14 @@ const AddUser = () => {
                                     className={classes.phoneInput}
                                     defaultCountry={'kg'}
                                     onChange={phoneChangeHandler}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <FormElement
+                                    propertyName='comment'
+                                    title='Причина добавления'
+                                    value={user.comment}
+                                    onChange={inputChangeHandler}
                                 />
                             </Grid>
                             {error && <Grid item>

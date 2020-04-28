@@ -58,12 +58,12 @@ const EditProduct = (props) => {
     const changeHandler = e => (dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.value})));
     const onSubmit = e => {
         e.preventDefault();
-const formData = new FormData()
+        const formData = new FormData();
         dispatch(putEditProduct(props.match.params.id, editProduct))
     };
 
-    const [open , setOpen] = useState(false)
-    const handleOpenAndClose = ()=>(setOpen(!open))
+    const [open , setOpen] = useState(false);
+    const handleOpenAndClose = ()=>(setOpen(!open));
 
     return (
         <Container>
