@@ -105,6 +105,7 @@ const AddUser = () => {
                             <Grid item>
                                 <FormElement
                                     id='displayName'
+                                    required
                                     propertyName='displayName'
                                     title='Отображаемое имя'
                                     value={user.displayName}
@@ -113,6 +114,7 @@ const AddUser = () => {
                             </Grid>
                             <Grid item>
                                 <FormElement
+                                    required
                                     propertyName='role'
                                     title='Роль'
                                     value={user.role}
