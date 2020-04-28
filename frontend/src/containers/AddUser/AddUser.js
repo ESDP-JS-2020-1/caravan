@@ -161,6 +161,7 @@ const AddUser = () => {
                                     style={{marginLeft: '0px'}}
                                     control={
                                         <Checkbox
+                                            id='carRefrigerator'
                                             checked={user.carRefrigerator}
                                             value={user.carRefrigerator}
                                             onChange={checkboxChangeHandler}
