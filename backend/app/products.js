@@ -12,7 +12,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cd) => {
-        cd(null, config.userAvatar)
+        cd(null, config.productImage)
     },
     filename: (req, file, cd) => {
         cd(null, nanoid() + path.extname(file.originalname));
@@ -42,8 +42,12 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-router.post('/', [auth, permit('admin')], async (req, res) => {
+router.post('/', [auth, permit('admin'), upload.single('image')], async (req, res) => {
     try {
+        if (req.file) {
+            req.body.image = req.file.filename
+        }
+
         const products = req.body;
 
         await Product.insertMany(products);

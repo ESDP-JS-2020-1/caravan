@@ -27,7 +27,7 @@ export const DELETE_PRODUCT_FAILURE = 'DELETE_PRODUCT_FAILURE';
 
 export const deleteProductRequest = () => ({type: DELETE_PRODUCT_REQUEST});
 export const deleteProductSuccess = () => ({type: DELETE_PRODUCT_SUCCESS});
-export const deleteProductFailure = error => ({type: DELETE_PRODUCT_FAILURE});
+export const deleteProductFailure = error => ({type: DELETE_PRODUCT_FAILURE, error});
 
 export const editProductRequest = () => ({type: EDIT_PRODUCT_REQUEST});
 export const editProductSuccess = () => ({type: EDIT_PRODUCT_SUCCESS});
@@ -62,7 +62,16 @@ export const getProductsList = () => async dispatch => {
 export const addNewProduct = productData => async (dispatch) => {
     try {
         dispatch(createProductRequest());
-        await axiosApi.post('/products', productData);
+
+        const products = productData.map(async (elem) => {
+            const data = new FormData();
+            Object.keys(elem).forEach(value => {
+                data.append(value, elem[value])
+            });
+            return await axiosApi.post('/products', data);
+        });
+
+        await Promise.all(products);
 
         dispatch(createProductSuccess());
 
