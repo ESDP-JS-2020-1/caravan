@@ -5,7 +5,7 @@ const path = require('path');
 const auth = require('../middleware/isAuth');
 const Product = require('../models/Product');
 const config = require('../config');
-
+const History = require('../models/History');
 const permit = require('../middleware/permit');
 
 const router = express.Router();
@@ -73,8 +73,16 @@ router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, re
         if (req.file) {
             whiteList.image = req.file.filename
         }
+        let historyData = {title: req.currentUser.displayName +' Edit product ' + productOne.name, type:'edit'};
+
+        if (product.comment){
+            historyData.comment = product.comment
+        }
+        const history = new History(historyData);
+        await history.save();
 
         const updateProduct = await Product.findOneAndUpdate({_id: req.params.id}, {$set: whiteList}, {returnNewDocument: true});
+
 
         console.log(updateProduct);
 
@@ -85,16 +93,27 @@ router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, re
 });
 
 router.delete('/:id', auth, permit('admin'), async (req, res) => {
+    let product = req.body
     try {
-        const product = await Product.findOne({_id: req.params.id});
-        if (!product) {
+        const productOne = await Product.findOne({_id: req.params.id});
+        if (!productOne) {
             return res.status(404).send({message: 'Product not found'})
         }
+
+        let historyData = {title: req.currentUser.displayName +' удалил продукт ' + productOne.name, type:'delete'};
+
+        if (product.comment){
+            historyData.comment = product.comment
+        }
+        const history = new History(historyData);
+        await history.save();
+
         await Product.deleteOne({_id: req.params.id});
         return res.send({message: 'Delete'})
     } catch (e) {
         res.status(500).send(e)
     }
 });
+
 
 module.exports = router;

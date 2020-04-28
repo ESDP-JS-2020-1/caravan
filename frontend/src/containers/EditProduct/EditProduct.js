@@ -13,6 +13,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 
+
 const useStyles = makeStyles((theme) => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -54,16 +55,23 @@ const EditProduct = (props) => {
         dispatch(getProductEdit(props.match.params.id));
     }, [dispatch, props.match.params.id]);
 
-
+    const fileChangeHandler = e => dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.files[0]}));
     const changeHandler = e => (dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.value})));
+
     const onSubmit = e => {
         e.preventDefault();
+        handleOpenAndClose()
         const formData = new FormData();
-        dispatch(putEditProduct(props.match.params.id, editProduct))
+        Object.keys(editProduct).forEach(key => {
+            formData.append(key, editProduct[key])
+        });
+        dispatch(putEditProduct(props.match.params.id, formData))
     };
 
-    const [open , setOpen] = useState(false);
-    const handleOpenAndClose = ()=>(setOpen(!open));
+    const [open, setOpen] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const handleOpenAndClose = () => (setOpen(!open));
+    const handleOpenEdit = ()=>(setOpenEdit(!openEdit));
 
     return (
         <Container>
@@ -74,7 +82,7 @@ const EditProduct = (props) => {
                             Редактирования продукта
                         </Typography>
                     </Box>
-                    <form onSubmit={onSubmit}>
+                    <form>
                         {editProduct && <Grid container direction='column' spacing={1}>
                             <FormElement
                                 propertyName={'name'}
@@ -94,6 +102,13 @@ const EditProduct = (props) => {
                                 onChange={changeHandler}
                                 value={editProduct.price}
                             />
+                            <FormElement
+                                propertyName={'image'}
+                                title={'Картинка'}
+                                onChange={fileChangeHandler}
+                                value={editProduct.avatar}
+                                type="file"
+                            />
                             {error && <Grid item>
                                 <Alert severity='error'>{error}</Alert>
                             </Grid>}
@@ -103,7 +118,7 @@ const EditProduct = (props) => {
                                         className={classes.formButton}
                                         variant='contained'
                                         color='primary'
-                                        type="submit"
+                                        onClick={handleOpenEdit}
                                     >
                                         Редактировать
                                     </Button>
@@ -128,7 +143,7 @@ const EditProduct = (props) => {
                         propertyName={'comment'}
                         title={'Комментарий'}
                         onChange={changeHandler}
-                        value={editProduct.comment}
+
                     />
                     {error && <Box mb={1}>
                         <Alert severity="error">{error}</Alert>
@@ -145,7 +160,38 @@ const EditProduct = (props) => {
                             <Button
                                 variant="contained"
                                 color="secondary"
-                                onClick={()=>dispatch(deleteProduct(props.match.params.id))}
+                                onClick={() => dispatch(deleteProduct(props.match.params.id))}
+                                id='yes'
+                            >да</Button>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+            </Dialog>
+            <Dialog onClose={handleOpenEdit} aria-labelledby="simple-dialog-title" open={openEdit}>
+                <DialogTitle id="simple-dialog-title">Вы уверены что хотите отредактировать этот продукт?</DialogTitle>
+                <DialogContent>
+                    <FormElement
+                        propertyName={'comment'}
+                        title={'Комментарий'}
+                        onChange={changeHandler}
+
+                    />
+                    {error && <Box mb={1}>
+                        <Alert severity="error">{error}</Alert>
+                    </Box>}
+                    <Grid container justify='flex-end' spacing={1}>
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleOpenEdit}
+                            >нет</Button>
+                        </Grid>
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={onSubmit}
                                 id='yes'
                             >да</Button>
                         </Grid>
