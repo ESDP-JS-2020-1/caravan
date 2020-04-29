@@ -268,9 +268,6 @@ When('я кнопку нажимаю на редактирования прод�
 });
 When('я заполняю  поля формы:', (table) => {
   const tableData = table.parse().rawData;
-  I.clearField('#name');
-  I.clearField('#amount');
-  I.clearField('#price');
 
   I.wait(1)
   tableData.forEach(row => {
