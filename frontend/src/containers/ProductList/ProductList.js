@@ -33,7 +33,7 @@ const ProductList = () => {
     const productsList = products.map((elem) => {
         return (
             <ProductListItem
-                userRole={user.role}
+                userInfo={user}
                 key={elem._id}
                 title={elem.name}
                 amount={elem.amount}
@@ -58,7 +58,7 @@ const ProductList = () => {
                                 <TableCell className={classes.offPadding}><b>Название</b></TableCell>
                                 <TableCell className={classes.offPadding}><b>Количество</b></TableCell>
                                 <TableCell className={classes.offPadding}><b>Цена</b></TableCell>
-                                {user.role !== 'market' && <TableCell className={classes.offPadding}> </TableCell>}
+                                <TableCell className={classes.offPadding}> </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

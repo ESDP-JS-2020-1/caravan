@@ -159,8 +159,8 @@ export const logoutUserGet = () => {
     const headers = {'Authorization': 'Token ' + token};
     await axiosApi.delete('/users/sessions', {headers});
 
+    dispatch(push('/login'));
     dispatch(logoutUser());
-    dispatch(push('/'));
 
     notification.addNotification({
       title: "Логаут",
