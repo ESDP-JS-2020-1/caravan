@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const config = require("./config");
 
 const User = require('./models/User');
+const Product = require('./models/Product');
 const History = require('./models/History');
 
 const run = async () => {
@@ -36,6 +37,20 @@ const run = async () => {
         companyName: 'some market',
         address: 'adress',
         phone: '123'
+    });
+
+    await Product.create({
+        name: 'Продукт-1',
+        amount: '10 кг',
+        price: '1000 coм'
+    },{
+        name: 'Продукт-2',
+        amount: '15 кг',
+        price: '1001 coм'
+    },{
+        name: 'Продукт-3',
+        amount: '20 кг',
+        price: '500 coм'
     });
 
     await History.create({
