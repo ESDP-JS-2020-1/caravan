@@ -35,6 +35,7 @@ const AuthUserToolBar = () => {
 	return (
 		<>
 			<Button
+				style={{flexGrow: '1', paddingTop: '8px', textTransform: 'capitalize', fontSize: '14px', fontWeight: 'bold'}}
 				id="prod_list"
 				color="inherit"
 				component={NavLink}
@@ -44,6 +45,7 @@ const AuthUserToolBar = () => {
 			</Button>
 			{user.role === 'market' && (
 				<Button
+					style={{flexGrow: '1', paddingTop: '8px', textTransform: 'capitalize', fontSize: '14px', fontWeight: 'bold'}}
 					color="inherit"
 					component={NavLink}
 					to='/requests/new'
@@ -51,6 +53,7 @@ const AuthUserToolBar = () => {
 					Create new request
 				</Button>
 			)}
+			<div style={{flexGrow: '50'}}/>
 			<IconButton
 				aria-label="account of current user"
 				aria-controls="menu-appbar"

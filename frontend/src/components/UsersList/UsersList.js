@@ -22,8 +22,20 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
 
 const UsersList = props => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const dispatch = useDispatch();
 
   const users = useSelector(state => state.users.users);
@@ -49,33 +61,7 @@ const UsersList = props => {
         </Button>
       </Grid>
       <Grid container item>
-
-        <Grid item xs={2}>
-          <List component="nav" aria-label="main mailbox folders">
-            <div>
-              <ListItem component={NavLink} to={'/users'} style={{padding: '20px'}} button>
-                All users
-              </ListItem>
-              <Divider />
-            </div>
-            {roles.map((e, i) => (
-                <div key={i}>
-                  <ListItem component={NavLink} to={'/users/'+e} style={{padding: '20px'}} button>
-                    {e}
-                    <ListItemIcon style={{marginLeft: 'auto'}}>
-                      {e === 'operator' && <ContactPhoneIcon />}
-                      {e === 'admin' && <AccountBoxIcon />}
-                      {e === 'courier' && <LocalShippingIcon />}
-                      {e === 'market' && <ShoppingCartIcon />}
-                    </ListItemIcon>
-                  </ListItem>
-                  <Divider />
-                </div>
-            ))}
-          </List>
-        </Grid>
-
-        <Grid item xs={10}>
+        <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop: '10px'}}>
           <TableContainer component={Paper}>
             <Table aria-label="caption table">
               <TableHead>
@@ -102,8 +88,39 @@ const UsersList = props => {
                     <TableCell><b>Объем машины</b></TableCell>
                     <TableCell><b>Наличие холодильника</b></TableCell>
                   </>}
-                  <TableCell> </TableCell>
+                  <TableCell>{
+                    <IconButton onClick={handleClick}><MenuIcon/></IconButton>}
+                  </TableCell>
                 </TableRow>
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                  <List component="nav" aria-label="main mailbox folders" style={{padding: '0'}}>
+                    <div>
+                      <ListItem onClick={handleClose} component={NavLink} to={'/users'} style={{fontSize: 'bold'}} button>
+                        All users
+                      </ListItem>
+                      <Divider />
+                    </div>
+                    {roles.map((e, i) => (
+                        <div key={i}>
+                          <ListItem onClick={handleClose} component={NavLink} to={'/users/'+e} button>
+                            {e}
+                            <ListItemIcon style={{marginLeft: '10px'}}>
+                              {e === 'operator' && <ContactPhoneIcon />}
+                              {e === 'admin' && <AccountBoxIcon />}
+                              {e === 'courier' && <LocalShippingIcon />}
+                              {e === 'market' && <ShoppingCartIcon />}
+                            </ListItemIcon>
+                          </ListItem>
+                        </div>
+                    ))}
+                  </List>
+                </Menu>
               </TableHead>
               <TableBody>
                 {users && users.map(user => {
@@ -130,7 +147,6 @@ const UsersList = props => {
             </Table>
           </TableContainer>
         </Grid>
-
       </Grid>
     </Box>
   );
