@@ -24,7 +24,7 @@ const UserListItem = props => {
             <TableCell className={classes.offPadding}>{props.title}</TableCell>
             <TableCell className={classes.offPadding}>{props.amount}</TableCell>
             <TableCell className={classes.offPadding}>{props.price}</TableCell>
-            {props.userInfo.role !== 'market' &&
+            {props.userInfo.role === 'admin' &&
             <TableCell className={classes.offPadding}>
                 <IconButton
                     aria-label="edit"
