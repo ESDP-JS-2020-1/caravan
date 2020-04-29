@@ -196,22 +196,6 @@ Then('я попадаю на страницу списка продуктов', 
   I.amOnPage('/products');
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Given('я залогинен как магазин:', (table) => {
   I.amOnPage('/login');
 
@@ -257,3 +241,74 @@ When('я нажму на кнопку {string}', btnName => {
 Then('я вижу сообщение {string}', () => {
   I.waitForText('Заявка создана успешно');
 });
+
+
+Given('я вошел как администратор:', table => {
+  I.amOnPage('/login');
+
+  const tableData = table.parse().rawData;
+
+  tableData.forEach(row => {
+    I.fillField(row[0], row[1]);
+  });
+
+  I.click("Login", '#btn');
+  I.waitForText('Вы успешно вошли, как Some market');
+
+});
+
+When('я нахожусь на странице списка продуктов',() => {
+  I.amOnPage('/products');
+
+  I.wait(2)
+});
+When('я кнопку нажимаю на редактирования продукта {string}', btnName => {
+  I.click(btnName);
+  I.wait(1)
+});
+When('я заполняю  поля формы:', (table) => {
+  const tableData = table.parse().rawData;
+  I.clearField('#name');
+  I.clearField('#amount');
+  I.clearField('#price');
+
+  I.wait(1)
+  tableData.forEach(row => {
+    I.fillField(row[0], row[1]);
+  });
+
+});
+When('нажимаю на кнопку {string}',(btnName) => {
+  I.click(btnName);
+
+});
+
+Then('я вижу текст после изминений {string}', (text) => {
+  I.waitForText(text);
+});
+
+Given('я зарегистрирован как администратор:', table => {
+  I.amOnPage('/login');
+
+  const tableData = table.parse().rawData;
+
+  tableData.forEach(row => {
+    I.fillField(row[0], row[1]);
+  });
+
+  I.click("Login", '#btn');
+  I.wait(3)
+  I.waitForText('Вы успешно вошли, как Some market');
+
+});
+
+
+
+
+
+
+
+
+
+
+

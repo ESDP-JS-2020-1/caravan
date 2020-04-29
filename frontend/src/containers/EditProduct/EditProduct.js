@@ -119,6 +119,7 @@ const EditProduct = (props) => {
                                         variant='contained'
                                         color='primary'
                                         onClick={handleOpenEdit}
+                                        aria-label="Edit"
                                     >
                                         Редактировать
                                     </Button>
@@ -127,6 +128,7 @@ const EditProduct = (props) => {
                                         variant='contained'
                                         color='primary'
                                         onClick={handleOpenAndClose}
+                                        aria-label="delete"
                                     >
                                         Удалить
                                     </Button>
