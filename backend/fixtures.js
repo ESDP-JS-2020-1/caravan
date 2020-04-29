@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const config = require("./config");
 
 const User = require('./models/User');
+const History = require('./models/History');
 
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOptions);
@@ -37,6 +38,19 @@ const run = async () => {
         phone: '123'
     });
 
+    await History.create({
+        title: 'Гриша удалил пользователя Jack',
+        comment: 'I dont know',
+        type: 'delete'
+    }, {
+        title: 'Гриша добавил пользователя Jack',
+        comment: 'No comment',
+        type: 'add'
+    }, {
+        title: 'Гриша редактировал пользователя Jack',
+        comment: 'Change his name',
+        type: 'edit'
+    });
 
     mongoose.connection.close();
 };
