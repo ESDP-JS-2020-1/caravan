@@ -18,6 +18,7 @@
       | #password | 12345 |
       | #displayName | Some username |
       | #phone | +99612412412 |
+      | #comment | I dont know |
     И выбираю роль пользователя "market"
     И я заполняю поля формы для названия компании и адреса :
       | #companyName | Some company |

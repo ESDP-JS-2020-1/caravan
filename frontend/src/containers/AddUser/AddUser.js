@@ -203,6 +203,7 @@ const AddUser = () => {
                             </Grid>
                             <Grid item>
                                 <FormElement
+                                    id="comment"
                                     propertyName='comment'
                                     title='Причина добавления'
                                     value={user.comment}

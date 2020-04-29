@@ -32,7 +32,7 @@ const UserListItem = props => {
             </>}
             <TableCell>
                 <IconButton
-                    aria-label="edit"
+                    aria-label="editUser"
                     component={NavLink}
                     to={`/users/edit/${props.id}`}
                     id={props.edit}

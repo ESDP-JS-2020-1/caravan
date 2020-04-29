@@ -235,7 +235,7 @@ const EditUser = props => {
                                     color="secondary"
                                     startIcon={<DeleteIcon/>}
                                     onClick={handleClickOpen}
-                                    id='deleteUser'
+                                    id="deleteUser"
                                 >
                                     Удалить пользователя
                                 </Button>
@@ -248,6 +248,7 @@ const EditUser = props => {
                 <DialogTitle id="simple-dialog-title">Вы уверены что хотите удалить этого пользователя?</DialogTitle>
                 <Box ml={2} mr={2}>
                 <FormElement
+                    id="comment"
                     propertyName='comment'
                     title='Причина удаления'
                     value={comment}
