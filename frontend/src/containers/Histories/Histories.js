@@ -10,6 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Chip from "@material-ui/core/Chip";
+import moment from "moment";
 
 const useStyles = makeStyles({
     table: {
@@ -66,7 +67,7 @@ const Histories = () => {
                                     />
                                 )}
                             </TableCell>
-                            <TableCell align="right">{history.date}</TableCell>
+                            <TableCell align="right">{moment(history.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
