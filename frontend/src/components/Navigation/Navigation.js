@@ -57,12 +57,8 @@ const Navigation = () => {
         bottom: false,
         right: false,
     });
-    const ProductsList = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/products">Список продуктов</NavLink>);
-    const CreateNewRequest = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">Создать заявку</NavLink>);
-    const UserList = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/users">Список пользователей</NavLink>);
-    const RequestsList = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">Список заявок</NavLink>);
-    const ProductAdd = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/product/add">Добавить пробукты</NavLink>);
-    const History = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">История</NavLink>);
+
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -81,62 +77,62 @@ const Navigation = () => {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             {user && user.role === 'admin' && (
-                <List>
-                    {[UserList].map((text) => (
-                        <ListItem button key={text}>
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/users">
+                    <List>
+                        <ListItem button>
                             <ListItemIcon>{<GroupIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText >Список пользователей</ListItemText>
                         </ListItem>
-                    ))}
-                </List>
+                    </List>
+                </NavLink>
             )}
             {user && user.role === 'admin' && (
-                <List>
-                    {[RequestsList].map((text) => (
-                        <ListItem button key={text}>
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">
+                    <List>
+                        <ListItem button >
                             <ListItemIcon>{<DescriptionIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText  >Список заявок</ListItemText>
                         </ListItem>
-                    ))}
-                </List>
+                    </List>
+                </NavLink>
             )}
             {user && user.role === 'admin' && (
-                <List>
-                    {[ProductAdd].map((text) => (
-                        <ListItem button key={text}>
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/product/add">
+                    <List>
+                        <ListItem button>
                             <ListItemIcon>{<AddShoppingCartIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText>Добавить пробукты</ListItemText>
                         </ListItem>
-                    ))}
-                </List>
+                    </List>
+                </NavLink>
             )}
             {user && user.role === 'admin' && (
-                <List>
-                    {[History].map((text) => (
-                        <ListItem button key={text}>
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">
+                    <List>
+                        <ListItem button>
                             <ListItemIcon>{<HistoryIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
+                            <ListItemText  >История</ListItemText>
                         </ListItem>
-                    ))}
-                </List>
+                    </List>
+                </NavLink>
             )}
-            <List style={{height: '35px'}}>
-                {[ProductsList].map((text) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{<FastfoodSharpIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            {user && user.role === 'market' && (
+            <NavLink style={{textDecoration: 'none', color: 'black'}} to="/products">
                 <List>
-                    {[CreateNewRequest].map((text) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{<CreateNewFolderSharpIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button >
+                        <ListItemIcon>{<FastfoodSharpIcon />}</ListItemIcon>
+                        <ListItemText >Список пробуктов</ListItemText>
+                    </ListItem>
                 </List>
+            </NavLink>
+            {user && user.role === 'market' && (
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon>{<CreateNewFolderSharpIcon />}</ListItemIcon>
+                            <ListItemText >Создать заявку</ListItemText>
+                        </ListItem>
+                    </List>
+                </NavLink>
             )}
 
         </div>
