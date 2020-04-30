@@ -5,8 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import {useDispatch, useSelector} from "react-redux";
-import Alert from "@material-ui/lab/Alert";
+import {useDispatch} from "react-redux";
 import {createRequest, createRequestInit} from "../../store/actions/requestsActions";
 import AddNewRequestItem from "./AddNewRequestItem/AddNewRequestItem";
 import {NavLink} from "react-router-dom";
@@ -48,12 +47,9 @@ const AddNewRequest = () => {
 
 	const dispatch = useDispatch();
 
-	const error = useSelector(state => state.requests.error);
-
 	const [request, setRequest] = useState([{
 		title: '',
 		amount: '',
-		comment: '',
 	}]);
 
 	const [expanded, setExpanded] = React.useState(false);
@@ -83,11 +79,9 @@ const AddNewRequest = () => {
 		const newRequest = request[0] ? [...request, {
 			title: '',
 			amount: '',
-			comment: '',
 		}] : [{
 			title: '',
 			amount: '',
-			comment: '',
 		}];
 
 		setRequest(newRequest)
@@ -147,9 +141,6 @@ const AddNewRequest = () => {
 								/>
 							))}
 
-							{error && <Grid item>
-								<Alert severity='error'>{error}</Alert>
-							</Grid>}
 							<Grid item>
 								<Box className={classes.formBtn} component="span">
 									<Button

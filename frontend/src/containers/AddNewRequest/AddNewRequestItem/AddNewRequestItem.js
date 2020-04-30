@@ -41,7 +41,6 @@ const AddNewRequestItem = (
 						<Typography className={classes.heading}>
 							Название: {r.title}
 							Количество: {r.amount}
-							Комментарий: {r.comment}
 						</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
@@ -77,15 +76,6 @@ const AddNewRequestItem = (
 									propertyName='amount'
 									title='Количество'
 									value={request[index].amount}
-									onChange={(e) => onChange(e, index)}
-								/>
-							</Grid>
-							<Grid item>
-								<FormElement
-									id='comment'
-									propertyName='comment'
-									title='Комментарий'
-									value={request[index].comment}
 									onChange={(e) => onChange(e, index)}
 								/>
 							</Grid>
