@@ -16,6 +16,7 @@ import Histories from "./containers/Histories/Histories";
 import AddNewRequest from "./containers/AddNewRequest/AddNewRequest";
 import RequestList from "./containers/RequestList/RequestList";
 import RequestEdit from "./containers/RequestEdit/RequestEdit";
+import RequestInfo from "./containers/RequestInfo/RequestInfo";
 
 
 
@@ -38,6 +39,7 @@ function App() {
                     <Route path="/requests" exact component={RequestList}/>
                     <Route path="/requests/new" exact component={AddNewRequest}/>
                     <Route path="/requests/edit/:id" exact component={RequestEdit}/>
+                    <Route path="/requests/:id" exact component={RequestInfo}/>
                 </Switch>
             </Container>
         </div>
