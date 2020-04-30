@@ -6,6 +6,16 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
+router.get('/:id', auth, async (req, res) => {
+	try {
+		const requests = await Request.findOne({_id: req.params.id}).populate('user');
+
+		return res.send(requests);
+	} catch (e) {
+		res.status(400).send(e);
+	}
+});
+
 router.get('/', auth, async (req, res) => {
 	try {
 		if(req.currentUser.role === 'market') {
@@ -23,13 +33,12 @@ router.get('/', auth, async (req, res) => {
 
 router.post('/', [auth, permit('market')], async (req, res) => {
 	try {
-		const requests = req.body;
+		const requests = {
+			user: req.currentUser,
+			products: req.body
+		};
 
-		requests.forEach(elem => {
-			elem.user = req.currentUser;
-		});
-
-		await Request.insertMany(requests);
+		await Request.create(requests);
 
 		return res.send({message: 'success'});
 	} catch (e) {
