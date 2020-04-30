@@ -100,7 +100,7 @@ const Navigation = () => {
                     <List>
                         <ListItem button>
                             <ListItemIcon>{<AddShoppingCartIcon/>}</ListItemIcon>
-                            <ListItemText>Добавить пробукты</ListItemText>
+                            <ListItemText>Добавить продукты</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
