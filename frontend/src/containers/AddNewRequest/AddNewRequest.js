@@ -63,6 +63,14 @@ const AddNewRequest = () => {
 		newRequest[i][e.target.name] = e.target.value;
 
 		setRequest(newRequest);
+
+	};
+
+	const autoCompleteChangeHandler = (e, i) => {
+		let newRequest = [...request];
+		newRequest[i]['title'] = e.target.innerHTML;
+
+		setRequest(newRequest);
 	};
 
 	const handleChange = (panel) => (event, isExpanded) => {
@@ -131,6 +139,7 @@ const AddNewRequest = () => {
 									expanded={expanded}
 									classes={classes}
 									onChange={inputChangeHandler}
+									onAutoCompleteChange={autoCompleteChangeHandler}
 									handleChange={handleChange}
 									onRemove={removeRequest}
 									index={i}

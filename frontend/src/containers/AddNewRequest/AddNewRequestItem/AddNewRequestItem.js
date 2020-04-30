@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Grid from "@material-ui/core/Grid";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -9,10 +9,24 @@ import Box from "@material-ui/core/Box";
 import FormElement from "../../../components/UI/Form/FormElement";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {useDispatch, useSelector} from "react-redux";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
+import {getProductsList} from "../../../store/actions/productsActions";
+
 
 const AddNewRequestItem = (
-	{onChange, index, expanded, classes, r, request, onRemove, handleChange}
+	{onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange}
 ) => {
+
+	const products = useSelector(state => state.products.productsList);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getProductsList());
+	}, [dispatch]);
+
+
 	return (
 		<Grid container alignItems='center' spacing={1}>
 			<Grid item xs={11}>
@@ -32,16 +46,30 @@ const AddNewRequestItem = (
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
 						<Box style={{width: '100%', marginBottom: "10px"}}>
-							<Grid item>
-								<FormElement
-									required
-									id='title'
-									propertyName='title'
-									title='Название'
-									value={request[index].title}
-									onChange={(e) => onChange(e, index)}
-								/>
-							</Grid>
+							{products && (
+								<Grid item>
+									<Autocomplete
+										id="combo-box-demo"
+										options={products}
+										getOptionLabel={(option) => option.name}
+										style={{ width: '100%', marginBottom: '2%' }}
+										onChange={(e) => onAutoCompleteChange(e, index)}
+
+										renderInput={(params) =>
+											<TextField
+												{...params}
+												required
+												label="Название"
+												variant="outlined"
+												id='title'
+												name='title'
+												title='Название'
+											/>
+										}
+									/>
+								</Grid>
+							)}
+
 							<Grid item>
 								<FormElement
 									required
