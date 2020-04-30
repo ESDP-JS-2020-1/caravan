@@ -8,15 +8,18 @@ const RequestSchema = new Schema({
 		ref: 'User',
 		required: true
 	},
-	title: {
-		type: String,
-		required: true
-	},
-	amount: {
-		type: String,
-		required: true
-	},
-	comment: String,
+	products: [
+		{
+			title: {
+				type: String,
+				required: true
+			},
+			amount: {
+				type: String,
+				required: true
+			}
+		}
+	],
 	date: {
 		type: Date,
 		default: Date.now
