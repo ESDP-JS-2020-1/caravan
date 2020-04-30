@@ -7,7 +7,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
-import {NavLink} from "react-router-dom";
 
 const AuthUserToolBar = () => {
 
@@ -61,20 +60,6 @@ const AuthUserToolBar = () => {
 				onClose={handleClose}
 			>
 				<ListItem disabled>Привет, {user.displayName}!</ListItem>
-				<Divider/>
-				{user.role === 'admin' && (
-					<MenuItem onClick={handleClose} component={NavLink} to='/users'>Список пользователей</MenuItem>
-				)}
-				<Divider/>
-				<MenuItem onClick={handleClose} component={NavLink} to='/requests'>Список заявок</MenuItem>
-				<Divider/>
-				{user.role === 'admin' && (
-					<MenuItem onClick={handleClose} component={NavLink} to='/product/add'>Добавить пробукты</MenuItem>
-				)}
-				<Divider/>
-				{user.role === 'admin' && (
-					<MenuItem onClick={handleClose} component={NavLink} to='/history'>История</MenuItem>
-				)}
 				<Divider/>
 				<MenuItem onClick={logout}>Выйти</MenuItem>
 			</Menu>

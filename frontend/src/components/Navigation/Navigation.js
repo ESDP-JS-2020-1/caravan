@@ -17,6 +17,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import FastfoodSharpIcon from '@material-ui/icons/FastfoodSharp';
 import CreateNewFolderSharpIcon from '@material-ui/icons/CreateNewFolderSharp';
 import {useSelector} from "react-redux";
+import GroupIcon from '@material-ui/icons/Group';
+import DescriptionIcon from '@material-ui/icons/Description';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import HistoryIcon from '@material-ui/icons/History';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
     },
     list: {
-        width: 250,
+        width: 290,
     },
     fullList: {
         width: 'auto',
@@ -52,8 +57,12 @@ const Navigation = () => {
         bottom: false,
         right: false,
     });
-    const ProductsList = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/products">Products list</NavLink>);
-    const CreateNewRequest = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">Products list</NavLink>);
+    const ProductsList = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/products">Список продуктов</NavLink>);
+    const CreateNewRequest = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">Создать заявку</NavLink>);
+    const UserList = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/users">Список пользователей</NavLink>);
+    const RequestsList = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">Список заявок</NavLink>);
+    const ProductAdd = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/product/add">Добавить пробукты</NavLink>);
+    const History = (<NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">История</NavLink>);
     const toggleDrawer = (anchor, open) => (event) => {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
@@ -71,6 +80,46 @@ const Navigation = () => {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
+            {user && user.role === 'admin' && (
+                <List>
+                    {[UserList].map((text) => (
+                        <ListItem button key={text}>
+                            <ListItemIcon>{<GroupIcon />}</ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
+            )}
+            {user && user.role === 'admin' && (
+                <List>
+                    {[RequestsList].map((text) => (
+                        <ListItem button key={text}>
+                            <ListItemIcon>{<DescriptionIcon />}</ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
+            )}
+            {user && user.role === 'admin' && (
+                <List>
+                    {[ProductAdd].map((text) => (
+                        <ListItem button key={text}>
+                            <ListItemIcon>{<AddShoppingCartIcon />}</ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
+            )}
+            {user && user.role === 'admin' && (
+                <List>
+                    {[History].map((text) => (
+                        <ListItem button key={text}>
+                            <ListItemIcon>{<HistoryIcon />}</ListItemIcon>
+                            <ListItemText primary={text} />
+                        </ListItem>
+                    ))}
+                </List>
+            )}
             <List style={{height: '35px'}}>
                 {[ProductsList].map((text) => (
                     <ListItem button key={text}>
@@ -89,6 +138,7 @@ const Navigation = () => {
                     ))}
                 </List>
             )}
+
         </div>
     );
 
