@@ -8,7 +8,6 @@ import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
 import {NavLink} from "react-router-dom";
-import Button from "@material-ui/core/Button";
 
 const AuthUserToolBar = () => {
 
@@ -34,26 +33,6 @@ const AuthUserToolBar = () => {
 
 	return (
 		<>
-			<Button
-				style={{flexGrow: '1', paddingTop: '8px', textTransform: 'capitalize', fontSize: '14px', fontWeight: 'bold'}}
-				id="prod_list"
-				color="inherit"
-				component={NavLink}
-				to='/products'
-			>
-				Products list
-			</Button>
-			{user.role === 'market' && (
-				<Button
-					style={{flexGrow: '1', paddingTop: '8px', textTransform: 'capitalize', fontSize: '14px', fontWeight: 'bold'}}
-					color="inherit"
-					component={NavLink}
-					to='/requests/new'
-				>
-					Create new request
-				</Button>
-			)}
-			<div style={{flexGrow: '50'}}/>
 			<IconButton
 				aria-label="account of current user"
 				aria-controls="menu-appbar"
