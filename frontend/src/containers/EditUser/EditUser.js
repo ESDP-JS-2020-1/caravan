@@ -10,12 +10,10 @@ import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Modal from "../../components/UI/Modal/Modal";
 
 const useStyles = makeStyles(() => ({
     formBtn: {
@@ -89,7 +87,7 @@ const EditUser = props => {
         dispatch(editUser(data, props.match.params.id))
     };
 
-    return  (
+    return (
         <Container>
             <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
                 <Box component="div" boxShadow={10} p={5}>
@@ -163,7 +161,7 @@ const EditUser = props => {
                                             checked={editClient.carRefrigerator}
                                             value={editClient.carRefrigerator}
                                             onChange={checkboxChangeHandler}
-                                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                                            inputProps={{'aria-label': 'primary checkbox'}}
                                         />
                                     }
                                     label="Наличие холодильника"
@@ -244,40 +242,37 @@ const EditUser = props => {
                     </form>
                 </Box>
             </Grid>
-            <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-                <DialogTitle id="simple-dialog-title">Вы уверены что хотите удалить этого пользователя?</DialogTitle>
+            <Modal onClose={handleClose} open={open} title="Вы уверены что хотите удалить этого пользователя?">
                 <Box ml={2} mr={2}>
-                <FormElement
-                    id="comment"
-                    propertyName='comment'
-                    title='Причина удаления'
-                    value={comment}
-                    onChange={changeCommentInput}
-                />
+                    <FormElement
+                        id="comment"
+                        propertyName='comment'
+                        title='Причина удаления'
+                        value={comment}
+                        onChange={changeCommentInput}
+                    />
                 </Box>
-                <DialogContent>
-                    {error && <Box mb={1}>
-                        <Alert severity="error">{error}</Alert>
-                    </Box>}
-                    <Grid container justify='flex-end' spacing={1}>
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleClose}
-                            >нет</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={removeUser}
-                                id='yes'
-                            >да</Button>
-                        </Grid>
+                {error && <Box mb={1}>
+                    <Alert severity="error">{error}</Alert>
+                </Box>}
+                <Grid container justify='flex-end' spacing={1}>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleClose}
+                        >нет</Button>
                     </Grid>
-                </DialogContent>
-            </Dialog>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={removeUser}
+                            id='yes'
+                        >да</Button>
+                    </Grid>
+                </Grid>
+            </Modal>
         </Container>
     );
 };

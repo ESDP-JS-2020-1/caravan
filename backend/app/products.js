@@ -35,7 +35,6 @@ router.get('/:id', auth, async (req, res) => {
 
     try {
         const product = await Product.findOne({_id: req.params.id});
-        console.log(product);
         res.send(product)
     } catch (e) {
         res.status(400).send(e);
@@ -83,9 +82,6 @@ router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, re
 
         const updateProduct = await Product.findOneAndUpdate({_id: req.params.id}, {$set: whiteList}, {returnNewDocument: true});
 
-
-        console.log(updateProduct);
-
         return res.send(updateProduct);
     } catch (e) {
         res.status(500).send(e)
@@ -93,7 +89,7 @@ router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, re
 });
 
 router.delete('/:id', auth, permit('admin'), async (req, res) => {
-    let product = req.body
+    let product = req.body;
     try {
         const productOne = await Product.findOne({_id: req.params.id});
         if (!productOne) {

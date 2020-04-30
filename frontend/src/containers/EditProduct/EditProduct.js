@@ -9,9 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import FormElement from "../../components/UI/Form/FormElement";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
+import Modal from "../../components/UI/Modal/Modal";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -60,7 +58,7 @@ const EditProduct = (props) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        handleOpenAndClose()
+        handleOpenAndClose();
         const formData = new FormData();
         Object.keys(editProduct).forEach(key => {
             formData.append(key, editProduct[key])
@@ -138,68 +136,61 @@ const EditProduct = (props) => {
                     </form>
                 </Box>
             </Grid>
-            <Dialog onClose={handleOpenAndClose} aria-labelledby="simple-dialog-title" open={open}>
-                <DialogTitle id="simple-dialog-title">Вы уверены что хотите удалить этот продукт?</DialogTitle>
-                <DialogContent>
-                    <FormElement
-                        propertyName={'comment'}
-                        title={'Комментарий'}
-                        onChange={changeHandler}
+            <Modal onClose={handleOpenAndClose} open={open} title="Вы уверены что хотите удалить этот продукт?">
+                <FormElement
+                    propertyName={'comment'}
+                    title={'Комментарий'}
+                    onChange={changeHandler}
 
-                    />
-                    {error && <Box mb={1}>
-                        <Alert severity="error">{error}</Alert>
-                    </Box>}
-                    <Grid container justify='flex-end' spacing={1}>
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleOpenAndClose}
-                            >нет</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={() => dispatch(deleteProduct(props.match.params.id))}
-                                id='yes'
-                            >да</Button>
-                        </Grid>
+                />
+                {error && <Box mb={1}>
+                    <Alert severity="error">{error}</Alert>
+                </Box>}
+                <Grid container justify='flex-end' spacing={1}>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleOpenAndClose}
+                        >нет</Button>
                     </Grid>
-                </DialogContent>
-            </Dialog>
-            <Dialog onClose={handleOpenEdit} aria-labelledby="simple-dialog-title" open={openEdit}>
-                <DialogTitle id="simple-dialog-title">Вы уверены что хотите отредактировать этот продукт?</DialogTitle>
-                <DialogContent>
-                    <FormElement
-                        propertyName={'comment'}
-                        title={'Комментарий'}
-                        onChange={changeHandler}
-
-                    />
-                    {error && <Box mb={1}>
-                        <Alert severity="error">{error}</Alert>
-                    </Box>}
-                    <Grid container justify='flex-end' spacing={1}>
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleOpenEdit}
-                            >нет</Button>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={onSubmit}
-                                id='yes'
-                            >да</Button>
-                        </Grid>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => dispatch(deleteProduct(props.match.params.id))}
+                            id='yes'
+                        >да</Button>
                     </Grid>
-                </DialogContent>
-            </Dialog>
+                </Grid>
+            </Modal>
+            <Modal onClose={handleOpenEdit} open={openEdit} title="Вы уверены что хотите отредактировать этот продукт?">
+                <FormElement
+                    propertyName={'comment'}
+                    title={'Комментарий'}
+                    onChange={changeHandler}
+                />
+                {error && <Box mb={1}>
+                    <Alert severity="error">{error}</Alert>
+                </Box>}
+                <Grid container justify='flex-end' spacing={1}>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleOpenEdit}
+                        >нет</Button>
+                    </Grid>
+                    <Grid item>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={onSubmit}
+                            id='yes'
+                        >да</Button>
+                    </Grid>
+                </Grid>
+            </Modal>
         </Container>
     );
 };
