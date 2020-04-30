@@ -23,7 +23,6 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import HistoryIcon from '@material-ui/icons/History';
 
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -64,7 +63,7 @@ const Navigation = () => {
             return;
         }
 
-        setState({ ...state, [anchor]: open });
+        setState({...state, [anchor]: open});
     };
 
     const list = (anchor) => (
@@ -80,8 +79,8 @@ const Navigation = () => {
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/users">
                     <List>
                         <ListItem button>
-                            <ListItemIcon>{<GroupIcon />}</ListItemIcon>
-                            <ListItemText >Список пользователей</ListItemText>
+                            <ListItemIcon>{<GroupIcon/>}</ListItemIcon>
+                            <ListItemText>Список пользователей</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
@@ -89,9 +88,9 @@ const Navigation = () => {
             {user && user.role === 'admin' && (
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">
                     <List>
-                        <ListItem button >
-                            <ListItemIcon>{<DescriptionIcon />}</ListItemIcon>
-                            <ListItemText  >Список заявок</ListItemText>
+                        <ListItem button>
+                            <ListItemIcon>{<DescriptionIcon/>}</ListItemIcon>
+                            <ListItemText>Список заявок</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
@@ -100,7 +99,7 @@ const Navigation = () => {
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/product/add">
                     <List>
                         <ListItem button>
-                            <ListItemIcon>{<AddShoppingCartIcon />}</ListItemIcon>
+                            <ListItemIcon>{<AddShoppingCartIcon/>}</ListItemIcon>
                             <ListItemText>Добавить пробукты</ListItemText>
                         </ListItem>
                     </List>
@@ -110,17 +109,17 @@ const Navigation = () => {
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">
                     <List>
                         <ListItem button>
-                            <ListItemIcon>{<HistoryIcon />}</ListItemIcon>
-                            <ListItemText  >История</ListItemText>
+                            <ListItemIcon>{<HistoryIcon/>}</ListItemIcon>
+                            <ListItemText>История</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
             )}
             <NavLink style={{textDecoration: 'none', color: 'black'}} to="/products">
                 <List>
-                    <ListItem button >
-                        <ListItemIcon>{<FastfoodSharpIcon />}</ListItemIcon>
-                        <ListItemText >Список пробуктов</ListItemText>
+                    <ListItem button>
+                        <ListItemIcon>{<FastfoodSharpIcon/>}</ListItemIcon>
+                        <ListItemText>Список пробуктов</ListItemText>
                     </ListItem>
                 </List>
             </NavLink>
@@ -128,8 +127,8 @@ const Navigation = () => {
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">
                     <List>
                         <ListItem button>
-                            <ListItemIcon>{<CreateNewFolderSharpIcon />}</ListItemIcon>
-                            <ListItemText >Создать заявку</ListItemText>
+                            <ListItemIcon>{<CreateNewFolderSharpIcon/>}</ListItemIcon>
+                            <ListItemText>Создать заявку</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
@@ -143,21 +142,19 @@ const Navigation = () => {
             <AppBar position="static" color='primary'>
                 <Container>
                     <Toolbar>
-                        <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                                {['left'].map((anchor) => (
-                                    <React.Fragment key={anchor}>
-                                        <MenuIcon onClick={toggleDrawer(anchor, true)}/>
-                                        <SwipeableDrawer
-                                            anchor={anchor}
-                                            open={state[anchor]}
-                                            onClose={toggleDrawer(anchor, false)}
-                                            onOpen={toggleDrawer(anchor, true)}
-                                        >
-                                            {list(anchor)}
-                                        </SwipeableDrawer>
-                                    </React.Fragment>
-                                ))}
-                        </IconButton>
+                        {['left'].map((anchor) => (
+                            <IconButton onClick={toggleDrawer(anchor, !state[anchor])} key={anchor} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                                    <MenuIcon />
+                                    <SwipeableDrawer
+                                        anchor={anchor}
+                                        open={state[anchor]}
+                                        onClose={toggleDrawer(anchor, false)}
+                                        onOpen={toggleDrawer(anchor, true)}
+                                    >
+                                        {list(anchor)}
+                                    </SwipeableDrawer>
+                            </IconButton>
+                        ))}
                         <Typography variant="h6" className={classes.mainLink} component={NavLink} to='/' exact>
                             Caravan
                         </Typography>
