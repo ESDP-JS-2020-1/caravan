@@ -85,16 +85,14 @@ const Navigation = () => {
                     </List>
                 </NavLink>
             )}
-            {user && user.role === 'admin' && (
-                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>{<DescriptionIcon/>}</ListItemIcon>
-                            <ListItemText>Список заявок</ListItemText>
-                        </ListItem>
-                    </List>
-                </NavLink>
-            )}
+            <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">
+                <List>
+                    <ListItem button>
+                        <ListItemIcon>{<DescriptionIcon/>}</ListItemIcon>
+                        <ListItemText>Список заявок</ListItemText>
+                    </ListItem>
+                </List>
+            </NavLink>
             {user && user.role === 'admin' && (
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/product/add">
                     <List>
@@ -143,16 +141,17 @@ const Navigation = () => {
                 <Container>
                     <Toolbar>
                         {['left'].map((anchor) => (
-                            <IconButton onClick={toggleDrawer(anchor, !state[anchor])} key={anchor} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                                    <MenuIcon />
-                                    <SwipeableDrawer
-                                        anchor={anchor}
-                                        open={state[anchor]}
-                                        onClose={toggleDrawer(anchor, false)}
-                                        onOpen={toggleDrawer(anchor, true)}
-                                    >
-                                        {list(anchor)}
-                                    </SwipeableDrawer>
+                            <IconButton onClick={toggleDrawer(anchor, !state[anchor])} key={anchor} edge="start"
+                                        className={classes.menuButton} color="inherit" aria-label="menu">
+                                <MenuIcon/>
+                                <SwipeableDrawer
+                                    anchor={anchor}
+                                    open={state[anchor]}
+                                    onClose={toggleDrawer(anchor, false)}
+                                    onOpen={toggleDrawer(anchor, true)}
+                                >
+                                    {list(anchor)}
+                                </SwipeableDrawer>
                             </IconButton>
                         ))}
                         <Typography variant="h6" className={classes.mainLink} component={NavLink} to='/' exact>
