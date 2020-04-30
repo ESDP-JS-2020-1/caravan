@@ -37,6 +37,7 @@ const RequestList = () => {
                             <TableCell> <b>Пользователь</b> </TableCell>
                             <TableCell> <b>Дата</b>         </TableCell>
                             <TableCell>                     </TableCell>
+                            <TableCell>                     </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

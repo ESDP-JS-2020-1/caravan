@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import TableRow from "@material-ui/core/TableRow";
 import moment from "moment";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const ProductListItem = props => {
 
@@ -25,6 +26,17 @@ const ProductListItem = props => {
                 </IconButton>
             </TableCell>
             }
+            <TableCell >
+                <IconButton
+                    aria-label="show info"
+                    component={NavLink}
+                    to={`/requests/${props.id}`}
+                    id={props.edit}
+                    exact
+                >
+                    <VisibilityIcon/>
+                </IconButton>
+            </TableCell>
         </TableRow>
     );
 };
