@@ -53,7 +53,8 @@ const AddProduct = WithAuthorization(() => {
         name: '',
         amount: '',
         price: '',
-        image: ''
+        image: '',
+        comment: ''
     }]);
     const [expanded, setExpanded] = React.useState(false);
 
@@ -82,12 +83,14 @@ const AddProduct = WithAuthorization(() => {
             name: '',
             amount: '',
             price: '',
-            image: ''
+            image: '',
+            comment: ''
         }] : [{
             name: '',
             amount: '',
             price: '',
-            image: ''
+            image: '',
+            comment: ''
         }];
 
         setProduct(newProduct)
