@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getProductsList} from "../../store/actions/productsActions";
 import ProductListItem from "./ProductListItem/ProductListItem";
@@ -13,6 +13,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import {makeStyles} from "@material-ui/core/styles";
 import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
+import FormElement from "../../components/UI/Form/FormElement";
 
 const useStyles = makeStyles(() => ({
     offPadding: {
@@ -31,7 +32,13 @@ const ProductList = WithAuthorization(() => {
         dispatch(getProductsList());
     }, [dispatch]);
 
-    const productsList = products.map((elem) => {
+    const [search, setSearch] = useState({search: ''});
+
+    const changeSearch = e => setSearch({search: e.target.value});
+
+    const productList = products.filter(word => word.name.search(search.search) !== -1);
+
+    const productsList = productList.map((elem) => {
         return (
             <ProductListItem
                 userInfo={user}
@@ -50,6 +57,13 @@ const ProductList = WithAuthorization(() => {
             <Typography variant='h3'>
                 Cписок продуктов
             </Typography>
+            <FormElement
+                propertyName="search"
+                title="Поиск продуктов"
+                value={search.search}
+                onChange={changeSearch}
+                type="text"
+            />
             <Grid container>
                 <TableContainer component={Paper}>
                     <Table aria-label="caption table">
