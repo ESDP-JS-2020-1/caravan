@@ -47,9 +47,10 @@ const EditRequestItems = (
                             {products && (
                                 <Grid item>
                                     <Autocomplete
-                                        id="combo-box-demo"
-                                        options={products}
-                                        getOptionLabel={(option) => option.name}
+                                        id="free-solo-demo"
+                                        value={request.products[index].title}
+                                        options={products.map((option) => option.name)}
+                                        freeSolo
                                         style={{ width: '100%', marginBottom: '2%' }}
                                         onChange={(e) => onAutoCompleteChange(e, index)}
                                         renderInput={(params) =>

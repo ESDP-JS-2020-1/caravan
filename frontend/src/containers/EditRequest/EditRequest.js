@@ -1,8 +1,9 @@
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {
-    createRequestInit, deleteRequestEdit,
+    createRequestInit,
+    deleteRequestEdit,
     fetchRequestEdit,
     fetchSuccess,
     putRequestEdit
@@ -112,7 +113,7 @@ const EditRequest = (props) => {
         dispatch(createRequestInit());
         dispatch(fetchRequestEdit(props.match.params.id))
 
-    }, [dispatch]);
+    }, [dispatch,props.match.params.id]);
 
     return (
         <Container>
