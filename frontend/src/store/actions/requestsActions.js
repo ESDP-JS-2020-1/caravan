@@ -10,6 +10,14 @@ import {
     GET_REQUEST_SUCCESS, GET_REQUESTS_ERROR, GET_REQUESTS_REQUEST, GET_REQUESTS_SUCCESS
 } from "./actionsTypes";
 
+export const FETCH_REQUEST_REQUEST = 'FETCH_REQUEST_REQUEST';
+export const FETCH_REQUEST_SUCCESS = 'FETCH_REQUEST_SUCCESS';
+export const FETCH_REQUEST_FAILURE = 'FETCH_REQUEST_FAILURE';
+
+export const fetchRequest = ()=>({type:FETCH_REQUEST_REQUEST});
+export const fetchSuccess =data=>({type:FETCH_REQUEST_SUCCESS,data});
+export const fetchFailure =error=>({type:FETCH_REQUEST_FAILURE});
+
 export const createRequestInit = () => ({type: CREATE_REQUEST_INIT});
 export const createRequestSuccess = () => ({type: CREATE_REQUEST_SUCCESS});
 export const createRequestError = error => ({type: CREATE_REQUEST_ERROR, error});
@@ -58,4 +66,18 @@ export const createRequest = requestData => async dispatch => {
     } catch (e) {
         dispatch(createRequestError(e));
     }
+};
+
+export const fetchRequestEdit =id=>{
+  return async dispatch =>{
+      try {
+          dispatch(fetchRequest());
+          const response = await axiosApi.get('/requests/'+id);
+          dispatch(fetchSuccess(response.data))
+      }catch (e) {
+          dispatch(fetchFailure(e))
+      }
+
+
+  }
 };

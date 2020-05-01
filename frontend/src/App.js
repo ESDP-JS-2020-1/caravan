@@ -15,8 +15,10 @@ import EditProduct from "./containers/EditProduct/EditProduct";
 import Histories from "./containers/Histories/Histories";
 import AddNewRequest from "./containers/AddNewRequest/AddNewRequest";
 import RequestList from "./containers/RequestList/RequestList";
-import RequestEdit from "./containers/RequestEdit/RequestEdit";
 import RequestInfo from "./containers/RequestInfo/RequestInfo";
+
+
+import EditRequest from "./containers/EditRequest/EditRequest";
 
 
 
@@ -38,8 +40,11 @@ function App() {
                     <Route path="/history" exact component={Histories}/>
                     <Route path="/requests" exact component={RequestList}/>
                     <Route path="/requests/new" exact component={AddNewRequest}/>
-                    <Route path="/requests/edit/:id" exact component={RequestEdit}/>
+
                     <Route path="/requests/:id" exact component={RequestInfo}/>
+
+                    <Route path="/requests/edit/:id" exact component={EditRequest}/>
+
                 </Switch>
             </Container>
         </div>

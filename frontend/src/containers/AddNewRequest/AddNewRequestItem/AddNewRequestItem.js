@@ -53,7 +53,6 @@ const AddNewRequestItem = (
 										getOptionLabel={(option) => option.name}
 										style={{ width: '100%', marginBottom: '2%' }}
 										onChange={(e) => onAutoCompleteChange(e, index)}
-
 										renderInput={(params) =>
 											<TextField
 												{...params}

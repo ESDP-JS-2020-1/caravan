@@ -17,18 +17,32 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 router.get('/', auth, async (req, res) => {
-	try {
-		if(req.currentUser.role === 'market') {
-			const requests = await Request.find({user: req.currentUser._id}).populate('user');
+    try {
+        if (req.currentUser.role === 'market') {
+            const requests = await Request.find({user: req.currentUser._id}).populate('user');
 
-			return res.send(requests);
+            return res.send(requests);
+        }
+        const requests = await Request.find().populate('user');
+
+        return res.send(requests);
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
+router.get('/:id', auth, async (req, res) => {
+    try {
+
+        const requests = await Request.find({_id: req.params.id});
+        if (!requests){
+        	return res.status(404).send({message:'Not found'})
 		}
-		const requests = await Request.find().populate('user');
+        return res.send(requests);
 
-		return res.send(requests);
-	} catch (e) {
-		res.status(400).send(e);
-	}
+
+    } catch (e) {
+        res.status(400).send(e);
+    }
 });
 
 router.post('/', [auth, permit('market')], async (req, res) => {
@@ -43,10 +57,11 @@ router.post('/', [auth, permit('market')], async (req, res) => {
 
 		await Request.create(requests);
 
-		return res.send({message: 'success'});
-	} catch (e) {
-		res.status(400).send(e);
-	}
+
+        return res.send({message: 'success'});
+    } catch (e) {
+        res.status(400).send(e);
+    }
 });
 
 module.exports = router;

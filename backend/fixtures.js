@@ -25,7 +25,7 @@ const run = async () => {
         username: 'userOne',
         password: '12345',
         token: '1234',
-        displayName: 'Гриша',
+        displayName: 'Степан Бендера',
         role: 'admin',
         phone: '123'
     }, {
