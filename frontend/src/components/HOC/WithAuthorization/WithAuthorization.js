@@ -14,7 +14,7 @@ const WithAuthorization = (WrappedComponent, roles) => props => {
     component = <Login {...props}/>
   }
 
-  if(user.users.user && !user.users.user.role.includes(permissions) && permissions.length !== 0) {
+  if(user.users.user && !permissions.includes(user.users.user.role) && permissions.length !== 0) {
     component = <AccessDenied {...props}/>
   }
 
