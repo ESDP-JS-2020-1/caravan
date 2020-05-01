@@ -49,6 +49,7 @@ const EditProduct = WithAuthorization((props) => {
     const dispatch = useDispatch();
     const error = useSelector(state => state.products.error);
     const editProduct = useSelector(state => state.products.editProduct);
+    const [comment, setComment] = React.useState('');
 
     useEffect(() => {
         dispatch(getProductEdit(props.match.params.id));
@@ -56,6 +57,16 @@ const EditProduct = WithAuthorization((props) => {
 
     const fileChangeHandler = e => dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.files[0]}));
     const changeHandler = e => (dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.value})));
+    const changeCommentInput = e => {
+        setComment(e.target.value)
+    };
+
+    const removeProduct = async () => {
+        const remove = {
+            comment: comment
+        };
+        await dispatch(deleteProduct(props.match.params.id, remove))
+    };
 
     const onSubmit = e => {
         e.preventDefault();
@@ -64,6 +75,7 @@ const EditProduct = WithAuthorization((props) => {
         Object.keys(editProduct).forEach(key => {
             formData.append(key, editProduct[key])
         });
+        formData.append('comment', comment);
         dispatch(putEditProduct(props.match.params.id, formData))
     };
 
@@ -141,8 +153,7 @@ const EditProduct = WithAuthorization((props) => {
                 <FormElement
                     propertyName={'comment'}
                     title={'Комментарий'}
-                    onChange={changeHandler}
-
+                    onChange={changeCommentInput}
                 />
                 {error && <Box mb={1}>
                     <Alert severity="error">{error}</Alert>
@@ -159,7 +170,7 @@ const EditProduct = WithAuthorization((props) => {
                         <Button
                             variant="contained"
                             color="secondary"
-                            onClick={() => dispatch(deleteProduct(props.match.params.id))}
+                            onClick={removeProduct}
                             id='yes'
                         >да</Button>
                     </Grid>
@@ -169,7 +180,7 @@ const EditProduct = WithAuthorization((props) => {
                 <FormElement
                     propertyName={'comment'}
                     title={'Комментарий'}
-                    onChange={changeHandler}
+                    onChange={changeCommentInput}
                 />
                 {error && <Box mb={1}>
                     <Alert severity="error">{error}</Alert>

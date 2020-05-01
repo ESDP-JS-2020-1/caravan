@@ -110,12 +110,11 @@ export const putEditProduct = (id, data) => {
 
     }
 };
-export const deleteProduct = id => {
-
+export const deleteProduct = (id, comment) => {
     return async dispatch => {
         try {
             dispatch(deleteProductRequest());
-            await axiosApi.delete('/products/' + id);
+            await axiosApi.delete(`/products/${id}`, {data: comment});
             dispatch(deleteProductSuccess());
 
             notification.addNotification({
