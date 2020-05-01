@@ -49,14 +49,22 @@ router.post('/', [auth, permit('admin'), upload.single('image')], async (req, re
 
         const products = req.body;
 
-        await Product.insertMany(products);
+        let historyData = {title: req.currentUser.displayName +' добавил продукт ' + products.name, type:'add'};
 
+        if (products.comment){
+            historyData.comment = products.comment
+        }
+        const history = new History(historyData);
+        await history.save();
+
+        await Product.insertMany(products);
 
         return res.send({message: 'success'});
     } catch (e) {
         res.status(400).send(e);
     }
 });
+
 router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, res) => {
     const product = req.body;
     try {
