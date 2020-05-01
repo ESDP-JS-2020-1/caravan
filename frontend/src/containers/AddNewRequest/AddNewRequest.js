@@ -144,7 +144,6 @@ const AddNewRequest = () => {
                             ))}
 
                             <FormElement
-                                required
                                 id='comment'
                                 propertyName='comment'
                                 title='Комментарий'
