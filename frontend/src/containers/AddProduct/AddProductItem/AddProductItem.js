@@ -70,6 +70,15 @@ const AddProductItem = (
 									type='file'
 								/>
 							</Grid>
+							<Grid item style={{marginTop: '2%'}}>
+								<FormElement
+									id="comment"
+									propertyName='comment'
+									title='Причина добавления'
+									value={product[index].comment}
+									onChange={(e) => onChange(e, index)}
+								/>
+							</Grid>
 						</Box>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>
