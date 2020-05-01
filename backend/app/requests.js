@@ -35,8 +35,11 @@ router.post('/', [auth, permit('market')], async (req, res) => {
 	try {
 		const requests = {
 			user: req.currentUser,
-			products: req.body
+			products: req.body.products,
+			comment: req.body.comment
 		};
+
+		console.log(requests);
 
 		await Request.create(requests);
 

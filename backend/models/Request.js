@@ -20,6 +20,7 @@ const RequestSchema = new Schema({
 			}
 		}
 	],
+	comment: String,
 	date: {
 		type: Date,
 		default: Date.now

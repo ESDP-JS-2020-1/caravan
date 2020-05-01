@@ -85,6 +85,16 @@ const Navigation = () => {
                     </List>
                 </NavLink>
             )}
+            {user && user.role === 'market' && (
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon>{<CreateNewFolderSharpIcon/>}</ListItemIcon>
+                            <ListItemText>Создать заявку</ListItemText>
+                        </ListItem>
+                    </List>
+                </NavLink>
+            )}
             <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">
                 <List>
                     <ListItem button>
@@ -103,16 +113,6 @@ const Navigation = () => {
                     </List>
                 </NavLink>
             )}
-            {user && user.role === 'admin' && (
-                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>{<HistoryIcon/>}</ListItemIcon>
-                            <ListItemText>История</ListItemText>
-                        </ListItem>
-                    </List>
-                </NavLink>
-            )}
             <NavLink style={{textDecoration: 'none', color: 'black'}} to="/products">
                 <List>
                     <ListItem button>
@@ -121,12 +121,12 @@ const Navigation = () => {
                     </ListItem>
                 </List>
             </NavLink>
-            {user && user.role === 'market' && (
-                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">
+            {user && user.role === 'admin' && (
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">
                     <List>
                         <ListItem button>
-                            <ListItemIcon>{<CreateNewFolderSharpIcon/>}</ListItemIcon>
-                            <ListItemText>Создать заявку</ListItemText>
+                            <ListItemIcon>{<HistoryIcon/>}</ListItemIcon>
+                            <ListItemText>История</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>

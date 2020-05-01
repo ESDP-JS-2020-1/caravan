@@ -9,165 +9,176 @@ import {useDispatch} from "react-redux";
 import {createRequest, createRequestInit} from "../../store/actions/requestsActions";
 import AddNewRequestItem from "./AddNewRequestItem/AddNewRequestItem";
 import {NavLink} from "react-router-dom";
+import FormElement from "../../components/UI/Form/FormElement";
 
 const useStyles = makeStyles((theme) => ({
-	heading: {
-		fontSize: theme.typography.pxToRem(15),
-		fontWeight: theme.typography.fontWeightRegular,
-	},
-	formBtn: {
-		marginTop: '1%',
-		display: 'flex',
-		justifyContent: 'space-between',
-		textAlign: 'center',
-	},
-	formButton: {
-		fontWeight: 'bold',
-		width: '49%',
-		minHeight: '50px'
-	},
-	typography: {
-		color: '#0d47a1',
-		textAlign: 'center',
-	},
-	typographyText: {
-		borderBottom: '2px solid #0d47a1',
-		textTransform: 'uppercase',
-		fontWeight: 'bold',
-		marginBottom: '3%',
-	},
-	linkBtn: {
-		color: '#0d47a1',
-		background: 'transparent'
-	}
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+    },
+    formBtn: {
+        marginTop: '1%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        textAlign: 'center',
+    },
+    formButton: {
+        fontWeight: 'bold',
+        width: '49%',
+        minHeight: '50px'
+    },
+    typography: {
+        color: '#0d47a1',
+        textAlign: 'center',
+    },
+    typographyText: {
+        borderBottom: '2px solid #0d47a1',
+        textTransform: 'uppercase',
+        fontWeight: 'bold',
+        marginBottom: '3%',
+    },
+    linkBtn: {
+        color: '#0d47a1',
+        background: 'transparent'
+    }
 }));
 
 const AddNewRequest = () => {
-	const classes = useStyles();
+    const classes = useStyles();
 
-	const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-	const [request, setRequest] = useState([{
-		title: '',
-		amount: '',
-	}]);
+    const [request, setRequest] = useState({
+        products: [{
+            title: '',
+            amount: '',
+        }],
+        comment: ''
+    });
 
-	const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = React.useState(false);
 
-	const inputChangeHandler = (e, i) => {
-		let newRequest = [...request];
-		newRequest[i][e.target.name] = e.target.value;
+    const inputChangeHandler = (e, i) => {
+        let newRequest = {...request};
+        newRequest.products[i][e.target.name] = e.target.value;
 
-		setRequest(newRequest);
+        setRequest(newRequest);
 
-	};
+    };
 
-	const autoCompleteChangeHandler = (e, i) => {
-		let newRequest = [...request];
-		newRequest[i]['title'] = e.target.innerHTML;
+    const autoCompleteChangeHandler = (e, i) => {
+        let newRequest = {...request};
+        newRequest.products[i].title = e.target.innerHTML;
 
-		setRequest(newRequest);
-	};
+        setRequest(newRequest);
+    };
 
-	const handleChange = (panel) => (event, isExpanded) => {
-		setExpanded(isExpanded ? panel : false);
-	};
+    const handleChange = (panel) => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
 
-	const addRequest = (e) => {
-		e.preventDefault();
+    const commentChange = e => setRequest({...request, comment: e.target.value});
 
-		const newRequest = request[0] ? [...request, {
-			title: '',
-			amount: '',
-		}] : [{
-			title: '',
-			amount: '',
-		}];
+    const addRequest = (e) => {
+        e.preventDefault();
 
-		setRequest(newRequest)
-	};
+        const newRequest = {...request};
 
-	const removeRequest = id => {
-		const requests = [...request];
-		requests.splice(id, 1);
+        newRequest.products = request.products[0] ? [...request.products, {title: '', amount: ''}] : [{title: '', amount: ''}];
 
-		setRequest(requests);
-	};
+        setRequest(newRequest)
+    };
 
-	const submitFormHandler = async e => {
-		e.preventDefault();
+    const removeRequest = id => {
+        const requests = {...request};
+        requests.products.splice(id, 1);
 
-		dispatch(createRequest(request));
-	};
+        setRequest(requests);
+    };
 
-	useEffect(() => {
-		dispatch(createRequestInit())
-	}, [dispatch]);
+    const submitFormHandler = async e => {
+        e.preventDefault();
 
-	return (
-		<Container>
-			<Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
-				<Box component="div" p={5} style={{textAlign: 'center'}}>
-					<Button
-						className={classes.linkBtn}
-						variant="contained"
-						component={NavLink}
-						to='/products'
-					>
-						Доступный товар
-					</Button>
-				</Box>
-				<Box component="div" boxShadow={10} p={5}>
-					<Box className={classes.typography} component={'span'}>
-						<Typography className={classes.typographyText} variant="h6" gutterBottom>
-							Создать заявку
-						</Typography>
-					</Box>
-					<form onSubmit={submitFormHandler}>
-						<Grid container direction='column' spacing={1}>
+        dispatch(createRequest(request));
+    };
 
-							{request.map((r, i) => (
-								<AddNewRequestItem
-									key={i}
-									request={request}
-									expanded={expanded}
-									classes={classes}
-									onChange={inputChangeHandler}
-									onAutoCompleteChange={autoCompleteChangeHandler}
-									handleChange={handleChange}
-									onRemove={removeRequest}
-									index={i}
-									r={r}
-								/>
-							))}
+    useEffect(() => {
+        dispatch(createRequestInit())
+    }, [dispatch]);
 
-							<Grid item>
-								<Box className={classes.formBtn} component="span">
-									<Button
-										onClick={addRequest}
-										className={classes.formButton}
-										variant='contained'
-										color='primary'
-									>
-										Добавить
-									</Button>
-									<Button
-										className={classes.formButton}
-										variant='contained'
-										color='primary'
-										type='submit'
-										disabled={!request[0]}
-									>
-										Создать заявку
-									</Button>
-								</Box>
-							</Grid>
-						</Grid>
-					</form>
-				</Box>
-			</Grid>
-		</Container>
-	);
+    return (
+        <Container>
+            <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
+                <Box component="div" p={5} style={{textAlign: 'center'}}>
+                    <Button
+                        className={classes.linkBtn}
+                        variant="contained"
+                        component={NavLink}
+                        to='/products'
+                    >
+                        Доступный товар
+                    </Button>
+                </Box>
+                <Box component="div" boxShadow={10} p={5}>
+                    <Box className={classes.typography} component={'span'}>
+                        <Typography className={classes.typographyText} variant="h6" gutterBottom>
+                            Создать заявку
+                        </Typography>
+                    </Box>
+                    <form onSubmit={submitFormHandler}>
+                        <Grid container direction='column' spacing={1}>
+
+                            {request.products.map((r, i) => (
+                                <AddNewRequestItem
+                                    key={i}
+                                    request={request.products}
+                                    expanded={expanded}
+                                    classes={classes}
+                                    onChange={inputChangeHandler}
+                                    onAutoCompleteChange={autoCompleteChangeHandler}
+                                    handleChange={handleChange}
+                                    onRemove={removeRequest}
+                                    index={i}
+                                    r={r}
+                                />
+                            ))}
+
+                            <FormElement
+                                required
+                                id='comment'
+                                propertyName='comment'
+                                title='Комментарий'
+                                value={request.comment}
+                                onChange={commentChange}
+                            />
+
+                            <Grid item>
+                                <Box className={classes.formBtn} component="span">
+                                    <Button
+                                        onClick={addRequest}
+                                        className={classes.formButton}
+                                        variant='contained'
+                                        color='primary'
+                                    >
+                                        Добавить
+                                    </Button>
+                                    <Button
+                                        className={classes.formButton}
+                                        variant='contained'
+                                        color='primary'
+                                        type='submit'
+                                        disabled={!request.products[0]}
+                                    >
+                                        Создать заявку
+                                    </Button>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </form>
+                </Box>
+            </Grid>
+        </Container>
+    );
 };
 
 export default AddNewRequest;
