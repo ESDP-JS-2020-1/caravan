@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Paper from "@material-ui/core/Paper";
+import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles({
     flex: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
     }
 });
 
-const RequestInfo = props => {
+const RequestInfo = WithAuthorization(props => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -46,6 +47,6 @@ const RequestInfo = props => {
             ))}
         </div>
     );
-};
+});
 
 export default RequestInfo;

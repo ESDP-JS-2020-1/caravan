@@ -25,8 +25,9 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
+import WithAuthorization from "../HOC/WithAuthorization/WithAuthorization";
 
-const UsersList = props => {
+const UsersList = WithAuthorization(props => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -51,11 +52,11 @@ const UsersList = props => {
     <Box mt={2}>
       <Grid container justify='flex-end'>
         <Button
-            variant='contained'
-            color='primary'
-            component={NavLink}
-            to='/users/new'
-            endIcon={<PersonAddIcon />}
+          variant='contained'
+          color='primary'
+          component={NavLink}
+          to='/users/new'
+          endIcon={<PersonAddIcon />}
         >
           Добавить пользователя
         </Button>
@@ -93,11 +94,11 @@ const UsersList = props => {
                   </TableCell>
                 </TableRow>
                 <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
                 >
                   <List component="nav" aria-label="main mailbox folders" style={{padding: '0'}}>
                     <div>
@@ -107,17 +108,17 @@ const UsersList = props => {
                       <Divider />
                     </div>
                     {roles.map((e, i) => (
-                        <div key={i}>
-                          <ListItem onClick={handleClose} component={NavLink} to={'/users/'+e} button>
-                            {e}
-                            <ListItemIcon style={{marginLeft: '10px'}}>
-                              {e === 'operator' && <ContactPhoneIcon />}
-                              {e === 'admin' && <AccountBoxIcon />}
-                              {e === 'courier' && <LocalShippingIcon />}
-                              {e === 'market' && <ShoppingCartIcon />}
-                            </ListItemIcon>
-                          </ListItem>
-                        </div>
+                      <div key={i}>
+                        <ListItem onClick={handleClose} component={NavLink} to={'/users/'+e} button>
+                          {e}
+                          <ListItemIcon style={{marginLeft: '10px'}}>
+                            {e === 'operator' && <ContactPhoneIcon />}
+                            {e === 'admin' && <AccountBoxIcon />}
+                            {e === 'courier' && <LocalShippingIcon />}
+                            {e === 'market' && <ShoppingCartIcon />}
+                          </ListItemIcon>
+                        </ListItem>
+                      </div>
                     ))}
                   </List>
                 </Menu>
@@ -126,21 +127,21 @@ const UsersList = props => {
                 {users && users.map(user => {
                   const edit = currentUser.username !== user.username ? 'edit' : null;
                   return (
-                      <UserListItem
-                          key={user._id}
-                          id={user._id}
-                          edit={edit}
-                          displayName={user.displayName}
-                          username={user.username}
-                          phone={user.phone}
-                          companyName={user.companyName}
-                          address={user.address}
-                          carName={user.carName}
-                          carVolume={user.carVolume}
-                          carRefrigerator={user.carRefrigerator}
-                          role={user.role}
-                          paramsRole={props.match.params.id}
-                      />
+                    <UserListItem
+                      key={user._id}
+                      id={user._id}
+                      edit={edit}
+                      displayName={user.displayName}
+                      username={user.username}
+                      phone={user.phone}
+                      companyName={user.companyName}
+                      address={user.address}
+                      carName={user.carName}
+                      carVolume={user.carVolume}
+                      carRefrigerator={user.carRefrigerator}
+                      role={user.role}
+                      paramsRole={props.match.params.id}
+                    />
                   )
                 })}
               </TableBody>
@@ -150,6 +151,6 @@ const UsersList = props => {
       </Grid>
     </Box>
   );
-};
+}, 'admin');
 
 export default UsersList;

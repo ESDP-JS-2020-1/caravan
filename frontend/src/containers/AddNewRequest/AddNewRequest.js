@@ -10,6 +10,7 @@ import {createRequest, createRequestInit} from "../../store/actions/requestsActi
 import AddNewRequestItem from "./AddNewRequestItem/AddNewRequestItem";
 import {NavLink} from "react-router-dom";
 import FormElement from "../../components/UI/Form/FormElement";
+import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AddNewRequest = () => {
+const AddNewRequest = WithAuthorization(() => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -179,6 +180,6 @@ const AddNewRequest = () => {
             </Grid>
         </Container>
     );
-};
+});
 
 export default AddNewRequest;
