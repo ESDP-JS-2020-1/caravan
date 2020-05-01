@@ -3,27 +3,21 @@ import config from '../../config';
 import {push} from 'connected-react-router';
 
 import axiosApi from "../../axiosAPI";
-
-export const CREATE_PRODUCT_INIT = 'CREATE_PRODUCT_INIT';
-export const CREATE_PRODUCT_REQUEST = 'CREATE_PRODUCT_REQUEST';
-export const CREATE_PRODUCT_SUCCESS = 'CREATE_PRODUCT_SUCCESS';
-export const CREATE_PRODUCT_ERROR = 'CREATE_PRODUCT_ERROR';
-
-export const GET_PRODUCTS_REQUEST = 'GET_PRODUCTS_REQUEST';
-export const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS';
-export const GET_PRODUCTS_ERROR = 'GET_PRODUCTS_ERROR';
-
-export const GET_PRODUCT_REQUEST = 'GET_PRODUCT_REQUEST';
-export const GET_PRODUCT_SUCCESS = 'GET_PRODUCT_SUCCESS';
-export const GET_PRODUCT_FAILURE = 'GET_PRODUCT_FAILURE';
-
-export const EDIT_PRODUCT_REQUEST = 'EDIT_PRODUCT_REQUEST';
-export const EDIT_PRODUCT_SUCCESS = 'EDIT_PRODUCT_SUCCESS';
-export const EDIT_PRODUCT_FAILURE = 'EDIT_PRODUCT_FAILURE';
-
-export const DELETE_PRODUCT_REQUEST = 'DELETE_PRODUCT_REQUEST';
-export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
-export const DELETE_PRODUCT_FAILURE = 'DELETE_PRODUCT_FAILURE';
+import {
+    CREATE_PRODUCT_ERROR, CREATE_PRODUCT_INIT,
+    CREATE_PRODUCT_REQUEST,
+    CREATE_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_FAILURE,
+    DELETE_PRODUCT_REQUEST,
+    DELETE_PRODUCT_SUCCESS,
+    EDIT_PRODUCT_FAILURE,
+    EDIT_PRODUCT_REQUEST,
+    EDIT_PRODUCT_SUCCESS,
+    GET_PRODUCT_FAILURE,
+    GET_PRODUCT_REQUEST,
+    GET_PRODUCT_SUCCESS, GET_PRODUCTS_ERROR,
+    GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS
+} from "./actionsTypes";
 
 export const deleteProductRequest = () => ({type: DELETE_PRODUCT_REQUEST});
 export const deleteProductSuccess = () => ({type: DELETE_PRODUCT_SUCCESS});
@@ -44,7 +38,6 @@ export const createProductError = error => ({type: CREATE_PRODUCT_ERROR, error})
 export const getProductsRequest = () => ({type: GET_PRODUCTS_REQUEST});
 export const getProductsSuccess = products => ({type: GET_PRODUCTS_SUCCESS, products});
 export const getProductsError = error => ({type: GET_PRODUCTS_ERROR, error});
-
 
 export const createProductInit = () => ({type: CREATE_PRODUCT_INIT});
 
