@@ -9,8 +9,9 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import RequestListItem from "./RequestListItem";
+import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
-const RequestList = () => {
+const RequestList = WithAuthorization(() => {
     const dispatch = useDispatch();
     const requests = useSelector(state => state.requests.list);
     const user = useSelector(state => state.users.user);
@@ -47,6 +48,6 @@ const RequestList = () => {
             </TableContainer>
         </div>
     );
-};
+});
 
 export default RequestList;

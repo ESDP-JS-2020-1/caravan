@@ -12,6 +12,7 @@ import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
         width: '100%',
     }
 });
-const AddUser = () => {
+const AddUser = WithAuthorization(() => {
     const classes = useStyles();
 
     const [user, setUser] = useState({
@@ -231,6 +232,6 @@ const AddUser = () => {
             </Grid>
         </Container>
     );
-};
+}, 'admin');
 
 export default AddUser;

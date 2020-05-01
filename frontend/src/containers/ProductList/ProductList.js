@@ -12,6 +12,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import {makeStyles} from "@material-ui/core/styles";
+import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles(() => ({
     offPadding: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles(() => ({
     paddingLeft: {padding: '10px 0px 10px 20px'}
 }));
 
-const ProductList = () => {
+const ProductList = WithAuthorization(() => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.productsList);
@@ -69,6 +70,6 @@ const ProductList = () => {
             </Grid>
         </>
     );
-};
+}, 'admin');
 
 export default ProductList;

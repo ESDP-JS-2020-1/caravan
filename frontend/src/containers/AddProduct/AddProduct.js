@@ -9,6 +9,7 @@ import AddProductItem from "./AddProductItem/AddProductItem";
 import {useDispatch, useSelector} from "react-redux";
 import {addNewProduct, createProductInit} from "../../store/actions/productsActions";
 import Alert from "@material-ui/lab/Alert";
+import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -41,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AddProduct = () => {
+const AddProduct = WithAuthorization(() => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -166,6 +167,6 @@ const AddProduct = () => {
             </Grid>
         </Container>
     );
-};
+}, 'admin');
 
 export default AddProduct;

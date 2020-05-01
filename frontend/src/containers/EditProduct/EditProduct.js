@@ -10,6 +10,7 @@ import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
+import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const EditProduct = (props) => {
+const EditProduct = WithAuthorization((props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const error = useSelector(state => state.products.error);
@@ -193,6 +194,6 @@ const EditProduct = (props) => {
             </Modal>
         </Container>
     );
-};
+}, 'admin');
 
 export default EditProduct;
