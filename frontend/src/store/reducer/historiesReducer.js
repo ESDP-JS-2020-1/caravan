@@ -1,4 +1,4 @@
-import {GET_HISTORIES_SUCCESS} from "../actions/HistoriesActions";
+import {GET_HISTORIES_SUCCESS} from "../actions/actionsTypes";
 
 const initialState = {
     historiesList: [],

@@ -4,7 +4,7 @@ import {
 	GET_REQUESTS_ERROR,
 	GET_REQUESTS_REQUEST,
 	GET_REQUESTS_SUCCESS
-} from "../actions/requestsActions";
+} from "../actions/actionsTypes";
 
 const initialState = {
 	loading: null,

@@ -8,7 +8,7 @@ import {
   GET_PRODUCTS_ERROR,
   GET_PRODUCTS_REQUEST,
   GET_PRODUCTS_SUCCESS
-} from "../actions/productsActions";
+} from "../actions/actionsTypes";
 
 const initialState = {
   productsList: [],
