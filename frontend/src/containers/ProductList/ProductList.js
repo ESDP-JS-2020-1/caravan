@@ -84,6 +84,6 @@ const ProductList = WithAuthorization(() => {
             </Grid>
         </>
     );
-}, 'admin');
+});
 
 export default ProductList;
