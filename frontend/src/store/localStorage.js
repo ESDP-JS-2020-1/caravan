@@ -1,4 +1,4 @@
-import {LOGIN_USER_SUCCESS, LOGOUT_USER} from "./actions/usersActions";
+import {LOGIN_USER_SUCCESS, LOGOUT_USER} from "./actions/actionsTypes";
 
 export const saveToLocalStorage = state => {
     try {
