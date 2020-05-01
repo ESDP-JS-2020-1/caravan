@@ -5,9 +5,18 @@ import config from "../../config";
 import {
     CREATE_REQUEST_ERROR,
     CREATE_REQUEST_INIT,
-    CREATE_REQUEST_SUCCESS, FETCH_REQUEST_FAILURE, FETCH_REQUEST_REQUEST, FETCH_REQUEST_SUCCESS, GET_REQUEST_ERROR,
+    CREATE_REQUEST_SUCCESS,
+    FETCH_REQUEST_FAILURE,
+    FETCH_REQUEST_REQUEST,
+    FETCH_REQUEST_SUCCESS,
+    GET_REQUEST_ERROR,
     GET_REQUEST_REQUEST,
-    GET_REQUEST_SUCCESS, GET_REQUESTS_ERROR, GET_REQUESTS_REQUEST, GET_REQUESTS_SUCCESS
+    GET_REQUEST_SUCCESS,
+    GET_REQUESTS_ERROR,
+    GET_REQUESTS_REQUEST,
+    GET_REQUESTS_SUCCESS, PUT_REQUEST_FAILURE,
+    PUT_REQUEST_REQUEST,
+    PUT_REQUEST_SUCCESS
 } from "./actionsTypes";
 
 
@@ -15,6 +24,10 @@ import {
 export const fetchRequest = ()=>({type:FETCH_REQUEST_REQUEST});
 export const fetchSuccess =data=>({type:FETCH_REQUEST_SUCCESS,data});
 export const fetchFailure =error=>({type:FETCH_REQUEST_FAILURE});
+
+export const putRequest = ()=>({type:PUT_REQUEST_REQUEST});
+export const putSuccess =()=>({type:PUT_REQUEST_SUCCESS});
+export const putFailure =error=>({type:PUT_REQUEST_FAILURE});
 
 export const createRequestInit = () => ({type: CREATE_REQUEST_INIT});
 export const createRequestSuccess = () => ({type: CREATE_REQUEST_SUCCESS});
@@ -78,4 +91,40 @@ export const fetchRequestEdit =id=>{
 
 
   }
+};
+export const putRequestEdit =(id,data)=>{
+    return async dispatch =>{
+        try {
+            dispatch(putRequest());
+             await axiosApi.put('/requests/'+id,data);
+            dispatch(putSuccess());
+            dispatch(push('/'));
+            notification.addNotification({
+                title: 'Отредактированно',
+                message: `Заявка успешно отредактирована`,
+                ...config.notification
+            });
+        }catch (e) {
+            dispatch(putFailure(e))
+        }
+
+    }
+};
+export const deleteRequestEdit =(id,data)=>{
+    return async dispatch =>{
+        try {
+            dispatch(putRequest());
+            await axiosApi.delete('/requests/'+id,{data});
+            dispatch(putSuccess());
+            dispatch(push('/'));
+            notification.addNotification({
+                title: 'Удален',
+                message: `Заявка успешно удален`,
+                ...config.notification
+            });
+        }catch (e) {
+            dispatch(putFailure(e))
+        }
+
+    }
 };

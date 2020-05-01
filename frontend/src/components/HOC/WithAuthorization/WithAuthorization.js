@@ -3,9 +3,9 @@ import Login from "../../../containers/Login/Login";
 import AccessDenied from "../../AccessDenied/AccessDenied";
 
 const WithAuthorization = (WrappedComponent, roles) => props => {
-  console.log(typeof roles);
-  const permissions = roles ? roles.split(' ') : []
-  console.log(permissions);
+
+  const permissions = roles ? roles.split(' ') : [];
+
   const user = JSON.parse(localStorage.getItem('state'));
 
   let component = <WrappedComponent {...props}/>;

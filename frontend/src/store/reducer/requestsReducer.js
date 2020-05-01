@@ -11,7 +11,7 @@ import {
 
 	GET_REQUESTS_ERROR,
 	GET_REQUESTS_REQUEST,
-	GET_REQUESTS_SUCCESS
+	GET_REQUESTS_SUCCESS, PUT_REQUEST_FAILURE, PUT_REQUEST_REQUEST, PUT_REQUEST_SUCCESS
 } from "../actions/actionsTypes";
 
 const initialState = {
@@ -50,6 +50,12 @@ const requestsReducer = (state = initialState, action) => {
 			return {...state,loading: false,oneRequest: action.data};
 		case FETCH_REQUEST_FAILURE:
 			return {...state,loading: false,error: action.error};
+		case PUT_REQUEST_REQUEST:
+			return {...state,loading: true};
+		case PUT_REQUEST_SUCCESS:
+			return {...state,loading: false};
+		case PUT_REQUEST_FAILURE:
+			return {...state,loading: false, error: action.error};
 		default:
 			return state;
 	}
