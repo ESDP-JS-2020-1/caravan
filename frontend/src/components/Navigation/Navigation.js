@@ -95,6 +95,16 @@ const Navigation = () => {
                     </List>
                 </NavLink>
             )}
+            {user && user.role === 'admin' && (
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon>{<CreateNewFolderSharpIcon/>}</ListItemIcon>
+                            <ListItemText>Создать заявку</ListItemText>
+                        </ListItem>
+                    </List>
+                </NavLink>
+            )}
             <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">
                 <List>
                     <ListItem button>
