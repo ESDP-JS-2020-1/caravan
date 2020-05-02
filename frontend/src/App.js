@@ -17,6 +17,7 @@ import AddNewRequest from "./containers/AddNewRequest/AddNewRequest";
 import RequestList from "./containers/RequestList/RequestList";
 import RequestInfo from "./containers/RequestInfo/RequestInfo";
 import EditRequest from "./containers/EditRequest/EditRequest";
+import UserInfo from "./containers/UserInfo/UserInfo";
 
 
 
@@ -29,6 +30,7 @@ function App() {
                 <Switch>
                     <Route path="/login" exact component={Login}/>
                     <Route path="/users" exact component={UsersList}/>
+                    <Route path="/user/:id" exact component={UserInfo}/>
                     <Route path="/users/new" exact component={AddUser}/>
                     <Route path="/users/edit/:id" exact component={EditUser}/>
                     <Route path="/users/:id" exact component={UsersList}/>

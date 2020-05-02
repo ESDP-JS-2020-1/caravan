@@ -108,6 +108,7 @@ const UsersList = WithAuthorization(props => {
                     <TableCell><b>Объем машины</b></TableCell>
                     <TableCell><b>Наличие холодильника</b></TableCell>
                   </>}
+                  <TableCell > </TableCell>
                   <TableCell>{
                     <IconButton onClick={handleClick}><MenuIcon/></IconButton>}
                   </TableCell>
