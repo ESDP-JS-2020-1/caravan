@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -26,6 +26,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import WithAuthorization from "../HOC/WithAuthorization/WithAuthorization";
+import FormElement from "../UI/Form/FormElement";
 
 const UsersList = WithAuthorization(props => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -48,6 +49,12 @@ const UsersList = WithAuthorization(props => {
 
   const roles = ['admin', 'operator', 'courier', 'market'];
 
+  const [search, setSearch] = useState({search: ''});
+
+  const changeSearch = e => setSearch({search: e.target.value});
+
+  const productList = users && users.filter(word => word.displayName.search(search.search) !== -1);
+
   return (
     <Box mt={2}>
       <Grid container justify='flex-end'>
@@ -60,6 +67,15 @@ const UsersList = WithAuthorization(props => {
         >
           Добавить пользователя
         </Button>
+      </Grid>
+      <Grid item>
+        <FormElement
+            propertyName="search"
+            title="Поиск пользователей"
+            value={search.search}
+            onChange={changeSearch}
+            type="text"
+        />
       </Grid>
       <Grid container item>
         <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop: '10px'}}>
@@ -124,7 +140,7 @@ const UsersList = WithAuthorization(props => {
                 </Menu>
               </TableHead>
               <TableBody>
-                {users && users.map(user => {
+                {users && productList.map(user => {
                   const edit = currentUser.username !== user.username ? 'edit' : null;
                   return (
                     <UserListItem
