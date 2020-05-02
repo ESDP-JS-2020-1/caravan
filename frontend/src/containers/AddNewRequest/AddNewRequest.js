@@ -179,6 +179,6 @@ const AddNewRequest = WithAuthorization(() => {
             </Grid>
         </Container>
     );
-});
+}, 'market admin');
 
 export default AddNewRequest;
