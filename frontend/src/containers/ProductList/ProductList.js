@@ -34,7 +34,10 @@ const ProductList = WithAuthorization(() => {
 
     const [search, setSearch] = useState({search: ''});
 
-    const changeSearch = e => setSearch({search: e.target.value});
+    const changeSearch = e => {
+        if(e.target.value[e.target.value.length - 1] === '\\') return setSearch({search: ''});
+        setSearch({search: e.target.value});
+    };
 
     const productList = products.filter(word => word.name.search(search.search) !== -1);
 
