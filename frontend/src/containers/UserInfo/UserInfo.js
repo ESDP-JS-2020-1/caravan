@@ -47,6 +47,8 @@ const UserInfo = props => {
                 </Box>
                 {console.log(userInfo)}
                     {userInfo && <>
+                        <Typography className={classes.padding} variant='h5'> <b>Роль </b>{userInfo.role}</Typography>
+
                         <Typography className={classes.padding} variant='h5'> <b>Пользователь </b>{userInfo.displayName}</Typography>
 
                         <Typography className={classes.padding} variant='h5'><b>Телефон </b>{userInfo.phone}</Typography>
