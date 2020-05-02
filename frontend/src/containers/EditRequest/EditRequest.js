@@ -188,7 +188,7 @@ const openAndClosed = ()=>(setOpen(!open));
                                 <Button
                                     className={classes.formButton}
                                     variant='contained'
-                                    color='primary'
+                                    color='secondary'
                                     onClick={openAndClosed}
                                 >
                                     удалить заявку
