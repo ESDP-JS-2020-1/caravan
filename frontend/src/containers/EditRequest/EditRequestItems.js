@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -13,6 +13,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import {getProductsList} from "../../store/actions/productsActions";
 import Chip from "@material-ui/core/Chip";
+
 
 
 const EditRequestItems = (
@@ -47,7 +48,7 @@ const EditRequestItems = (
                             {products && (
                                 <Grid item>
                                     <Autocomplete
-                                        id="free-solo-demo"
+                                        id={'free-solo-demo' + index}
                                         value={request.products[index].title}
                                         options={products.map((option) => option.name)}
                                         freeSolo
@@ -59,7 +60,7 @@ const EditRequestItems = (
                                                 required
                                                 label="Название"
                                                 variant="outlined"
-                                                id='title'
+                                                id={'title'+index}
                                                 name='title'
                                                 title='Название'
                                             />
@@ -71,9 +72,9 @@ const EditRequestItems = (
                             <Grid item>
                                 <FormElement
                                     required
-                                    id='amount'
+                                    id={'amount'+index}
                                     propertyName='amount'
-                                    title='Количество'
+                                    title='Кол-во'
                                     value={request.products[index].amount}
                                     onChange={(e) => onChange(e, index)}
                                 />
@@ -87,6 +88,7 @@ const EditRequestItems = (
                     <DeleteIcon fontSize="large"/>
                 </IconButton>
             </Grid>
+
         </Grid>
     );
 };

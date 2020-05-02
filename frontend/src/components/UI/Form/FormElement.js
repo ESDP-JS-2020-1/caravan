@@ -31,7 +31,8 @@ const FormElement = props => {
         variant="outlined"
         error={!!props.error}
         type={props.type}
-        name={props.propertyName} id={props.propertyName}
+        name={props.propertyName}
+        id={props.id}
         value={props.value}
         onChange={props.onChange}
         required={props.required}

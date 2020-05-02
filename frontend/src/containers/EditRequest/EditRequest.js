@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core/styles";
 import {useDispatch, useSelector} from "react-redux";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {
     createRequestInit,
     deleteRequestEdit,
@@ -16,6 +16,8 @@ import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 import EditRequestItems from "./EditRequestItems";
 import FormElement from "../../components/UI/Form/FormElement";
+import Modal from "../../components/UI/Modal/Modal";
+import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const EditRequest = (props) => {
+const EditRequest = WithAuthorization ((props) => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -59,6 +61,8 @@ const EditRequest = (props) => {
 
 
     const [expanded, setExpanded] = React.useState(false);
+    const [open, setOpen] = useState(false);
+
 
     const inputChangeHandler = (e, i) => {
         let newRequest = [...editRequest.products];
@@ -96,7 +100,7 @@ const EditRequest = (props) => {
 
         dispatch(fetchSuccess(newRequest))
     };
-
+const openAndClosed = ()=>(setOpen(!open));
     const removeRequest = id => {
         const requests = {...editRequest};
         requests.products.splice(id, 1);
@@ -113,7 +117,7 @@ const EditRequest = (props) => {
         dispatch(createRequestInit());
         dispatch(fetchRequestEdit(props.match.params.id))
 
-    }, [dispatch,props.match.params.id]);
+    }, [dispatch, props.match.params.id]);
 
     return (
         <Container>
@@ -185,17 +189,43 @@ const EditRequest = (props) => {
                                     className={classes.formButton}
                                     variant='contained'
                                     color='primary'
-                                    onClick={()=>dispatch(deleteRequestEdit(props.match.params.id,editRequest))}
+                                    onClick={openAndClosed}
                                 >
                                     удалить заявку
                                 </Button>
                             </Grid>
+                            <Modal
+                                open={open}
+                                onClose={openAndClosed}
+
+                            >
+                                <Grid container justify="flex-end" spacing={1}>
+                                    <Grid item>
+                                        <Button
+                                            variant='contained'
+                                            color='secondary'
+                                            onClick={() => dispatch(deleteRequestEdit(props.match.params.id, editRequest))}
+                                        >
+                                            Да
+                                        </Button>
+                                    </Grid>
+                                    <Grid item>
+                                        <Button
+                                            variant='contained'
+                                            color='primary'
+                                            onClick={openAndClosed}
+                                        >
+                                            Нет
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            </Modal>
                         </Grid>
                     </form>
                 </Box>
             </Grid>
         </Container>
     );
-};
+}, 'admin');
 
 export default EditRequest;
