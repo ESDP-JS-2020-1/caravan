@@ -45,7 +45,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-router.post('/', [auth, permit('market')], async (req, res) => {
+router.post('/', [auth, permit('market', 'admin')], async (req, res) => {
 	try {
 		const requests = {
 			user: req.currentUser,
