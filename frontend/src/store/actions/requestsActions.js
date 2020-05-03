@@ -119,7 +119,7 @@ export const deleteRequestEdit =(id,data)=>{
             dispatch(push('/'));
             notification.addNotification({
                 title: 'Удален',
-                message: `Заявка успешно удален`,
+                message: `Заявка успешно удалена`,
                 ...config.notification
             });
         }catch (e) {

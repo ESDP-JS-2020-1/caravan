@@ -294,18 +294,18 @@ Given('я зарегистрирован как администратор:', ta
   });
 
   I.click("Login", '#btn');
-  I.wait(3)
   I.waitForText('Вы успешно вошли, как Some market');
 
 });
 
+When('нахожусь на странице списка заявок', () => {
+  I.amOnPage('/requests');
+});
 
+When('заполняю поля формы:', (table) => {
+  const tableData = table.parse().rawData;
 
-
-
-
-
-
-
-
-
+  tableData.forEach(row => {
+    I.fillField(row[0], row[1]);
+  });
+});

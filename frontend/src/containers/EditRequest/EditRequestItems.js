@@ -36,6 +36,7 @@ const EditRequestItems = (
                         expandIcon={<ExpandMoreIcon/>}
                         aria-controls="panel1a-content"
                         id={`panel${index}bh-header`}
+                        aria-label={'check'}
                     >
                         <Box className={classes.heading}>
                             <Chip label={'Название: '+r.title} variant="outlined" />
@@ -77,6 +78,7 @@ const EditRequestItems = (
                                     title='Кол-во'
                                     value={request.products[index].amount}
                                     onChange={(e) => onChange(e, index)}
+
                                 />
                             </Grid>
                         </Box>

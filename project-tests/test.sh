@@ -19,7 +19,7 @@ echo '# Running fixtures'
 NODE_ENV=test npm run seed
 
 echo '# Running API test'
-pm2 start "NODE_ENV=test npm run start &" --name="caravan-api-test"
+pm2 start "NODE_ENV=test npm run start" --name="caravan-api-test"
 
 echo '# Running frontend test'
 cd ../frontend

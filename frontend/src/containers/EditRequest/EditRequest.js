@@ -77,6 +77,7 @@ const EditRequest = WithAuthorization ((props) => {
         dispatch(fetchSuccess(newRequest))
     };
     const autoCompleteChangeHandler = (e, i) => {
+        console.log(e.target)
         let newRequest = {...editRequest};
         newRequest.products[i]['title'] = e.target.innerHTML;
 
@@ -177,6 +178,7 @@ const openAndClosed = ()=>(setOpen(!open));
                                         color='primary'
                                         type='submit'
                                         disabled={editRequest.products && !editRequest.products[0]}
+                                        id={'Edit'}
                                     >
                                         Редактировать заявку
                                     </Button>
@@ -190,6 +192,7 @@ const openAndClosed = ()=>(setOpen(!open));
                                     variant='contained'
                                     color='secondary'
                                     onClick={openAndClosed}
+                                    id="remove"
                                 >
                                     удалить заявку
                                 </Button>
@@ -205,6 +208,7 @@ const openAndClosed = ()=>(setOpen(!open));
                                             variant='contained'
                                             color='secondary'
                                             onClick={() => dispatch(deleteRequestEdit(props.match.params.id, editRequest))}
+                                            id="yes"
                                         >
                                             Да
                                         </Button>

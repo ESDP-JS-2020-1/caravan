@@ -4,6 +4,7 @@ const config = require("./config");
 const User = require('./models/User');
 const Product = require('./models/Product');
 const History = require('./models/History');
+const Request = require('./models/Request');
 
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOptions);
@@ -14,7 +15,7 @@ const run = async () => {
         await mongoose.connection.db.dropCollection(coll.name);
     }
 
-    await User.create({
+  const user =   await User.create({
         username: '123',
         password: '12345',
         token: '123',
@@ -66,6 +67,23 @@ const run = async () => {
         comment: 'Change his name',
         type: 'edit'
     });
+    await Request.create(
+        {user:user[0],
+    products:[{
+        title: 'Продукт-1',
+        amount: '2',
+
+    }, {
+        title: 'Продукт-2',
+        amount: '3',
+
+    }, {
+        title: 'Продукт-3',
+        amount: '4',
+
+    }],
+            comment:'bla bla bla'
+        });
 
     mongoose.connection.close();
 };
