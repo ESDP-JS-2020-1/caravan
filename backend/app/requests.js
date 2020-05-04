@@ -1,6 +1,8 @@
 const express = require('express');
 const History = require('../models/History');
 const Request = require('../models/Request');
+const User = require('../models/User');
+const NominatedRequest = require('../models/NominatedRequest');
 const auth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
@@ -8,9 +10,16 @@ const router = express.Router();
 
 router.get('/:id', auth, async (req, res) => {
 	try {
-		const requests = await Request.findOne({_id: req.params.id}).populate('user');
+		const request = await Request.findOne({_id: req.params.id}).populate('user');
+		const courierList = await User.find({role: 'courier'});
 
-		return res.send(requests);
+		const isNominated = await NominatedRequest.findOne({request: req.params.id}).populate('courier');
+
+		const data = {request, courierList, isNominated: !!isNominated};
+
+		if(!!isNominated) data.nominatedCourier = isNominated.courier;
+
+		return res.send(data);
 	} catch (e) {
 		res.status(400).send(e);
 	}

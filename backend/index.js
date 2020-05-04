@@ -8,6 +8,7 @@ const user = require('./app/user');
 const products = require('./app/products');
 const histories = require('./app/histories');
 const requests = require('./app/requests');
+const nominateRequest = require('./app/nominatedRequest');
 
 const app = express();
 
@@ -22,6 +23,7 @@ const run = async () => {
     app.use('/products', products);
     app.use('/histories', histories);
     app.use('/requests', requests);
+    app.use('/nominateRequest', nominateRequest);
 
     app.listen(config.port)
 };

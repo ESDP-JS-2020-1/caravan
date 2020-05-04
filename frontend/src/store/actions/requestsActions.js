@@ -23,11 +23,11 @@ import {
 
 export const fetchRequest = ()=>({type:FETCH_REQUEST_REQUEST});
 export const fetchSuccess =data=>({type:FETCH_REQUEST_SUCCESS,data});
-export const fetchFailure =error=>({type:FETCH_REQUEST_FAILURE});
+export const fetchFailure =error=>({type:FETCH_REQUEST_FAILURE, error});
 
 export const putRequest = ()=>({type:PUT_REQUEST_REQUEST});
 export const putSuccess =()=>({type:PUT_REQUEST_SUCCESS});
-export const putFailure =error=>({type:PUT_REQUEST_FAILURE});
+export const putFailure =error=>({type:PUT_REQUEST_FAILURE, error});
 
 export const createRequestInit = () => ({type: CREATE_REQUEST_INIT});
 export const createRequestSuccess = () => ({type: CREATE_REQUEST_SUCCESS});
@@ -40,6 +40,12 @@ export const getRequestError = error => ({type: GET_REQUEST_ERROR, error});
 export const getRequestsRequest = () => ({type: GET_REQUESTS_REQUEST});
 export const getRequestsSuccess = requests => ({type: GET_REQUESTS_SUCCESS, requests});
 export const getRequestsError = error => ({type: GET_REQUESTS_ERROR, error});
+
+export const nominatedRequest = (courier, request) => async dispatch => {
+    await axiosApi.post('/nominateRequest', {courier, request});
+
+    dispatch(getRequest(request));
+};
 
 export const getRequest = id => async (dispatch) => {
     try {
