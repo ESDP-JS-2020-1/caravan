@@ -129,7 +129,7 @@ const AddProduct = WithAuthorization(() => {
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Добовление продуктов
+                            Добавление продуктов
                         </Typography>
                     </Box>
                     <form onSubmit={onSubmit}>

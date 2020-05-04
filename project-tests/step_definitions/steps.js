@@ -29,7 +29,7 @@ When('я залогинен как администратор:', table => {
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Login", '#btn');
+  I.click("Sign in", '#btn');
 
   I.waitForText('Вы успешно вошли, как Some market');
 });
@@ -97,7 +97,7 @@ Given('я залогинен как администратор:', table => {
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Login", '#btn');
+  I.click("Sign in", '#btn');
 
   I.waitForText('Вы успешно вошли, как Some market');
 });
@@ -149,7 +149,7 @@ Given('я зарегестрирован как администратор', tab
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Login", '#btn');
+  I.click("Sign in", '#btn');
 
   I.waitForText('Вы успешно вошли, как Some market');
   I.wait(1)
@@ -179,7 +179,7 @@ Given('я залогинен как администратор:', table => {
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Login", '#btn');
+  I.click("Sign in", '#btn');
 
   I.waitForText('Вы успешно вошли, как Some market');
 });
@@ -190,6 +190,11 @@ When('я нахожусь на корневой странице', () => {
 
 When('я нажму на кнопку {string}', btnName => {
   I.click(btnName);
+});
+
+When('я нажимаю на кнопку {string}', btnName => {
+    I.click(btnName);
+    I.wait(3)
 });
 
 Then('я попадаю на страницу списка продуктов', () => {
@@ -205,7 +210,7 @@ Given('я залогинен как магазин:', (table) => {
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Login", '#btn');
+  I.click("Sign in", '#btn');
 
   I.waitForText('Вы успешно вошли, как Игнат');
 });
@@ -252,7 +257,7 @@ Given('я вошел как администратор:', table => {
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Login", '#btn');
+  I.click("Sign in", '#btn');
   I.waitForText('Вы успешно вошли, как Some market');
 
 });
@@ -269,7 +274,7 @@ When('я кнопку нажимаю на редактирования прод�
 When('я заполняю  поля формы:', (table) => {
   const tableData = table.parse().rawData;
 
-  I.wait(1)
+  I.wait(1);
   tableData.forEach(row => {
     I.fillField(row[0], row[1]);
   });
@@ -293,7 +298,7 @@ Given('я зарегистрирован как администратор:', ta
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Login", '#btn');
+  I.click("Sign in");
   I.waitForText('Вы успешно вошли, как Some market');
 
 });

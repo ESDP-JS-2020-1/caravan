@@ -31,7 +31,7 @@ done
 
 echo '# Running tests'
 cd ../project-tests
-npm start
+npx codeceptjs run --steps --verbose $@
 EXIT_CODE=$?
 
 echo 'Kill proccess'

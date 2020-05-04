@@ -85,7 +85,7 @@ class Login extends Component {
                             </Box>
                             <Box component="span" style={this.formBtn}>
                                 {this.props.loading ? (<Spinner style={this.formBtn.button}/>) : (
-                                    <Button style={this.formBtn.button} variant="contained" type="submit" color="primary" id="btn">Login</Button>
+                                    <Button style={this.formBtn.button} variant="contained" type="submit" color="primary" id="btn">Sign in</Button>
                                 )}
                             </Box>
                         </form>

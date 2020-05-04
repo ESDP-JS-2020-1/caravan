@@ -71,7 +71,7 @@ const AddNewRequestItem = (
 							<Grid item>
 								<FormElement
 									required
-									id={'amount'+index}
+									id={'amount'}
 									propertyName='amount'
 									title='Количество'
 									value={request[index].amount}
