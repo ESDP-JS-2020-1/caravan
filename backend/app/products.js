@@ -71,7 +71,9 @@ router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, re
         const whiteList = {
             name: product.name,
             amount: product.amount,
-            price: product.price
+            price: product.price,
+            isRefrigeratorRequired: product.isRefrigeratorRequired
+
         };
         const productOne = await Product.findOne({_id: req.params.id});
         if (!productOne) {
