@@ -29,148 +29,150 @@ import WithAuthorization from "../HOC/WithAuthorization/WithAuthorization";
 import FormElement from "../UI/Form/FormElement";
 
 const UsersList = WithAuthorization(props => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const dispatch = useDispatch();
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+    const dispatch = useDispatch();
 
-  const users = useSelector(state => state.users.users);
-  const currentUser = useSelector(state => state.users.user);
+    const users = useSelector(state => state.users.users);
+    const currentUser = useSelector(state => state.users.user);
 
-  useEffect(() => {
-    dispatch(getUsers(props.match.params.id))
-  }, [dispatch, props.match.params.id]);
+    useEffect(() => {
+        dispatch(getUsers(props.match.params.id))
+    }, [dispatch, props.match.params.id]);
 
-  const roles = ['admin', 'operator', 'courier', 'market'];
+    const roles = ['admin', 'operator', 'courier', 'market'];
 
-  const [search, setSearch] = useState({search: ''});
+    const [search, setSearch] = useState({search: ''});
 
-  const changeSearch = e => {
-    if(e.target.value[e.target.value.length - 1] === '\\') return setSearch({search: ''});
-    setSearch({search: e.target.value});
-  };
+    const changeSearch = e => {
+        if (e.target.value[e.target.value.length - 1] === '\\') return setSearch({search: ''});
+        setSearch({search: e.target.value});
+    };
 
-  const productList = users && users.filter(word => word.displayName.search(search.search) !== -1);
+    const productList = users && users.filter(word => word.displayName.search(search.search) !== -1);
 
-  return (
-    <Box mt={2}>
-      <Grid container justify='flex-end'>
-        <Button
-          variant='contained'
-          color='primary'
-          component={NavLink}
-          to='/users/new'
-          endIcon={<PersonAddIcon />}
-        >
-          Добавить пользователя
-        </Button>
-      </Grid>
-      <Grid item>
-        <FormElement
-            propertyName="search"
-            title="Поиск пользователей"
-            value={search.search}
-            onChange={changeSearch}
-            type="text"
-        />
-      </Grid>
-      <Grid container item>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop: '10px'}}>
-          <TableContainer component={Paper}>
-            <Table aria-label="caption table">
-              <TableHead>
-                <TableRow>
-                  <TableCell><b>Имя</b></TableCell>
-                  <TableCell><b>Логин</b></TableCell>
-                  <TableCell><b>Телефон</b></TableCell>
-                  {props.match.params.id === 'market' && <>
-                    <TableCell><b>Название компании</b></TableCell>
-                    <TableCell><b>Адрес</b></TableCell>
-                  </>}
-                  {props.match.params.id === undefined && <>
-                    <TableCell><b>Название компании</b></TableCell>
-                    <TableCell><b>Адрес</b></TableCell>
-                  </>}
-                  <TableCell><b>Роль</b></TableCell>
-                  {props.match.params.id === 'courier' && <>
-                    <TableCell><b>Название машины</b></TableCell>
-                    <TableCell><b>Объем машины</b></TableCell>
-                    <TableCell><b>Наличие холодильника</b></TableCell>
-                  </>}
-                  {props.match.params.id === undefined && <>
-                    <TableCell><b>Название машины</b></TableCell>
-                    <TableCell><b>Объем машины</b></TableCell>
-                    <TableCell><b>Наличие холодильника</b></TableCell>
-                  </>}
-                  <TableCell > </TableCell>
-                  <TableCell>{
-                    <IconButton onClick={handleClick}><MenuIcon/></IconButton>}
-                  </TableCell>
-                </TableRow>
-                <Menu
-                  id="simple-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
+    return (
+        <Box mt={2}>
+            <Grid container justify='flex-end'>
+                <Button
+                    variant='contained'
+                    color='primary'
+                    component={NavLink}
+                    to='/users/new'
+                    endIcon={<PersonAddIcon/>}
                 >
-                  <List component="nav" aria-label="main mailbox folders" style={{padding: '0'}}>
-                    <div>
-                      <ListItem onClick={handleClose} component={NavLink} to={'/users'} style={{fontSize: 'bold'}} button>
-                        All users
-                      </ListItem>
-                      <Divider />
-                    </div>
-                    {roles.map((e, i) => (
-                      <div key={i}>
-                        <ListItem onClick={handleClose} component={NavLink} to={'/users/'+e} button>
-                          {e}
-                          <ListItemIcon style={{marginLeft: '10px'}}>
-                            {e === 'operator' && <ContactPhoneIcon />}
-                            {e === 'admin' && <AccountBoxIcon />}
-                            {e === 'courier' && <LocalShippingIcon />}
-                            {e === 'market' && <ShoppingCartIcon />}
-                          </ListItemIcon>
-                        </ListItem>
-                      </div>
-                    ))}
-                  </List>
-                </Menu>
-              </TableHead>
-              <TableBody>
-                {users && productList.map(user => {
-                  const edit = currentUser.username !== user.username ? 'edit' : null;
-                  return (
-                    <UserListItem
-                      key={user._id}
-                      id={user._id}
-                      edit={edit}
-                      displayName={user.displayName}
-                      username={user.username}
-                      phone={user.phone}
-                      companyName={user.companyName}
-                      address={user.address}
-                      carName={user.carName}
-                      carVolume={user.carVolume}
-                      carRefrigerator={user.carRefrigerator}
-                      role={user.role}
-                      paramsRole={props.match.params.id}
-                    />
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Grid>
-      </Grid>
-    </Box>
-  );
+                    Добавить пользователя
+                </Button>
+            </Grid>
+            <Grid item>
+                <FormElement
+                    propertyName="search"
+                    title="Поиск пользователей"
+                    value={search.search}
+                    onChange={changeSearch}
+                    type="text"
+                />
+            </Grid>
+            <Grid container item>
+                <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop: '10px'}}>
+                    <TableContainer component={Paper}>
+                        <Table aria-label="caption table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell><b>Имя</b></TableCell>
+                                    <TableCell><b>Логин</b></TableCell>
+                                    <TableCell><b>Телефон</b></TableCell>
+                                    {props.match.params.id === 'market' && <>
+                                        <TableCell><b>Название компании</b></TableCell>
+                                        <TableCell><b>Адрес</b></TableCell>
+                                    </>}
+                                    {props.match.params.id === undefined && <>
+                                        <TableCell><b>Название компании</b></TableCell>
+                                        <TableCell><b>Адрес</b></TableCell>
+                                    </>}
+                                    <TableCell><b>Роль</b></TableCell>
+                                    {props.match.params.id === 'courier' && <>
+                                        <TableCell><b>Название машины</b></TableCell>
+                                        <TableCell><b>Объем машины</b></TableCell>
+                                        <TableCell><b>Наличие холодильника</b></TableCell>
+                                    </>}
+                                    {props.match.params.id === undefined && <>
+                                        <TableCell><b>Название машины</b></TableCell>
+                                        <TableCell><b>Объем машины</b></TableCell>
+                                        <TableCell><b>Наличие холодильника</b></TableCell>
+                                    </>}
+                                    <TableCell> </TableCell>
+                                    <TableCell>{
+                                        <IconButton onClick={handleClick}><MenuIcon/></IconButton>}
+                                    </TableCell>
+                                </TableRow>
+                                <Menu
+                                    id="simple-menu"
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <List component="nav" aria-label="main mailbox folders" style={{padding: '0'}}>
+                                        <div>
+                                            <ListItem onClick={handleClose} component={NavLink} to={'/users'}
+                                                      style={{fontSize: 'bold'}} button>
+                                                All users
+                                            </ListItem>
+                                            <Divider/>
+                                        </div>
+                                        {roles.map((e, i) => (
+                                            <div key={i}>
+                                                <ListItem onClick={handleClose} component={NavLink} to={'/users/' + e}
+                                                          button>
+                                                    {e}
+                                                    <ListItemIcon style={{marginLeft: '10px'}}>
+                                                        {e === 'operator' && <ContactPhoneIcon/>}
+                                                        {e === 'admin' && <AccountBoxIcon/>}
+                                                        {e === 'courier' && <LocalShippingIcon/>}
+                                                        {e === 'market' && <ShoppingCartIcon/>}
+                                                    </ListItemIcon>
+                                                </ListItem>
+                                            </div>
+                                        ))}
+                                    </List>
+                                </Menu>
+                            </TableHead>
+                            <TableBody>
+                                {users && productList.map(user => {
+                                    const edit = currentUser.username !== user.username ? 'edit' : null;
+                                    return (
+                                        <UserListItem
+                                            key={user._id}
+                                            id={user._id}
+                                            edit={edit}
+                                            displayName={user.displayName}
+                                            username={user.username}
+                                            phone={user.phone}
+                                            companyName={user.companyName}
+                                            address={user.address}
+                                            carName={user.carName}
+                                            carVolume={user.carVolume}
+                                            carRefrigerator={user.carRefrigerator}
+                                            role={user.role}
+                                            paramsRole={props.match.params.id}
+                                        />
+                                    )
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Grid>
+            </Grid>
+        </Box>
+    );
 }, 'admin');
 
 export default UsersList;

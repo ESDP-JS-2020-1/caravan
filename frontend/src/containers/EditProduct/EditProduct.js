@@ -46,9 +46,12 @@ const useStyles = makeStyles((theme) => ({
 
 const EditProduct = WithAuthorization((props) => {
     const classes = useStyles();
+
     const dispatch = useDispatch();
+
     const error = useSelector(state => state.products.error);
     const editProduct = useSelector(state => state.products.editProduct);
+
     const [comment, setComment] = React.useState('');
 
     useEffect(() => {
@@ -57,6 +60,7 @@ const EditProduct = WithAuthorization((props) => {
 
     const fileChangeHandler = e => dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.files[0]}));
     const changeHandler = e => (dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.value})));
+    const checkboxChangeHandler = () => (dispatch(getProductSuccess({...editProduct, isRefrigeratorRequired: !editProduct.isRefrigeratorRequired})));
     const changeCommentInput = e => {
         setComment(e.target.value)
     };
@@ -114,7 +118,14 @@ const EditProduct = WithAuthorization((props) => {
                                 value={editProduct.price}
                             />
                             <FormElement
-                                propertyName={'image'}
+                                propertyName={'isRefrigeratorRequired'}
+                                title={'Необхадим ли холодильник для перевозки?'}
+                                onChange={checkboxChangeHandler}
+                                value={editProduct.isRefrigeratorRequired}
+                                type="checkbox"
+                            />
+                            <FormElement
+                                propertyName={'isRefrigeratorRequired'}
                                 title={'Картинка'}
                                 onChange={fileChangeHandler}
                                 value={editProduct.avatar}
