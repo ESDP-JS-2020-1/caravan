@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -39,6 +40,24 @@ const FormElement = props => {
         autoComplete={props.autoComplete}
         placeholder={props.placeholder}
     />;
+
+    if (props.type === 'checkbox') {
+        field = (
+            <div style={{
+                display: 'flex',
+                alignItems: 'center'
+            }}>
+                <Checkbox
+                    checked={props.value}
+                    onChange={props.onChange}
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                />
+                <Typography variant='h6'>
+                    {props.title}
+                </Typography>
+            </div>
+        )
+    }
 
     if (props.type === 'file') {
         field = (
