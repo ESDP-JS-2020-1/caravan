@@ -50,6 +50,7 @@ const ProductList = WithAuthorization(() => {
                 amount={elem.amount}
                 price={elem.price}
                 image={elem.image}
+                isRefrigeratorRequired={elem.isRefrigeratorRequired}
                 id={elem._id}
             />
         )
@@ -76,6 +77,7 @@ const ProductList = WithAuthorization(() => {
                                 <TableCell className={classes.offPadding}><b>Название</b></TableCell>
                                 <TableCell className={classes.offPadding}><b>Количество</b></TableCell>
                                 <TableCell className={classes.offPadding}><b>Цена</b></TableCell>
+                                <TableCell className={classes.offPadding}><b>Наличие холодильника для перевозки</b></TableCell>
                                 <TableCell className={classes.offPadding}> </TableCell>
                             </TableRow>
                         </TableHead>

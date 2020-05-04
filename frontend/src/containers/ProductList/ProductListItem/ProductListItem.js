@@ -24,6 +24,12 @@ const UserListItem = props => {
             <TableCell className={classes.offPadding}>{props.title}</TableCell>
             <TableCell className={classes.offPadding}>{props.amount}</TableCell>
             <TableCell className={classes.offPadding}>{props.price}</TableCell>
+            <TableCell className={classes.offPadding}>
+                {props.isRefrigeratorRequired ?
+                    'Обязателен' :
+                    'Не обязателен'
+                }
+            </TableCell>
             {props.userInfo.role === 'admin' &&
             <TableCell className={classes.offPadding}>
                 <IconButton
