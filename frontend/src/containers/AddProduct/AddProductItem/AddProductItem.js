@@ -11,7 +11,7 @@ import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const AddProductItem = (
-	{onChange, index, expanded, classes, p, product, onRemove, handleChange, fileChange}
+	{checkboxChangeHandler, onChange, index, expanded, classes, p, product, onRemove, handleChange, fileChange}
 ) => {
 	return (
 		<Grid container alignItems='center' spacing={1}>
@@ -58,6 +58,15 @@ const AddProductItem = (
 									title='Цена'
 									value={product[index].price}
 									onChange={(e) => onChange(e, index)}
+								/>
+							</Grid>
+							<Grid item>
+								<FormElement
+									type='checkbox'
+									propertyName='isRefrigeratorRequired'
+									title='Необхадим ли холодильник для перевозки?'
+									value={product[index].isRefrigeratorRequired}
+									onChange={(e) => checkboxChangeHandler(e, index)}
 								/>
 							</Grid>
 							<Grid item>
