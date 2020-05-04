@@ -11,7 +11,8 @@ const NominatedRequestSchema = new Schema({
     request: {
         type: Schema.Types.ObjectId,
         ref: 'Request',
-        required: true
+        required: true,
+        unique: true
     },
     date: {
         type: Date,
