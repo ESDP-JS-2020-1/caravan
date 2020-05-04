@@ -40,11 +40,8 @@ function App() {
                     <Route path="/history" exact component={Histories}/>
                     <Route path="/requests" exact component={RequestList}/>
                     <Route path="/requests/new" exact component={AddNewRequest}/>
-
                     <Route path="/requests/:id" exact component={RequestInfo}/>
-
                     <Route path="/requests/edit/:id" exact component={EditRequest}/>
-
                 </Switch>
             </Container>
         </div>
