@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getRequest, nominatedRequest} from "../../store/actions/requestsActions";
+import {deleteNominatedRequest, getRequest, nominatedRequest} from "../../store/actions/requestsActions";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
 import {makeStyles} from "@material-ui/core/styles";
@@ -102,6 +102,11 @@ const RequestInfo = props => {
               <Typography variant="h6" component={NavLink} to={'/user/'+request.nominatedCourier._id}>
                 Информация о курьере
               </Typography>
+              <Button
+                  variant='contained'
+                  color='secondary'
+                  onClick={() => dispatch(deleteNominatedRequest(request.request._id))}
+              >Удалить курьера</Button>
             </CardContent>
           </Card>
         </>}

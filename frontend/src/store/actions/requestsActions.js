@@ -47,6 +47,12 @@ export const nominatedRequest = (courier, request) => async dispatch => {
     dispatch(getRequest(request));
 };
 
+export const deleteNominatedRequest = request => async dispatch => {
+    await axiosApi.delete('/nominateRequest/'+request);
+
+    dispatch(getRequest(request));
+};
+
 export const getRequest = id => async (dispatch) => {
     try {
         dispatch(getRequestRequest());

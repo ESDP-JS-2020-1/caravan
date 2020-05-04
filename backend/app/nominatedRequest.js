@@ -17,4 +17,10 @@ router.post('/', isAuth, permit('admin', 'operator'), async (req, res) => {
     res.send(NewNominatedRequest);
 });
 
+router.delete('/:id', isAuth, permit('admin', 'operator'), async (req, res) => {
+    await NominatedRequest.deleteOne({request: req.params.id});
+
+    res.send({message: 'Deleted!'});
+});
+
 module.exports = router;
