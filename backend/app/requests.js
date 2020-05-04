@@ -9,26 +9,40 @@ const permit = require('../middleware/permit');
 const router = express.Router();
 
 router.get('/:id', auth, async (req, res) => {
-	try {
-		const request = await Request.findOne({_id: req.params.id}).populate('user');
-		const courierList = await User.find({role: 'courier'});
+    try {
+        const request = await Request.findOne({_id: req.params.id}).populate('user');
+        const courierList = await User.find({role: 'courier'});
 
-		const isNominated = await NominatedRequest.findOne({request: req.params.id}).populate('courier');
+        const isNominated = await NominatedRequest.findOne({request: req.params.id}).populate('courier');
 
-		const data = {request, courierList, isNominated: !!isNominated};
+        const data = {request, courierList, isNominated: !!isNominated};
 
-		if(!!isNominated) data.nominatedCourier = isNominated.courier;
+        if (!!isNominated) data.nominatedCourier = isNominated.courier;
 
-		return res.send(data);
-	} catch (e) {
-		res.status(400).send(e);
-	}
+        return res.send(data);
+    } catch (e) {
+        res.status(400).send(e);
+    }
 });
 
 router.get('/', auth, async (req, res) => {
     try {
         if (req.currentUser.role === 'market') {
+
             const requests = await Request.find({user: req.currentUser._id}).populate('user');
+            return res.send(requests);
+        } else if (req.currentUser.role === 'courier') {
+
+            const requests = await NominatedRequest.find({courier: req.currentUser._id})
+                .select({courier: 0})
+                .populate({
+                    path: 'request',
+                    select: 'date',
+                    populate: {
+                        path: 'user',
+                        select: 'displayName'
+                    }
+                });
 
             return res.send(requests);
         }
@@ -43,9 +57,9 @@ router.get('/:id', auth, async (req, res) => {
     try {
 
         const requests = await Request.find({_id: req.params.id});
-        if (!requests){
-        	return res.status(404).send({message:'Not found'})
-		}
+        if (!requests) {
+            return res.status(404).send({message: 'Not found'})
+        }
         return res.send(requests);
 
 
@@ -55,16 +69,16 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 router.post('/', [auth, permit('market', 'admin')], async (req, res) => {
-	try {
-		const requests = {
-			user: req.currentUser,
-			products: req.body.products,
-			comment: req.body.comment
-		};
+    try {
+        const requests = {
+            user: req.currentUser,
+            products: req.body.products,
+            comment: req.body.comment
+        };
 
-		console.log(requests);
+        console.log(requests);
 
-		await Request.create(requests);
+        await Request.create(requests);
 
 
         return res.send({message: 'success'});
@@ -73,41 +87,43 @@ router.post('/', [auth, permit('market', 'admin')], async (req, res) => {
     }
 });
 
-router.put('/:id',[auth,permit('admin')],async (req,res)=>{
+router.put('/:id', [auth, permit('admin')], async (req, res) => {
     const request = req.body;
     try {
-        const requestOne = await Request.findOne({_id:req.params.id}).populate('user');
-        if(!requestOne){
-            return res.status(404).send({message:'Not found'})
+        const requestOne = await Request.findOne({_id: req.params.id}).populate('user');
+        if (!requestOne) {
+            return res.status(404).send({message: 'Not found'})
         }
-        const whiteList ={
+        const whiteList = {
             user: req.currentUser,
             products: request.products,
             comment: request.comment
         };
-      const updateRequest =  await Request.findOneAndUpdate(
-          {_id: req.params.id},
-          {$set: whiteList},
-          {returnNewDocument: true}
-          );
-        let historyData = {title: req.currentUser.displayName +' отредактировал заявку ' + requestOne.user.displayName, type:'edit'};
+        const updateRequest = await Request.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: whiteList},
+            {returnNewDocument: true}
+        );
+        let historyData = {
+            title: req.currentUser.displayName + ' отредактировал заявку ' + requestOne.user.displayName,
+            type: 'edit'
+        };
 
-        if (requestOne.comment){
+        if (requestOne.comment) {
             historyData.comment = requestOne.comment
         }
         const history = new History(historyData);
         await history.save();
         return res.send(updateRequest)
-    }catch (e) {
+    } catch (e) {
         res.status(500).send(e)
     }
 
 
 });
 
-router.delete('/:id',[auth,permit('admin','operator')],async (req,res)=>{
+router.delete('/:id', [auth, permit('admin', 'operator')], async (req, res) => {
 
-    let request = req.body;
     try {
         const requestOne = await Request.findOne({_id: req.params.id});
 
@@ -115,9 +131,9 @@ router.delete('/:id',[auth,permit('admin','operator')],async (req,res)=>{
             return res.status(404).send({message: 'Request not found'})
         }
 
-        let historyData = {title: req.currentUser.displayName +' удалил заявку ' + requestOne._id, type:'delete'};
+        let historyData = {title: req.currentUser.displayName + ' удалил заявку ' + requestOne._id, type: 'delete'};
 
-        if (requestOne.comment){
+        if (requestOne.comment) {
             historyData.comment = requestOne.comment
         }
         const history = new History(historyData);
