@@ -11,6 +11,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
+import {NavLink} from "react-router-dom";
 
 const useStyles = makeStyles({
   flex: {
@@ -96,6 +97,9 @@ const RequestInfo = props => {
               </Typography>
               <Typography variant="h6" style={{marginRight: '10px'}}>
                 <b>Телефон: </b> {request.nominatedCourier.phone}
+              </Typography>
+              <Typography variant="h6" component={NavLink} to={'/user/'+request.nominatedCourier._id}>
+                Информация о курьере
               </Typography>
             </CardContent>
           </Card>
