@@ -54,7 +54,8 @@ const AddProduct = WithAuthorization(() => {
         amount: '',
         price: '',
         image: '',
-        comment: ''
+        comment: '',
+        isRefrigeratorRequired: false
     }]);
     const [expanded, setExpanded] = React.useState(false);
 
@@ -64,6 +65,13 @@ const AddProduct = WithAuthorization(() => {
 
         setProduct(newProduct)
     };
+
+    const checkboxChangeHandler = (e, i) => {
+        let newProduct = [...product];
+        newProduct[i].isRefrigeratorRequired = !newProduct[i].isRefrigeratorRequired;
+
+        setProduct(newProduct)
+    }
 
     const fileChangeHandler = (e, i) => {
         let newProduct = [...product];
@@ -84,13 +92,15 @@ const AddProduct = WithAuthorization(() => {
             amount: '',
             price: '',
             image: '',
-            comment: ''
+            comment: '',
+            isRefrigeratorRequired: false
         }] : [{
             name: '',
             amount: '',
             price: '',
             image: '',
-            comment: ''
+            comment: '',
+            isRefrigeratorRequired: false
         }];
 
         setProduct(newProduct)
@@ -132,6 +142,7 @@ const AddProduct = WithAuthorization(() => {
                                     expanded={expanded}
                                     classes={classes}
                                     onChange={inputChangeHandler}
+                                    checkboxChangeHandler={checkboxChangeHandler}
                                     handleChange={handleChange}
                                     fileChange={fileChangeHandler}
                                     onRemove={deleteProduct}
