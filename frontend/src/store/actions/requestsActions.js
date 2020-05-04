@@ -90,7 +90,7 @@ export const fetchRequestEdit =id=>{
       try {
           dispatch(fetchRequest());
           const response = await axiosApi.get('/requests/'+id);
-          dispatch(fetchSuccess(response.data))
+          dispatch(fetchSuccess(response.data.request))
       }catch (e) {
           dispatch(fetchFailure(e))
       }
