@@ -90,6 +90,7 @@ const RequestInfo = props => {
 
         {request.nominatedCourier && <>
           <Typography  variant='h5'><b>Назначенный курьер </b></Typography>
+          <Typography  variant='h5'><b>Дата назначения: </b> {moment(request.nominatedCourier.date).format('MMMM Do YYYY, h:mm:ss a')}</Typography>
           <Card>
             <CardContent className={classes.flex}>
               <Typography variant="h6" style={{marginRight: '10px'}}>
