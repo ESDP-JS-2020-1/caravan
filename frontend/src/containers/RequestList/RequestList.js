@@ -13,6 +13,7 @@ import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthor
 
 const RequestList = WithAuthorization(() => {
     const dispatch = useDispatch();
+
     const requests = useSelector(state => state.requests.list);
     const user = useSelector(state => state.users.user);
 
@@ -20,7 +21,7 @@ const RequestList = WithAuthorization(() => {
         dispatch(getRequests());
     }, [dispatch]);
 
-    const requestsList = requests.map((elem) => (
+    let requestsList = requests.map((elem) => (
         <RequestListItem
             key={elem._id}
             id={elem._id}
@@ -29,6 +30,18 @@ const RequestList = WithAuthorization(() => {
             date={elem.date}
         />
     ));
+
+    if(user && user.role === 'courier') {
+        requestsList = requests.map(elem => (
+            <RequestListItem
+                key={elem.request._id}
+                id={elem.request._id}
+                user={elem.request.user}
+                date={elem.request.date}
+            />
+        ))
+    }
+
     return (
         <div>
             <TableContainer component={Paper}>
