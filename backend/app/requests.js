@@ -102,33 +102,26 @@ router.post('/', [auth, permit('market', 'admin')], async (req, res) => {
 });
 
 router.put('/:id', [auth, permit('admin')], async (req, res) => {
-    const request = req.body;
     try {
-        const requestOne = await Request.findOne({_id: req.params.id}).populate('user');
-        if (!requestOne) {
-            return res.status(404).send({message: 'Not found'})
-        }
-        const whiteList = {
-            user: req.currentUser,
-            products: request.products,
-            comment: request.comment
-        };
-        const updateRequest = await Request.findOneAndUpdate(
-            {_id: req.params.id},
-            {$set: whiteList},
-            {returnNewDocument: true}
-        );
-        let historyData = {
-            title: req.currentUser.displayName + ' отредактировал заявку ' + requestOne.user.displayName,
-            type: 'edit'
-        };
+        const request = req.body;
 
-        if (requestOne.comment) {
-            historyData.comment = requestOne.comment
-        }
-        const history = new History(historyData);
-        await history.save();
-        return res.send(updateRequest)
+        const requestOne = await Request.findOne({_id: req.params.id}).populate('user');
+
+        if (!requestOne) return res.status(404).send({message: 'Not found'});
+
+        let historyData = {title: req.currentUser.displayName + ' отредактировал заявку ' + requestOne.user.displayName, type: 'edit'};
+
+        if (requestOne.comment) historyData.comment = requestOne.comment;
+
+        await History.create(historyData);
+
+        requestOne.user = request.user;
+        requestOne.products = request.products;
+        requestOne.comment = request.comment;
+
+        requestOne.save();
+
+        return res.send(requestOne)
     } catch (e) {
         res.status(500).send(e)
     }
