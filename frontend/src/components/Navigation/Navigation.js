@@ -21,7 +21,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import DescriptionIcon from '@material-ui/icons/Description';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import HistoryIcon from '@material-ui/icons/History';
-import {setText} from "../../wordList";
+import {wordList} from "../../wordList";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,6 +53,7 @@ const Navigation = () => {
     const classes = useStyles();
 
     const user = useSelector(state => state.users.user);
+    const language = useSelector(state => state.language.name);
 
     const [state, setState] = React.useState({
         top: false,
@@ -169,7 +170,7 @@ const Navigation = () => {
                             </IconButton>
                         ))}
                         <Typography variant="h6" className={classes.mainLink} component={NavLink} to='/' exact>
-                            {setText('logo')}
+                            {wordList[language].logo}
                         </Typography>
                         <ToolBar/>
                     </Toolbar>
