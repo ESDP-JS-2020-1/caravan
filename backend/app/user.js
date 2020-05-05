@@ -26,35 +26,35 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
-    const user = req.body;
-
-    if (req.file) {
-        req.body.avatar = req.file.filename
-    }
-
-    const newUser = new User({
-        username: user.username,
-        password: user.password,
-        displayName: user.displayName,
-        role: user.role,
-        avatar: user.avatar,
-        address: user.address,
-        coordinates: JSON.parse(user.coordinates),
-        companyName: user.companyName,
-        phone: user.phone,
-        carName: user.carName,
-        carVolume: user.carVolume,
-        carRefrigerator: user.carRefrigerator
-    });
-
-    const history = new History({
-        title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
-        comment: req.body.comment,
-        type: 'add'
-    });
-    await history.save();
-
     try {
+        const user = req.body;
+
+        if (req.file) {
+            req.body.avatar = req.file.filename
+        }
+
+        const newUser = new User({
+            username: user.username,
+            password: user.password,
+            displayName: user.displayName,
+            role: user.role,
+            avatar: user.avatar,
+            address: user.address,
+            coordinates: JSON.parse(user.coordinates),
+            companyName: user.companyName,
+            phone: user.phone,
+            carName: user.carName,
+            carVolume: user.carVolume,
+            carRefrigerator: user.carRefrigerator
+        });
+
+        const history = new History({
+            title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
+            comment: req.body.comment,
+            type: 'add'
+        });
+        await history.save();
+
         newUser.addToken();
         await newUser.save();
 
@@ -66,7 +66,7 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
 
 router.get('/', isAuth, async (req, res) => {
     try {
-        if(req.query.role){
+        if (req.query.role) {
             const users = await User.find({role: req.query.role}).select({token: 0});
 
             return res.send(users)
@@ -92,44 +92,42 @@ router.get('/:id', isAuth, async (req, res) => {
 router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
     const user = req.body;
     try {
-        const whiteList = {
-            username: user.username,
-            displayName: user.displayName,
-            role: user.role,
-            phone: user.phone
-        };
 
-        if (whiteList.role === 'market') {
-            whiteList.companyName = user.companyName;
-            whiteList.address = user.address;
+        const editableUser = await User.findOne({username: user.username});
+
+        if (user.role === 'market') {
+            editableUser.companyName = user.companyName;
+            editableUser.address = user.address;
         }
 
-        if (whiteList.role === 'courier') {
-            whiteList.carName = user.carName;
-            whiteList.carVolume = user.carVolume;
-            whiteList.carRefrigerator = user.carRefrigerator;
+        if (user.role === 'courier') {
+            editableUser.carName = user.carName;
+            editableUser.carVolume = user.carVolume;
+            editableUser.carRefrigerator = user.carRefrigerator;
         }
 
-        if (req.file) {
-            whiteList.avatar = req.file.filename
-        }
+        if (req.file) user.avatar = req.file.filename;
 
         if (user.password) {
             const salt = await bcrypt.genSalt(10);
 
-            whiteList.password = await bcrypt.hash(user.password, salt);
+            user.password = await bcrypt.hash(user.password, salt);
         }
 
-        const updatedUser = await User.findOneAndUpdate({_id: req.params.id}, {$set: whiteList}, {returnNewDocument: true});
+        editableUser.username = user.username;
+        editableUser.displayName = user.displayName;
+        editableUser.role = user.role;
+        editableUser.phone = user.phone;
 
-        const history = new History({
+
+
+        await History.create({
             title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
             comment: req.body.comment,
             type: 'edit'
         });
-        await history.save();
 
-        res.send(updatedUser);
+        res.send(editableUser);
     } catch (e) {
         res.status(500).send(e)
     }
