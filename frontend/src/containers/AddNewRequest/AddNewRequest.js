@@ -51,7 +51,7 @@ const AddNewRequest = WithAuthorization(() => {
 
     const [request, setRequest] = useState({
         products: [{
-            title: '',
+            name: '',
             amount: '',
         }],
         comment: ''
@@ -69,7 +69,7 @@ const AddNewRequest = WithAuthorization(() => {
 
     const autoCompleteChangeHandler = (e, i) => {
         let newRequest = {...request};
-        newRequest.products[i].title = e.target.innerHTML;
+        newRequest.products[i].name = e.target.innerHTML;
 
         setRequest(newRequest);
     };
