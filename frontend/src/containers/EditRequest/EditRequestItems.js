@@ -15,7 +15,6 @@ import {getProductsList} from "../../store/actions/productsActions";
 import Chip from "@material-ui/core/Chip";
 
 
-
 const EditRequestItems = (
     {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange,}
 ) => {
@@ -39,7 +38,7 @@ const EditRequestItems = (
                         aria-label={'check'}
                     >
                         <Box className={classes.heading}>
-                            <Chip label={'Название: '+r.title} variant="outlined" />
+                            <Chip label={'Название: '+(r.product.name ? r.product.name : '')} variant="outlined" />
                             <Chip label={'Кол-во: '+r.amount} variant="outlined" />
 
                         </Box>
@@ -50,16 +49,16 @@ const EditRequestItems = (
                                 <Grid item>
                                     <Autocomplete
                                         id={'free-solo-demo' + index}
-                                        value={request.products[index].title}
-                                        options={products.map((option) => option.name)}
+                                        options={products.map((option) => option)}
+                                        getOptionLabel={option => option.name}
                                         freeSolo
                                         style={{ width: '100%', marginBottom: '2%' }}
-                                        onChange={(e) => onAutoCompleteChange(e, index)}
+                                        onChange={(value, element) => onAutoCompleteChange(element, index)}
                                         renderInput={(params) =>
                                             <TextField
                                                 {...params}
                                                 required
-                                                label="Название"
+                                                label="Введите новый продукт"
                                                 variant="outlined"
                                                 id={'title'+index}
                                                 name='title'

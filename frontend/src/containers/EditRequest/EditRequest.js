@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const EditRequest = WithAuthorization ((props) => {
+const EditRequest = WithAuthorization((props) => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -76,12 +76,13 @@ const EditRequest = WithAuthorization ((props) => {
 
         dispatch(fetchSuccess(newRequest))
     };
-    const autoCompleteChangeHandler = (e, i) => {
-        console.log(e.target)
-        let newRequest = {...editRequest};
-        newRequest.products[i]['title'] = e.target.innerHTML;
+    const autoCompleteChangeHandler = (element, i) => {
+        if(element) {
+            let newRequest = {...editRequest};
+            newRequest.products[i].product = element;
 
-        dispatch(fetchSuccess(newRequest));
+            dispatch(fetchSuccess(newRequest));
+        }
     };
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -94,14 +95,14 @@ const EditRequest = WithAuthorization ((props) => {
         const newRequest = {...editRequest};
 
         newRequest.products = editRequest.products[0] ? [...editRequest.products, {
-            title: '',
+            product: '',
             amount: ''
-        }] : [{title: '', amount: ''}];
+        }] : [{product: '', amount: ''}];
 
 
         dispatch(fetchSuccess(newRequest))
     };
-const openAndClosed = ()=>(setOpen(!open));
+    const openAndClosed = () => (setOpen(!open));
     const removeRequest = id => {
         const requests = {...editRequest};
         requests.products.splice(id, 1);
