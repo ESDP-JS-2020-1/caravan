@@ -48,6 +48,10 @@ const RequestInfo = props => {
   const [showCouriers, setShowCouriers] = useState(false);
 
   const showCouriersHandler = () => setShowCouriers(!showCouriers);
+  const courierList = () => {
+    if(request.request.products.find(elem => elem.isRefrigeratorRequired === true) !== undefined) return request.courierList.filter(courier => courier.carRefrigerator === true);
+    return request.courierList;
+  };
 
   return (
     <Container>
@@ -77,10 +81,13 @@ const RequestInfo = props => {
                 <Card key={id}>
                   <CardContent className={classes.flex}>
                     <Typography variant="h6" style={{marginRight: '10px'}}>
-                      <b>Название:</b> {elem.title}
+                      <b>Название:</b> {elem.name}
                     </Typography>
                     <Typography variant="h6" component="h2">
                       <b>Количество:</b> {elem.amount}
+                    </Typography>
+                    <Typography variant="h6" component="h2">
+                      <b>Холодильник:</b> {elem.isRefrigeratorRequired ? 'Нужен' : 'Ненужен'}
                     </Typography>
                   </CardContent>
                 </Card>
@@ -119,7 +126,7 @@ const RequestInfo = props => {
         >Назначить экспедитору</Button>}
 
         {showCouriers && !request.isNominated && <Box style={{padding: '10px'}} border={1} borderRadius={6} borderColor='#cccccc'>
-          {request.courierList && request.courierList.map((elem, id) => (
+          {request.courierList && courierList().map((elem, id) => (
               <Card key={id}>
                 <CardContent className={classes.flex}>
                   <Typography variant="h6" style={{marginRight: '10px'}}>
