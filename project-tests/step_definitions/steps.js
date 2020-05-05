@@ -45,10 +45,6 @@ When('я заполняю поля формы для названия компа
   });
 });
 
-When('нажимаю на кнопку  {string}', btnName => {
-  I.click(btnName);
-});
-
 When('я вижу текст после добавления {string}', text => {
   I.waitForText(text);
 });
@@ -67,10 +63,6 @@ When('я заполняю поля формы добавления', table => {
   tableData.forEach(row => {
     I.fillField(row[0], row[1]);
   });
-});
-
-When('если я нажму на кнопку {string}', btnName => {
-  I.click(btnName);
 });
 
 Then('я попадаю на страницу показа продуктов', () => {
@@ -114,11 +106,6 @@ Given('я залогинен как администратор:', table => {
   I.click("Sign in", '#btn');
 
   I.waitForText('Вы успешно вошли, как Some market');
-});
-
-When('я нажимаю на кнопку {string}', btnName => {
-    I.click(btnName);
-    I.wait(3)
 });
 
 Then('я попадаю на страницу списка продуктов', () => {
