@@ -9,24 +9,32 @@ const permit = require('../middleware/permit');
 const router = express.Router();
 
 router.post('/', isAuth, permit('admin', 'operator'), async (req, res) => {
-    const whiteList = {
-        courier: req.body.courier,
-        request: req.body.request
-    };
+    try {
+        const whiteList = {
+            courier: req.body.courier,
+            request: req.body.request
+        };
 
-    await Request.updateOne({_id: whiteList.request}, {status: 'performed'});
+        await Request.updateOne({_id: whiteList.request}, {status: 'performed'});
 
-    const NewNominatedRequest = await NominatedRequest.create(whiteList);
+        const NewNominatedRequest = await NominatedRequest.create(whiteList);
 
-    res.send(NewNominatedRequest);
+        res.send(NewNominatedRequest);
+    } catch (e) {
+        res.status(404).send(e);
+    }
 });
 
 router.delete('/:id', isAuth, permit('admin', 'operator'), async (req, res) => {
-    await NominatedRequest.deleteOne({request: req.params.id});
+    try {
+        await NominatedRequest.deleteOne({request: req.params.id});
 
-    await Request.updateOne({_id: req.params.id}, {status: 'pending'});
+        await Request.updateOne({_id: req.params.id}, {status: 'pending'});
 
-    res.send({message: 'Deleted!'});
+        res.send({message: 'Deleted!'});
+    } catch (e) {
+        res.status(404).send(e);
+    }
 });
 
 module.exports = router;
