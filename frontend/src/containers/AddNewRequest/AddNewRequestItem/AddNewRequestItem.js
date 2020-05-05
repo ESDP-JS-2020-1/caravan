@@ -16,79 +16,79 @@ import {getProductsList} from "../../../store/actions/productsActions";
 
 
 const AddNewRequestItem = (
-	{onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange}
+    {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange}
 ) => {
 
-	const products = useSelector(state => state.products.productsList);
-	const dispatch = useDispatch();
+    const products = useSelector(state => state.products.productsList);
+    const dispatch = useDispatch();
 
-	useEffect(() => {
-		dispatch(getProductsList());
-	}, [dispatch]);
+    useEffect(() => {
+        dispatch(getProductsList());
+    }, [dispatch]);
 
 
-	return (
-		<Grid container alignItems='center' spacing={1}>
-			<Grid item xs={11}>
-				<ExpansionPanel expanded={expanded === 'panel' + index}
-								onChange={handleChange('panel' + index)}
-				>
-					<ExpansionPanelSummary
-						expandIcon={<ExpandMoreIcon/>}
-						aria-controls="panel1a-content"
-						id={`panel${index}bh-header`}
-					>
-						<Typography className={classes.heading}>
-							Название: {r.title}
-							Количество: {r.amount}
-						</Typography>
-					</ExpansionPanelSummary>
-					<ExpansionPanelDetails>
-						<Box style={{width: '100%', marginBottom: "10px"}}>
-							{products && (
-								<Grid item>
-									<Autocomplete
-										id="combo-box-demo"
-										options={products}
-										getOptionLabel={(option) => option.name}
-										style={{ width: '100%', marginBottom: '2%' }}
-										onChange={(e) => onAutoCompleteChange(e, index)}
-										renderInput={(params) =>
-											<TextField
-												{...params}
-												required
-												label="Название"
-												variant="outlined"
-												id='title'
-												name='title'
-												title='Название'
-											/>
-										}
-									/>
-								</Grid>
-							)}
+    return (
+        <Grid container alignItems='center' spacing={1}>
+            <Grid item xs={11}>
+                <ExpansionPanel expanded={expanded === 'panel' + index}
+                                onChange={handleChange('panel' + index)}
+                >
+                    <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon/>}
+                        aria-controls="panel1a-content"
+                        id={`panel${index}bh-header`}
+                    >
+                        <Typography className={classes.heading}>
+                            Название: {r.title}
+                            Количество: {r.amount}
+                        </Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                        <Box style={{width: '100%', marginBottom: "10px"}}>
+                            {products && (
+                                <Grid item>
+                                    <Autocomplete
+                                        id="combo-box-demo"
+                                        options={products}
+                                        getOptionLabel={option => option.name}
+                                        style={{width: '100%', marginBottom: '2%'}}
+                                        onChange={(e, value) => onAutoCompleteChange(value, index)}
+                                        renderInput={(params) =>
+                                            <TextField
+                                                {...params}
+                                                required
+                                                label="Название"
+                                                variant="outlined"
+                                                id='title'
+                                                name='title'
+                                                title='Название'
+                                            />
+                                        }
+                                    />
+                                </Grid>
+                            )}
 
-							<Grid item>
-								<FormElement
-									required
-									id={'amount'}
-									propertyName='amount'
-									title='Количество'
-									value={request[index].amount}
-									onChange={(e) => onChange(e, index)}
-								/>
-							</Grid>
-						</Box>
-					</ExpansionPanelDetails>
-				</ExpansionPanel>
-			</Grid>
-			<Grid item xs={1}>
-				<IconButton aria-label="delete" onClick={() => onRemove(index)}>
-					<DeleteIcon fontSize="large"/>
-				</IconButton>
-			</Grid>
-		</Grid>
-	);
+                            <Grid item>
+                                <FormElement
+                                    required
+                                    id={'amount'}
+                                    propertyName='amount'
+                                    title='Количество'
+                                    value={request[index].amount}
+                                    onChange={(e) => onChange(e, index)}
+                                />
+                            </Grid>
+                        </Box>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
+            </Grid>
+            <Grid item xs={1}>
+                <IconButton aria-label="delete" onClick={() => onRemove(index)}>
+                    <DeleteIcon fontSize="large"/>
+                </IconButton>
+            </Grid>
+        </Grid>
+    );
 };
 
 export default AddNewRequestItem;
