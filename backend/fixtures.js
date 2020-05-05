@@ -43,7 +43,8 @@ const run = async () => {
     await Product.create({
         name: 'Продукт-1',
         amount: '10 кг',
-        price: '1000 coм'
+        price: '1000 coм',
+        isRefrigeratorRequired: true
     },{
         name: 'Продукт-2',
         amount: '15 кг',
@@ -70,16 +71,19 @@ const run = async () => {
     await Request.create(
         {user:user[0],
     products:[{
-        title: 'Продукт-1',
+        name: 'Продукт-1',
         amount: '2',
+        isRefrigeratorRequired: false
 
     }, {
-        title: 'Продукт-2',
+        name: 'Продукт-2',
         amount: '3',
+        isRefrigeratorRequired: false
 
     }, {
-        title: 'Продукт-3',
+        name: 'Продукт-3',
         amount: '4',
+        isRefrigeratorRequired: false
 
     }],
             comment:'bla bla bla'
