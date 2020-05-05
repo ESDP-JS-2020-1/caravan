@@ -37,7 +37,8 @@ const run = async () => {
         role: 'market',
         companyName: 'some market',
         address: 'adress',
-        phone: '123'
+        phone: '123',
+        coordinates: {lat: 49.554215, lng: 79.4555555}
     });
 
     await Product.create({

@@ -27,6 +27,7 @@ const FormElement = props => {
     const classes = useStyles();
 
     let field = <TextField
+        disabled={props.disabled}
         className={classes.root}
         label={props.title}
         variant="outlined"
