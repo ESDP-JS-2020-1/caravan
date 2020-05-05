@@ -1,10 +1,17 @@
 import {
-  ADD_USER_FAILURE, DELETE_USER_FAILURE, GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS,
+  ADD_USER_FAILURE,
+  CREATE_COORDINATE_SUCCESS,
+  DELETE_USER_FAILURE,
+  GET_USER_FAILURE,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
   GET_USERS_FAILURE,
   GET_USERS_REQUEST,
   GET_USERS_SUCCESS,
   LOGIN_USER_FAILURE,
-  LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER,
+  LOGIN_USER_REQUEST,
+  LOGIN_USER_SUCCESS,
+  LOGOUT_USER,
   REGISTER_USER_FAILURE,
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS
@@ -13,6 +20,7 @@ import {
 const initialState = {
   user: null,
   users: [],
+  coordinates: {},
   client: null,
   loading: false,
   error: null,
@@ -57,6 +65,8 @@ const usersReducer = (state = initialState, action) => {
 
     case DELETE_USER_FAILURE:
       return {...state, error: action.error.response.data.message};
+    case CREATE_COORDINATE_SUCCESS:
+      return {...state, coordinates: action.data};
 
     default:
       return state;

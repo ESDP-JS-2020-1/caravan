@@ -57,6 +57,12 @@ const UserSchema = new mongoose.Schema({
             return this.role === 'market'
         }
     },
+    coordinates: {
+        type: Object,
+        required: function() {
+            return this.role === 'market'
+        }
+    },
     role: {
         type: String,
         enum: ['courier', 'admin', 'operator', 'market'],

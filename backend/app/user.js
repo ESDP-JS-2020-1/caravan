@@ -39,6 +39,7 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
         role: user.role,
         avatar: user.avatar,
         address: user.address,
+        coordinates: JSON.parse(user.coordinates),
         companyName: user.companyName,
         phone: user.phone,
         carName: user.carName,

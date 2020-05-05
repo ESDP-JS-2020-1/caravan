@@ -13,6 +13,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
+import MapDisplay from "../Map/DeviceMap";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -41,7 +42,7 @@ const useStyles = makeStyles({
 });
 const AddUser = WithAuthorization(() => {
     const classes = useStyles();
-
+    const coordinate = useSelector(state => state.users.coordinates)
     const [user, setUser] = useState({
         username: '',
         password: '',
@@ -54,11 +55,11 @@ const AddUser = WithAuthorization(() => {
         carName: '',
         carVolume: '',
         carRefrigerator: false,
-        comment: ''
+        comment: '',
+        coordinates: {}
     });
 
     const dispatch = useDispatch();
-
     const error = useSelector(state => state.users.error);
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
@@ -73,11 +74,14 @@ const AddUser = WithAuthorization(() => {
 
         const data = new FormData();
         Object.keys(user).forEach(value => {
-            data.append(value, user[value])
+            if (value === 'coordinates'){
+                data.append(value, JSON.stringify(coordinate))
+            } else {
+                data.append(value, user[value])
+            }
         });
         dispatch(addUser(data))
     };
-
 
     return (
         <Container>
@@ -183,6 +187,19 @@ const AddUser = WithAuthorization(() => {
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>
+                                {coordinate && <Grid item>
+                                        <FormElement
+                                            disabled
+                                            id='coordinates'
+                                            propertyName='coordinates'
+                                            title='Кординаты'
+                                            value={coordinate.lat + ' ' + coordinate.lng}
+                                            onChange={inputChangeHandler}
+                                        />
+                                    </Grid>}
+                                <Box style={{width: '100%', height: '410px'}}>
+                                    <MapDisplay/>
+                                </Box>
                             </>}
                             <Grid item>
                                 <FormElement

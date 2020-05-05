@@ -5,7 +5,7 @@ import {store as notification} from "react-notifications-component";
 import config from '../../config'
 import {
   ADD_USER_FAILURE,
-  ADD_USER_REQUEST, DELETE_USER_FAILURE, DELETE_USER_REQUEST, DELETE_USER_SUCCESS,
+  ADD_USER_REQUEST, CREATE_COORDINATE_SUCCESS, DELETE_USER_FAILURE, DELETE_USER_REQUEST, DELETE_USER_SUCCESS,
   GET_USER_FAILURE,
   GET_USER_REQUEST,
   GET_USER_SUCCESS, GET_USERS_FAILURE,
@@ -32,6 +32,8 @@ export const addUserFailure = error => ({type: ADD_USER_FAILURE, error});
 export const deleteUserRequest = () => ({type: DELETE_USER_REQUEST});
 export const deleteUserSuccess = () => ({type: DELETE_USER_SUCCESS});
 export const deleteUserFailure = error => ({type: DELETE_USER_FAILURE, error});
+
+export const createCoordinateSuccess = (data) => ({type: CREATE_COORDINATE_SUCCESS, data});
 
 export const getUser = id => async dispatch => {
   try {
