@@ -66,35 +66,29 @@ router.post('/', [auth, permit('admin'), upload.single('image')], async (req, re
 });
 
 router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, res) => {
-    const product = req.body;
     try {
-        const whiteList = {
-            name: product.name,
-            amount: product.amount,
-            price: product.price,
-            isRefrigeratorRequired: product.isRefrigeratorRequired
+        const product = req.body;
 
-        };
         const productOne = await Product.findOne({_id: req.params.id});
-        if (!productOne) {
-            return res.status(404).send({message: 'Product not found'})
-        }
-        if (req.file) {
-            whiteList.image = req.file.filename
-        }
+
+        if (req.file) product.image = req.file.filename;
+
         let historyData = {title: req.currentUser.displayName +' Edit product ' + productOne.name, type:'edit'};
 
-        if (product.comment){
-            historyData.comment = product.comment
-        }
-        const history = new History(historyData);
-        await history.save();
+        if (product.comment) historyData.comment = product.comment;
 
-        const updateProduct = await Product.findOneAndUpdate({_id: req.params.id}, {$set: whiteList}, {returnNewDocument: true});
+        await History.create(historyData);
 
-        return res.send(updateProduct);
+        productOne.name = product.name;
+        productOne.amount = product.amount;
+        productOne.price = product.price;
+        productOne.isRefrigeratorRequired = product.isRefrigeratorRequired;
+
+        productOne.save();
+
+        return res.send(productOne);
     } catch (e) {
-        res.status(500).send(e)
+        res.status(404).send(e)
     }
 });
 
