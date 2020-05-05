@@ -35,7 +35,6 @@ const requestsReducer = (state = initialState, action) => {
 		case GET_REQUESTS_REQUEST:
 			return {...state, loading: true};
 		case GET_REQUESTS_SUCCESS:
-			console.log(action.requests);
 			return {...state, list: action.requests, loading: false};
 		case GET_REQUESTS_ERROR:
 			return {...state, loading: false, error: action.error};
