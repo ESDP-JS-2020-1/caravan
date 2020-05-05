@@ -25,14 +25,14 @@ Leaflet.Icon.Default.mergeOptions({
         lng: 74.5900000,
         zoom: 12,
         marker: []
-    }
+    };
 
     addMarker = (event) => {
         const marker = [...this.state.marker];
         marker.push(event.latlng);
-        this.setState({marker: marker})
+        this.setState({marker: marker});
         this.props.createCoordinateSuccess({lat: event.latlng.lat, lng: event.latlng.lng})
-    }
+    };
     deleteMarker = (event) => {
         const marker = [...this.state.marker];
         const newMarker = marker.filter(d => {
@@ -41,9 +41,9 @@ Leaflet.Icon.Default.mergeOptions({
             } else {
                 return false
             }
-        })
+        });
         this.setState({marker: newMarker})
-    }
+    };
 
     myPopup(SearchInfo) {
         console.log(SearchInfo);
@@ -57,7 +57,7 @@ Leaflet.Icon.Default.mergeOptions({
         );
     }
     render() {
-        const position = [this.state.lat, this.state.lng]
+        const position = [this.state.lat, this.state.lng];
         return (
             <Map onClick={this.addMarker} center={position} zoom={this.state.zoom} style={{height : '100%'}}>
                 <ReactLeafletSearch
