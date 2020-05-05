@@ -2,7 +2,6 @@ const express = require('express');
 const History = require('../models/History');
 const Request = require('../models/Request');
 const User = require('../models/User');
-const Product = require('../models/Product');
 const NominatedRequest = require('../models/NominatedRequest');
 const auth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
@@ -21,7 +20,9 @@ router.post('/close/:id', [auth, permit('operator', 'admin', 'courier')], async 
 
 router.get('/:id', auth, async (req, res) => {
     try {
-        const request = await Request.findOne({_id: req.params.id}).populate('user');
+        const request = await Request.findOne({_id: req.params.id})
+            .populate(['user','products.product'])
+
         const courierList = await User.find({role: 'courier'});
 
         const isNominated = await NominatedRequest.findOne({request: req.params.id}).populate('courier');
@@ -40,11 +41,15 @@ router.get('/', auth, async (req, res) => {
     try {
         if (req.currentUser.role === 'market') {
 
-            const requests = await Request.find({user: req.currentUser._id}).populate('user');
+            const requests = await Request.find({user: req.currentUser._id})
+                .sort({date: -1})
+                .populate('user');
+
             return res.send(requests);
         } else if (req.currentUser.role === 'courier') {
 
             const requests = await NominatedRequest.find({courier: req.currentUser._id})
+                .sort({date: -1})
                 .select({courier: 0})
                 .populate({
                     path: 'request',
@@ -57,7 +62,9 @@ router.get('/', auth, async (req, res) => {
 
             return res.send(requests);
         }
-        const requests = await Request.find().populate('user');
+        const requests = await Request.find()
+            .sort({date: -1})
+            .populate('user');
 
         return res.send(requests);
     } catch (e) {
@@ -81,21 +88,15 @@ router.get('/:id', auth, async (req, res) => {
 
 router.post('/', [auth, permit('market', 'admin')], async (req, res) => {
     try {
-        for(let i = 0; i < req.body.products.length; i++){
-            const product = await Product.findOne({name: req.body.products[i].name});
-            req.body.products[i].isRefrigeratorRequired = product.isRefrigeratorRequired;
-        }
+        const request = req.body;
 
-        const requests = {
+        const successfulRequest = await Request.create({
             user: req.currentUser,
-            products: req.body.products,
-            comment: req.body.comment
-        };
+            comment: request.comment,
+            products: request.products
+        });
 
-        await Request.create(requests);
-
-
-        return res.send({message: 'success'});
+        return res.send(successfulRequest);
     } catch (e) {
         res.status(400).send(e);
     }
@@ -109,7 +110,10 @@ router.put('/:id', [auth, permit('admin')], async (req, res) => {
 
         if (!requestOne) return res.status(404).send({message: 'Not found'});
 
-        let historyData = {title: req.currentUser.displayName + ' отредактировал заявку ' + requestOne.user.displayName, type: 'edit'};
+        let historyData = {
+            title: req.currentUser.displayName + ' отредактировал заявку ' + requestOne.user.displayName,
+            type: 'edit'
+        };
 
         if (requestOne.comment) historyData.comment = requestOne.comment;
 
