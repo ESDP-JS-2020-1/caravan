@@ -2,6 +2,7 @@ const express = require('express');
 const History = require('../models/History');
 const Request = require('../models/Request');
 const User = require('../models/User');
+const Product = require('../models/Product');
 const NominatedRequest = require('../models/NominatedRequest');
 const auth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
@@ -70,13 +71,16 @@ router.get('/:id', auth, async (req, res) => {
 
 router.post('/', [auth, permit('market', 'admin')], async (req, res) => {
     try {
+        for(let i = 0; i < req.body.products.length; i++){
+            const product = await Product.findOne({name: req.body.products[i].name});
+            req.body.products[i].isRefrigeratorRequired = product.isRefrigeratorRequired;
+        }
+
         const requests = {
             user: req.currentUser,
             products: req.body.products,
             comment: req.body.comment
         };
-
-        console.log(requests);
 
         await Request.create(requests);
 
