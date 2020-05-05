@@ -101,6 +101,7 @@ const EditUser = WithAuthorization(props => {
                         {editClient && <Grid container direction='column' spacing={1}>
                             <Grid item>
                                 <FormElement
+                                    id="username"
                                     required
                                     propertyName='username'
                                     title='Логин'
@@ -110,6 +111,7 @@ const EditUser = WithAuthorization(props => {
                             </Grid>
                             <Grid item>
                                 <FormElement
+                                    id="password"
                                     propertyName='password'
                                     title='Пароль'
                                     onChange={inputChangeHandler}
@@ -117,6 +119,7 @@ const EditUser = WithAuthorization(props => {
                             </Grid>
                             <Grid item>
                                 <FormElement
+                                    id="displayName"
                                     propertyName='displayName'
                                     title='Отображаемое имя'
                                     value={editClient.displayName}
@@ -198,6 +201,7 @@ const EditUser = WithAuthorization(props => {
                             </Grid>
                             <Grid item>
                                 <MuiPhoneNumber
+                                    id="phone"
                                     required
                                     className={classes.phoneInput}
                                     defaultCountry={'kg'}
@@ -207,6 +211,7 @@ const EditUser = WithAuthorization(props => {
                             </Grid>
                             <Grid item>
                                 <FormElement
+                                    id="comment"
                                     propertyName='comment'
                                     title='Причина редактирования'
                                     value={comment}
