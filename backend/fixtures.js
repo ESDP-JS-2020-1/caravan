@@ -5,6 +5,7 @@ const User = require('./models/User');
 const Product = require('./models/Product');
 const History = require('./models/History');
 const Request = require('./models/Request');
+const NominatedRequest = require('./models/NominatedRequest')
 
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOptions);
@@ -15,7 +16,7 @@ const run = async () => {
         await mongoose.connection.db.dropCollection(coll.name);
     }
 
-  const user =   await User.create({
+    const user = await User.create({
         username: '123',
         password: '12345',
         token: '123',
@@ -39,6 +40,16 @@ const run = async () => {
         address: 'adress',
         phone: '123',
         coordinates: {lat: 49.554215, lng: 79.4555555}
+    }, {
+        username: 'Courier1337',
+        password: '123',
+        token: '12345',
+        displayName: 'Ашот из Ингушетии',
+        role: 'courier',
+        phone: '05504342257',
+        carName: 'Уазик',
+        carVolume: '3m³',
+        carRefrigerator: true,
     });
 
     await Product.create({
@@ -46,11 +57,11 @@ const run = async () => {
         amount: '10 кг',
         price: '1000 coм',
         isRefrigeratorRequired: true
-    },{
+    }, {
         name: 'Продукт-2',
         amount: '15 кг',
         price: '1001 coм'
-    },{
+    }, {
         name: 'Продукт-3',
         amount: '20 кг',
         price: '500 coм'
@@ -69,26 +80,51 @@ const run = async () => {
         comment: 'Change his name',
         type: 'edit'
     });
-    await Request.create(
-        {user:user[0],
-    products:[{
-        name: 'Продукт-1',
-        amount: '2',
-        isRefrigeratorRequired: false
 
+    const request = await Request.create({
+        user: user[0],
+        products: [{
+            name: 'Продукт-1',
+            amount: '2',
+            isRefrigeratorRequired: false
+
+        }, {
+            name: 'Продукт-2',
+            amount: '3',
+            isRefrigeratorRequired: false
+
+        }, {
+            name: 'Продукт-3',
+            amount: '4',
+            isRefrigeratorRequired: false
+
+        }],
+        comment: 'bla bla bla'
     }, {
-        name: 'Продукт-2',
-        amount: '3',
-        isRefrigeratorRequired: false
+        user: user[0],
+        products: [{
+            name: 'Продукт-1',
+            amount: '2',
+            isRefrigeratorRequired: false
 
-    }, {
-        name: 'Продукт-3',
-        amount: '4',
-        isRefrigeratorRequired: false
+        }, {
+            name: 'Продукт-2',
+            amount: '3',
+            isRefrigeratorRequired: false
+        }, {
+            name: 'Продукт-3',
+            amount: '4',
+            isRefrigeratorRequired: false
 
-    }],
-            comment:'bla bla bla'
-        });
+        }],
+        comment: 'bla bla bla'
+    });
+
+    await NominatedRequest.create({
+        courier: user[3],
+        request: request[1],
+        date: Date.now()
+    })
 
     mongoose.connection.close();
 };
