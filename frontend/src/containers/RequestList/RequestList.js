@@ -26,6 +26,7 @@ const RequestList = WithAuthorization(() => {
             key={elem._id}
             id={elem._id}
             user={elem.user}
+            status={elem.status}
             userRoleInfo={user.role}
             date={elem.date}
         />
@@ -36,6 +37,7 @@ const RequestList = WithAuthorization(() => {
             <RequestListItem
                 key={elem.request._id}
                 id={elem.request._id}
+                status={elem.status}
                 user={elem.request.user}
                 date={elem.request.date}
             />
@@ -50,6 +52,7 @@ const RequestList = WithAuthorization(() => {
                         <TableRow>
                             <TableCell> <b>Пользователь</b> </TableCell>
                             <TableCell> <b>Дата</b>         </TableCell>
+                            <TableCell> <b>Статус</b>       </TableCell>
                             <TableCell>                     </TableCell>
                             <TableCell>                     </TableCell>
                         </TableRow>

@@ -6,6 +6,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import TableRow from "@material-ui/core/TableRow";
 import moment from "moment";
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import Chip from "@material-ui/core/Chip";
 
 const ProductListItem = props => {
 
@@ -13,6 +14,11 @@ const ProductListItem = props => {
         <TableRow>
             <TableCell>{props.user.displayName}</TableCell>
             <TableCell>{moment(props.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
+            <TableCell>
+                {props.status === 'pending' && <Chip label='В ожидании' />}
+                {props.status === 'performed' && <Chip color='primary' label='Выполняется' />}
+                {props.status === 'closed' && <Chip color='secondary' label='Закрыт' />}
+            </TableCell>
             {props.userRoleInfo === 'admin' &&
             <TableCell >
                 <IconButton
