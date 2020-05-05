@@ -10,12 +10,16 @@ const RequestSchema = new Schema({
 	},
 	products: [
 		{
-			title: {
+			name: {
 				type: String,
 				required: true
 			},
 			amount: {
 				type: String,
+				required: true
+			},
+			isRefrigeratorRequired: {
+				type: Boolean,
 				required: true
 			}
 		}
