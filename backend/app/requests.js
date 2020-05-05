@@ -9,6 +9,16 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
+router.post('/close/:id', [auth, permit('operator', 'admin', 'courier')], async (req, res) => {
+    try {
+        await Request.updateOne({_id: req.params.id}, {status: 'closed'});
+
+        return res.send({message: 'Closed!'});
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
+
 router.get('/:id', auth, async (req, res) => {
     try {
         const request = await Request.findOne({_id: req.params.id}).populate('user');
