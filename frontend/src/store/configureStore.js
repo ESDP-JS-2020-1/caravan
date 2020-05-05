@@ -7,6 +7,7 @@ import {loadFromLocalStorage, localStorageMiddleware} from "./localStorage";
 import productsReducer from "./reducer/productsReducer";
 import historiesReducer from "./reducer/historiesReducer";
 import requestsReducer from "./reducer/requestsReducer";
+import languageReducer from "./reducer/languageReducer";
 
 export const history = createBrowserHistory();
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     products: productsReducer,
     histories: historiesReducer,
     requests: requestsReducer,
+    language: languageReducer
 });
 
 const middleware = [

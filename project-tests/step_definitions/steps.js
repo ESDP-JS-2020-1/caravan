@@ -12,46 +12,12 @@ When('я заполняю поля формы:', table => {
   })
 });
 
-When('нажимаю на кнопку {string}', btnName => {
-  I.click(btnName, '#btn');
-});
-
 When('я вижу текст {string}', text => {
   I.waitForText(text);
 });
 
-When('я залогинен как администратор:', table => {
-  I.amOnPage('/login');
-
-  const tableData = table.parse().rawData;
-
-  tableData.forEach(row => {
-    I.fillField(row[0], row[1]);
-  });
-
-  I.click("Sign in", '#btn');
-
-  I.waitForText('Вы успешно вошли, как Some market');
-});
-
-When('я нахожусь на корневой странице', () => {
-  I.amOnPage('/');
-});
-
-When('я нажму на иконку юзера {string}', btnName => {
-  I.click(btnName);
-});
-
-When('я нажму на кнопку {string}', btnName => {
-  I.click(btnName);
-});
-
 When('я попадаю на страницу со списком пользователей', () => {
   I.amOnPage('/users');
-});
-
-When('если я нажму на кнопку {string}', btnName => {
-  I.click(btnName);
 });
 
 When('я попаду на страницу добавления нового пользователя', () => {
@@ -79,48 +45,16 @@ When('я заполняю поля формы для названия компа
   });
 });
 
-When('нажимаю на кнопку  {string}', btnName => {
-  I.click(btnName);
-});
-
 When('я вижу текст после добавления {string}', text => {
   I.waitForText(text);
-});
-
-
-Given('я залогинен как администратор:', table => {
-  I.amOnPage('/login');
-
-  const tableData = table.parse().rawData;
-
-  tableData.forEach(row => {
-    I.fillField(row[0], row[1]);
-  });
-
-  I.click("Sign in", '#btn');
-
-  I.waitForText('Вы успешно вошли, как Some market');
-});
-
-When('я нахожусь на корневой странице', () => {
-  I.amOnPage('/');
 });
 
 When('я нажму на иконку юзера {string}', btnName => {
   I.click(btnName);
 });
 
-When('я нажму на кнопку {string}', btnName => {
-  I.click(btnName);
-});
-
-
 When('я попадаю на страницу добавления продукта', () => {
   I.amOnPage('/product/add');
-});
-
-When('я кликаю на кнопку {string}', (btnName) => {
-  I.click(btnName, '#panel0bh-header');
 });
 
 When('я заполняю поля формы добавления', table => {
@@ -129,10 +63,6 @@ When('я заполняю поля формы добавления', table => {
   tableData.forEach(row => {
     I.fillField(row[0], row[1]);
   });
-});
-
-When('если я нажму на кнопку {string}', btnName => {
-  I.click(btnName);
 });
 
 Then('я попадаю на страницу показа продуктов', () => {
@@ -157,12 +87,6 @@ Given('я зарегестрирован как администратор', tab
 
 When('я нахожусь на главной странице', () => {
   I.amOnPage('/');
-  I.wait(1)
-});
-
-When('я нажму на кнопку {string}', btnName => {
-  I.click(btnName);
-  I.wait(3)
 });
 
 When('я вижу текст после удаления {string}', text => {
@@ -182,19 +106,6 @@ Given('я залогинен как администратор:', table => {
   I.click("Sign in", '#btn');
 
   I.waitForText('Вы успешно вошли, как Some market');
-});
-
-When('я нахожусь на корневой странице', () => {
-  I.amOnPage('/');
-});
-
-When('я нажму на кнопку {string}', btnName => {
-  I.click(btnName);
-});
-
-When('я нажимаю на кнопку {string}', btnName => {
-    I.click(btnName);
-    I.wait(3)
 });
 
 Then('я попадаю на страницу списка продуктов', () => {
@@ -217,10 +128,6 @@ Given('я залогинен как магазин:', (table) => {
 
 When('я нахожусь на корневой странице', () => {
   I.amOnPage('/');
-});
-
-When('я нажму на кнопку {string}', btnName => {
-  I.click(btnName);
 });
 
 When('я попадаю на страницу создания заявки', () => {
@@ -264,25 +171,22 @@ Given('я вошел как администратор:', table => {
 
 When('я нахожусь на странице списка продуктов',() => {
   I.amOnPage('/products');
-
-  I.wait(2)
 });
+
 When('я кнопку нажимаю на редактирования продукта {string}', btnName => {
   I.click(btnName);
-  I.wait(1)
 });
+
 When('я заполняю  поля формы:', (table) => {
   const tableData = table.parse().rawData;
 
-  I.wait(1);
   tableData.forEach(row => {
     I.fillField(row[0], row[1]);
   });
-
 });
+
 When('нажимаю на кнопку {string}',(btnName) => {
   I.click(btnName);
-
 });
 
 Then('я вижу текст после изминений {string}', (text) => {
