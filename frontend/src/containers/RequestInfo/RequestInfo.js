@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {deleteNominatedRequest, getRequest, nominatedRequest} from "../../store/actions/requestsActions";
+import {closeRequest, deleteNominatedRequest, getRequest, nominatedRequest} from "../../store/actions/requestsActions";
 import Typography from "@material-ui/core/Typography";
 import moment from "moment";
 import {makeStyles} from "@material-ui/core/styles";
@@ -39,6 +39,7 @@ const RequestInfo = props => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const user = useSelector(state => state.users.user);
   const request = useSelector(state => state.requests.request);
 
   useEffect(() => {
@@ -69,6 +70,9 @@ const RequestInfo = props => {
 
           <Typography className={classes.padding} variant='h5'><b>Дата создания </b>{moment(request.date).format('MMMM Do YYYY, h:mm:ss a')}
           </Typography>
+
+          <Typography className={classes.padding} variant='h5'><b>Статус </b>{request.request.status}
+          </Typography>
           <Divider/>
           <Typography className={classes.padding} variant='h5'><b>Магазин </b>{request.request.user.companyName}</Typography>
 
@@ -96,6 +100,9 @@ const RequestInfo = props => {
         </>}
 
         {request.nominatedCourier && <>
+          {user.role === 'courier' && user._id === request.nominatedCourier._id && request.request.status === 'performed' && <>
+            <Button variant='contained' color='primary' onClick={() => dispatch(closeRequest(request.request._id))}>Закрыть заявку</Button>
+          </>}
           <Typography  variant='h5'><b>Назначенный курьер </b></Typography>
           <Typography  variant='h5'><b>Дата назначения: </b> {moment(request.nominatedCourier.date).format('MMMM Do YYYY, h:mm:ss a')}</Typography>
           <Card>
@@ -109,11 +116,16 @@ const RequestInfo = props => {
               <Typography variant="h6" component={NavLink} to={'/user/'+request.nominatedCourier._id}>
                 Информация о курьере
               </Typography>
-              <Button
+              {user.role === 'operator' &&  <Button
+                    variant='contained'
+                    color='secondary'
+                    onClick={() => dispatch(deleteNominatedRequest(request.request._id))}
+                >Удалить курьера</Button>}
+              {user.role === 'admin' &&  <Button
                   variant='contained'
                   color='secondary'
                   onClick={() => dispatch(deleteNominatedRequest(request.request._id))}
-              >Удалить курьера</Button>
+              >Удалить курьера</Button>}
             </CardContent>
           </Card>
         </>}
