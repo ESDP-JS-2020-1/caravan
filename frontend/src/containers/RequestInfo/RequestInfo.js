@@ -83,7 +83,6 @@ const RequestInfo = props => {
             <Typography  variant='h5'><b>Продукты: </b></Typography>
             {request.request.products.map((elem, id) => (
                   <Card key={id}>
-                    {console.log(elem)}
                     <CardContent className={classes.flex}>
                       <Typography variant="h6" style={{marginRight: '10px'}}>
                         <b>Название:</b> {elem.name}
