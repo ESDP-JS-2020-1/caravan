@@ -105,14 +105,14 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
         const editableUser = await User.findOne({username: user.username});
 
         if (user.role === 'market') {
-            editableUser.companyName = user.companyName;
-            editableUser.address = user.address;
+            editableUser.market.companyName = user.companyName;
+            editableUser.market.address = user.address;
         }
 
         if (user.role === 'courier') {
-            editableUser.carName = user.carName;
-            editableUser.carVolume = user.carVolume;
-            editableUser.carRefrigerator = user.carRefrigerator;
+            editableUser.courier.carName = user.carName;
+            editableUser.courier.carVolume = user.carVolume;
+            editableUser.courier.carRefrigerator = user.carRefrigerator;
         }
 
         if (req.file) user.avatar = req.file.filename;
@@ -129,11 +129,13 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
         editableUser.phone = user.phone;
 
 
+
         await History.create({
             title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
             comment: req.body.comment,
             type: 'edit'
         });
+        await editableUser.save();
 
         res.send(editableUser);
     } catch (e) {

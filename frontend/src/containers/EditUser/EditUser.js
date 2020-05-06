@@ -86,6 +86,10 @@ const EditUser = WithAuthorization(props => {
         e.preventDefault();
         const data = new FormData();
         Object.keys(editClient).forEach(value => {
+            if(value === 'courier'){
+                Object.keys(editClient[value]).forEach(elem => elem !== '_id' && data.append(elem, editClient[value][elem]));
+                return false
+            }
             data.append(value, editClient[value])
         });
         data.append('comment', comment);
