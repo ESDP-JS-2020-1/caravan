@@ -169,7 +169,7 @@ const RequestInfo = props => {
                                     <b>Телефон: </b> {elem.phone}
                                 </Typography>
                                 <Typography variant="h6" style={{marginRight: '10px'}}>
-                                    <b>Холодильник: </b> {elem.carRefrigerator ? 'Есть' : 'Отсутствует'}
+                                    <b>Холодильник: </b> {elem.courier.carRefrigerator ? 'Есть' : 'Отсутствует'}
                                 </Typography>
                                 <Button
                                     onClick={() => dispatch(nominatedRequest(elem._id, request.request._id))}
