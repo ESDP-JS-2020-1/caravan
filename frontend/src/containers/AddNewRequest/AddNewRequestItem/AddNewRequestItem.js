@@ -38,7 +38,7 @@ const AddNewRequestItem = (
                         aria-controls="panel1a-content"
                         id={`panel${index}bh-header`}
                     >
-                        <Typography className={classes.heading}>
+                        <Typography className={classes.heading} id="addNew">
                             Название: {r.title}
                             Количество: {r.amount}
                         </Typography>
