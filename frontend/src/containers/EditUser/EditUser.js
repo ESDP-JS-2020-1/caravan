@@ -14,7 +14,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Modal from "../../components/UI/Modal/Modal";
-import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles(() => ({
     formBtn: {
@@ -42,7 +41,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const EditUser = WithAuthorization(props => {
+const EditUser = props => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -281,6 +280,6 @@ const EditUser = WithAuthorization(props => {
             </Modal>
         </Container>
     );
-}, 'admin');
+};
 
 export default EditUser;

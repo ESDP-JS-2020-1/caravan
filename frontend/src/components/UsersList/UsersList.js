@@ -25,10 +25,9 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
-import WithAuthorization from "../HOC/WithAuthorization/WithAuthorization";
 import FormElement from "../UI/Form/FormElement";
 
-const UsersList = WithAuthorization(props => {
+const UsersList = props => {
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event) => {
@@ -173,6 +172,6 @@ const UsersList = WithAuthorization(props => {
             </Grid>
         </Box>
     );
-}, 'admin');
+};
 
 export default UsersList;

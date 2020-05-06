@@ -11,7 +11,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Chip from "@material-ui/core/Chip";
 import moment from "moment";
-import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles({
     table: {
@@ -19,7 +18,7 @@ const useStyles = makeStyles({
     },
 });
 
-const Histories = WithAuthorization(() => {
+const Histories = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const histories = useSelector(state => state.histories.historiesList);
@@ -75,6 +74,6 @@ const Histories = WithAuthorization(() => {
             </Table>
         </TableContainer>
     );
-}, 'admin operator');
+};
 
 export default Histories;
