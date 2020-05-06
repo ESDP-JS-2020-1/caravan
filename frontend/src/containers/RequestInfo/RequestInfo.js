@@ -83,15 +83,16 @@ const RequestInfo = props => {
             <Typography  variant='h5'><b>Продукты: </b></Typography>
             {request.request.products.map((elem, id) => (
                   <Card key={id}>
+                    {console.log(elem)}
                     <CardContent className={classes.flex}>
                       <Typography variant="h6" style={{marginRight: '10px'}}>
-                        <b>Название:</b> {elem.product.name}
+                        <b>Название:</b> {elem.name}
                       </Typography>
                       <Typography variant="h6" component="h2">
                         <b>Количество:</b> {elem.amount}
                       </Typography>
                       <Typography variant="h6" component="h2">
-                        <b>Холодильник:</b> {elem.product.isRefrigeratorRequired ? 'Нужен' : 'Ненужен'}
+                        <b>Холодильник:</b> {elem.isRefrigeratorRequired ? 'Нужен' : 'Ненужен'}
                       </Typography>
                     </CardContent>
                   </Card>
