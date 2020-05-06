@@ -94,24 +94,6 @@ const run = async () => {
             amount: '4'
         }],
         comment: 'bla bla bla'
-    }, {
-        user: user[0],
-        products: [{
-            name: 'Продукт-1',
-            amount: '2',
-            isRefrigeratorRequired: false
-
-        }, {
-            name: 'Продукт-2',
-            amount: '3',
-            isRefrigeratorRequired: false
-        }, {
-            name: 'Продукт-3',
-            amount: '4',
-            isRefrigeratorRequired: false
-
-        }],
-        comment: 'bla bla bla'
     });
 
     await NominatedRequest.create({
