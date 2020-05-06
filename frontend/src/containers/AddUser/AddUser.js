@@ -38,6 +38,17 @@ const useStyles = makeStyles({
     },
     phoneInput: {
         width: '100%',
+    },
+    gridItem: {
+        margin: '0 auto',
+        marginTop: '5%'
+    },
+    formControlLabel: {
+        marginLeft: '0px'
+    },
+    boxMapDisplay: {
+        width: '100%',
+        height: '410px'
     }
 });
 const AddUser = WithAuthorization(() => {
@@ -85,7 +96,7 @@ const AddUser = WithAuthorization(() => {
 
     return (
         <Container>
-            <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
+            <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
@@ -155,7 +166,7 @@ const AddUser = WithAuthorization(() => {
                                 </Grid>
 
                                 <FormControlLabel
-                                    style={{marginLeft: '0px'}}
+                                    className={classes.formControlLabel}
                                     control={
                                         <Checkbox
                                             id='carRefrigerator'
@@ -197,7 +208,7 @@ const AddUser = WithAuthorization(() => {
                                             onChange={inputChangeHandler}
                                         />
                                     </Grid>}
-                                <Box style={{width: '100%', height: '410px'}}>
+                                <Box className={classes.boxMapDisplay}>
                                     <MapDisplay/>
                                 </Box>
                             </>}

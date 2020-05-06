@@ -30,7 +30,7 @@ const AddProductItem = (
 						</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
-						<Box style={{width: '100%', marginBottom: "10px"}}>
+						<Box className={classes.mainBox}>
 							<Grid item>
 								<FormElement
 									id='name'

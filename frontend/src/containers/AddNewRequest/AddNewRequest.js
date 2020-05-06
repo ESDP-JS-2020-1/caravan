@@ -41,6 +41,21 @@ const useStyles = makeStyles((theme) => ({
     linkBtn: {
         color: '#0d47a1',
         background: 'transparent'
+    },
+    mainBox: {
+        width: '100%',
+        marginBottom: "10px"
+    },
+    autocomplete: {
+        width: '100%',
+        marginBottom: '2%'
+    },
+    gridItem: {
+        margin: '0 auto',
+        marginTop: '5%'
+    },
+    boxTextCentre: {
+        textAlign: 'center'
     }
 }));
 
@@ -111,8 +126,8 @@ const AddNewRequest = WithAuthorization(() => {
 
     return (
         <Container>
-            <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
-                <Box component="div" p={5} style={{textAlign: 'center'}}>
+            <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
+                <Box component="div" p={5} className={classes.boxTextCentre}>
                     <Button
                         className={classes.linkBtn}
                         variant="contained"

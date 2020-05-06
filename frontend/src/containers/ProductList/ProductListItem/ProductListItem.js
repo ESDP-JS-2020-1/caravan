@@ -12,6 +12,10 @@ const UserListItem = props => {
     const useStyles = makeStyles(() => ({
         offPadding: {
             padding: props.image ? '0px' : '10px 0'
+        },
+        avatar: {
+            width: '100px',
+            height: '100px'
         }
     }));
 
@@ -19,7 +23,7 @@ const UserListItem = props => {
     return (
         <TableRow>
             <TableCell className={classes.offPadding}>
-                {props.image && <Avatar style={{width: '100px', height: '100px'}} variant="square" src={apiURL.url +'/uploads/productImage/'+props.image}/>}
+                {props.image && <Avatar className={classes.avatar} variant="square" src={apiURL.url +'/uploads/productImage/'+props.image}/>}
             </TableCell>
             <TableCell className={classes.offPadding}>{props.title}</TableCell>
             <TableCell className={classes.offPadding}>{props.amount}</TableCell>

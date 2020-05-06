@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {makeStyles} from "@material-ui/core/styles";
 
-const useSStyles = makeStyles({
+const useStyles = makeStyles({
     formBtn: {
         marginTop: '1%',
         display: 'block',
@@ -31,12 +31,16 @@ const useSStyles = makeStyles({
         textTransform: 'uppercase',
         fontWeight: 'bold',
         marginBottom: '3%',
+    },
+    gridItem: {
+        margin: '0 auto',
+        marginTop: '5%'
     }
 })
 
 const Login = () => {
 
-    const classes = useSStyles();
+    const classes = useStyles();
 
     const [state, setState] = useState({
         username: '',
@@ -58,7 +62,7 @@ const Login = () => {
 
     return (
         <Container>
-            <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
+            <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.text} variant="h6" gutterBottom>

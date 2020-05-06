@@ -48,6 +48,14 @@ const useStyles = makeStyles((theme) => ({
     linkBtn: {
         color: '#0d47a1',
         background: 'transparent'
+    },
+    gridItem: {
+        margin: '0 auto',
+        marginTop: '5%'
+    },
+    autocomplete: {
+        width: '100%',
+        marginBottom: '2%'
     }
 }));
 
@@ -123,7 +131,7 @@ const EditRequest = WithAuthorization((props) => {
 
     return (
         <Container>
-            <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
+            <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
 
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>

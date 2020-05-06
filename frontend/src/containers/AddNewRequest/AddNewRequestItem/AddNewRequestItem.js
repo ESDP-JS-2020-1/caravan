@@ -14,7 +14,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import {getProductsList} from "../../../store/actions/productsActions";
 
-
 const AddNewRequestItem = (
     {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange}
 ) => {
@@ -26,8 +25,8 @@ const AddNewRequestItem = (
         dispatch(getProductsList());
     }, [dispatch]);
 
-
     return (
+
         <Grid container alignItems='center' spacing={1}>
             <Grid item xs={11}>
                 <ExpansionPanel expanded={expanded === 'panel' + index}
@@ -44,14 +43,14 @@ const AddNewRequestItem = (
                         </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
-                        <Box style={{width: '100%', marginBottom: "10px"}}>
+                        <Box className={classes.mainBox}>
                             {products && (
                                 <Grid item>
                                     <Autocomplete
                                         id="combo-box-demo"
                                         options={products}
                                         getOptionLabel={option => option.name}
-                                        style={{width: '100%', marginBottom: '2%'}}
+                                        className={classes.autocomplete}
                                         onChange={(e, value) => onAutoCompleteChange(value, index)}
                                         renderInput={(params) =>
                                             <TextField

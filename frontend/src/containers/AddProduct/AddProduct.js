@@ -39,7 +39,15 @@ const useStyles = makeStyles((theme) => ({
     },
     phoneInput: {
         width: '100%',
-    }
+    },
+    gridItem: {
+        margin: '0 auto',
+        marginTop: '5%'
+    },
+    mainBox: {
+        width: '100%',
+        marginBottom: "10px"
+    },
 }));
 
 const AddProduct = WithAuthorization(() => {
@@ -125,7 +133,7 @@ const AddProduct = WithAuthorization(() => {
 
     return (
         <Container>
-            <Grid style={{margin: '0 auto', marginTop: '5%'}} item xs={12} lg={8} sm={7} ml={8}>
+            <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>

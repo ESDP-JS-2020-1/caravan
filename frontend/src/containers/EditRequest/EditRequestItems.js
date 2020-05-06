@@ -52,7 +52,7 @@ const EditRequestItems = (
                                         options={products.map((option) => option)}
                                         getOptionLabel={option => option.name}
                                         freeSolo
-                                        style={{ width: '100%', marginBottom: '2%' }}
+                                        className={classes.autocomplete}
                                         onChange={(value, element) => onAutoCompleteChange(element, index)}
                                         renderInput={(params) =>
                                             <TextField

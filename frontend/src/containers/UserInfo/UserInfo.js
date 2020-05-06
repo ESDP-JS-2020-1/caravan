@@ -25,6 +25,12 @@ const useStyles = makeStyles({
         fontWeight: 'bold',
         marginBottom: '3%',
     },
+    paper: {
+        width: '70%',
+        padding: '20px',
+        margin: '0 auto',
+        marginTop: '5%'
+    }
 });
 
 const UserInfo = props => {
@@ -39,7 +45,7 @@ const UserInfo = props => {
 
     return (
         <Container>
-            <Paper style={{width: '70%', padding: '20px', margin: '0 auto', marginTop: '5%'}} elevation={3}>
+            <Paper className={classes.paper} elevation={3}>
                 <Box className={classes.typography} component={'span'}>
                     <Typography className={classes.typographyText} variant="h6" gutterBottom>
                         Информация о пользователе
