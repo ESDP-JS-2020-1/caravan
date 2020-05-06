@@ -89,11 +89,16 @@ const RequestInfo = props => {
                     <Typography className={classes.padding} variant='h5'><b>Статус </b>{request.request.status}
                     </Typography>
                     <Divider/>
-                    <Typography className={classes.padding}
-                                variant='h5'><b>Магазин </b>{request.request.user.companyName}</Typography>
+                    {request.request.user.market && <>
+                        <Typography className={classes.padding}
+                                    variant='h5'><b>Магазин </b>{request.request.user.market.companyName}</Typography>
 
-                    <Typography className={classes.padding} variant='h5'><b>Адрес </b>{request.request.user.address}
-                    </Typography>
+                        <Typography className={classes.padding} variant='h5'><b>Адрес </b>{request.request.user.market.address}
+                        </Typography>
+
+                        <Typography className={classes.padding} variant='h5'><b>Координаты </b>lat: {request.request.user.market.coordinates.lat} , lng: {request.request.user.market.coordinates.lng}</Typography>
+                    </>}
+
                     <Divider/>
 
                     <Box className={classes.boxPd} border={1} borderRadius={6} borderColor='#cccccc'>
