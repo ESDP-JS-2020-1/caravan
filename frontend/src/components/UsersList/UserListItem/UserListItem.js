@@ -9,27 +9,33 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 const UserListItem = props => {
     return (
         <TableRow>
-            <TableCell>{props.displayName}</TableCell>
-            <TableCell>{props.username}</TableCell>
-            <TableCell>{props.phone}</TableCell>
-            {props.paramsRole === 'market' && <>
-                <TableCell>{props.companyName}</TableCell>
-                <TableCell>{props.address}</TableCell>
+            <TableCell>{props.user.displayName}</TableCell>
+            <TableCell>{props.user.username}</TableCell>
+            <TableCell>{props.user.phone}</TableCell>
+            {props.paramsRole === 'market' || props.user.role === 'market' ? <>
+                {props.user.market && <>
+                    <TableCell>{props.user.market.companyName}</TableCell>
+                    <TableCell>{props.user.market.address}</TableCell>
+                </>}
+            </> : <>
+                {props.paramsRole === undefined && <>
+                    <TableCell> </TableCell>
+                    <TableCell> </TableCell>
+                </>}
             </>}
-            {props.paramsRole === undefined && <>
-                <TableCell>{props.companyName}</TableCell>
-                <TableCell>{props.address}</TableCell>
-            </>}
-            <TableCell>{props.role}</TableCell>
-            {props.paramsRole === 'courier' && <>
-                <TableCell>{props.carName}</TableCell>
-                <TableCell>{props.carVolume}</TableCell>
-                <TableCell>{props.carRefrigerator && 'Есть'}</TableCell>
-            </>}
-            {props.paramsRole === undefined && <>
-                <TableCell>{props.carName}</TableCell>
-                <TableCell>{props.carVolume}</TableCell>
-                <TableCell>{props.carRefrigerator && 'Есть'}</TableCell>
+            <TableCell>{props.user.role}</TableCell>
+            {props.paramsRole === 'courier' || props.user.role === 'courier' ? <>
+                {props.user.courier && <>
+                    <TableCell>{props.user.courier.carName}</TableCell>
+                    <TableCell>{props.user.courier.carVolume}</TableCell>
+                    <TableCell>{props.user.courier.carRefrigerator && 'Есть'}</TableCell>
+                </>}
+            </> : <>
+                {props.paramsRole === undefined && <>
+                    <TableCell> </TableCell>
+                    <TableCell> </TableCell>
+                    <TableCell> </TableCell>
+                </>}
             </>}
             <TableCell>
                 <IconButton
@@ -42,7 +48,7 @@ const UserListItem = props => {
                     <EditIcon/>
                 </IconButton>
             </TableCell>
-            <TableCell >
+            <TableCell>
                 <IconButton
                     aria-label="show info"
                     component={NavLink}

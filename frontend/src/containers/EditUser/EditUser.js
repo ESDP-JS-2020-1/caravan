@@ -146,7 +146,7 @@ const EditUser = WithAuthorization(props => {
                                         id='carName'
                                         propertyName='carName'
                                         title='Название машины'
-                                        value={editClient.carName}
+                                        value={editClient.courier ? editClient.courier.carName : ''}
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>
@@ -156,7 +156,7 @@ const EditUser = WithAuthorization(props => {
                                         id='carVolume'
                                         propertyName='carVolume'
                                         title='Объем машины'
-                                        value={editClient.carVolume}
+                                        value={editClient.courier ? editClient.courier.carVolume : ''}
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>
@@ -166,8 +166,8 @@ const EditUser = WithAuthorization(props => {
                                     control={
                                         <Checkbox
                                             id='carRefrigerator'
-                                            checked={editClient.carRefrigerator}
-                                            value={editClient.carRefrigerator}
+                                            checked={editClient.courier ? editClient.courier.carRefrigerator : false}
+                                            value={editClient.courier ? editClient.courier.carRefrigerator : false}
                                             onChange={checkboxChangeHandler}
                                             inputProps={{'aria-label': 'primary checkbox'}}
                                         />
@@ -181,7 +181,7 @@ const EditUser = WithAuthorization(props => {
                                     <FormElement
                                         propertyName='companyName'
                                         title='Название компании'
-                                        value={editClient.companyName}
+                                        value={editClient.market ? editClient.market.companyName : ''}
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>
@@ -189,7 +189,7 @@ const EditUser = WithAuthorization(props => {
                                     <FormElement
                                         propertyName='address'
                                         title='Адрес компании'
-                                        value={editClient.address}
+                                        value={editClient.market ? editClient.market.address : ''}
                                         onChange={inputChangeHandler}
                                     />
                                 </Grid>

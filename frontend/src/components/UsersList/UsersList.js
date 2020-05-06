@@ -47,8 +47,6 @@ const UsersList = WithAuthorization(props => {
         dispatch(getUsers(props.match.params.id))
     }, [dispatch, props.match.params.id]);
 
-    const roles = ['admin', 'operator', 'courier', 'market'];
-
     const [search, setSearch] = useState({search: ''});
 
     const changeSearch = e => {
@@ -128,7 +126,7 @@ const UsersList = WithAuthorization(props => {
                                             </ListItem>
                                             <Divider/>
                                         </div>
-                                        {roles.map((e, i) => (
+                                        {['admin', 'operator', 'courier', 'market'].map((e, i) => (
                                             <div key={i}>
                                                 <ListItem onClick={handleClose} component={NavLink} to={'/users/' + e}
                                                           button>
@@ -153,15 +151,7 @@ const UsersList = WithAuthorization(props => {
                                             key={user._id}
                                             id={user._id}
                                             edit={edit}
-                                            displayName={user.displayName}
-                                            username={user.username}
-                                            phone={user.phone}
-                                            companyName={user.companyName}
-                                            address={user.address}
-                                            carName={user.carName}
-                                            carVolume={user.carVolume}
-                                            carRefrigerator={user.carRefrigerator}
-                                            role={user.role}
+                                            user={user}
                                             paramsRole={props.match.params.id}
                                         />
                                     )

@@ -60,18 +60,20 @@ const UserInfo = props => {
                         <Divider/>
 
                         {userInfo.role === 'market' && <>
-                            <Typography className={classes.padding} variant='h5'><b>Магазин </b>{userInfo.companyName}</Typography>
+                            <Typography className={classes.padding} variant='h5'><b>Магазин </b>{userInfo.market.companyName}</Typography>
 
-                            <Typography className={classes.padding} variant='h5'><b>Адрес </b>{userInfo.address}</Typography>
+                            <Typography className={classes.padding} variant='h5'><b>Адрес </b>{userInfo.market.address}</Typography>
+
+                            <Typography className={classes.padding} variant='h5'><b>Координаты </b>lat: {userInfo.market.coordinates.lat} , lng: {userInfo.market.coordinates.lng}</Typography>
                             <Divider/>
                             </>}
 
                         {userInfo.role === 'courier' && <>
-                            <Typography className={classes.padding} variant='h5'><b>Машина </b>{userInfo.carName}</Typography>
+                            <Typography className={classes.padding} variant='h5'><b>Машина </b>{userInfo.courier.carName}</Typography>
 
-                            <Typography className={classes.padding} variant='h5'><b>Объем машины </b>{userInfo.carVolume}</Typography>
+                            <Typography className={classes.padding} variant='h5'><b>Объем машины </b>{userInfo.courier.carVolume}</Typography>
 
-                            <Typography className={classes.padding} variant='h5'><b>Наличие холодильника </b>{userInfo.carRefrigerator ? 'Есть' : 'Отсутствует'}</Typography>
+                            <Typography className={classes.padding} variant='h5'><b>Наличие холодильника </b>{userInfo.courier.carRefrigerator ? 'Есть' : 'Отсутствует'}</Typography>
                             <Divider/>
                         </>}
                     </>}

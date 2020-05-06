@@ -76,6 +76,7 @@ router.get('/', isAuth, async (req, res) => {
     try {
         if (req.query.role) {
             const users = await User.find({role: req.query.role}).select({token: 0});
+            console.log(users )
 
             return res.send(users)
         }
