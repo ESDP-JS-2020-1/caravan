@@ -16,7 +16,7 @@ const run = async () => {
         await mongoose.connection.db.dropCollection(coll.name);
     }
 
-    const user = await User.create({
+    const [user1, user2, user3, user4] = await User.create({
         username: '123',
         password: '12345',
         token: '123',
@@ -82,7 +82,7 @@ const run = async () => {
     });
 
     const request = await Request.create({
-        user: user[0],
+        user: user1,
         products: [{
             product: product1,
             amount: '2',
@@ -97,8 +97,8 @@ const run = async () => {
     });
 
     await NominatedRequest.create({
-        courier: user[3],
-        request: request[1],
+        courier: user4,
+        request: request,
         date: Date.now()
     });
 
