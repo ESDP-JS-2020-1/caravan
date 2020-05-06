@@ -3,6 +3,9 @@ const bcrypt = require('bcrypt');
 
 const SALT_FACTOR = 10;
 
+const MarketSchema = require('./Roles/Market');
+const CourierSchema = require('./Roles/Courier');
+
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
@@ -27,38 +30,14 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    carName: {
-        type: String,
+    courier: {
+        type: CourierSchema,
         required: function() {
             return this.role === 'courier'
         }
     },
-    carVolume: {
-        type: String,
-        required: function() {
-            return this.role === 'courier'
-        }
-    },
-    carRefrigerator: {
-        type: Boolean,
-        required: function() {
-            return this.role === 'courier'
-        }
-    },
-    companyName: {
-        type: String,
-        required: function() {
-            return this.role === 'market'
-        }
-    },
-    address: {
-        type: String,
-        required: function() {
-            return this.role === 'market'
-        }
-    },
-    coordinates: {
-        type: Object,
+    market: {
+        type: MarketSchema,
         required: function() {
             return this.role === 'market'
         }

@@ -33,20 +33,28 @@ router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, r
             req.body.avatar = req.file.filename
         }
 
-        const newUser = new User({
+        const createUser = {
             username: user.username,
             password: user.password,
             displayName: user.displayName,
             role: user.role,
             avatar: user.avatar,
-            address: user.address,
-            coordinates: JSON.parse(user.coordinates),
-            companyName: user.companyName,
             phone: user.phone,
+        };
+
+        if(createUser.role === 'market') createUser.market = {
+            address: user.address,
+            coordinates: user.coordinates,
+            companyName: user.companyName,
+        };
+
+        if(createUser.role === 'courier') createUser.courier = {
             carName: user.carName,
             carVolume: user.carVolume,
             carRefrigerator: user.carRefrigerator
-        });
+        };
+
+        const newUser = new User(createUser);
 
         const history = new History({
             title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
@@ -118,7 +126,6 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
         editableUser.displayName = user.displayName;
         editableUser.role = user.role;
         editableUser.phone = user.phone;
-
 
 
         await History.create({

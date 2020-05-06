@@ -37,9 +37,12 @@ const run = async () => {
         displayName: 'Игнат',
         role: 'market',
         companyName: 'some market',
-        address: 'adress',
-        phone: '123',
-        coordinates: {lat: 49.554215, lng: 79.4555555}
+        phone: '05504342257',
+        market: {
+            address: 'adress',
+            companyName: '123',
+            coordinates: {lat: 49.554215, lng: 79.4555555}
+        }
     }, {
         username: 'Courier1337',
         password: '123',
@@ -47,9 +50,11 @@ const run = async () => {
         displayName: 'Ашот из Ингушетии',
         role: 'courier',
         phone: '05504342257',
-        carName: 'Уазик',
-        carVolume: '3m³',
-        carRefrigerator: true,
+        courier: {
+            carName: 'Уазик',
+            carVolume: '3m³',
+            carRefrigerator: true,
+        }
     });
 
     const [product1, product2, product3] = await Product.create({
