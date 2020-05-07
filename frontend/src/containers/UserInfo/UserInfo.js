@@ -7,13 +7,12 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import {getUser} from "../../store/actions/usersActions";
+import {MuiThemeProvider} from "@material-ui/core";
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 
 const useStyles = makeStyles({
     flex: {
         display: 'flex',
-    },
-    padding: {
-        padding: '10px 0'
     },
     typography: {
         color: '#0d47a1',
@@ -43,6 +42,17 @@ const UserInfo = props => {
         dispatch(getUser(props.match.params.id))
     }, [dispatch, props.match.params.id]);
 
+    const theme = createMuiTheme({
+        overrides: {
+            MuiTypography: {
+                root: {
+                    margin: "7px",
+                    padding: "10px"
+                }
+            }
+        }
+    });
+
     return (
         <Container>
             <Paper className={classes.paper} elevation={3}>
@@ -51,32 +61,34 @@ const UserInfo = props => {
                         Информация о пользователе
                     </Typography>
                 </Box>
+                <MuiThemeProvider theme={theme}>
                     {userInfo && <>
-                        <Typography className={classes.padding} variant='h5'> <b>Роль </b>{userInfo.role}</Typography>
+                        <Typography variant='h5'> <b>Роль </b>{userInfo.role}</Typography>
 
-                        <Typography className={classes.padding} variant='h5'> <b>Пользователь </b>{userInfo.displayName}</Typography>
+                        <Typography variant='h5'> <b>Пользователь </b>{userInfo.displayName}</Typography>
 
-                        <Typography className={classes.padding} variant='h5'><b>Телефон </b>{userInfo.phone}</Typography>
+                        <Typography variant='h5'><b>Телефон </b>{userInfo.phone}</Typography>
                         <Divider/>
 
                         {userInfo.role === 'market' && <>
-                            <Typography className={classes.padding} variant='h5'><b>Магазин </b>{userInfo.market.companyName}</Typography>
+                            <Typography variant='h5'><b>Магазин </b>{userInfo.market.companyName}</Typography>
 
-                            <Typography className={classes.padding} variant='h5'><b>Адрес </b>{userInfo.market.address}</Typography>
+                            <Typography variant='h5'><b>Адрес </b>{userInfo.market.address}</Typography>
 
-                            <Typography className={classes.padding} variant='h5'><b>Координаты </b>lat: {userInfo.market.coordinates.lat} , lng: {userInfo.market.coordinates.lng}</Typography>
+                            <Typography variant='h5'><b>Координаты </b>lat: {userInfo.market.coordinates.lat} , lng: {userInfo.market.coordinates.lng}</Typography>
                             <Divider/>
                             </>}
 
                         {userInfo.role === 'courier' && <>
-                            <Typography className={classes.padding} variant='h5'><b>Машина </b>{userInfo.courier.carName}</Typography>
+                            <Typography variant='h5'><b>Машина </b>{userInfo.courier.carName}</Typography>
 
-                            <Typography className={classes.padding} variant='h5'><b>Объем машины </b>{userInfo.courier.carVolume}</Typography>
+                            <Typography variant='h5'><b>Объем машины </b>{userInfo.courier.carVolume}</Typography>
 
-                            <Typography className={classes.padding} variant='h5'><b>Наличие холодильника </b>{userInfo.courier.carRefrigerator ? 'Есть' : 'Отсутствует'}</Typography>
+                            <Typography variant='h5'><b>Наличие холодильника </b>{userInfo.courier.carRefrigerator ? 'Есть' : 'Отсутствует'}</Typography>
                             <Divider/>
                         </>}
                     </>}
+                </MuiThemeProvider>
             </Paper>
         </Container>
     );
