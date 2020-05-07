@@ -1,26 +1,11 @@
 const express = require('express');
-const multer = require('multer');
-const {nanoid} = require('nanoid');
-const path = require('path');
 const auth = require('../middleware/isAuth');
 const Product = require('../models/Product');
-const config = require('../config');
+const upload = require('../multer');
 const History = require('../models/History');
 const permit = require('../middleware/permit');
 
 const router = express.Router();
-
-const storage = multer.diskStorage({
-    destination: (req, file, cd) => {
-        cd(null, config.productImage)
-    },
-    filename: (req, file, cd) => {
-        cd(null, nanoid() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({storage});
-
 
 router.get('/', auth, async (req, res) => {
     try {

@@ -1,29 +1,12 @@
 const express = require('express');
-const multer = require('multer');
-const {nanoid} = require('nanoid');
 const bcrypt = require('bcrypt');
-const path = require('path');
-
-const config = require('../config');
 const User = require('../models/User');
 const History = require('../models/History');
-
+const upload = require('../multer');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
-
 const router = express.Router();
-
-const storage = multer.diskStorage({
-    destination: (req, file, cd) => {
-        cd(null, config.userAvatar)
-    },
-    filename: (req, file, cd) => {
-        cd(null, nanoid() + path.extname(file.originalname));
-    }
-});
-
-const upload = multer({storage});
 
 router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
     try {
@@ -76,7 +59,6 @@ router.get('/', isAuth, async (req, res) => {
     try {
         if (req.query.role) {
             const users = await User.find({role: req.query.role}).select({token: 0});
-            console.log(users )
 
             return res.send(users)
         }
