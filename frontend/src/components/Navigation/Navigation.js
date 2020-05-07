@@ -15,11 +15,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from '@material-ui/core/ListItemText';
 import FastfoodSharpIcon from '@material-ui/icons/FastfoodSharp';
-import CreateNewFolderSharpIcon from '@material-ui/icons/CreateNewFolderSharp';
 import {useSelector} from "react-redux";
 import GroupIcon from '@material-ui/icons/Group';
 import DescriptionIcon from '@material-ui/icons/Description';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import HistoryIcon from '@material-ui/icons/History';
 import {wordList} from "../../wordList";
 
@@ -90,26 +88,6 @@ const Navigation = () => {
                     </List>
                 </NavLink>
             )}
-            {user && user.role === 'market' && (
-                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>{<CreateNewFolderSharpIcon/>}</ListItemIcon>
-                            <ListItemText>Создать заявку</ListItemText>
-                        </ListItem>
-                    </List>
-                </NavLink>
-            )}
-            {user && user.role === 'admin' && (
-                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>{<CreateNewFolderSharpIcon/>}</ListItemIcon>
-                            <ListItemText>Создать заявку</ListItemText>
-                        </ListItem>
-                    </List>
-                </NavLink>
-            )}
             <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests">
                 <List>
                     <ListItem button>
@@ -118,16 +96,6 @@ const Navigation = () => {
                     </ListItem>
                 </List>
             </NavLink>
-            {user && user.role === 'admin' && (
-                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/product/add">
-                    <List>
-                        <ListItem button>
-                            <ListItemIcon>{<AddShoppingCartIcon/>}</ListItemIcon>
-                            <ListItemText>Добавить продукты</ListItemText>
-                        </ListItem>
-                    </List>
-                </NavLink>
-            )}
             <NavLink style={{textDecoration: 'none', color: 'black'}} to="/products">
                 <List>
                     <ListItem button>

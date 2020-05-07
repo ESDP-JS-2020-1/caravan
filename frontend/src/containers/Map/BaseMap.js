@@ -2,7 +2,6 @@ import React from 'react';
 import './Maps.css'
 class BaseMap extends React.Component {
     onChange = (e) => {
-
         if (this.props.onChange) {
             this.props.onChange(e.currentTarget.value);
         }
@@ -20,6 +19,6 @@ class BaseMap extends React.Component {
             </div>
         );
     }
-};
+}
 
 export default BaseMap;
