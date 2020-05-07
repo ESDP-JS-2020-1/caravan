@@ -15,7 +15,13 @@ router.post('/', isAuth, permit('admin', 'operator'), async (req, res) => {
             request: req.body.request
         };
 
-        await Request.updateOne({_id: whiteList.request}, {status: 'performed'});
+        const request = await Request.findOne({_id: whiteList.request});
+
+        if(request.status === 'pending') {
+            request.status = 'performed'
+        } else return res.status(404).send({message: 'Request status is not pending!'});
+
+        await request.save();
 
         const NewNominatedRequest = await NominatedRequest.create(whiteList);
 
@@ -29,7 +35,11 @@ router.delete('/:id', isAuth, permit('admin', 'operator'), async (req, res) => {
     try {
         await NominatedRequest.deleteOne({request: req.params.id});
 
-        await Request.updateOne({_id: req.params.id}, {status: 'pending'});
+        const request = await Request.findOne({_id: req.params.id});
+
+        request.status = 'pending';
+
+        await request.save();
 
         res.send({message: 'Deleted!'});
     } catch (e) {

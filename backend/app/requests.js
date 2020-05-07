@@ -10,7 +10,13 @@ const router = express.Router();
 
 router.post('/close/:id', [auth, permit('operator', 'admin', 'courier')], async (req, res) => {
     try {
-        await Request.updateOne({_id: req.params.id}, {status: 'closed'});
+        const request = await Request.findOne({_id: req.params.id});
+
+        if(request.status === 'performed') {
+            request.status = 'closed'
+        } else return res.status(404).send({message: 'Request status is not performed!'});
+
+        await request.save();
 
         return res.send({message: 'Closed!'});
     } catch (e) {
