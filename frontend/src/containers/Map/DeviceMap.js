@@ -26,29 +26,20 @@ const MapDisplay = () => {
         lat: 42.8700000,
         lng: 74.5900000,
         zoom: 12,
-        marker: [],
+        marker: {lat:'42.8700000',lng:'74.5900000'},
         basemap: 'osm'
-    })
+    });
 
     const addMarker = (event) => {
-        const marker = [...state.marker];
+        const marker = {...event.latlng};
 
-        marker.push(event.latlng);
+        if (event.originalEvent.target.id !== 'select'){
+            setState({...state, marker});
+            dispatch(createCoordinateSuccess({lat: event.latlng.lat, lng: event.latlng.lng}))
+        }
 
-        setState({...state, marker});
-        dispatch(createCoordinateSuccess({lat: event.latlng.lat, lng: event.latlng.lng}))
     };
 
-    const deleteMarker = (event) => {
-        const marker = [...state.marker];
-
-        const newMarker = marker.filter(d => {
-            if (d.lat !== event.latlng.lat && d.lng !== event.latlng.lng) return d
-            else return false
-        });
-
-        setState({...state, marker: newMarker})
-    };
 
     const myPopup = (SearchInfo) => {
         return(
@@ -59,11 +50,11 @@ const MapDisplay = () => {
                 </div>
             </Popup>
         );
-    }
+    };
 
     const onBMChange = (bm) => {
         setState({...state, basemap: bm});
-    }
+    };
 
 
     const basemapsDict = {
@@ -71,7 +62,7 @@ const MapDisplay = () => {
         hot: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
         dark:"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
         cycle: "https://dev.{s}.tile.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
-    }
+    };
 
     const position = [state.lat, state.lng];
 
@@ -85,9 +76,9 @@ const MapDisplay = () => {
                 url={basemapsDict[state.basemap]}
             />
             <BaseMap basemap={state.basemap} onChange={onBMChange}/>
-            {state.marker.map((m, index) => (
-                <Marker onClick={deleteMarker} key={index} position={m}/>
-            ))}
+
+            <Marker position={state.marker}/>
+
         </Map>
     )
 }
