@@ -126,6 +126,10 @@ const RequestInfo = props => {
                         <Button variant='contained' color='primary'
                                 onClick={() => dispatch(closeRequest(request.request._id))}>Закрыть заявку</Button>
                     </>}
+                    {user.role === 'admin' && request.request.status === 'performed' && <>
+                        <Button variant='contained' color='primary'
+                                onClick={() => dispatch(closeRequest(request.request._id))}>Закрыть заявку</Button>
+                    </>}
                     <Typography variant='h5'><b>Назначенный курьер </b></Typography>
                     <Typography variant='h5'><b>Дата
                         назначения: </b> {moment(request.nominatedCourier.date).format('MMMM Do YYYY, h:mm:ss a')}
@@ -146,7 +150,7 @@ const RequestInfo = props => {
                                 color='secondary'
                                 onClick={() => dispatch(deleteNominatedRequest(request.request._id))}
                             >Удалить курьера</Button>}
-                            {user.role === 'admin' && <Button
+                            {user.role === 'admin' && request.request.status !== 'closed' && <Button
                                 variant='contained'
                                 color='secondary'
                                 onClick={() => dispatch(deleteNominatedRequest(request.request._id))}
