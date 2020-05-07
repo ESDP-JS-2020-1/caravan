@@ -14,9 +14,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import {fade, makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import AddIcon from '@material-ui/icons/Add';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from "@material-ui/core/InputBase";
 import {NavLink} from "react-router-dom";
+import FormElement from "../../components/UI/Form/FormElement";
 
 const useStyles = makeStyles((theme) => ({
     offPadding: {
@@ -63,7 +62,9 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductList = () => {
     const classes = useStyles();
+
     const dispatch = useDispatch();
+
     const products = useSelector(state => state.products.productsList);
     const user = useSelector(state => state.users.user);
 
@@ -128,21 +129,12 @@ const ProductList = () => {
                                     <TableCell className={classes.offPadding}><b>Цена</b></TableCell>
                                     <TableCell className={classes.offPadding}><b>Наличие холодильника для перевозки</b></TableCell>
                                     <TableCell className={classes.offPadding}>
-                                        <div className={classes.search}>
-                                            <div className={classes.searchIcon}>
-                                                <SearchIcon />
-                                            </div>
-                                            <InputBase
-                                                placeholder="Найти продукт…"
-                                                value={search.search}
-                                                onChange={changeSearch}
-                                                classes={{
-                                                    root: classes.inputRoot,
-                                                    input: classes.inputInput,
-                                                }}
-                                                inputProps={{ 'aria-label': 'search' }}
-                                            />
-                                        </div>
+                                        <FormElement
+                                            type='search'
+                                            propertyName='search'
+                                            title='Поиск продуктов...'
+                                            onChange={changeSearch}
+                                        />
                                     </TableCell>
                                 </TableRow>
                             </TableHead>

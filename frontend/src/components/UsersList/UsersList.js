@@ -57,25 +57,27 @@ const UsersList = props => {
 
     return (
         <Box mt={2}>
-            <Grid container justify='flex-end'>
-                <Button
-                    variant='contained'
-                    color='primary'
-                    component={NavLink}
-                    to='/users/new'
-                    endIcon={<PersonAddIcon/>}
-                >
-                    Добавить пользователя
-                </Button>
-            </Grid>
-            <Grid item>
-                <FormElement
-                    propertyName="search"
-                    title="Поиск пользователей"
-                    value={search.search}
-                    onChange={changeSearch}
-                    type="text"
-                />
+            <Grid container justify='space-between'>
+                <Grid item>
+                    <FormElement
+                        propertyName="search"
+                        title="Поиск пользователей"
+                        value={search.search}
+                        onChange={changeSearch}
+                        type="search"
+                    />
+                </Grid>
+                <Grid item>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        component={NavLink}
+                        to='/users/new'
+                        endIcon={<PersonAddIcon/>}
+                    >
+                        Добавить пользователя
+                    </Button>
+                </Grid>
             </Grid>
             <Grid container item>
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop: '10px'}}>
@@ -108,6 +110,9 @@ const UsersList = props => {
                                     <TableCell> </TableCell>
                                     <TableCell>{
                                         <IconButton onClick={handleClick}><MenuIcon/></IconButton>}
+                                    </TableCell>
+                                    <TableCell>
+
                                     </TableCell>
                                 </TableRow>
                                 <Menu
