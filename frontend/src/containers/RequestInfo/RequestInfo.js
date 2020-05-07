@@ -116,6 +116,7 @@ const RequestInfo = props => {
                                         <b>Холодильник:</b> {elem.product.isRefrigeratorRequired ? 'Нужен' : 'Ненужен'}
                                     </Typography>
                                 </CardContent>
+                                <Divider style={{border: '1px solid black'}}/>
                             </Card>
                         ))}
                     </Box>
