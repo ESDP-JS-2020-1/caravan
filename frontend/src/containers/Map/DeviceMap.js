@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, {useState} from 'react'
 import Leaflet from 'leaflet';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import {Map, TileLayer, Marker, Popup} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import ReactLeafletSearch from "react-leaflet-search";
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 import {createCoordinateSuccess} from "../../store/actions/usersActions";
 import BaseMap from "./BaseMap";
 
@@ -18,37 +18,39 @@ Leaflet.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
+const MapDisplay = () => {
 
+    const dispatch = useDispatch();
 
- class MapDisplay extends Component {
-    state = {
+    const [state, setState] = useState({
         lat: 42.8700000,
         lng: 74.5900000,
         zoom: 12,
         marker: [],
         basemap: 'osm'
-    };
+    })
 
-    addMarker = (event) => {
-        const marker = [...this.state.marker];
+    const addMarker = (event) => {
+        const marker = [...state.marker];
+
         marker.push(event.latlng);
-        this.setState({marker: marker});
-        this.props.createCoordinateSuccess({lat: event.latlng.lat, lng: event.latlng.lng})
-    };
-    deleteMarker = (event) => {
-        const marker = [...this.state.marker];
-        const newMarker = marker.filter(d => {
-            if (d.lat !== event.latlng.lat && d.lng !== event.latlng.lng) {
-                return d
-            } else {
-                return false
-            }
-        });
-        this.setState({marker: newMarker})
+
+        setState({...state, marker});
+        dispatch(createCoordinateSuccess({lat: event.latlng.lat, lng: event.latlng.lng}))
     };
 
-    myPopup(SearchInfo) {
-        console.log(SearchInfo);
+    const deleteMarker = (event) => {
+        const marker = [...state.marker];
+
+        const newMarker = marker.filter(d => {
+            if (d.lat !== event.latlng.lat && d.lng !== event.latlng.lng) return d
+            else return false
+        });
+
+        setState({...state, marker: newMarker})
+    };
+
+    const myPopup = (SearchInfo) => {
         return(
             <Popup>
                 <div>
@@ -58,44 +60,36 @@ Leaflet.Icon.Default.mergeOptions({
             </Popup>
         );
     }
-     onBMChange = (bm) => {
-         // console.log(this);
-         this.setState({
-             basemap: bm
-         });
-     }
 
-    render() {
-
-        const basemapsDict = {
-            osm: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            hot: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-            dark:"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
-            cycle: "https://dev.{s}.tile.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
-        }
-
-        const position = [this.state.lat, this.state.lng];
-        return (
-            <Map onClick={this.addMarker} center={position} zoom={this.state.zoom} style={{height : '100%'}}>
-                <ReactLeafletSearch
-                    popUp={ this.myPopup }
-                    showMarker = {true}
-                    position="topleft" />
-                <TileLayer
-                    // attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url={basemapsDict[this.state.basemap]}
-                />
-                <BaseMap basemap={this.state.basemap} onChange={this.onBMChange}/>
-                {this.state.marker.map((m, index) => (
-                    <Marker onClick={this.deleteMarker} key={index} position={m}/>
-                ))}
-            </Map>
-        )
+    const onBMChange = (bm) => {
+        setState({...state, basemap: bm});
     }
+
+
+    const basemapsDict = {
+        osm: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        hot: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+        dark:"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
+        cycle: "https://dev.{s}.tile.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
+    }
+
+    const position = [state.lat, state.lng];
+
+    return (
+        <Map onClick={addMarker} center={position} zoom={state.zoom} style={{height : '100%'}}>
+            <ReactLeafletSearch
+                popUp={ myPopup }
+                showMarker = {true}
+                position="topleft" />
+            <TileLayer
+                url={basemapsDict[state.basemap]}
+            />
+            <BaseMap basemap={state.basemap} onChange={onBMChange}/>
+            {state.marker.map((m, index) => (
+                <Marker onClick={deleteMarker} key={index} position={m}/>
+            ))}
+        </Map>
+    )
 }
 
-const mapDispatchToProps = dispatch => ({
-    createCoordinateSuccess: (data) => dispatch(createCoordinateSuccess(data))
-});
-
-export default connect(null, mapDispatchToProps)(MapDisplay);
+export default MapDisplay;
