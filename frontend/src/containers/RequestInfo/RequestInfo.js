@@ -15,7 +15,7 @@ import {NavLink} from "react-router-dom";
 
 const useStyles = makeStyles({
     flex: {
-        display: 'flex',
+        display: 'inline-block',
     },
     padding: {
         padding: '10px 0'
@@ -44,7 +44,7 @@ const useStyles = makeStyles({
     },
     boxPd: {
         padding: '10px'
-    }
+    },
 });
 
 const RequestInfo = props => {
@@ -101,7 +101,7 @@ const RequestInfo = props => {
 
                     <Divider/>
 
-                    <Box className={classes.boxPd} border={1} borderRadius={6} borderColor='#cccccc'>
+                    <Box className={classes.boxPd} border={1} borderRadius={6}>
                         <Typography variant='h5'><b>Продукты: </b></Typography>
                         {request.request.products.map((elem, id) => (
                             <Card key={id}>
