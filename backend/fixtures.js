@@ -91,12 +91,6 @@ const run = async () => {
         products: [{
             product: product1,
             amount: '2',
-        }, {
-            product: product2,
-            amount: '3'
-        }, {
-            product: product3,
-            amount: '4'
         }],
         comment: 'bla bla bla'
     });

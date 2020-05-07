@@ -14,7 +14,7 @@
     И я нажму на кнопку "Добавить пользователя"
     То я попаду на страницу добавления нового пользователя
     То я заполняю поля формы добавления:
-      | #username | someUsername |
+      | #username | someUsername2 |
       | #password | 12345 |
       | #displayName | Some username |
       | #phone | +99612412412 |
