@@ -26,7 +26,7 @@ const MapDisplay = () => {
         lat: 42.8700000,
         lng: 74.5900000,
         zoom: 12,
-        marker: {lat:'42.8700000',lng:'74.5900000'},
+        marker: {},
         basemap: 'osm'
     });
 
@@ -77,7 +77,7 @@ const MapDisplay = () => {
             />
             <BaseMap basemap={state.basemap} onChange={onBMChange}/>
 
-            <Marker position={state.marker}/>
+            {state.marker.lat && <Marker position={state.marker}/>}
 
         </Map>
     )
