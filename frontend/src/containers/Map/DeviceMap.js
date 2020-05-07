@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import ReactLeafletSearch from "react-leaflet-search";
 import {connect} from "react-redux";
 import {createCoordinateSuccess} from "../../store/actions/usersActions";
+import BaseMap from "./BaseMap";
 
 Leaflet.Icon.Default.imagePath =
     '../node_modules/leaflet'
@@ -24,7 +25,8 @@ Leaflet.Icon.Default.mergeOptions({
         lat: 42.8700000,
         lng: 74.5900000,
         zoom: 12,
-        marker: []
+        marker: [],
+        basemap: 'osm'
     };
 
     addMarker = (event) => {
@@ -56,7 +58,22 @@ Leaflet.Icon.Default.mergeOptions({
             </Popup>
         );
     }
+     onBMChange = (bm) => {
+         // console.log(this);
+         this.setState({
+             basemap: bm
+         });
+     }
+
     render() {
+
+        const basemapsDict = {
+            osm: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            hot: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+            dark:"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
+            cycle: "https://dev.{s}.tile.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
+        }
+
         const position = [this.state.lat, this.state.lng];
         return (
             <Map onClick={this.addMarker} center={position} zoom={this.state.zoom} style={{height : '100%'}}>
@@ -65,9 +82,10 @@ Leaflet.Icon.Default.mergeOptions({
                     showMarker = {true}
                     position="topleft" />
                 <TileLayer
-                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    // attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url={basemapsDict[this.state.basemap]}
                 />
+                <BaseMap basemap={this.state.basemap} onChange={this.onBMChange}/>
                 {this.state.marker.map((m, index) => (
                     <Marker onClick={this.deleteMarker} key={index} position={m}/>
                 ))}
