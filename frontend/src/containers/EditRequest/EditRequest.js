@@ -17,7 +17,6 @@ import Alert from "@material-ui/lab/Alert";
 import EditRequestItems from "./EditRequestItems";
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
-import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const EditRequest = WithAuthorization((props) => {
+const EditRequest = (props) => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -239,6 +238,6 @@ const EditRequest = WithAuthorization((props) => {
             </Grid>
         </Container>
     );
-}, 'admin');
+};
 
 export default EditRequest;

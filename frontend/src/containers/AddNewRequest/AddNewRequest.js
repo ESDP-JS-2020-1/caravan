@@ -10,7 +10,6 @@ import {createRequest, createRequestInit} from "../../store/actions/requestsActi
 import AddNewRequestItem from "./AddNewRequestItem/AddNewRequestItem";
 import {NavLink} from "react-router-dom";
 import FormElement from "../../components/UI/Form/FormElement";
-import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AddNewRequest = WithAuthorization(() => {
+const AddNewRequest =() => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -196,6 +195,6 @@ const AddNewRequest = WithAuthorization(() => {
             </Grid>
         </Container>
     );
-}, 'market admin');
+};
 
 export default AddNewRequest;

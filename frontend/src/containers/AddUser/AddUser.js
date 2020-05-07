@@ -12,7 +12,6 @@ import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import WithAuthorization from "../../components/HOC/WithAuthorization/WithAuthorization";
 import MapDisplay from "../Map/DeviceMap";
 
 const useStyles = makeStyles({
@@ -51,7 +50,7 @@ const useStyles = makeStyles({
         height: '410px'
     }
 });
-const AddUser = WithAuthorization(() => {
+const AddUser = () => {
     const classes = useStyles();
     const coordinate = useSelector(state => state.users.coordinates)
     const [user, setUser] = useState({
@@ -260,6 +259,6 @@ const AddUser = WithAuthorization(() => {
             </Grid>
         </Container>
     );
-}, 'admin');
+};
 
 export default AddUser;
