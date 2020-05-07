@@ -122,7 +122,7 @@ export const loginUser = userData => {
         ...config.notification
       });
     } catch (error) {
-      dispatch(loginUserFailure(error));
+      dispatch(loginUserFailure(error.response.data));
     }
   }
 };
