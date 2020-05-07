@@ -15,7 +15,7 @@ import {NavLink} from "react-router-dom";
 
 const useStyles = makeStyles({
     flex: {
-        display: 'inline-block',
+        display: 'flex',
     },
     padding: {
         padding: '10px 0'
@@ -105,7 +105,7 @@ const RequestInfo = props => {
                         <Typography variant='h5'><b>Продукты: </b></Typography>
                         {request.request.products.map((elem, id) => (
                             <Card key={id}>
-                                <CardContent className={classes.flex}>
+                                <CardContent>
                                     <Typography variant="h6" style={{marginRight: '10px'}}>
                                         <b>Название:</b> {elem.product.name}
                                     </Typography>
