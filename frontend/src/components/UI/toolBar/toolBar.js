@@ -5,7 +5,6 @@ import NoAuthUserToolBar from "./noAuthToolBar";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import Box from "@material-ui/core/Box";
 import TranslateIcon from '@material-ui/icons/Translate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -43,7 +42,6 @@ const ToolBar = () => {
 
     return (
         <>
-            <Box mr={3}>
                 <Button
                     startIcon={<TranslateIcon/>}
                     endIcon={<ExpandMoreIcon/>}
@@ -65,7 +63,6 @@ const ToolBar = () => {
                     <MenuItem onClick={() => switchLanguage('ru')}>Русский</MenuItem>
                     <MenuItem onClick={() => switchLanguage('kg')}>Кыргызча</MenuItem>
                 </Menu>
-            </Box>
             {user && <AuthUserToolBar/>}
             {!user && <NoAuthUserToolBar/>}
         </>
