@@ -65,7 +65,7 @@ router.post('/', [auth, permit('admin'), upload.single('image')], async (req, re
     }
 });
 
-router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, res) => {
+router.put('/:id', auth, permit('admin'), upload.single('file'), async (req, res) => {
     try {
         const product = req.body;
 
@@ -83,6 +83,7 @@ router.put('/:id', auth, permit('admin'), upload.single('image'), async (req, re
         productOne.amount = product.amount;
         productOne.price = product.price;
         productOne.isRefrigeratorRequired = product.isRefrigeratorRequired;
+        productOne.image = product.image;
 
         productOne.save();
 

@@ -23,6 +23,7 @@ const UserListItem = props => {
     return (
         <TableRow>
             <TableCell className={classes.offPadding}>
+                {console.log(props.image)}
                 {props.image && <Avatar className={classes.avatar} variant="square" src={apiURL.url +'/uploads/productImage/'+props.image}/>}
             </TableCell>
             <TableCell className={classes.offPadding}>{props.title}</TableCell>

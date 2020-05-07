@@ -93,6 +93,7 @@ const EditProduct = (props) => {
 
     return (
         <Container>
+            {console.log(editProduct)}
             <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
@@ -128,7 +129,7 @@ const EditProduct = (props) => {
                                 type="checkbox"
                             />
                             <FormElement
-                                propertyName={'isRefrigeratorRequired'}
+                                propertyName='file'
                                 title={'Картинка'}
                                 onChange={fileChangeHandler}
                                 value={editProduct.avatar}
