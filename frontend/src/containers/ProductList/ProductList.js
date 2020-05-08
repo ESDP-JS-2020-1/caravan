@@ -16,6 +16,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from '@material-ui/icons/Add';
 import {NavLink} from "react-router-dom";
 import FormElement from "../../components/UI/Form/FormElement";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles((theme) => ({
     offPadding: {
@@ -67,6 +68,7 @@ const ProductList = () => {
 
     const products = useSelector(state => state.products.productsList);
     const user = useSelector(state => state.users.user);
+    const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getProductsList());
@@ -103,7 +105,7 @@ const ProductList = () => {
                     <Grid container justify='space-between' alignItems='center'>
                         <Grid item>
                             <Typography variant='h3' paragraph>
-                                Cписок продуктов
+                                {wordList[language].productList.productListTitle}
                             </Typography>
                         </Grid>
                         {user.role === 'admin' &&
@@ -114,7 +116,7 @@ const ProductList = () => {
                                 component={NavLink}
                                 to='product/add'
                             >
-                                Добавить новые продукты
+                                {wordList[language].productList.addNewProduct}
                             </Button>
                         </Grid>
                         }
@@ -126,15 +128,15 @@ const ProductList = () => {
                             <TableHead>
                                 <TableRow>
                                     <TableCell className={classes.paddingLeft}><b>Фото</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>Название</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>Количество</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>Цена</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>Наличие холодильника для перевозки</b></TableCell>
+                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.name}</b></TableCell>
+                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.quantity}</b></TableCell>
+                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.price}</b></TableCell>
+                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.isRefrigeratorRequired}</b></TableCell>
                                     <TableCell className={classes.offPadding}>
                                         <FormElement
                                             type='search'
                                             propertyName='search'
-                                            title='Поиск продуктов...'
+                                            title={wordList[language].productList.searchProduct}
                                             onChange={changeSearch}
                                         />
                                     </TableCell>

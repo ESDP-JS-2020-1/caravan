@@ -7,6 +7,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
 import apiURL from "../../../apiURL";
+import {useSelector} from "react-redux";
+import {wordList} from "../../../wordList";
 
 const UserListItem = props => {
     const useStyles = makeStyles(() => ({
@@ -20,6 +22,7 @@ const UserListItem = props => {
     }));
 
     const classes = useStyles();
+    const language = useSelector(state => state.language.name);
     return (
         <TableRow>
             <TableCell className={classes.offPadding}>
@@ -30,8 +33,8 @@ const UserListItem = props => {
             <TableCell className={classes.offPadding}>{props.price}</TableCell>
             <TableCell className={classes.offPadding}>
                 {props.isRefrigeratorRequired ?
-                    'Обязателен' :
-                    'Не обязателен'
+                    wordList[language].necessarily :
+                    wordList[language].notNecessary
                 }
             </TableCell>
             {props.userInfo.role === 'admin' &&
