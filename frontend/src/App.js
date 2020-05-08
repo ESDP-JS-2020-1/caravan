@@ -29,6 +29,7 @@ function App() {
             <Navigation/>
             <Container>
                 <Switch>
+                    <Route path="/" exact component={ProductList}/>
                     <Route path="/login" exact component={Login}/>
                     <PrivateRoute path="/users" roles={['admin', 'operator']} exact component={UsersList}/>
                     <PrivateRoute path="/user/:id" roles={['admin', 'operator']} exact component={UserInfo}/>
