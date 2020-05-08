@@ -51,7 +51,6 @@ const EditRequestItems = (
                                         id={'free-solo-demo' + index}
                                         options={products.map((option) => option)}
                                         getOptionLabel={option => option.name}
-                                        freeSolo
                                         className={classes.autocomplete}
                                         onChange={(value, element) => onAutoCompleteChange(element, index)}
                                         renderInput={(params) =>
