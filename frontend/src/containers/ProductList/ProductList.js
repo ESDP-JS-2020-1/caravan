@@ -75,7 +75,7 @@ const ProductList = () => {
     const [search, setSearch] = useState({search: ''});
 
     const changeSearch = e => {
-        if(e.target.value[e.target.value.length - 1] === '\\') return setSearch({search: ''});
+        if (e.target.value[e.target.value.length - 1] === '\\') return setSearch({search: ''});
         setSearch({search: e.target.value});
     };
 
@@ -106,6 +106,7 @@ const ProductList = () => {
                                 Cписок продуктов
                             </Typography>
                         </Grid>
+                        {user.role === 'admin' &&
                         <Grid item>
                             <Button
                                 variant='contained'
@@ -116,6 +117,7 @@ const ProductList = () => {
                                 Добавить новые продукты
                             </Button>
                         </Grid>
+                        }
                     </Grid>
                 </Grid>
                 <Grid item>
