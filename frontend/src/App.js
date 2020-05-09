@@ -20,6 +20,8 @@ import EditRequest from "./containers/EditRequest/EditRequest";
 import UserInfo from "./containers/UserInfo/UserInfo";
 import PrivateRoute from "./components/HOC/PrivateRoute/PrivateRoute";
 import AddGroup from "./containers/AddGroup/AddGroup";
+import GroupsList from "./containers/GroupsList/GroupsList";
+import GroupInfo from "./containers/GroupInfo/GroupInfo";
 
 
 
@@ -45,7 +47,9 @@ function App() {
                     <PrivateRoute path="/requests/new" roles={['admin', 'market']} exact component={AddNewRequest}/>
                     <PrivateRoute path="/requests/:id" exact component={RequestInfo}/>
                     <PrivateRoute path="/requests/edit/:id" exact roles={['admin']} component={EditRequest}/>
+                    <PrivateRoute path="/groups" exact component={GroupsList}/>
                     <PrivateRoute path="/groups/new" exact component={AddGroup}/>
+                    <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
                 </Switch>
             </Container>
         </div>
