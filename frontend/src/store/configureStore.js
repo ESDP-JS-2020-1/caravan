@@ -8,6 +8,7 @@ import productsReducer from "./reducer/productsReducer";
 import historiesReducer from "./reducer/historiesReducer";
 import requestsReducer from "./reducer/requestsReducer";
 import languageReducer from "./reducer/languageReducer";
+import groupReducer from "./reducer/groupReducer";
 
 export const history = createBrowserHistory();
 
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
     products: productsReducer,
     histories: historiesReducer,
     requests: requestsReducer,
-    language: languageReducer
+    language: languageReducer,
+    groups: groupReducer
 });
 
 const middleware = [
