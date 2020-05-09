@@ -79,10 +79,10 @@ const Navigation = () => {
             onKeyDown={toggleDrawer(anchor, false)}
         >
             {user && user.role === 'admin' && (
-                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/groups/new">
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/groups">
                     <List>
                         <ListItem button>
-                            <ListItemText>Добавить новую группу</ListItemText>
+                            <ListItemText>Список групп</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
