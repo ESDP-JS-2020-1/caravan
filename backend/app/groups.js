@@ -9,11 +9,21 @@ const router = express.Router();
 
 router.get('/', isAuth, permit('admin'), async (req, res) => {
     try {
-        const groups = await Group.find().populate('list.user');
+        const groups = await Group.find();
 
         res.send(groups);
     } catch (e) {
+        res.status(404).send(e)
+    }
+});
 
+router.get('/:id', isAuth, permit('admin'), async (req, res) => {
+    try {
+        const group = await Group.findOne({_id: req.params.id}).populate('list.user');
+
+        res.send(group);
+    } catch (e) {
+        res.status(404).send(e)
     }
 });
 
@@ -31,7 +41,7 @@ router.post('/', isAuth, permit('admin'), async (req, res) => {
 
         res.send(group);
     } catch (e) {
-        res.status(404).send(e)
+        c
     }
 });
 
@@ -45,13 +55,11 @@ router.put('/:id', isAuth, permit('admin'), async (req, res) => {
             return res.status(404).send({message: 'There is no such group'})
         }
 
-        if (group.list.some(user => groupInfo.list.includes(user.toString()))) {
+        if (group.list.some(user => groupInfo.list.includes(user.user.toString()))) {
             return res.status(404).send({message: 'You cannot add users who are already in the group'})
         } else {
-            {
-                console.log(groupInfo)}
 
-            group.list = groupInfo.list;
+            group.list.push({user: groupInfo.list});
 
             group.save();
 
