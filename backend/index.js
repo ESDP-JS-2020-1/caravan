@@ -9,6 +9,7 @@ const products = require('./app/products');
 const histories = require('./app/histories');
 const requests = require('./app/requests');
 const nominateRequest = require('./app/nominatedRequest');
+const groups = require('./app/groups');
 
 const app = express();
 
@@ -24,6 +25,7 @@ const run = async () => {
     app.use('/histories', histories);
     app.use('/requests', requests);
     app.use('/nominateRequest', nominateRequest);
+    app.use('/groups', groups);
 
     app.listen(config.port)
 };
