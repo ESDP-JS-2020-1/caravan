@@ -6,9 +6,11 @@ const GroupSchema = new mongoose.Schema({
         required: true
     },
     list: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        require: true
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            require: true
+        }
     }]
 });
 

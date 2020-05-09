@@ -9,13 +9,13 @@ const router = express.Router();
 
 router.get('/', isAuth, permit('admin'), async (req, res) => {
     try {
-        const groups = await Group.find().populate('list')
+        const groups = await Group.find().populate('list.user');
 
         res.send(groups);
     } catch (e) {
 
     }
-})
+});
 
 router.post('/', isAuth, permit('admin'), async (req, res) => {
     try {
@@ -33,7 +33,7 @@ router.post('/', isAuth, permit('admin'), async (req, res) => {
     } catch (e) {
         res.status(404).send(e)
     }
-})
+});
 
 router.put('/:id', isAuth, permit('admin'), async (req, res) => {
     try {
@@ -48,6 +48,8 @@ router.put('/:id', isAuth, permit('admin'), async (req, res) => {
         if (group.list.some(user => groupInfo.list.includes(user.toString()))) {
             return res.status(404).send({message: 'You cannot add users who are already in the group'})
         } else {
+            {
+                console.log(groupInfo)}
 
             group.list = groupInfo.list;
 
@@ -59,7 +61,7 @@ router.put('/:id', isAuth, permit('admin'), async (req, res) => {
         console.log(e);
         res.status(404).send(e)
     }
-})
+});
 
 router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
     try {
@@ -69,12 +71,12 @@ router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
             return res.status(404).send({message: 'Group is not defined!'})
         }
 
-        await Group.deleteOne({_id: group._id})
+        await Group.deleteOne({_id: group._id});
 
         res.send({message: 'Success'})
     } catch (e) {
 
     }
-})
+});
 
 module.exports = router;
