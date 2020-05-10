@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {addUserToGroup, getGroup} from "../../store/actions/groupActions";
+import {addUserToGroup, deleteGroup, deleteGroupUser, getGroup} from "../../store/actions/groupActions";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
@@ -11,6 +11,8 @@ import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import {NavLink} from "react-router-dom";
 import {getUsers} from "../../store/actions/usersActions";
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles({
     typography: {
@@ -73,6 +75,12 @@ const GroupInfo = props => {
                                     <b>Имя:</b> {elem.user.displayName}
                                 </Typography>
                                 <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>Информания о пользователе</Button>
+                                <IconButton
+                                    style={{margin: '0 0 0 5px'}}
+                                    variant='contained'
+                                    color='secondary'
+                                    onClick={() => dispatch(deleteGroupUser(elem._id, props.match.params.id, elem._id))}
+                                ><DeleteIcon /></IconButton>
                             </CardContent>
                         </Card>
                     ))}
@@ -94,6 +102,13 @@ const GroupInfo = props => {
                     ))}
                 </Box>}
             </>}
+            <Button
+                style={{margin: '15px 0'}}
+                variant='contained'
+                color='secondary'
+                startIcon={<DeleteIcon />}
+                onClick={() => dispatch(deleteGroup(props.match.params.id))}
+            >Удалить группу</Button>
         </Paper>
     );
 };
