@@ -45,6 +45,21 @@ router.post('/', isAuth, permit('admin'), async (req, res) => {
     }
 });
 
+router.put('/user', isAuth, permit('admin'), async (req, res) => {
+    try {
+        const group = await Group.findOne({_id: req.body.group});
+
+        group.list.pull({_id: req.body.user});
+
+        await group.save();
+
+
+        res.send(group)
+    } catch (e) {
+
+    }
+});
+
 router.put('/:id', isAuth, permit('admin'), async (req, res) => {
     try {
         const groupInfo = req.body;
