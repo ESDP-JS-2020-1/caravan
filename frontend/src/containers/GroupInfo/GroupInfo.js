@@ -76,6 +76,7 @@ const GroupInfo = props => {
                                 </Typography>
                                 <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>Информания о пользователе</Button>
                                 <IconButton
+                                    id={'deleteUser'+id}
                                     style={{margin: '0 0 0 5px'}}
                                     variant='contained'
                                     color='secondary'
