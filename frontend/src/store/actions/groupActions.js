@@ -50,3 +50,16 @@ export const addUserToGroup = (idGroup, idUser) => async dispatch => {
     dispatch(getGroup(idGroup));
     dispatch(getUsers());
 };
+
+export const deleteGroupUser = (id, idGroup) => async dispatch => {
+    const data = {group: idGroup, user: id};
+    await  axiosApi.put('/groups/user/', data);
+
+    dispatch(getGroup(idGroup));
+};
+
+export const deleteGroup = id => async dispatch => {
+  await  axiosApi.delete('/groups/'+id);
+
+  dispatch(push('/groups'))
+};
