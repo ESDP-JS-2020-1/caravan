@@ -99,6 +99,8 @@ router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async 
 
         if (req.file) user.avatar = req.file.filename;
 
+        if (user.avatar) editableUser.avatar = user.avatar;
+
         if (user.password) {
             const salt = await bcrypt.genSalt(10);
 
