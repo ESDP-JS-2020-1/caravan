@@ -9,6 +9,7 @@ import Divider from "@material-ui/core/Divider";
 import {getUser} from "../../store/actions/usersActions";
 import {MuiThemeProvider} from "@material-ui/core";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import {Map, Marker, TileLayer} from "react-leaflet";
 
 const useStyles = makeStyles({
     flex: {
@@ -52,16 +53,17 @@ const UserInfo = props => {
             }
         }
     });
+    const coord = userInfo && JSON.parse(userInfo.market.coordinates);
 
     return (
         <Container>
             <Paper className={classes.paper} elevation={3}>
-                <Box className={classes.typography} component={'span'}>
-                    <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                        Информация о пользователе
-                    </Typography>
-                </Box>
                 <MuiThemeProvider theme={theme}>
+                    <Box className={classes.typography} component={'span'}>
+                        <Typography className={classes.typographyText} variant="h6" gutterBottom>
+                            Информация о пользователе
+                        </Typography>
+                    </Box>
                     {userInfo && <>
                         <Typography variant='h5'> <b>Роль </b>{userInfo.role}</Typography>
 
@@ -75,8 +77,18 @@ const UserInfo = props => {
 
                             <Typography variant='h5'><b>Адрес </b>{userInfo.market.address}</Typography>
 
-                            <Typography variant='h5'><b>Координаты </b>lat: {userInfo.market.coordinates.lat} , lng: {userInfo.market.coordinates.lng}</Typography>
-                            <Divider/>
+                            <Typography variant='h5'><b>Координаты </b>lat: {coord.lat} , lng: {coord.lng}</Typography>
+
+                            <div style={{height: '300px'}}>
+                                <Map center={[coord.lat, coord.lng]} zoom={10} style={{background: '#000',height : '100%', width: '100%'}}>
+                                    <TileLayer
+                                        url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
+                                    />
+
+                                    <Marker position={[coord.lat, coord.lng]}/>
+                                </Map>
+                            </div>
+
                             </>}
 
                         {userInfo.role === 'courier' && <>

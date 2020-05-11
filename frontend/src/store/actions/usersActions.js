@@ -40,6 +40,7 @@ export const getUser = id => async dispatch => {
     dispatch(getUserRequest());
 
     const resp = await axiosApi.get('/users/'+id);
+
     dispatch(getUserSuccess(resp.data))
   } catch (e) {
     dispatch(getUserFailure(e))
