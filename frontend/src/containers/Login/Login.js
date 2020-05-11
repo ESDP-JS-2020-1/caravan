@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {makeStyles} from "@material-ui/core/styles";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles({
         margin: '0 auto',
         marginTop: '5%'
     }
-})
+});
 
 const Login = () => {
 
@@ -49,6 +50,7 @@ const Login = () => {
 
     const error = useSelector(state => state.users.loginError);
     const loading = useSelector(state => state.users.loginLoading);
+    const language = useSelector(state => state.language.name);
 
     const dispatch = useDispatch();
 
@@ -66,29 +68,29 @@ const Login = () => {
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.text} variant="h6" gutterBottom>
-                            Login
+                            {wordList[language].login.loginTitle}
                         </Typography>
                     </Box>
                     <form onSubmit={submitFormHandler}>
                         <FormElement
                             required
                             propertyName="username"
-                            title="Username"
+                            title={wordList[language].login.userTitle}
                             value={state.username}
                             onChange={inputChangeHandler}
                             type="text"
                             autoComplete="current-username"
-                            placeholder="Enter username you registered with"
+                            placeholder={wordList[language].login.usernamePlaceholder}
                         />
                         <FormElement
                             required
                             propertyName="password"
-                            title="Password"
+                            title={wordList[language].login.password}
                             value={state.password}
                             onChange={inputChangeHandler}
                             type="password"
                             autoComplete="current-password"
-                            placeholder="Enter password"
+                            placeholder={wordList[language].login.passwordPlaceholder}
                         />
                         <Box>
                             {error && (
@@ -98,7 +100,7 @@ const Login = () => {
                         <Box component="span" className={classes.formBtn}>
                             {loading ? (<Spinner classsName={classes.button}/>) : (
                                 <Button className={classes.button} variant="contained" type="submit" color="primary"
-                                        id="btn">Sign in</Button>
+                                        id="btn">{wordList[language].login.loginBtn}</Button>
                             )}
                         </Box>
                     </form>
@@ -106,6 +108,6 @@ const Login = () => {
             </Grid>
         </Container>
     );
-}
+};
 
 export default Login;

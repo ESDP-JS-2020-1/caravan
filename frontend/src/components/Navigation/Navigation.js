@@ -19,6 +19,7 @@ import {useSelector} from "react-redux";
 import GroupIcon from '@material-ui/icons/Group';
 import DescriptionIcon from '@material-ui/icons/Description';
 import HistoryIcon from '@material-ui/icons/History';
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {wordList} from "../../wordList";
 
 
@@ -82,7 +83,8 @@ const Navigation = () => {
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/groups">
                     <List>
                         <ListItem button>
-                            <ListItemText>Список групп</ListItemText>
+                            <ListItemIcon>{<PeopleAltIcon/>}</ListItemIcon>
+                            <ListItemText>{wordList[language].navigation.groupList}</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
@@ -92,7 +94,7 @@ const Navigation = () => {
                     <List>
                         <ListItem button>
                             <ListItemIcon>{<GroupIcon/>}</ListItemIcon>
-                            <ListItemText>Список пользователей</ListItemText>
+                            <ListItemText>{wordList[language].navigation.userList}</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
@@ -101,7 +103,7 @@ const Navigation = () => {
                 <List>
                     <ListItem button>
                         <ListItemIcon>{<DescriptionIcon/>}</ListItemIcon>
-                        <ListItemText>Список заявок</ListItemText>
+                        <ListItemText>{wordList[language].navigation.requestList}</ListItemText>
                     </ListItem>
                 </List>
             </NavLink>
@@ -109,7 +111,7 @@ const Navigation = () => {
                 <List>
                     <ListItem button>
                         <ListItemIcon>{<FastfoodSharpIcon/>}</ListItemIcon>
-                        <ListItemText>Список пробуктов</ListItemText>
+                        <ListItemText>{wordList[language].navigation.productList}</ListItemText>
                     </ListItem>
                 </List>
             </NavLink>
@@ -118,12 +120,11 @@ const Navigation = () => {
                     <List>
                         <ListItem button>
                             <ListItemIcon>{<HistoryIcon/>}</ListItemIcon>
-                            <ListItemText>История</ListItemText>
+                            <ListItemText>{wordList[language].navigation.historyList}</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
             )}
-
         </div>
     );
 
@@ -147,7 +148,7 @@ const Navigation = () => {
                             </IconButton>
                         ))}
                         <Typography variant="h6" className={classes.mainLink} component={NavLink} to='/' exact>
-                            {wordList[language].logo}
+                            {wordList[language].navigation.logo}
                         </Typography>
                         <ToolBar/>
                     </Toolbar>

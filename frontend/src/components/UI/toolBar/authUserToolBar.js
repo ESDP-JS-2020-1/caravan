@@ -9,10 +9,9 @@ import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import {NavLink} from "react-router-dom";
+import {wordList} from "../../../wordList";
 
 const AuthUserToolBar = () => {
-
-
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
 	const open = Boolean(anchorEl);
@@ -27,6 +26,7 @@ const AuthUserToolBar = () => {
 
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.users.user);
+	const language = useSelector(state => state.language.name);
 
 	const logout = async () => {
 		await dispatch(logoutUserGet());
@@ -39,7 +39,7 @@ const AuthUserToolBar = () => {
 				component={NavLink}
 				to='/requests/new'
 			>
-				Подать заявку
+				{wordList[language].authUserToolBar.requestBtn}
 			</Button>
 			<IconButton
 				aria-label="account of current user"
@@ -68,9 +68,9 @@ const AuthUserToolBar = () => {
 				open={open}
 				onClose={handleClose}
 			>
-				<ListItem disabled>Привет, {user.displayName}!</ListItem>
+				<ListItem disabled>{wordList[language].authUserToolBar.greeting}, {user.displayName}!</ListItem>
 				<Divider/>
-				<MenuItem onClick={logout}>Выйти</MenuItem>
+				<MenuItem onClick={logout}>{wordList[language].authUserToolBar.logoutBtn}</MenuItem>
 			</Menu>
 		</>
 	);

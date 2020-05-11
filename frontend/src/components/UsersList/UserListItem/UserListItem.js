@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import TableRow from "@material-ui/core/TableRow";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import CheckIcon from '@material-ui/icons/Check';
 
 const UserListItem = props => {
     return (
@@ -28,7 +29,7 @@ const UserListItem = props => {
                 {props.user.courier && <>
                     <TableCell>{props.user.courier.carName}</TableCell>
                     <TableCell>{props.user.courier.carVolume}</TableCell>
-                    <TableCell>{props.user.courier.carRefrigerator && 'Есть'}</TableCell>
+                    <TableCell>{props.user.courier.carRefrigerator && <CheckIcon/>}</TableCell>
                 </>}
             </> : <>
                 {props.paramsRole === undefined && <>

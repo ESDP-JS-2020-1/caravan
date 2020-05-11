@@ -26,6 +26,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import FormElement from "../UI/Form/FormElement";
+import {wordList} from "../../wordList";
 
 const UsersList = props => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,6 +42,7 @@ const UsersList = props => {
 
     const users = useSelector(state => state.users.users);
     const currentUser = useSelector(state => state.users.user);
+    const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getUsers(props.match.params.id))
@@ -61,7 +63,7 @@ const UsersList = props => {
                 <Grid item>
                     <FormElement
                         propertyName="search"
-                        title="Поиск пользователей"
+                        title={wordList[language].usersList.searchTitle}
                         value={search.search}
                         onChange={changeSearch}
                         type="search"
@@ -75,7 +77,7 @@ const UsersList = props => {
                         to='/users/new'
                         endIcon={<PersonAddIcon/>}
                     >
-                        Добавить пользователя
+                        {wordList[language].usersList.addUserBtn}
                     </Button>
                 </Grid>
             </Grid>
@@ -85,34 +87,33 @@ const UsersList = props => {
                         <Table aria-label="caption table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell><b>Имя</b></TableCell>
-                                    <TableCell><b>Логин</b></TableCell>
-                                    <TableCell><b>Телефон</b></TableCell>
+                                    <TableCell><b>{wordList[language].usersList.tableName}</b></TableCell>
+                                    <TableCell><b>{wordList[language].usersList.tableLogin}</b></TableCell>
+                                    <TableCell><b>{wordList[language].usersList.tablePhone}</b></TableCell>
                                     {props.match.params.id === 'market' && <>
-                                        <TableCell><b>Название компании</b></TableCell>
-                                        <TableCell><b>Адрес</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableCompanyName}</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableAddress}</b></TableCell>
                                     </>}
                                     {props.match.params.id === undefined && <>
-                                        <TableCell><b>Название компании</b></TableCell>
-                                        <TableCell><b>Адрес</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableCompanyName}</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableAddress}</b></TableCell>
                                     </>}
-                                    <TableCell><b>Роль</b></TableCell>
+                                    <TableCell><b>{wordList[language].usersList.tableRole}</b></TableCell>
                                     {props.match.params.id === 'courier' && <>
-                                        <TableCell><b>Название машины</b></TableCell>
-                                        <TableCell><b>Объем машины</b></TableCell>
-                                        <TableCell><b>Наличие холодильника</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableCarName}</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableCarVolume}</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableRefrigerator}</b></TableCell>
                                     </>}
                                     {props.match.params.id === undefined && <>
-                                        <TableCell><b>Название машины</b></TableCell>
-                                        <TableCell><b>Объем машины</b></TableCell>
-                                        <TableCell><b>Наличие холодильника</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableCarName}</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableCarVolume}</b></TableCell>
+                                        <TableCell><b>{wordList[language].usersList.tableRefrigerator}</b></TableCell>
                                     </>}
                                     <TableCell> </TableCell>
                                     <TableCell>{
                                         <IconButton onClick={handleClick}><MenuIcon/></IconButton>}
                                     </TableCell>
                                     <TableCell>
-
                                     </TableCell>
                                 </TableRow>
                                 <Menu
@@ -126,7 +127,7 @@ const UsersList = props => {
                                         <div>
                                             <ListItem onClick={handleClose} component={NavLink} to={'/users'}
                                                       style={{fontSize: 'bold'}} button>
-                                                All users
+                                                {wordList[language].usersList.listItemUsers}
                                             </ListItem>
                                             <Divider/>
                                         </div>
