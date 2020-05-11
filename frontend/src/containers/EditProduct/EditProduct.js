@@ -152,7 +152,7 @@ const EditProduct = (props) => {
                                     <Button
                                         className={classes.formButton}
                                         variant='contained'
-                                        color='primary'
+                                        color='secondary'
                                         onClick={handleOpenAndClose}
                                         aria-label="delete"
                                     >
