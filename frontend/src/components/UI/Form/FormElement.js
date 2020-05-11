@@ -109,6 +109,7 @@ const FormElement = props => {
                 <Checkbox
                     checked={props.value}
                     onChange={props.onChange}
+                    name={props.propertyName}
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
                 <Typography variant='h6'>

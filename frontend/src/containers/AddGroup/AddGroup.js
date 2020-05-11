@@ -47,17 +47,29 @@ const useStyles = makeStyles({
 });
 
 const AddGroup = () => {
+    const initialCheckboxes = {
+        addUser: false,
+        deleteUser: false,
+        editUser: false
+    };
+
     const classes = useStyles();
     const dispatch = useDispatch();
 
     const [groupInfo, setGroupInfo] = useState({name: ''});
+    const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
+
 
     const changeGroupInfo = e => setGroupInfo({...groupInfo, [e.target.name]: e.target.value});
+    const changeCheckboxesInfo = e => setCheckboxes({...checkboxes, [e.target.name]: !checkboxes[e.target.name]});
 
     const addGroup = e => {
         e.preventDefault();
+        const info = {...groupInfo};
 
-        dispatch(addNewGroup(groupInfo))
+        info.permissions = {...checkboxes};
+
+        dispatch(addNewGroup(info))
     };
 
     return (
@@ -81,6 +93,16 @@ const AddGroup = () => {
                                     onChange={changeGroupInfo}
                                 />
                             </Grid>
+                            {Object.keys(initialCheckboxes).map((elem, id) => (
+                                <FormElement
+                                    key={id}
+                                    type='checkbox'
+                                    propertyName={elem}
+                                    title={elem}
+                                    value={checkboxes[elem]}
+                                    onChange={(e) => changeCheckboxesInfo(e)}
+                                />
+                            ))}
                             <Grid item>
                                 <Box className={classes.formBtn} component="span">
                                     <Button
