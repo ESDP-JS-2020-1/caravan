@@ -7,7 +7,7 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
-router.get('/', isAuth, permit('admin'), async (req, res) => {
+router.get('/', isAuth, permit('viewHistory'), async (req, res) => {
     try {
         const products = await History.find().sort({date: -1});
         res.send(products)

@@ -26,7 +26,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-router.post('/', [auth, permit('admin'), upload.single('image')], async (req, res) => {
+router.post('/', [auth, permit('addProduct'), upload.single('image')], async (req, res) => {
     try {
         if (req.file) {
             req.body.image = req.file.filename
@@ -50,7 +50,7 @@ router.post('/', [auth, permit('admin'), upload.single('image')], async (req, re
     }
 });
 
-router.put('/:id', auth, permit('admin'), upload.single('file'), async (req, res) => {
+router.put('/:id', auth, permit('editProduct'), upload.single('file'), async (req, res) => {
     try {
         const product = req.body;
 
@@ -78,7 +78,7 @@ router.put('/:id', auth, permit('admin'), upload.single('file'), async (req, res
     }
 });
 
-router.delete('/:id', auth, permit('admin'), async (req, res) => {
+router.delete('/:id', auth, permit('deleteProduct'), async (req, res) => {
     let product = req.body;
     try {
         const productOne = await Product.findOne({_id: req.params.id});

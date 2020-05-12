@@ -7,7 +7,7 @@ const Group = require('../models/Group');
 
 const router = express.Router();
 
-router.get('/', isAuth, permit('admin'), async (req, res) => {
+router.get('/', isAuth, permit('getGroup'), async (req, res) => {
     try {
         const groups = await Group.find();
 
@@ -17,7 +17,7 @@ router.get('/', isAuth, permit('admin'), async (req, res) => {
     }
 });
 
-router.get('/:id', isAuth, permit('admin'), async (req, res) => {
+router.get('/:id', isAuth, permit('getGroup'), async (req, res) => {
     try {
         const group = await Group.findOne({_id: req.params.id}).populate('list.user');
 
@@ -27,7 +27,7 @@ router.get('/:id', isAuth, permit('admin'), async (req, res) => {
     }
 });
 
-router.post('/', isAuth, permit('admin'), async (req, res) => {
+router.post('/', isAuth, permit('addGroup'), async (req, res) => {
     try {
         const groupInfo = req.body;
         const groupPermissions = [];
@@ -43,11 +43,10 @@ router.post('/', isAuth, permit('admin'), async (req, res) => {
 
         res.send(group);
     } catch (e) {
-        c
     }
 });
 
-router.put('/user', isAuth, permit('admin'), async (req, res) => {
+router.put('/user', isAuth, permit('addGroup'), async (req, res) => {
     try {
         const group = await Group.findOne({_id: req.body.group});
 
@@ -62,7 +61,7 @@ router.put('/user', isAuth, permit('admin'), async (req, res) => {
     }
 });
 
-router.put('/:id', isAuth, permit('admin'), async (req, res) => {
+router.put('/:id', isAuth, permit('addGroup'), async (req, res) => {
     try {
         const groupInfo = req.body;
 
@@ -88,7 +87,7 @@ router.put('/:id', isAuth, permit('admin'), async (req, res) => {
     }
 });
 
-router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
+router.delete('/:id', isAuth, permit('deleteGroup'), async (req, res) => {
     try {
         const group = await Group.findById(req.params.id);
 

@@ -8,7 +8,7 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
-router.post('/close/:id', [auth, permit('operator', 'admin', 'courier')], async (req, res) => {
+router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
     try {
         const request = await Request.findOne({_id: req.params.id});
 
@@ -27,7 +27,7 @@ router.post('/close/:id', [auth, permit('operator', 'admin', 'courier')], async 
 router.get('/:id', auth, async (req, res) => {
     try {
         const request = await Request.findOne({_id: req.params.id})
-            .populate(['user','products.product'])
+            .populate(['user','products.product']);
 
         const courierList = await User.find({role: 'courier'});
 
@@ -92,7 +92,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-router.post('/', [auth, permit('market', 'admin')], async (req, res) => {
+router.post('/', [auth, permit('addRequest')], async (req, res) => {
     try {
         const request = req.body;
 
@@ -108,7 +108,7 @@ router.post('/', [auth, permit('market', 'admin')], async (req, res) => {
     }
 });
 
-router.put('/:id', [auth, permit('admin')], async (req, res) => {
+router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
     try {
         const request = req.body;
 
@@ -139,7 +139,7 @@ router.put('/:id', [auth, permit('admin')], async (req, res) => {
 
 });
 
-router.delete('/:id', [auth, permit('admin', 'operator')], async (req, res) => {
+router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
 
     try {
         const requestOne = await Request.findOne({_id: req.params.id});

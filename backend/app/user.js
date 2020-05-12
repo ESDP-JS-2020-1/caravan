@@ -8,7 +8,7 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
-router.post('/', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
+router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req, res) => {
     try {
         const user = req.body;
 
@@ -80,7 +80,7 @@ router.get('/:id', isAuth, async (req, res) => {
     }
 });
 
-router.put('/edit/:id', isAuth, permit('admin'), upload.single('avatar'), async (req, res) => {
+router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), async (req, res) => {
     const user = req.body;
     try {
 
@@ -169,7 +169,7 @@ router.delete('/sessions', async (req, res) => {
 
 });
 
-router.delete('/:id', isAuth, permit('admin'), async (req, res) => {
+router.delete('/:id', isAuth, permit('deleteUser'), async (req, res) => {
     try {
         const id = req.params.id;
 
