@@ -51,7 +51,17 @@ const AddGroup = () => {
     const initialCheckboxes = {
         addUser: false,
         deleteUser: false,
-        editUser: false
+        editUser: false,
+        addProduct: false,
+        deleteProduct: false,
+        editProduct: false,
+        getGroup: false,
+        addGroup: false,
+        deleteGroup: false,
+        addRequest: false,
+        deleteRequest: false,
+        editRequest: false,
+        viewHistory: false
     };
 
     const classes = useStyles();
