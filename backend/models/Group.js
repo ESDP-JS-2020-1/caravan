@@ -11,7 +11,8 @@ const GroupSchema = new mongoose.Schema({
             ref: 'User',
             require: true
         }
-    }]
+    }],
+    permissions: [String]
 });
 
 module.exports = mongoose.model('Group', GroupSchema);

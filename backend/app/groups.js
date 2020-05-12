@@ -30,14 +30,16 @@ router.get('/:id', isAuth, permit('admin'), async (req, res) => {
 router.post('/', isAuth, permit('admin'), async (req, res) => {
     try {
         const groupInfo = req.body;
+        const groupPermissions = [];
+        Object.keys(req.body.permissions).forEach(elem => {
+            if(req.body.permissions[elem] === true) groupPermissions.push(elem)
+        });
 
         const groupCheck = await Group.findOne({name: groupInfo.name});
 
         if (groupCheck) return res.status(404).send({message: 'Such a group already exists!'});
 
-        const group = await Group.create({name: groupInfo.name});
-
-        console.log(group);
+        const group = await Group.create({name: groupInfo.name, permissions: groupPermissions});
 
         res.send(group);
     } catch (e) {
