@@ -3,6 +3,7 @@ const config = require("./config");
 
 const User = require('./models/User');
 const Product = require('./models/Product');
+const Group = require('./models/Group');
 const History = require('./models/History');
 const Request = require('./models/Request');
 const NominatedRequest = require('./models/NominatedRequest');
@@ -55,6 +56,19 @@ const run = async () => {
             carVolume: '3m³',
             carRefrigerator: true,
         }
+    });
+
+    const adminGroup = await Group.create({
+        name: 'Admin group',
+        list: [{user: user1}],
+        permissions:
+            [
+                'addUser', 'deleteUser', 'editUser',
+                'addProduct', 'deleteProduct', 'editProduct',
+                'getGroup', 'addGroup', 'deleteGroup',
+                'addRequest', 'deleteRequest', 'editRequest',
+                'viewHistory'
+            ]
     });
 
     const [product1, product2, product3] = await Product.create({
