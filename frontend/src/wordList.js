@@ -130,6 +130,21 @@ export const wordList = {
             modalBtnPos: 'Да',
             modalEditTitle: 'Вы уверены что хотите отредактировать этот продукт?',
         },
+        editRequest: {
+            editRequestTitle: 'Редактировать заявку',
+            inputComment: 'Комментарий',
+            addRequestBtn: 'Добавить',
+            editRequestBtn: 'Редактировать заявку',
+            deleteRequestBtn: 'Удалить заявку',
+            modalBtnNeg: 'Нет',
+            modalBtnPos: 'Да',
+        },
+        editRequestItems: {
+            title: 'Название: ',
+            qty: 'Количество: ',
+            chooseProd: 'Выберите продукт',
+            inputQty: 'Количество'
+        },
     },
 
 
@@ -263,6 +278,21 @@ export const wordList = {
             modalBtnNeg: 'Жок',
             modalBtnPos: 'Ооба',
             modalEditTitle: 'Бул өнүмдү чын эле түзөткүңүз келеби?',
+        },
+        editRequest: {
+            editRequestTitle: 'Арызды түзөтүү',
+            inputComment: 'Түшүндүрмө',
+            addRequestBtn: 'Кошуу',
+            editRequestBtn: 'Арызды түзөтүү',
+            deleteRequestBtn: 'Арызды жок кылуу',
+            modalBtnNeg: 'Жок',
+            modalBtnPos: 'Ооба',
+        },
+        editRequestItems: {
+            title: 'Аты: ',
+            qty: 'Саны: ',
+            chooseProd: 'Продуктту тандаңыз',
+            inputQty: 'Саны'
         },
     }
 };

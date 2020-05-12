@@ -13,6 +13,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import {getProductsList} from "../../store/actions/productsActions";
 import Chip from "@material-ui/core/Chip";
+import {wordList} from "../../wordList";
 
 
 const EditRequestItems = (
@@ -20,6 +21,7 @@ const EditRequestItems = (
 ) => {
 
     const products = useSelector(state => state.products.productsList);
+    const language = useSelector(state => state.language.name);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -57,7 +59,7 @@ const EditRequestItems = (
                                             <TextField
                                                 {...params}
                                                 required
-                                                label="Введите новый продукт"
+                                                label={wordList[language].editRequestItems.chooseProd}
                                                 variant="outlined"
                                                 id={'title'+index}
                                                 name='title'
@@ -73,7 +75,7 @@ const EditRequestItems = (
                                     required
                                     id={'amount'+index}
                                     propertyName='amount'
-                                    title='Кол-во'
+                                    title={wordList[language].editRequestItems.inputQty}
                                     value={request.products[index].amount}
                                     onChange={(e) => onChange(e, index)}
 

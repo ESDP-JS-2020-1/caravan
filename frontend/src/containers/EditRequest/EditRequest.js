@@ -17,6 +17,7 @@ import Alert from "@material-ui/lab/Alert";
 import EditRequestItems from "./EditRequestItems";
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -65,6 +66,7 @@ const EditRequest = (props) => {
 
     const error = useSelector(state => state.requests.error);
     const editRequest = useSelector(state => state.requests.oneRequest);
+    const language = useSelector(state => state.language.name);
 
 
     const [expanded, setExpanded] = React.useState(false);
@@ -135,7 +137,7 @@ const EditRequest = (props) => {
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Редактировать заявку
+                            {wordList[language].editRequest.editRequestTitle}
                         </Typography>
                     </Box>
                     <form onSubmit={submitFormHandler}>
@@ -161,7 +163,7 @@ const EditRequest = (props) => {
                                 <FormElement
                                     id='comment'
                                     propertyName='comment'
-                                    title='Комментарий'
+                                    title={wordList[language].editRequest.inputComment}
                                     value={editRequest.comment}
                                     onChange={changeHandlerComment}
                                 />
@@ -178,7 +180,7 @@ const EditRequest = (props) => {
                                         variant='contained'
                                         color='primary'
                                     >
-                                        Добавить
+                                        {wordList[language].editRequest.addRequestBtn}
                                     </Button>
                                     <Button
                                         className={classes.formButton}
@@ -188,9 +190,8 @@ const EditRequest = (props) => {
                                         disabled={editRequest.products && !editRequest.products[0]}
                                         id={'Edit'}
                                     >
-                                        Редактировать заявку
+                                        {wordList[language].editRequest.editRequestBtn}
                                     </Button>
-
                                 </Box>
 
                             </Grid>
@@ -202,13 +203,12 @@ const EditRequest = (props) => {
                                     onClick={openAndClosed}
                                     id="remove"
                                 >
-                                    удалить заявку
+                                    {wordList[language].editRequest.deleteRequestBtn}
                                 </Button>
                             </Grid>
                             <Modal
                                 open={open}
                                 onClose={openAndClosed}
-
                             >
                                 <Grid container justify="flex-end" spacing={1}>
                                     <Grid item>
@@ -218,7 +218,7 @@ const EditRequest = (props) => {
                                             onClick={() => dispatch(deleteRequestEdit(props.match.params.id, editRequest))}
                                             id="yes"
                                         >
-                                            Да
+                                            {wordList[language].editRequest.modalBtnPos}
                                         </Button>
                                     </Grid>
                                     <Grid item>
@@ -227,7 +227,7 @@ const EditRequest = (props) => {
                                             color='primary'
                                             onClick={openAndClosed}
                                         >
-                                            Нет
+                                            {wordList[language].editRequest.modalBtnNeg}
                                         </Button>
                                     </Grid>
                                 </Grid>
