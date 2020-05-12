@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import {getProductsList} from "../../../store/actions/productsActions";
+import {wordList} from "../../../wordList";
 
 const AddNewRequestItem = (
     {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange}
@@ -20,6 +21,7 @@ const AddNewRequestItem = (
 
     const products = useSelector(state => state.products.productsList);
     const dispatch = useDispatch();
+    const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getProductsList());
@@ -38,8 +40,8 @@ const AddNewRequestItem = (
                         id={`panel${index}bh-header`}
                     >
                         <Typography className={classes.heading} id="addNew">
-                            Название: {r.title}
-                            Количество: {r.amount}
+                            {wordList[language].addNewRequestItem.btnTitle}: {r.title}
+                            {wordList[language].addNewRequestItem.btnQty}: {r.amount}
                         </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
@@ -56,11 +58,11 @@ const AddNewRequestItem = (
                                             <TextField
                                                 {...params}
                                                 required
-                                                label="Название"
+                                                label={wordList[language].addNewRequestItem.btnTitle}
                                                 variant="outlined"
                                                 id='title'
                                                 name='title'
-                                                title='Название'
+                                                title={wordList[language].addNewRequestItem.btnTitle}
                                             />
                                         }
                                     />
@@ -72,7 +74,7 @@ const AddNewRequestItem = (
                                     required
                                     id={'amount'}
                                     propertyName='amount'
-                                    title='Количество'
+                                    title={wordList[language].addNewRequestItem.btnQty}
                                     value={request[index].amount}
                                     onChange={(e) => onChange(e, index)}
                                 />

@@ -58,6 +58,7 @@ export const wordList = {
         groupInfo: {
             info: 'Информация о группе',
             groupTitle: 'Название группы',
+            groupPermits: 'Список разрешений',
             groupUsers: 'Участники',
             groupUserName: 'Имя',
             groupUserInfo: 'Информация о пользователе',
@@ -74,7 +75,18 @@ export const wordList = {
             addGroupTitle: 'Добавление новой группы',
             addGroupName: 'Название группы',
             addGroupBtn: 'Добавить'
-        }
+        },
+        addNewRequest: {
+            productsBtn: 'Доступный товар',
+            createRequestTitle: 'Создать заявку',
+            commentTitle: 'Комментарий',
+            addRequestBtn: 'Добавить',
+            createRequestBtn: 'Создать заявку',
+        },
+        addNewRequestItem: {
+            btnTitle: 'Название',
+            btnQty: 'Количество',
+        },
     },
 
 
@@ -137,6 +149,7 @@ export const wordList = {
         groupInfo: {
             info: 'Тобунун маалыматы',
             groupTitle: 'Тобунун аты',
+            groupPermits: 'Уруксат тизмеси',
             groupUsers: 'Катышуучулар',
             groupUserName: 'Аты',
             groupUserInfo: 'Катышуучунун маалыматы',
@@ -153,6 +166,17 @@ export const wordList = {
             addGroupTitle: 'Жаңы топ кошуу',
             addGroupName: 'Тобунун аты',
             addGroupBtn: 'Кошуу'
-        }
+        },
+        addNewRequest: {
+            productsBtn: 'Жеткиликтүү нерсе',
+            createRequestTitle: 'Арыз түзүү',
+            commentTitle: 'Түшүндүрмө',
+            addRequestBtn: 'Кошуу',
+            createRequestBtn: 'Арыз түзүү',
+        },
+        addNewRequestItem: {
+            btnTitle: 'Аты',
+            btnQty: 'Саны',
+        },
     }
 };

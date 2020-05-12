@@ -5,11 +5,12 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {createRequest, createRequestInit} from "../../store/actions/requestsActions";
 import AddNewRequestItem from "./AddNewRequestItem/AddNewRequestItem";
 import {NavLink} from "react-router-dom";
 import FormElement from "../../components/UI/Form/FormElement";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -62,6 +63,7 @@ const AddNewRequest =() => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
+    const language = useSelector(state => state.language.name);
 
     const [request, setRequest] = useState({
         products: [{
@@ -133,13 +135,13 @@ const AddNewRequest =() => {
                         component={NavLink}
                         to='/products'
                     >
-                        Доступный товар
+                        {wordList[language].addNewRequest.productsBtn}
                     </Button>
                 </Box>
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Создать заявку
+                            {wordList[language].addNewRequest.createRequestTitle}
                         </Typography>
                     </Box>
                     <form onSubmit={submitFormHandler}>
@@ -163,7 +165,7 @@ const AddNewRequest =() => {
                             <FormElement
                                 id='comment'
                                 propertyName='comment'
-                                title='Комментарий'
+                                title={wordList[language].addNewRequest.commentTitle}
                                 value={request.comment}
                                 onChange={commentChange}
                             />
@@ -176,7 +178,7 @@ const AddNewRequest =() => {
                                         variant='contained'
                                         color='primary'
                                     >
-                                        Добавить
+                                        {wordList[language].addNewRequest.addRequestBtn}
                                     </Button>
                                     <Button
                                         className={classes.formButton}
@@ -185,7 +187,7 @@ const AddNewRequest =() => {
                                         type='submit'
                                         disabled={!request.products[0]}
                                     >
-                                        Создать заявку
+                                        {wordList[language].addNewRequest.createRequestBtn}
                                     </Button>
                                 </Box>
                             </Grid>
