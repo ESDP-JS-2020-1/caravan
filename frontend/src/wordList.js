@@ -87,6 +87,19 @@ export const wordList = {
             btnTitle: 'Название',
             btnQty: 'Количество',
         },
+        addProduct: {
+            addProductTitle: 'Добавление продуктов',
+            addProductBtn: 'Добавить',
+            createProductBtn: 'Сохранить',
+        },
+        addProductItem: {
+            inputTitle: 'Название',
+            inputQty: 'Количество',
+            inputPrice: 'Цена',
+            inputRefrigerator: 'Необходим ли холодильник для перевозки?',
+            inputImg: 'Изображение',
+            inputComment: 'Причина добавления',
+        }
     },
 
 
@@ -178,5 +191,18 @@ export const wordList = {
             btnTitle: 'Аты',
             btnQty: 'Саны',
         },
+        addProduct: {
+            addProductTitle: 'Продуктту кошуу',
+            addProductBtn: 'Кошуу',
+            createProductBtn: 'Түзүү',
+        },
+        addProductItem: {
+            inputTitle: 'Аты',
+            inputQty: 'Саны',
+            inputPrice: 'Баа',
+            inputRefrigerator: 'Ташуу үчүн муздаткыч керекпи?',
+            inputImg: 'Сүрөт',
+            inputComment: 'Кошуунун себеби',
+        }
     }
 };

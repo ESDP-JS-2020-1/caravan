@@ -9,6 +9,7 @@ import AddProductItem from "./AddProductItem/AddProductItem";
 import {useDispatch, useSelector} from "react-redux";
 import {addNewProduct, createProductInit} from "../../store/actions/productsActions";
 import Alert from "@material-ui/lab/Alert";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -66,6 +67,8 @@ const AddProduct = () => {
     }]);
     const [expanded, setExpanded] = React.useState(false);
 
+    const language = useSelector(state => state.language.name);
+
     const inputChangeHandler = (e, i) => {
         let newProduct = [...product];
         newProduct[i][e.target.name] = e.target.value;
@@ -78,7 +81,7 @@ const AddProduct = () => {
         newProduct[i].isRefrigeratorRequired = !newProduct[i].isRefrigeratorRequired;
 
         setProduct(newProduct)
-    }
+    };
 
     const fileChangeHandler = (e, i) => {
         let newProduct = [...product];
@@ -136,7 +139,7 @@ const AddProduct = () => {
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Добавление продуктов
+                            {wordList[language].addProduct.addProductTitle}
                         </Typography>
                     </Box>
                     <form onSubmit={onSubmit}>
@@ -169,7 +172,7 @@ const AddProduct = () => {
                                         variant='contained'
                                         color='primary'
                                     >
-                                        Добавить
+                                        {wordList[language].addProduct.addProductBtn}
                                     </Button>
                                     <Button
                                         className={classes.formButton}
@@ -178,7 +181,7 @@ const AddProduct = () => {
                                         type='submit'
                                         disabled={!product[0]}
                                     >
-                                        Сохранить
+                                        {wordList[language].addProduct.createProductBtn}
                                     </Button>
                                 </Box>
                             </Grid>

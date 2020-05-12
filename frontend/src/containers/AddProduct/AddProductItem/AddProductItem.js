@@ -9,10 +9,15 @@ import Box from "@material-ui/core/Box";
 import FormElement from "../../../components/UI/Form/FormElement";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {useSelector} from "react-redux";
+import {wordList} from "../../../wordList";
 
 const AddProductItem = (
 	{checkboxChangeHandler, onChange, index, expanded, classes, p, product, onRemove, handleChange, fileChange}
 ) => {
+
+	const language = useSelector(state => state.language.name);
+
 	return (
 		<Grid container alignItems='center' spacing={1}>
 			<Grid item xs={11}>
@@ -25,8 +30,8 @@ const AddProductItem = (
 						id={`panel${index}bh-header`}
 					>
 						<Typography className={classes.heading}>
-							Название: {p.name}
-							Количество: {p.amount}
+							{wordList[language].addProductItem.inputTitle}: {p.name}
+							{wordList[language].addProductItem.inputQty}: {p.amount}
 						</Typography>
 					</ExpansionPanelSummary>
 					<ExpansionPanelDetails>
@@ -36,7 +41,7 @@ const AddProductItem = (
 									id='name'
 									required
 									propertyName='name'
-									title='Название'
+									title={wordList[language].addProductItem.inputTitle}
 									value={product[index].name}
 									onChange={(e) => onChange(e, index)}
 								/>
@@ -46,7 +51,7 @@ const AddProductItem = (
 									id='amount'
 									required
 									propertyName='amount'
-									title='Количество'
+									title={wordList[language].addProductItem.inputQty}
 									value={product[index].amount}
 									onChange={(e) => onChange(e, index)}
 								/>
@@ -55,7 +60,7 @@ const AddProductItem = (
 								<FormElement
 									id='price'
 									propertyName='price'
-									title='Цена'
+									title={wordList[language].addProductItem.inputPrice}
 									value={product[index].price}
 									onChange={(e) => onChange(e, index)}
 								/>
@@ -64,7 +69,7 @@ const AddProductItem = (
 								<FormElement
 									type='checkbox'
 									propertyName='isRefrigeratorRequired'
-									title='Необхадим ли холодильник для перевозки?'
+									title={wordList[language].addProductItem.inputRefrigerator}
 									value={product[index].isRefrigeratorRequired}
 									onChange={(e) => checkboxChangeHandler(e, index)}
 								/>
@@ -73,7 +78,7 @@ const AddProductItem = (
 								<FormElement
 									index={index}
 									propertyName='image'
-									title='image'
+									title={wordList[language].addProductItem.inputImg}
 									value={product[index].image}
 									onChange={(e) => fileChange(e, index)}
 									type='file'
@@ -83,7 +88,7 @@ const AddProductItem = (
 								<FormElement
 									id="comment"
 									propertyName='comment'
-									title='Причина добавления'
+									title={wordList[language].addProductItem.inputComment}
 									value={product[index].comment}
 									onChange={(e) => onChange(e, index)}
 								/>
