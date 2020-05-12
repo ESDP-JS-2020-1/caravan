@@ -21,7 +21,7 @@ export const wordList = {
             logo: 'Караван',
             groupList: 'Группы',
             userList: 'Пользователи',
-            requestList: 'Мои заявки',
+            requestList: 'Список заявок',
             historyList: 'История'
         },
         login: {
