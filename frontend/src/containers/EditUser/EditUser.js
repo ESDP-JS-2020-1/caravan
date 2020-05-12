@@ -69,13 +69,23 @@ const EditUser = props => {
         await dispatch(deleteUser(props.match.params.id, remove))
     };
 
-    const checkboxChangeHandler = e => dispatch(getUserSuccess({...editClient, carRefrigerator: e.target.checked}));
+    const checkboxChangeHandler = e => dispatch(getUserSuccess({
+        ...editClient,
+        courier: {...editClient.courier, carRefrigerator: e.target.checked}
+    }));
     const inputChangeHandler = e => dispatch(getUserSuccess({...editClient, [e.target.name]: e.target.value}));
     const phoneChangeHandler = value => dispatch(getUserSuccess({...editClient, phone: value}));
     const fileChangeHandler = e => dispatch(getUserSuccess({...editClient, [e.target.name]: e.target.files[0]}));
     const changeCommentInput = e => {
         setComment(e.target.value)
     };
+    const changeMarket = (e) => {
+        dispatch(getUserSuccess({...editClient, market: {...editClient.market, [e.target.name]: e.target.value}}))
+    };
+    const changeCourier = (e) => {
+        dispatch(getUserSuccess({...editClient, courier: {...editClient.courier, [e.target.name]: e.target.value}}))
+    };
+
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
@@ -85,9 +95,11 @@ const EditUser = props => {
         e.preventDefault();
         const data = new FormData();
         Object.keys(editClient).forEach(value => {
-            if(value === 'courier'){
-                Object.keys(editClient[value]).forEach(elem => elem !== '_id' && data.append(elem, editClient[value][elem]));
-                return false
+            if (value === 'courier') {
+                data.append(value, JSON.stringify(editClient[value]))
+            }
+            if (value === 'market') {
+                data.append(value, JSON.stringify(editClient[value]))
             }
             data.append(value, editClient[value])
         });
@@ -149,8 +161,8 @@ const EditUser = props => {
                                         id='carName'
                                         propertyName='carName'
                                         title='Название машины'
-                                        value={editClient.courier ? editClient.courier.carName : ''}
-                                        onChange={inputChangeHandler}
+                                        defaultValue={editClient.courier ? editClient.courier.carName : ''}
+                                        onChange={changeCourier}
                                     />
                                 </Grid>
 
@@ -159,8 +171,8 @@ const EditUser = props => {
                                         id='carVolume'
                                         propertyName='carVolume'
                                         title='Объем машины'
-                                        value={editClient.courier ? editClient.courier.carVolume : ''}
-                                        onChange={inputChangeHandler}
+                                        defaultValue={editClient.courier ? editClient.courier.carVolume : ''}
+                                        onChange={changeCourier}
                                     />
                                 </Grid>
 
@@ -185,7 +197,7 @@ const EditUser = props => {
                                         propertyName='companyName'
                                         title='Название компании'
                                         value={editClient.market ? editClient.market.companyName : ''}
-                                        onChange={inputChangeHandler}
+                                        onChange={changeMarket}
                                     />
                                 </Grid>
                                 <Grid item>
@@ -193,7 +205,7 @@ const EditUser = props => {
                                         propertyName='address'
                                         title='Адрес компании'
                                         value={editClient.market ? editClient.market.address : ''}
-                                        onChange={inputChangeHandler}
+                                        onChange={changeMarket}
                                     />
                                 </Grid>
                             </>}

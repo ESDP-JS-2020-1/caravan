@@ -44,6 +44,7 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
             comment: req.body.comment,
             type: 'add'
         });
+
         await history.save();
 
         newUser.addToken();
@@ -82,19 +83,24 @@ router.get('/:id', isAuth, async (req, res) => {
 
 router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), async (req, res) => {
     const user = req.body;
-    try {
 
-        const editableUser = await User.findOne({username: user.username});
+
+    try {
+        const editableUser = await User.findOne({_id: req.params.id});
 
         if (user.role === 'market') {
-            editableUser.market.companyName = user.companyName;
-            editableUser.market.address = user.address;
+            user.market = JSON.parse(req.body.market[0]);
+            editableUser.market.companyName = user.market.companyName;
+            editableUser.market.address = user.market.address;
+            editableUser.market.coordinates = user.market.coordinates
         }
 
         if (user.role === 'courier') {
-            editableUser.courier.carName = user.carName;
-            editableUser.courier.carVolume = user.carVolume;
-            editableUser.courier.carRefrigerator = user.carRefrigerator;
+            user.courier = JSON.parse(req.body.courier[0]);
+            editableUser.courier.carName = user.courier.carName;
+            editableUser.courier.carVolume = user.courier.carVolume;
+            editableUser.courier.carRefrigerator = user.courier.carRefrigerator;
+
         }
 
         if (req.file) user.avatar = req.file.filename;
@@ -112,13 +118,13 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
         editableUser.role = user.role;
         editableUser.phone = user.phone;
 
-
-
         await History.create({
             title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
             comment: req.body.comment,
             type: 'edit'
         });
+        editableUser.addToken();
+
         await editableUser.save();
 
         res.send(editableUser);

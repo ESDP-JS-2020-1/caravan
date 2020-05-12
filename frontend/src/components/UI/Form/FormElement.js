@@ -79,6 +79,7 @@ const FormElement = props => {
         required={props.required}
         autoComplete={props.autoComplete}
         placeholder={props.placeholder}
+        defaultValue={props.defaultValue}
     />;
 
     if (props.type === 'search') {
