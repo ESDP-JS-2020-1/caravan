@@ -55,6 +55,21 @@ export const wordList = {
             tableGroupQty: 'Количество участников',
             addUsersBtn: 'Добавить пользователей'
         },
+        groupInfo: {
+            info: 'Информация о группе',
+            groupTitle: 'Название группы',
+            groupUsers: 'Участники',
+            groupUserName: 'Имя',
+            groupUserInfo: 'Информация о пользователе',
+            addUserToGroup: 'Пользователи которых можно добавить',
+            addUserToGroupUserName: 'Имя',
+            addUserToGroupInfo: 'Информация',
+            addUserToGroupBtn: 'Добавить в группу',
+            deleteGroupBtn: 'Удалить группу',
+            deleteModal: 'Вы уверены что хотите удалить эту группу?',
+            deleteBtnNeg: 'Нет',
+            deleteBtnPos: 'Да',
+        },
     },
 
 
@@ -113,6 +128,21 @@ export const wordList = {
             tableGroupTitle: 'Аты',
             tableGroupQty: 'Катышуучулардын саны',
             addUsersBtn: 'Колдонуучуларды кошуу'
+        },
+        groupInfo: {
+            info: 'Тобунун маалыматы',
+            groupTitle: 'Тобунун аты',
+            groupUsers: 'Катышуучулар',
+            groupUserName: 'Аты',
+            groupUserInfo: 'Катышуучунун маалыматы',
+            addUserToGroup: 'Колдонуучуларды кошо аласыз',
+            addUserToGroupUserName: 'Аты',
+            addUserToGroupInfo: 'Маалымат',
+            addUserToGroupBtn: 'Тобуна кошуу',
+            deleteGroupBtn: 'Тобун жок кылуу',
+            deleteModal: 'Бул топту чын эле жок кылгыңыз келеби?',
+            deleteBtnNeg: 'Жок',
+            deleteBtnPos: 'Ооба',
         },
     }
 };

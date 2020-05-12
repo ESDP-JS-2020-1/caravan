@@ -15,6 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import Modal from "../../components/UI/Modal/Modal";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({
     typography: {
@@ -40,6 +41,7 @@ const GroupInfo = props => {
 
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups.group);
+    const language = useSelector(state => state.language.name);
 
     const users = useSelector(state => state.users.users);
     const usersList = users && [...users];
@@ -63,25 +65,26 @@ const GroupInfo = props => {
             <Paper className={classes.paper} elevation={3}>
                 <Box className={classes.typography} component={'span'}>
                     <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                        Информация о группе
+                        {wordList[language].groupInfo.info}
                     </Typography>
                 </Box>
                 {group.list && <>
                     <Typography variant='h5' style={{padding: '15px 0'}}>
-                        <b>Название группы </b>{group.name}</Typography>
+                        <b>{wordList[language].groupInfo.groupTitle}: </b>{group.name}</Typography>
                     <Divider/>
 
                     {group.list.length > 0 &&
                     <Box style={{padding: '15px'}} border={1} borderRadius={6}>
-                        <Typography variant='h5'><b>Участники: </b></Typography>
+                        <Typography variant='h5'><b>{wordList[language].groupInfo.groupUsers}: </b></Typography>
                         {group.list.map((elem, id) => (
                             <Card key={id}>
                                 <CardContent>
                                     <Typography variant="h6" style={{marginRight: '10px'}}>
-                                        <b>Имя:</b> {elem.user.displayName}
+                                        <b>{wordList[language].groupInfo.groupUserName}:</b> {elem.user.displayName}
                                     </Typography>
-                                    <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>Информания
-                                        о пользователе</Button>
+                                    <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>
+                                        {wordList[language].groupInfo.groupUserInfo}
+                                    </Button>
                                     <IconButton
                                         id={'deleteUser' + id}
                                         style={{margin: '0 0 0 5px'}}
@@ -96,18 +99,18 @@ const GroupInfo = props => {
 
                     {usersList && usersList[0] &&
                     <Box style={{padding: '15px', marginTop: '20px'}} border={1} borderRadius={6}>
-                        <Typography variant='h5'><b>Пользователи которых можно добавить: </b></Typography>
+                        <Typography variant='h5'><b>{wordList[language].groupInfo.addUserToGroup}: </b></Typography>
                         {usersList.map((elem, id) => (
                             <Card key={id}>
                                 <CardContent style={{display: 'flex'}}>
                                     <Typography variant="h6" style={{marginRight: '10px'}}>
-                                        <b>Имя:</b> {elem.displayName}
+                                        <b>{wordList[language].groupInfo.addUserToGroupUserName}:</b> {elem.displayName}
                                     </Typography>
                                     <Button style={{marginLeft: 'auto'}} variant='contained' component={NavLink}
-                                            to={`/user/${elem._id}`}>Информания</Button>
+                                            to={`/user/${elem._id}`}>{wordList[language].groupInfo.addUserToGroupInfo}</Button>
                                     <Button style={{marginLeft: '5px'}}
                                             onClick={() => dispatch(addUserToGroup(props.match.params.id, elem._id))}
-                                            variant='contained' color='primary'>Добавить в группу</Button>
+                                            variant='contained' color='primary'>{wordList[language].groupInfo.addUserToGroupBtn}</Button>
                                 </CardContent>
                             </Card>
                         ))}
@@ -119,16 +122,16 @@ const GroupInfo = props => {
                     color='secondary'
                     startIcon={<DeleteIcon/>}
                     onClick={handleOpenAndClose}
-                >Удалить группу</Button>
+                >{wordList[language].groupInfo.deleteGroupBtn}</Button>
             </Paper>
-            <Modal onClose={handleOpenAndClose} open={open} title="Вы уверены что хотите удалить эту группу?">
+            <Modal onClose={handleOpenAndClose} open={open} title={wordList[language].groupInfo.deleteModal}>
                 <Grid container justify='flex-end' spacing={1}>
                     <Grid item>
                         <Button
                             variant="contained"
                             color="primary"
                             onClick={handleOpenAndClose}
-                        >нет</Button>
+                        >{wordList[language].groupInfo.deleteBtnNeg}</Button>
                     </Grid>
                     <Grid item>
                         <Button
@@ -136,7 +139,7 @@ const GroupInfo = props => {
                             color="secondary"
                             onClick={() =>dispatch(deleteGroup(props.match.params.id))}
                             id='yes'
-                        >да</Button>
+                        >{wordList[language].groupInfo.deleteBtnPos}</Button>
                     </Grid>
                 </Grid>
             </Modal>
