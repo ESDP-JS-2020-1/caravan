@@ -7,8 +7,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import {NavLink} from "react-router-dom";
 import {wordList} from "../../../wordList";
 
 const AuthUserToolBar = () => {
@@ -34,13 +32,6 @@ const AuthUserToolBar = () => {
 
 	return (
 		<>
-			<Button
-				color='inherit'
-				component={NavLink}
-				to='/requests/new'
-			>
-				{wordList[language].authUserToolBar.requestBtn}
-			</Button>
 			<IconButton
 				aria-label="account of current user"
 				aria-controls="menu-appbar"
