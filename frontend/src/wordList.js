@@ -19,10 +19,9 @@ export const wordList = {
         },
         navigation: {
             logo: 'Караван',
-            groupList: 'Список групп',
-            userList: 'Список пользователей',
-            requestList: 'Список заявок',
-            productList: 'Список продуктов',
+            groupList: 'Группы',
+            userList: 'Пользователи',
+            requestList: 'Мои заявки',
             historyList: 'История'
         },
         login: {
@@ -142,7 +141,6 @@ export const wordList = {
             groupList: 'Топтордун тизмеси',
             userList: 'Колдонуучулар тизмеси',
             requestList: 'Арыз тизмеси',
-            productList: 'Продукт тизмеси',
             historyList: 'Тарыхы'
         },
         login: {

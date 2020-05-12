@@ -14,13 +14,13 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from '@material-ui/core/ListItemText';
-import FastfoodSharpIcon from '@material-ui/icons/FastfoodSharp';
 import {useSelector} from "react-redux";
 import GroupIcon from '@material-ui/icons/Group';
 import DescriptionIcon from '@material-ui/icons/Description';
 import HistoryIcon from '@material-ui/icons/History';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {wordList} from "../../wordList";
+import Hidden from "@material-ui/core/Hidden";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -107,14 +107,6 @@ const Navigation = () => {
                     </ListItem>
                 </List>
             </NavLink>
-            <NavLink style={{textDecoration: 'none', color: 'black'}} to="/products">
-                <List>
-                    <ListItem button>
-                        <ListItemIcon>{<FastfoodSharpIcon/>}</ListItemIcon>
-                        <ListItemText>{wordList[language].navigation.productList}</ListItemText>
-                    </ListItem>
-                </List>
-            </NavLink>
             {user && user.role === 'admin' && (
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">
                     <List>
@@ -133,20 +125,22 @@ const Navigation = () => {
             <AppBar position="static" color='primary'>
                 <Container>
                     <Toolbar>
-                        {['left'].map((anchor) => (
-                            <IconButton onClick={toggleDrawer(anchor, !state[anchor])} key={anchor} edge="start"
-                                        className={classes.menuButton} color="inherit" aria-label="menu">
-                                <MenuIcon/>
-                                <SwipeableDrawer
-                                    anchor={anchor}
-                                    open={state[anchor]}
-                                    onClose={toggleDrawer(anchor, false)}
-                                    onOpen={toggleDrawer(anchor, true)}
-                                >
-                                    {list(anchor)}
-                                </SwipeableDrawer>
-                            </IconButton>
-                        ))}
+                        <Hidden mdUp>
+                            {['left'].map((anchor) => (
+                                <IconButton onClick={toggleDrawer(anchor, !state[anchor])} key={anchor} edge="start"
+                                            className={classes.menuButton} color="inherit" aria-label="menu">
+                                    <MenuIcon/>
+                                    <SwipeableDrawer
+                                        anchor={anchor}
+                                        open={state[anchor]}
+                                        onClose={toggleDrawer(anchor, false)}
+                                        onOpen={toggleDrawer(anchor, true)}
+                                    >
+                                        {list(anchor)}
+                                    </SwipeableDrawer>
+                                </IconButton>
+                            ))}
+                        </Hidden>
                         <Typography variant="h6" className={classes.mainLink} component={NavLink} to='/' exact>
                             {wordList[language].navigation.logo}
                         </Typography>
