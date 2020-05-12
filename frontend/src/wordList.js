@@ -115,6 +115,21 @@ export const wordList = {
             inputComment: 'Причина добавления',
             addBtn: 'Добавить'
         },
+        editProduct: {
+            editProductTitle: 'Редактирование продукта',
+            inputTitle: 'Название',
+            inputQty: 'Количество',
+            inputPrice: 'Цена',
+            inputRefrigerator: 'Необходим ли холодильник для перевозки?',
+            inputImg: 'Изображение',
+            editProductBtn: 'Редактировать',
+            deleteProductBtn: 'Удалить',
+            modalDeleteTitle: 'Вы уверены что хотите удалить этот продукт?',
+            modalComment: 'Комментарий',
+            modalBtnNeg: 'Нет',
+            modalBtnPos: 'Да',
+            modalEditTitle: 'Вы уверены что хотите отредактировать этот продукт?',
+        },
     },
 
 
@@ -233,6 +248,21 @@ export const wordList = {
             inputAvatar: 'Avatar',
             inputComment: 'Кошуунун себеби',
             addBtn: 'Кошуу'
+        },
+        editProduct: {
+            editProductTitle: 'Өнүмдү түзөтүү',
+            inputTitle: 'Аты',
+            inputQty: 'Саны',
+            inputPrice: 'Баасы',
+            inputRefrigerator: 'Ташуу үчүн муздаткыч керекпи?',
+            inputImg: 'Сүрөтү',
+            editProductBtn: 'Түзөө ',
+            deleteProductBtn: 'Жок кылуу',
+            modalDeleteTitle: 'Бул өнүмдү чын эле алып салгыңыз келеби?',
+            modalComment: 'Түшүндүрмө',
+            modalBtnNeg: 'Жок',
+            modalBtnPos: 'Ооба',
+            modalEditTitle: 'Бул өнүмдү чын эле түзөткүңүз келеби?',
         },
     }
 };

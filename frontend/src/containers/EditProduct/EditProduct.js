@@ -10,6 +10,7 @@ import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
+import {wordList} from "../../wordList";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,6 +55,7 @@ const EditProduct = (props) => {
 
     const error = useSelector(state => state.products.error);
     const editProduct = useSelector(state => state.products.editProduct);
+    const language = useSelector(state => state.language.name);
 
     const [comment, setComment] = React.useState('');
 
@@ -93,44 +95,43 @@ const EditProduct = (props) => {
 
     return (
         <Container>
-            {console.log(editProduct)}
             <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Редактирования продукта
+                            {wordList[language].editProduct.editProductTitle}
                         </Typography>
                     </Box>
                     <form>
                         {editProduct && <Grid container direction='column' spacing={1}>
                             <FormElement
                                 propertyName={'name'}
-                                title={'Название'}
+                                title={wordList[language].editProduct.inputTitle}
                                 onChange={changeHandler}
                                 value={editProduct.name}
                             />
                             <FormElement
                                 propertyName={'amount'}
-                                title={'Кол-во'}
+                                title={wordList[language].editProduct.inputQty}
                                 onChange={changeHandler}
                                 value={editProduct.amount}
                             />
                             <FormElement
                                 propertyName={'price'}
-                                title={'Цена'}
+                                title={wordList[language].editProduct.inputPrice}
                                 onChange={changeHandler}
                                 value={editProduct.price}
                             />
                             <FormElement
                                 propertyName={'isRefrigeratorRequired'}
-                                title={'Необхадим ли холодильник для перевозки?'}
+                                title={wordList[language].editProduct.inputRefrigerator}
                                 onChange={checkboxChangeHandler}
                                 value={editProduct.isRefrigeratorRequired}
                                 type="checkbox"
                             />
                             <FormElement
                                 propertyName='file'
-                                title={'Картинка'}
+                                title={wordList[language].editProduct.inputImg}
                                 onChange={fileChangeHandler}
                                 value={editProduct.avatar}
                                 type="file"
@@ -147,7 +148,7 @@ const EditProduct = (props) => {
                                         onClick={handleOpenEdit}
                                         aria-label="Edit"
                                     >
-                                        Редактировать
+                                        {wordList[language].editProduct.editProductBtn}
                                     </Button>
                                     <Button
                                         className={classes.formButton}
@@ -156,7 +157,7 @@ const EditProduct = (props) => {
                                         onClick={handleOpenAndClose}
                                         aria-label="delete"
                                     >
-                                        Удалить
+                                        {wordList[language].editProduct.deleteProductBtn}
                                     </Button>
                                 </Box>
                             </Grid>
@@ -164,10 +165,10 @@ const EditProduct = (props) => {
                     </form>
                 </Box>
             </Grid>
-            <Modal onClose={handleOpenAndClose} open={open} title="Вы уверены что хотите удалить этот продукт?">
+            <Modal onClose={handleOpenAndClose} open={open} title={wordList[language].editProduct.modalDeleteTitle}>
                 <FormElement
                     propertyName={'comment'}
-                    title={'Комментарий'}
+                    title={wordList[language].editProduct.modalComment}
                     onChange={changeCommentInput}
                 />
                 {error && <Box mb={1}>
@@ -179,7 +180,7 @@ const EditProduct = (props) => {
                             variant="contained"
                             color="primary"
                             onClick={handleOpenAndClose}
-                        >нет</Button>
+                        >{wordList[language].editProduct.modalBtnNeg}</Button>
                     </Grid>
                     <Grid item>
                         <Button
@@ -187,14 +188,14 @@ const EditProduct = (props) => {
                             color="secondary"
                             onClick={removeProduct}
                             id='yes'
-                        >да</Button>
+                        >{wordList[language].editProduct.modalBtnPos}</Button>
                     </Grid>
                 </Grid>
             </Modal>
-            <Modal onClose={handleOpenEdit} open={openEdit} title="Вы уверены что хотите отредактировать этот продукт?">
+            <Modal onClose={handleOpenEdit} open={openEdit} title={wordList[language].editProduct.modalEditTitle}>
                 <FormElement
                     propertyName={'comment'}
-                    title={'Комментарий'}
+                    title={wordList[language].editProduct.modalComment}
                     onChange={changeCommentInput}
                 />
                 {error && <Box mb={1}>
@@ -206,7 +207,7 @@ const EditProduct = (props) => {
                             variant="contained"
                             color="primary"
                             onClick={handleOpenEdit}
-                        >нет</Button>
+                        >{wordList[language].editProduct.modalBtnNeg}</Button>
                     </Grid>
                     <Grid item>
                         <Button
@@ -214,7 +215,7 @@ const EditProduct = (props) => {
                             color="secondary"
                             onClick={onSubmit}
                             id='yes'
-                        >да</Button>
+                        >{wordList[language].editProduct.modalBtnPos}</Button>
                     </Grid>
                 </Grid>
             </Modal>
