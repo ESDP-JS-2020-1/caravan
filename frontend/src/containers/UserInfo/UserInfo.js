@@ -53,7 +53,7 @@ const UserInfo = props => {
             }
         }
     });
-    const coord = userInfo && JSON.parse(userInfo.market.coordinates);
+    const coord = userInfo && userInfo.market && JSON.parse(userInfo.market.coordinates);
 
     return (
         <Container>
