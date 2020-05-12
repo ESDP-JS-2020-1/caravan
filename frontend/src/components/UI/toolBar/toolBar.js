@@ -94,7 +94,7 @@ const ToolBar = () => {
                 )}
             </Hidden>
 
-            <Button
+            {user && <Button
                 color='primary'
                 className={classes.button}
                 component={NavLink}
@@ -103,7 +103,7 @@ const ToolBar = () => {
                 activeClassName='Mui-disabled'
             >
                 {wordList[language].authUserToolBar.requestBtn}
-            </Button>
+            </Button>}
 
             <Button
                 startIcon={<TranslateIcon/>}
