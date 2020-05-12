@@ -16,7 +16,12 @@ import Hidden from "@material-ui/core/Hidden";
 const useStyles = makeStyles({
     button: {
         color: 'white',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        padding: '10px 0 10px 10px'
+    },
+    line: {
+        borderRight: '1px solid white',
+        paddingRight: '10px'
     }
 });
 
@@ -27,7 +32,7 @@ const ToolBar = () => {
     const user = useSelector(state => state.users.user);
     const language = useSelector(state => state.language.name);
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -40,9 +45,9 @@ const ToolBar = () => {
     };
 
     const switchLanguage = name => {
-        dispatch(setLanguage(name))
+        dispatch(setLanguage(name));
         handleClose()
-    }
+    };
 
     return (
         <>
@@ -58,7 +63,9 @@ const ToolBar = () => {
                             activeClassName='Mui-disabled'
                             className={classes.button}
                         >
+                            <span className={classes.line}>
                             {wordList[language].navigation.historyList}
+                            </span>
                         </Button>
                         <Button
                             color='primary'
@@ -68,7 +75,10 @@ const ToolBar = () => {
                             activeClassName='Mui-disabled'
                             className={classes.button}
                         >
-                            {wordList[language].navigation.groupList}
+                            <span className={classes.line}>
+                                {wordList[language].navigation.groupList}
+                            </span>
+
                         </Button>
                         <Button
                             color='primary'
@@ -78,7 +88,10 @@ const ToolBar = () => {
                             activeClassName='Mui-disabled'
                             className={classes.button}
                         >
-                            {wordList[language].navigation.userList}
+                            <span className={classes.line}>
+                                {wordList[language].navigation.userList}
+                            </span>
+
                         </Button>
                         <Button
                             color='primary'
@@ -88,7 +101,10 @@ const ToolBar = () => {
                             activeClassName='Mui-disabled'
                             className={classes.button}
                         >
-                            {wordList[language].navigation.requestList}
+                            <span className={classes.line}>
+                                {wordList[language].navigation.requestList}
+                            </span>
+
                         </Button>
                     </>
                 )}
@@ -102,7 +118,10 @@ const ToolBar = () => {
                 exact
                 activeClassName='Mui-disabled'
             >
-                {wordList[language].authUserToolBar.requestBtn}
+                <span className={classes.line}>
+                          {wordList[language].authUserToolBar.requestBtn}
+                            </span>
+
             </Button>}
 
             <Button
