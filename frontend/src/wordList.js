@@ -70,6 +70,11 @@ export const wordList = {
             deleteBtnNeg: 'Нет',
             deleteBtnPos: 'Да',
         },
+        addGroup: {
+            addGroupTitle: 'Добавление новой группы',
+            addGroupName: 'Название группы',
+            addGroupBtn: 'Добавить'
+        }
     },
 
 
@@ -144,5 +149,10 @@ export const wordList = {
             deleteBtnNeg: 'Жок',
             deleteBtnPos: 'Ооба',
         },
+        addGroup: {
+            addGroupTitle: 'Жаңы топ кошуу',
+            addGroupName: 'Тобунун аты',
+            addGroupBtn: 'Кошуу'
+        }
     }
 };

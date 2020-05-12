@@ -6,8 +6,9 @@ import FormElement from "../../components/UI/Form/FormElement";
 import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addNewGroup} from "../../store/actions/groupActions";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -55,6 +56,7 @@ const AddGroup = () => {
 
     const classes = useStyles();
     const dispatch = useDispatch();
+    const language = useSelector(state => state.language.name);
 
     const [groupInfo, setGroupInfo] = useState({name: ''});
     const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
@@ -78,7 +80,7 @@ const AddGroup = () => {
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Добавление новую группу
+                            {wordList[language].addGroup.addGroupTitle}
                         </Typography>
                     </Box>
                     <form onSubmit={addGroup}>
@@ -88,7 +90,7 @@ const AddGroup = () => {
                                     id='groupName'
                                     required
                                     propertyName='name'
-                                    title='Название группы'
+                                    title={wordList[language].addGroup.addGroupName}
                                     value={groupInfo.name}
                                     onChange={changeGroupInfo}
                                 />
@@ -111,7 +113,7 @@ const AddGroup = () => {
                                         color='primary'
                                         type='submit'
                                     >
-                                        Добавить
+                                        {wordList[language].addGroup.addGroupBtn}
                                     </Button>
                                 </Box>
                             </Grid>
