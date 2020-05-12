@@ -13,6 +13,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import MapDisplay from "../Map/DeviceMap";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -52,7 +53,7 @@ const useStyles = makeStyles({
 });
 const AddUser = () => {
     const classes = useStyles();
-    const coordinate = useSelector(state => state.users.coordinates)
+    const coordinate = useSelector(state => state.users.coordinates);
     const [user, setUser] = useState({
         username: '',
         password: '',
@@ -71,6 +72,7 @@ const AddUser = () => {
 
     const dispatch = useDispatch();
     const error = useSelector(state => state.users.error);
+    const language = useSelector(state => state.language.name);
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
     const checkboxChangeHandler = e => setUser({...user, carRefrigerator: e.target.checked});
@@ -99,7 +101,7 @@ const AddUser = () => {
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Добавление нового пользователя
+                            {wordList[language].addUser.addUserTitle}
                         </Typography>
                     </Box>
                     <form onSubmit={onSubmit}>
@@ -109,7 +111,7 @@ const AddUser = () => {
                                     id='username'
                                     required
                                     propertyName='username'
-                                    title='Логин'
+                                    title={wordList[language].addUser.inputLogin}
                                     value={user.username}
                                     onChange={inputChangeHandler}
                                 />
@@ -119,7 +121,7 @@ const AddUser = () => {
                                     id='password'
                                     required
                                     propertyName='password'
-                                    title='Пароль'
+                                    title={wordList[language].addUser.inputPassword}
                                     value={user.password}
                                     onChange={inputChangeHandler}
                                 />
@@ -128,7 +130,7 @@ const AddUser = () => {
                                 <FormElement
                                     id='displayName'
                                     propertyName='displayName'
-                                    title='Отображаемое имя'
+                                    title={wordList[language].addUser.inputName}
                                     value={user.displayName}
                                     onChange={inputChangeHandler}
                                 />
@@ -136,7 +138,7 @@ const AddUser = () => {
                             <Grid item>
                                 <FormElement
                                     propertyName='role'
-                                    title='Роль'
+                                    title={wordList[language].addUser.inputRole}
                                     value={user.role}
                                     onChange={inputChangeHandler}
                                     type='select'
@@ -148,7 +150,7 @@ const AddUser = () => {
                                     <FormElement
                                         id='carName'
                                         propertyName='carName'
-                                        title='Название машины'
+                                        title={wordList[language].addUser.inputCarName}
                                         value={user.carName}
                                         onChange={inputChangeHandler}
                                     />
@@ -158,7 +160,7 @@ const AddUser = () => {
                                     <FormElement
                                         id='carVolume'
                                         propertyName='carVolume'
-                                        title='Объем машины'
+                                        title={wordList[language].addUser.inputCarVolume}
                                         value={user.carVolume}
                                         onChange={inputChangeHandler}
                                     />
@@ -175,7 +177,7 @@ const AddUser = () => {
                                             inputProps={{ 'aria-label': 'primary checkbox' }}
                                         />
                                     }
-                                    label="Наличие холодильника"
+                                    label={wordList[language].addUser.inputRefrigerator}
                                 />
                             </>}
                             {user.role === 'market' && <>
@@ -183,7 +185,7 @@ const AddUser = () => {
                                     <FormElement
                                         id='companyName'
                                         propertyName='companyName'
-                                        title='Название компании'
+                                        title={wordList[language].addUser.inputCompanyName}
                                         value={user.companyName}
                                         onChange={inputChangeHandler}
                                     />
@@ -192,7 +194,7 @@ const AddUser = () => {
                                     <FormElement
                                         id='address'
                                         propertyName='address'
-                                        title='Адрес компании'
+                                        title={wordList[language].addUser.inputCompanyAddress}
                                         value={user.address}
                                         onChange={inputChangeHandler}
                                     />
@@ -202,7 +204,7 @@ const AddUser = () => {
                                             disabled
                                             id='coordinates'
                                             propertyName='coordinates'
-                                            title='Кординаты'
+                                            title={wordList[language].addUser.inputCoordinates}
                                             value={coordinate.lat + ' ' + coordinate.lng}
                                             onChange={inputChangeHandler}
                                         />
@@ -214,7 +216,7 @@ const AddUser = () => {
                             <Grid item>
                                 <FormElement
                                     propertyName='avatar'
-                                    title='avatar'
+                                    title={wordList[language].addUser.inputAvatar}
                                     value={user.avatar}
                                     onChange={fileChangeHandler}
                                     type='file'
@@ -233,7 +235,7 @@ const AddUser = () => {
                                 <FormElement
                                     id="comment"
                                     propertyName='comment'
-                                    title='Причина добавления'
+                                    title={wordList[language].addUser.inputComment}
                                     value={user.comment}
                                     onChange={inputChangeHandler}
                                 />
@@ -249,7 +251,7 @@ const AddUser = () => {
                                         color='primary'
                                         type='submit'
                                     >
-                                        Добавить
+                                        {wordList[language].addUser.addBtn}
                                     </Button>
                                 </Box>
                             </Grid>

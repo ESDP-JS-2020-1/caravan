@@ -99,7 +99,23 @@ export const wordList = {
             inputRefrigerator: 'Необходим ли холодильник для перевозки?',
             inputImg: 'Изображение',
             inputComment: 'Причина добавления',
-        }
+        },
+        addUser: {
+            addUserTitle: 'Добавление нового пользователя',
+            inputLogin: 'Логин',
+            inputPassword: 'Пароль',
+            inputName: 'Отображаемое имя',
+            inputRole: 'Роль',
+            inputCarName: 'Марка машины',
+            inputCarVolume: 'Объем машины',
+            inputRefrigerator: 'Наличие холодильника',
+            inputCompanyName: 'Название компании',
+            inputCompanyAddress: 'Адрес компании',
+            inputCoordinates: 'Координаты',
+            inputAvatar: 'Avatar',
+            inputComment: 'Причина добавления',
+            addBtn: 'Добавить'
+        },
     },
 
 
@@ -203,6 +219,22 @@ export const wordList = {
             inputRefrigerator: 'Ташуу үчүн муздаткыч керекпи?',
             inputImg: 'Сүрөт',
             inputComment: 'Кошуунун себеби',
-        }
+        },
+        addUser: {
+            addUserTitle: 'Жаңы колдонуучу кошуу',
+            inputLogin: 'Логин',
+            inputPassword: 'Пароль',
+            inputName: 'Аты',
+            inputRole: 'Ролу',
+            inputCarName: 'Унаанын модели',
+            inputCarVolume: 'Унаанын көлөмү',
+            inputRefrigerator: 'Муздаткычтын болушу',
+            inputCompanyName: 'Компаниянын аты',
+            inputCompanyAddress: 'Компаниянын дареги',
+            inputCoordinates: 'Координаттар',
+            inputAvatar: 'Avatar',
+            inputComment: 'Кошуунун себеби',
+            addBtn: 'Кошуу'
+        },
     }
 };
