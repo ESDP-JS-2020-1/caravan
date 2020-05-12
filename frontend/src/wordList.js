@@ -48,6 +48,13 @@ export const wordList = {
             tableRefrigeratorAvailability: 'Есть',
             listItemUsers: 'Все',
         },
+        groupsList: {
+            listGroupTitle: 'Список групп',
+            addGroupBtn: 'Добавить группу',
+            tableGroupTitle: 'Название',
+            tableGroupQty: 'Количество участников',
+            addUsersBtn: 'Добавить пользователей'
+        },
     },
 
 
@@ -63,9 +70,9 @@ export const wordList = {
             addNewProduct: 'Жаңы өнүмдөрдү кошуу',
             productListTitle: 'Продукт тизмеси'
         },
-        loginBtn: 'Кируу',
+        loginBtn: 'Кирүү',
         authUserToolBar: {
-            requestBtn: 'Арыз беруу',
+            requestBtn: 'Арыз берүү',
             greeting: 'Салам',
             logoutBtn: 'Чыгуу',
         },
@@ -78,15 +85,15 @@ export const wordList = {
             historyList: 'Тарыхы'
         },
         login: {
-            loginTitle: 'Кируу',
-            loginBtn: 'Кируу',
+            loginTitle: 'Кирүү',
+            loginBtn: 'Кирүү',
             userTitle: 'Колдонуучунун аты',
             password: 'Пароль',
             usernamePlaceholder: 'Колдонуучунун атын киргизгиле',
             passwordPlaceholder: 'Пароль киргизгиле'
         },
         usersList: {
-            searchTitle: 'Колдонуучуну издоо',
+            searchTitle: 'Колдонуучуну издөө',
             addUserBtn: 'Колдонуучуну кошуу',
             tableName: 'Аты',
             tableLogin: 'Логин',
@@ -95,10 +102,17 @@ export const wordList = {
             tableAddress: 'Дареги',
             tableRole: 'Ролу',
             tableCarName: 'Унаанын аты',
-            tableCarVolume: 'Унаанын колому',
+            tableCarVolume: 'Унаанын көлөмү',
             tableRefrigerator: 'Муздаткычтын катышуусу',
             tableRefrigeratorAvailability: 'Бар',
             listItemUsers: 'Баары'
+        },
+        groupsList: {
+            listGroupTitle: 'Топтордун тизмеси',
+            addGroupBtn: 'Тобун кошуу',
+            tableGroupTitle: 'Аты',
+            tableGroupQty: 'Катышуучулардын саны',
+            addUsersBtn: 'Колдонуучуларды кошуу'
         },
     }
 };

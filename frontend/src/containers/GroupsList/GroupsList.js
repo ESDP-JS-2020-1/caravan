@@ -12,10 +12,12 @@ import GroupListItem from "./GroupListItem";
 import Typography from "@material-ui/core/Typography";
 import {NavLink} from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import {wordList} from "../../wordList";
 
 const GroupsList = () => {
     const dispatch = useDispatch();
     const groups = useSelector(state => state.groups.groups);
+    const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getGroups())
@@ -31,14 +33,16 @@ const GroupsList = () => {
     ));
     return (
         <div>
-            <Typography variant='h4'>Список групп</Typography>
-            <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>Добавить группу</Button>
+            <Typography variant='h4'>{wordList[language].groupsList.listGroupTitle}</Typography>
+            <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
+                {wordList[language].groupsList.addGroupBtn}
+            </Button>
             <TableContainer component={Paper}>
                 <Table aria-label="caption table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>       <b>Название</b>        </TableCell>
-                            <TableCell> <b>Количество участников</b> </TableCell>
+                            <TableCell>       <b>{wordList[language].groupsList.tableGroupTitle}</b>        </TableCell>
+                            <TableCell> <b>{wordList[language].groupsList.tableGroupQty}</b> </TableCell>
                             <TableCell>                              </TableCell>
                         </TableRow>
                     </TableHead>
