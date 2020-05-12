@@ -73,6 +73,13 @@ const GroupInfo = props => {
                         <b>{wordList[language].groupInfo.groupTitle}: </b>{group.name}</Typography>
                     <Divider/>
 
+                    <Typography variant='h5' style={{padding: '15px 0 0 0'}}>
+                        <b>Список разрешений </b></Typography>
+
+                    <ul>
+                        {group.permissions.map((elem, id) => <li key={id}>{elem}</li>)}
+                    </ul>
+
                     {group.list.length > 0 &&
                     <Box style={{padding: '15px'}} border={1} borderRadius={6}>
                         <Typography variant='h5'><b>{wordList[language].groupInfo.groupUsers}: </b></Typography>
