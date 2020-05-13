@@ -14,6 +14,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Modal from "../../components/UI/Modal/Modal";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles(() => ({
     formBtn: {
@@ -51,6 +52,7 @@ const EditUser = props => {
     const dispatch = useDispatch();
 
     const editClient = useSelector(state => state.users.client);
+    const language = useSelector(state => state.language.name);
 
     const [open, setOpen] = React.useState(false);
 
@@ -113,7 +115,7 @@ const EditUser = props => {
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Редактирование пользователя
+                            {wordList[language].editUser.editUserTitle}
                         </Typography>
                     </Box>
                     <form onSubmit={onSubmit}>
@@ -123,7 +125,7 @@ const EditUser = props => {
                                     id="username"
                                     required
                                     propertyName='username'
-                                    title='Логин'
+                                    title={wordList[language].editUser.inputLogin}
                                     value={editClient.username}
                                     onChange={inputChangeHandler}
                                 />
@@ -132,7 +134,7 @@ const EditUser = props => {
                                 <FormElement
                                     id="password"
                                     propertyName='password'
-                                    title='Пароль'
+                                    title={wordList[language].editUser.inputPassword}
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
@@ -140,7 +142,7 @@ const EditUser = props => {
                                 <FormElement
                                     id="displayName"
                                     propertyName='displayName'
-                                    title='Отображаемое имя'
+                                    title={wordList[language].editUser.inputName}
                                     value={editClient.displayName}
                                     onChange={inputChangeHandler}
                                 />
@@ -148,7 +150,7 @@ const EditUser = props => {
                             <Grid item>
                                 <FormElement
                                     propertyName='role'
-                                    title='Роль'
+                                    title={wordList[language].editUser.inputRole}
                                     value={editClient.role}
                                     onChange={inputChangeHandler}
                                     type='select'
@@ -160,7 +162,7 @@ const EditUser = props => {
                                     <FormElement
                                         id='carName'
                                         propertyName='carName'
-                                        title='Название машины'
+                                        title={wordList[language].editUser.inputCarName}
                                         defaultValue={editClient.courier ? editClient.courier.carName : ''}
                                         onChange={changeCourier}
                                     />
@@ -170,7 +172,7 @@ const EditUser = props => {
                                     <FormElement
                                         id='carVolume'
                                         propertyName='carVolume'
-                                        title='Объем машины'
+                                        title={wordList[language].editUser.inputCarVolume}
                                         defaultValue={editClient.courier ? editClient.courier.carVolume : ''}
                                         onChange={changeCourier}
                                     />
@@ -187,7 +189,7 @@ const EditUser = props => {
                                             inputProps={{'aria-label': 'primary checkbox'}}
                                         />
                                     }
-                                    label="Наличие холодильника"
+                                    label={wordList[language].editUser.inputRefrigerator}
                                 />
 
                             </>}
@@ -195,7 +197,7 @@ const EditUser = props => {
                                 <Grid item>
                                     <FormElement
                                         propertyName='companyName'
-                                        title='Название компании'
+                                        title={wordList[language].editUser.inputCompanyName}
                                         value={editClient.market ? editClient.market.companyName : ''}
                                         onChange={changeMarket}
                                     />
@@ -203,7 +205,7 @@ const EditUser = props => {
                                 <Grid item>
                                     <FormElement
                                         propertyName='address'
-                                        title='Адрес компании'
+                                        title={wordList[language].editUser.inputCompanyAddress}
                                         value={editClient.market ? editClient.market.address : ''}
                                         onChange={changeMarket}
                                     />
@@ -212,7 +214,7 @@ const EditUser = props => {
                             <Grid item>
                                 <FormElement
                                     propertyName='avatar'
-                                    title='avatar'
+                                    title={wordList[language].editUser.inputAvatar}
                                     value={editClient.avatar}
                                     onChange={fileChangeHandler}
                                     type='file'
@@ -232,7 +234,7 @@ const EditUser = props => {
                                 <FormElement
                                     id="comment"
                                     propertyName='comment'
-                                    title='Причина редактирования'
+                                    title={wordList[language].editUser.inputEditComment}
                                     value={comment}
                                     onChange={changeCommentInput}
                                 />
@@ -248,7 +250,7 @@ const EditUser = props => {
                                         color='primary'
                                         type='submit'
                                     >
-                                        Редактировать
+                                        {wordList[language].editUser.editBtn}
                                     </Button>
                                 </Box>
                             </Grid>
@@ -260,19 +262,19 @@ const EditUser = props => {
                                     onClick={handleClickOpen}
                                     id="deleteUser"
                                 >
-                                    Удалить пользователя
+                                    {wordList[language].editUser.deleteBtn}
                                 </Button>
                             </Grid>
                         </Grid>}
                     </form>
                 </Box>
             </Grid>
-            <Modal onClose={handleClose} open={open} title="Вы уверены что хотите удалить этого пользователя?">
+            <Modal onClose={handleClose} open={open} title={wordList[language].editUser.modalDeleteTitle}>
                 <Box ml={2} mr={2}>
                     <FormElement
                         id="comment"
                         propertyName='comment'
-                        title='Причина удаления'
+                        title={wordList[language].editUser.inputDeleteComment}
                         value={comment}
                         onChange={changeCommentInput}
                     />
@@ -286,7 +288,7 @@ const EditUser = props => {
                             variant="contained"
                             color="primary"
                             onClick={handleClose}
-                        >нет</Button>
+                        >{wordList[language].editUser.modalBtnNeg}</Button>
                     </Grid>
                     <Grid item>
                         <Button
@@ -294,7 +296,7 @@ const EditUser = props => {
                             color="secondary"
                             onClick={removeUser}
                             id='yes'
-                        >да</Button>
+                        >{wordList[language].editUser.modalBtnPos}</Button>
                     </Grid>
                 </Grid>
             </Modal>
