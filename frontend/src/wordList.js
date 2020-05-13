@@ -200,7 +200,17 @@ export const wordList = {
             fridgeAvail: 'Есть',
             fridgeNotAvail: 'Отсутствует',
             nomBtn: 'Назначить',
-        }
+        },
+        requestList: {
+            tableUser: 'Пользователь',
+            tableDate: 'Дата',
+            tableStatus: 'Статус',
+        },
+        requestListItem: {
+            label_1: 'В ожидании',
+            label_2: 'Выполняется',
+            label_3: 'Закрыт'
+        },
     },
 
 
@@ -405,6 +415,16 @@ export const wordList = {
             fridgeAvail: 'Бар',
             fridgeNotAvail: 'Жок',
             nomBtn: 'Дайында',
-        }
+        },
+        requestList: {
+            tableUser: 'Колдонуучу',
+            tableDate: 'Датасы',
+            tableStatus: 'Статус',
+        },
+        requestListItem: {
+            label_1: 'Күтүүдө',
+            label_2: 'Аткаруучуда',
+            label_3: 'Жабык'
+        },
     }
 };

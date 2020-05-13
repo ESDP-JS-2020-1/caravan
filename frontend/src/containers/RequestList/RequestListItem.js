@@ -7,17 +7,23 @@ import TableRow from "@material-ui/core/TableRow";
 import moment from "moment";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Chip from "@material-ui/core/Chip";
+import {useSelector} from "react-redux";
+import {wordList} from "../../wordList";
 
 const ProductListItem = props => {
+    const language = useSelector(state => state.language.name);
 
     return (
         <TableRow>
             <TableCell>{props.user.displayName}</TableCell>
             <TableCell>{moment(props.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
             <TableCell>
-                {props.status === 'pending' && <Chip label='В ожидании' />}
-                {props.status === 'performed' && <Chip color='primary' label='Выполняется' />}
-                {props.status === 'closed' && <Chip color='secondary' label='Закрыт' />}
+                {props.status === 'pending' &&
+                <Chip label={wordList[language].requestListItem.label_1} />}
+                {props.status === 'performed' &&
+                <Chip color='primary' label={wordList[language].requestListItem.label_2} />}
+                {props.status === 'closed' &&
+                <Chip color='secondary' label={wordList[language].requestListItem.label_3} />}
             </TableCell>
             {props.userRoleInfo === 'admin' &&
             <TableCell >

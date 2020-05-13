@@ -9,12 +9,14 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import RequestListItem from "./RequestListItem";
+import {wordList} from "../../wordList";
 
 const RequestList = () => {
     const dispatch = useDispatch();
 
     const requests = useSelector(state => state.requests.list);
     const user = useSelector(state => state.users.user);
+    const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getRequests());
@@ -49,9 +51,9 @@ const RequestList = () => {
                 <Table aria-label="caption table">
                     <TableHead>
                         <TableRow>
-                            <TableCell> <b>Пользователь</b> </TableCell>
-                            <TableCell> <b>Дата</b>         </TableCell>
-                            <TableCell> <b>Статус</b>       </TableCell>
+                            <TableCell> <b>{wordList[language].requestList.tableUser}</b> </TableCell>
+                            <TableCell> <b>{wordList[language].requestList.tableDate}</b>         </TableCell>
+                            <TableCell> <b>{wordList[language].requestList.tableStatus}</b>       </TableCell>
                             <TableCell>                     </TableCell>
                             <TableCell>                     </TableCell>
                         </TableRow>
