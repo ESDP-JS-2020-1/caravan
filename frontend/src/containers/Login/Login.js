@@ -100,7 +100,7 @@ const Login = () => {
                         <Box component="span" className={classes.formBtn}>
                             {loading ? (<Spinner classsName={classes.button}/>) : (
                                 <Button className={classes.button} variant="contained" type="submit" color="primary"
-                                        id="btn">{wordList[language].login.loginBtn}</Button>
+                                        id="btn2">{wordList[language].login.loginBtn}</Button>
                             )}
                         </Box>
                     </form>

@@ -79,7 +79,7 @@ Given('я зарегестрирован как администратор', tab
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Sign in", '#btn');
+  I.click("#btn2");
 
   I.waitForText('Вы успешно вошли, как Some market');
   I.wait(1)
@@ -103,7 +103,7 @@ Given('я залогинен как администратор:', table => {
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Sign in", '#btn');
+  I.click("#btn2");
 
   I.waitForText('Вы успешно вошли, как Some market');
 });
@@ -164,7 +164,7 @@ Given('я вошел как администратор:', table => {
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Sign in", '#btn');
+  I.click('#btn2');
   I.waitForText('Вы успешно вошли, как Some market');
 });
 
@@ -205,7 +205,7 @@ Given('я зарегистрирован как администратор:', ta
     I.fillField(row[0], row[1]);
   });
 
-  I.click("Sign in");
+  I.click("#btn2");
   I.waitForText('Вы успешно вошли, как Some market');
 
 });
