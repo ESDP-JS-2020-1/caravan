@@ -11,7 +11,7 @@ export const wordList = {
             addNewProduct: 'Добавить новые продукты',
             productListTitle: 'Список продуктов'
         },
-        loginBtn: 'Войти',
+        loginBtn: 'Вход',
         authUserToolBar: {
             requestBtn: 'Подать заявку',
             greeting: 'Привет',
@@ -25,7 +25,7 @@ export const wordList = {
             historyList: 'История'
         },
         login: {
-            loginTitle: 'Войти',
+            loginTitle: 'Вход',
             loginBtn: 'Войти',
             userTitle: 'Имя пользователя',
             password: 'Пароль',
@@ -210,6 +210,20 @@ export const wordList = {
             label_1: 'В ожидании',
             label_2: 'Выполняется',
             label_3: 'Закрыт'
+        },
+        userInfo: {
+            userInfoTitle: 'Информация о пользователе',
+            userInfoRole: 'Роль',
+            userInfoName: 'Пользователь',
+            userInfoPhone: 'Телефон',
+            userInfoMarket: 'Магазин',
+            userInfoAddress: 'Адрес',
+            userInfoCoord: 'Координаты',
+            userInfoCar: 'Машина',
+            userInfoCarVolume: 'Объем машины',
+            userInfoFridge: 'Наличие холодильника',
+            fridgeAvail: 'Есть',
+            fridgeNotAvail: 'Отсутствует',
         },
     },
 
@@ -425,6 +439,20 @@ export const wordList = {
             label_1: 'Күтүүдө',
             label_2: 'Аткаруучуда',
             label_3: 'Жабык'
+        },
+        userInfo: {
+            userInfoTitle: 'Колдонуучунун маалыматы',
+            userInfoRole: 'Ролу',
+            userInfoName: 'Колдонуучу',
+            userInfoPhone: 'Телефон',
+            userInfoMarket: 'Дүкөндүн аты',
+            userInfoAddress: 'Дареги',
+            userInfoCoord: 'Координаттар',
+            userInfoCar: 'Унаа',
+            userInfoCarVolume: 'Унаанын көлөмү',
+            userInfoFridge: 'Муздаткычтын болушу',
+            fridgeAvail: 'Бар',
+            fridgeNotAvail: 'Жок',
         },
     }
 };

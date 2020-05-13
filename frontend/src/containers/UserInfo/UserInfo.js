@@ -10,6 +10,7 @@ import {getUser} from "../../store/actions/usersActions";
 import {MuiThemeProvider} from "@material-ui/core";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {Map, Marker, TileLayer} from "react-leaflet";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({
     flex: {
@@ -38,6 +39,7 @@ const UserInfo = props => {
 
     const dispatch = useDispatch();
     const userInfo = useSelector(state => state.users.client);
+    const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getUser(props.match.params.id))
@@ -61,23 +63,22 @@ const UserInfo = props => {
                 <MuiThemeProvider theme={theme}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
-                            Информация о пользователе
+                            {wordList[language].userInfo.userInfoTitle}
                         </Typography>
                     </Box>
                     {userInfo && <>
-                        <Typography variant='h5'> <b>Роль </b>{userInfo.role}</Typography>
+                        <Typography variant='h5'> <b>{wordList[language].userInfo.userInfoRole} </b>{userInfo.role}</Typography>
 
-                        <Typography variant='h5'> <b>Пользователь </b>{userInfo.displayName}</Typography>
+                        <Typography variant='h5'> <b>{wordList[language].userInfo.userInfoName} </b>{userInfo.displayName}</Typography>
 
-                        <Typography variant='h5'><b>Телефон </b>{userInfo.phone}</Typography>
+                        <Typography variant='h5'><b>{wordList[language].userInfo.userInfoPhone} </b>{userInfo.phone}</Typography>
                         <Divider/>
-
                         {userInfo.role === 'market' && <>
-                            <Typography variant='h5'><b>Магазин </b>{userInfo.market.companyName}</Typography>
+                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoMarket} </b>{userInfo.market.companyName}</Typography>
 
-                            <Typography variant='h5'><b>Адрес </b>{userInfo.market.address}</Typography>
+                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoAddress} </b>{userInfo.market.address}</Typography>
 
-                            <Typography variant='h5'><b>Координаты </b>lat: {coord.lat} , lng: {coord.lng}</Typography>
+                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoCoord} </b>lat: {coord.lat} , lng: {coord.lng}</Typography>
 
                             <div style={{height: '300px'}}>
                                 <Map center={[coord.lat, coord.lng]} zoom={10} style={{background: '#000',height : '100%', width: '100%'}}>
@@ -92,11 +93,16 @@ const UserInfo = props => {
                             </>}
 
                         {userInfo.role === 'courier' && <>
-                            <Typography variant='h5'><b>Машина </b>{userInfo.courier.carName}</Typography>
+                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoCar} </b>{userInfo.courier.carName}</Typography>
 
-                            <Typography variant='h5'><b>Объем машины </b>{userInfo.courier.carVolume}</Typography>
+                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoCarVolume} </b>{userInfo.courier.carVolume}</Typography>
 
-                            <Typography variant='h5'><b>Наличие холодильника </b>{userInfo.courier.carRefrigerator ? 'Есть' : 'Отсутствует'}</Typography>
+                            <Typography variant='h5'><b>
+                                {wordList[language].userInfo.userInfoFridge}
+                            </b> {userInfo.courier.carRefrigerator ?
+                                (wordList[language].userInfo.fridgeAvail)
+                                : (wordList[language].userInfo.fridgeNotAvail)}
+                            </Typography>
                             <Divider/>
                         </>}
                     </>}
