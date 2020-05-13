@@ -1,5 +1,7 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
+
 import {fade, makeStyles} from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
 import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
@@ -12,6 +14,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {

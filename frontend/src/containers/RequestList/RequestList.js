@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
-import {getRequests} from "../../store/actions/requestsActions";
+
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -8,7 +9,9 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+
 import RequestListItem from "./RequestListItem";
+import {getRequests} from "../../store/actions/requestsActions";
 import {wordList} from "../../wordList";
 
 const RequestList = () => {
@@ -33,7 +36,7 @@ const RequestList = () => {
         />
     ));
 
-    if(user && user.role === 'courier') {
+    if (user && user.role === 'courier') {
         requestsList = requests.map(elem => (
             <RequestListItem
                 key={elem.request._id}
@@ -52,10 +55,10 @@ const RequestList = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell> <b>{wordList[language].requestList.tableUser}</b> </TableCell>
-                            <TableCell> <b>{wordList[language].requestList.tableDate}</b>         </TableCell>
-                            <TableCell> <b>{wordList[language].requestList.tableStatus}</b>       </TableCell>
-                            <TableCell>                     </TableCell>
-                            <TableCell>                     </TableCell>
+                            <TableCell> <b>{wordList[language].requestList.tableDate}</b> </TableCell>
+                            <TableCell> <b>{wordList[language].requestList.tableStatus}</b> </TableCell>
+                            <TableCell>  </TableCell>
+                            <TableCell>  </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

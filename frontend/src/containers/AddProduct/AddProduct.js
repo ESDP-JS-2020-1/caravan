@@ -1,15 +1,20 @@
 import React, {useEffect, useState} from 'react';
+
+import {useDispatch, useSelector} from "react-redux";
+
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import AddProductItem from "./AddProductItem/AddProductItem";
-import {useDispatch, useSelector} from "react-redux";
-import {addNewProduct, createProductInit} from "../../store/actions/productsActions";
 import Alert from "@material-ui/lab/Alert";
+
+import {addNewProduct, createProductInit} from "../../store/actions/productsActions";
+import AddProductItem from "./AddProductItem/AddProductItem";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles((theme) => ({
     heading: {

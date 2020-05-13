@@ -1,10 +1,15 @@
 import React from 'react';
+
+import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
+
 import {wordList} from "../../wordList";
+
+
 
 const GroupListItem = props => {
     const language = useSelector(state => state.language.name);

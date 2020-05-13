@@ -1,16 +1,21 @@
 import React, {useEffect} from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
+
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import {getUser} from "../../store/actions/usersActions";
 import {MuiThemeProvider} from "@material-ui/core";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+
+import {getUser} from "../../store/actions/usersActions";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles({
     flex: {

@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
+
+import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {closeRequest, deleteNominatedRequest, getRequest, nominatedRequest} from "../../store/actions/requestsActions";
-import Typography from "@material-ui/core/Typography";
 import moment from "moment";
+
+import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -11,7 +13,15 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
-import {NavLink} from "react-router-dom";
+
+import {
+    closeRequest,
+    deleteNominatedRequest,
+    getRequest,
+    nominatedRequest
+} from "../../store/actions/requestsActions";
+
+
 import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({

@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
-import {getHistoriesList} from "../../store/actions/HistoriesActions";
+import moment from "moment";
+
 import {makeStyles} from "@material-ui/core/styles";
 import TableContainer from "@material-ui/core/TableContainer";
 import {Paper} from "@material-ui/core";
@@ -10,7 +12,10 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Chip from "@material-ui/core/Chip";
-import moment from "moment";
+
+import {getHistoriesList} from "../../store/actions/HistoriesActions";
+
+
 import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({
@@ -69,7 +74,8 @@ const Histories = () => {
                                     />
                                 )}
                             </TableCell>
-                            <TableCell align="right">{moment(history.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
+                            <TableCell
+                                align="right">{moment(history.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

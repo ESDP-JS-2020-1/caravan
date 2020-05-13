@@ -1,4 +1,8 @@
 import React, {useEffect} from 'react';
+
+import {useDispatch, useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
+
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -6,13 +10,14 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
-import {useDispatch, useSelector} from "react-redux";
-import {getGroups} from "../../store/actions/groupActions";
 import GroupListItem from "./GroupListItem";
 import Typography from "@material-ui/core/Typography";
-import {NavLink} from "react-router-dom";
 import Button from "@material-ui/core/Button";
+
+import {getGroups} from "../../store/actions/groupActions";
 import {wordList} from "../../wordList";
+
+
 
 const GroupsList = () => {
     const dispatch = useDispatch();

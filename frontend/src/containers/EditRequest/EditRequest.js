@@ -1,6 +1,15 @@
-import {makeStyles} from "@material-ui/core/styles";
-import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
+
+import {useDispatch, useSelector} from "react-redux";
+
+import {Container} from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import {makeStyles} from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Alert from "@material-ui/lab/Alert";
+
 import {
     createRequestInit,
     deleteRequestEdit,
@@ -8,16 +17,12 @@ import {
     fetchSuccess,
     putRequestEdit
 } from "../../store/actions/requestsActions";
-import {Container} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Alert from "@material-ui/lab/Alert";
 import EditRequestItems from "./EditRequestItems";
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -86,7 +91,7 @@ const EditRequest = (props) => {
         dispatch(fetchSuccess(newRequest))
     };
     const autoCompleteChangeHandler = (element, i) => {
-        if(element) {
+        if (element) {
             let newRequest = {...editRequest};
             newRequest.products[i].product = element;
 

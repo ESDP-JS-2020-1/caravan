@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
+
+import {NavLink} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getUsers} from "../../store/actions/usersActions";
-import UserListItem from "./UserListItem/UserListItem";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
@@ -25,8 +25,13 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
+
+import {getUsers} from "../../store/actions/usersActions";
+import UserListItem from "./UserListItem/UserListItem";
 import FormElement from "../UI/Form/FormElement";
 import {wordList} from "../../wordList";
+
+
 
 const UsersList = props => {
     const [anchorEl, setAnchorEl] = React.useState(null);

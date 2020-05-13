@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
-import {deleteUser, editUser, getUser, getUserSuccess} from "../../store/actions/usersActions";
+
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import FormElement from "../../components/UI/Form/FormElement";
 import MuiPhoneNumber from "material-ui-phone-number";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
@@ -13,8 +13,13 @@ import {makeStyles} from "@material-ui/core/styles";
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+
+import {deleteUser, editUser, getUser, getUserSuccess} from "../../store/actions/usersActions";
+import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles(() => ({
     formBtn: {

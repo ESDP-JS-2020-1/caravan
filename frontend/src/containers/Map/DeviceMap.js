@@ -1,11 +1,16 @@
 import React, {useState} from 'react'
+
+import {useDispatch} from "react-redux";
 import Leaflet from 'leaflet';
 import {Map, TileLayer, Marker, Popup} from 'react-leaflet'
-import 'leaflet/dist/leaflet.css';
 import ReactLeafletSearch from "react-leaflet-search";
-import {useDispatch} from "react-redux";
-import {createCoordinateSuccess} from "../../store/actions/usersActions";
 import BaseMap from "./BaseMap";
+
+import {createCoordinateSuccess} from "../../store/actions/usersActions";
+
+import 'leaflet/dist/leaflet.css';
+
+
 
 Leaflet.Icon.Default.imagePath =
     '../node_modules/leaflet'

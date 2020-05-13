@@ -2,7 +2,6 @@ import axiosApi from "../../axiosAPI";
 import {push} from 'connected-react-router';
 import {toast} from "react-toastify";
 import {store as notification} from "react-notifications-component";
-import config from '../../config'
 import {
   ADD_USER_FAILURE,
   ADD_USER_REQUEST, CREATE_COORDINATE_SUCCESS, DELETE_USER_FAILURE, DELETE_USER_REQUEST, DELETE_USER_SUCCESS,
@@ -12,6 +11,8 @@ import {
   GET_USERS_REQUEST,
   GET_USERS_SUCCESS, LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER
 } from "./actionsTypes";
+import config from '../../config'
+
 
 
 export const getUserRequest = () => ({type: GET_USER_REQUEST});

@@ -1,14 +1,18 @@
 import React from 'react';
+
+import {NavLink} from "react-router-dom";
+import moment from "moment";
+
 import TableCell from "@material-ui/core/TableCell";
 import IconButton from "@material-ui/core/IconButton";
-import {NavLink} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import TableRow from "@material-ui/core/TableRow";
-import moment from "moment";
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Chip from "@material-ui/core/Chip";
 import {useSelector} from "react-redux";
 import {wordList} from "../../wordList";
+
+
 
 const ProductListItem = props => {
     const language = useSelector(state => state.language.name);

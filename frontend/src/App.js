@@ -1,14 +1,14 @@
 import React from 'react';
-import './App.css';
+
+import Container from "@material-ui/core/Container";
+import ReactNotification from 'react-notifications-component'
 import {Route, Switch} from "react-router-dom";
+
 import Login from "./containers/Login/Login";
 import Navigation from "./components/Navigation/Navigation";
-import "./index.css"
 import UsersList from "./components/UsersList/UsersList";
-import Container from "@material-ui/core/Container";
 import AddUser from "./containers/AddUser/AddUser";
 import EditUser from "./containers/EditUser/EditUser";
-import ReactNotification from 'react-notifications-component'
 import AddProduct from "./containers/AddProduct/AddProduct";
 import ProductList from "./containers/ProductList/ProductList";
 import EditProduct from "./containers/EditProduct/EditProduct";
@@ -22,6 +22,9 @@ import PrivateRoute from "./components/HOC/PrivateRoute/PrivateRoute";
 import AddGroup from "./containers/AddGroup/AddGroup";
 import GroupsList from "./containers/GroupsList/GroupsList";
 import GroupInfo from "./containers/GroupInfo/GroupInfo";
+
+import "./index.css"
+import './App.css';
 
 
 

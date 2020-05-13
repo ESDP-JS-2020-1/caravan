@@ -1,14 +1,19 @@
 import React from 'react';
+
+import {useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
+
 import TableCell from "@material-ui/core/TableCell";
 import IconButton from "@material-ui/core/IconButton";
-import {NavLink} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import TableRow from "@material-ui/core/TableRow";
 import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
+
 import apiURL from "../../../apiURL";
-import {useSelector} from "react-redux";
 import {wordList} from "../../../wordList";
+
+
 
 const UserListItem = props => {
     const useStyles = makeStyles(() => ({

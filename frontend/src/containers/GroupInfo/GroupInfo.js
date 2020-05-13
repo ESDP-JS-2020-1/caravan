@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
-import {addUserToGroup, deleteGroup, deleteGroupUser, getGroup} from "../../store/actions/groupActions";
+
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
@@ -10,12 +11,16 @@ import {makeStyles} from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import {NavLink} from "react-router-dom";
-import {getUsers} from "../../store/actions/usersActions";
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
+
+import {addUserToGroup, deleteGroup, deleteGroupUser, getGroup} from "../../store/actions/groupActions";
+import {getUsers} from "../../store/actions/usersActions";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles({
     typography: {

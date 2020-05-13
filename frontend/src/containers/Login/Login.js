@@ -1,16 +1,21 @@
 import React, {useState} from 'react';
+
+import {useDispatch, useSelector} from "react-redux";
+
 import Container from "@material-ui/core/Container";
-import FormElement from "../../components/UI/Form/FormElement";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Alert from '@material-ui/lab/Alert';
-import {useDispatch, useSelector} from "react-redux";
-import {loginUser} from "../../store/actions/usersActions";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import {makeStyles} from "@material-ui/core/styles";
+
+import FormElement from "../../components/UI/Form/FormElement";
+import {loginUser} from "../../store/actions/usersActions";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles({
     formBtn: {

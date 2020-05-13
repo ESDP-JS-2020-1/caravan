@@ -1,4 +1,7 @@
 import React from 'react';
+
+import {useSelector} from "react-redux";
+
 import Grid from "@material-ui/core/Grid";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -6,11 +9,13 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import Box from "@material-ui/core/Box";
-import FormElement from "../../../components/UI/Form/FormElement";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
-import {useSelector} from "react-redux";
+
+import FormElement from "../../../components/UI/Form/FormElement";
 import {wordList} from "../../../wordList";
+
+
 
 const AddProductItem = (
 	{checkboxChangeHandler, onChange, index, expanded, classes, p, product, onRemove, handleChange, fileChange}

@@ -1,16 +1,20 @@
-import {makeStyles} from "@material-ui/core/styles";
-import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
-import {deleteProduct, getProductEdit, getProductSuccess, putEditProduct} from "../../store/actions/productsActions";
+
+import {useDispatch, useSelector} from "react-redux";
+
 import {Container} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
+
+import {deleteProduct, getProductEdit, getProductSuccess, putEditProduct} from "../../store/actions/productsActions";
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
+
 
 
 const useStyles = makeStyles((theme) => ({

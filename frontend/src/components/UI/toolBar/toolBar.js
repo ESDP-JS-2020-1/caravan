@@ -1,7 +1,8 @@
 import React from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
-import AuthUserToolBar from "./authUserToolBar";
-import NoAuthUserToolBar from "./noAuthToolBar";
+import {NavLink} from "react-router-dom";
+
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -9,9 +10,13 @@ import TranslateIcon from '@material-ui/icons/Translate';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {setLanguage} from "../../../store/actions/languageActions";
-import {NavLink} from "react-router-dom";
-import {wordList} from "../../../wordList";
 import Hidden from "@material-ui/core/Hidden";
+
+import AuthUserToolBar from "./authUserToolBar";
+import NoAuthUserToolBar from "./noAuthToolBar";
+import {wordList} from "../../../wordList";
+
+
 
 const useStyles = makeStyles({
     button: {

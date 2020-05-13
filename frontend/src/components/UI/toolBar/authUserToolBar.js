@@ -1,13 +1,18 @@
 import React from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
-import {logoutUserGet} from "../../../store/actions/usersActions";
+
 import IconButton from "@material-ui/core/IconButton";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
+
+import {logoutUserGet} from "../../../store/actions/usersActions";
 import {wordList} from "../../../wordList";
+
+
 
 const AuthUserToolBar = () => {
 	const [anchorEl, setAnchorEl] = React.useState(null);

@@ -1,22 +1,27 @@
 import React, {useEffect, useState} from 'react';
+
 import {useDispatch, useSelector} from "react-redux";
-import {getProductsList} from "../../store/actions/productsActions";
-import ProductListItem from "./ProductListItem/ProductListItem";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import {NavLink} from "react-router-dom";
+
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
-import {fade, makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import AddIcon from '@material-ui/icons/Add';
-import {NavLink} from "react-router-dom";
+import TableCell from "@material-ui/core/TableCell";
+import {fade, makeStyles} from "@material-ui/core/styles";
+
+import {getProductsList} from "../../store/actions/productsActions";
+import ProductListItem from "./ProductListItem/ProductListItem";
 import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles((theme) => ({
     offPadding: {

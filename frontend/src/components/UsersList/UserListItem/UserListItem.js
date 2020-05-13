@@ -1,11 +1,15 @@
 import React from 'react';
+
+import {NavLink} from "react-router-dom";
+
 import TableCell from "@material-ui/core/TableCell";
 import IconButton from "@material-ui/core/IconButton";
-import {NavLink} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import TableRow from "@material-ui/core/TableRow";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import CheckIcon from '@material-ui/icons/Check';
+
+
 
 const UserListItem = props => {
     return (

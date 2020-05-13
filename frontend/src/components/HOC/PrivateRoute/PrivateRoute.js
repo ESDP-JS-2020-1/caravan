@@ -1,6 +1,10 @@
-import {Redirect, Route} from "react-router-dom";
 import React from "react";
+
+import {Redirect, Route} from "react-router-dom";
+
 import {store} from '../../../store/configureStore'
+
+
 
 const PrivateRoute = ({component: Component, path, exact, roles, ...rest}) => {
     return <Route path={path} exact={exact} {...rest} render={(props) => {

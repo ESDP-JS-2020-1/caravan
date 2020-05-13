@@ -1,19 +1,24 @@
 import React, {useState} from 'react';
+
+import {useDispatch, useSelector} from "react-redux";
+
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import FormElement from "../../components/UI/Form/FormElement";
 import Button from "@material-ui/core/Button";
-import {addUser} from "../../store/actions/usersActions";
-import {useDispatch, useSelector} from "react-redux";
 import Alert from "@material-ui/lab/Alert";
 import MuiPhoneNumber from 'material-ui-phone-number'
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+
+import FormElement from "../../components/UI/Form/FormElement";
+import {addUser} from "../../store/actions/usersActions";
 import MapDisplay from "../Map/DeviceMap";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles({
     formBtn: {

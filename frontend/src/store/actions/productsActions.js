@@ -19,6 +19,8 @@ import {
     GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS
 } from "./actionsTypes";
 
+
+
 export const deleteProductRequest = () => ({type: DELETE_PRODUCT_REQUEST});
 export const deleteProductSuccess = () => ({type: DELETE_PRODUCT_SUCCESS});
 export const deleteProductFailure = error => ({type: DELETE_PRODUCT_FAILURE, error});

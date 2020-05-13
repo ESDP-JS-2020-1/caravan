@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
+
+import {useDispatch, useSelector} from "react-redux";
+
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import FormElement from "../../components/UI/Form/FormElement";
 import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import {useDispatch, useSelector} from "react-redux";
+
 import {addNewGroup} from "../../store/actions/groupActions";
+import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
+
+
 
 const useStyles = makeStyles({
     formBtn: {
