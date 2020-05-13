@@ -2,6 +2,7 @@ import {push} from 'connected-react-router';
 import axiosApi from "../../axiosAPI";
 import {store as notification} from "react-notifications-component";
 import config from "../../config";
+import {wordList} from "../../wordList";
 import {
     CREATE_REQUEST_ERROR,
     CREATE_REQUEST_INIT,
@@ -81,14 +82,15 @@ export const getRequests = () => async dispatch => {
     }
 };
 
-export const createRequest = requestData => async dispatch => {
+export const createRequest = requestData => async (dispatch, getState) => {
     try {
+        const language = getState().language.name;
         await axiosApi.post('/requests', requestData);
 
         dispatch(createRequestSuccess());
         notification.addNotification({
-            title: 'Создание заявки',
-            message: `Заявка создана успешно`,
+            title: (wordList[language].requestsActions.createRequestTitle),
+            message: (wordList[language].requestsActions.createRequestMessage),
             ...config.notification
         });
         dispatch(push('/'));
@@ -111,15 +113,16 @@ export const fetchRequestEdit =id=>{
   }
 };
 export const putRequestEdit =(id,data)=>{
-    return async dispatch =>{
+    return async (dispatch, getState) =>{
         try {
+            const language = getState().language.name;
             dispatch(putRequest());
              await axiosApi.put('/requests/'+id,data);
             dispatch(putSuccess());
             dispatch(push('/'));
             notification.addNotification({
-                title: 'Отредактированно',
-                message: `Заявка успешно отредактирована`,
+                title: (wordList[language].requestsActions.editRequestTitle),
+                message: (wordList[language].requestsActions.editRequestMessage),
                 ...config.notification
             });
         }catch (e) {
@@ -129,15 +132,16 @@ export const putRequestEdit =(id,data)=>{
     }
 };
 export const deleteRequestEdit =(id,data)=>{
-    return async dispatch =>{
+    return async (dispatch, getState) =>{
         try {
+            const language = getState().language.name;
             dispatch(putRequest());
             await axiosApi.delete('/requests/'+id,{data});
             dispatch(putSuccess());
             dispatch(push('/'));
             notification.addNotification({
-                title: 'Удален',
-                message: `Заявка успешно удалена`,
+                title: (wordList[language].requestsActions.deleteRequestTitle),
+                message: (wordList[language].requestsActions.deleteRequestMessage),
                 ...config.notification
             });
         }catch (e) {

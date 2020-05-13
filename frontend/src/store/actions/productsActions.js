@@ -1,6 +1,7 @@
 import {store as notification} from "react-notifications-component";
 import config from '../../config';
 import {push} from 'connected-react-router';
+import {wordList} from "../../wordList";
 
 import axiosApi from "../../axiosAPI";
 import {
@@ -54,8 +55,9 @@ export const getProductsList = () => async dispatch => {
     }
 };
 
-export const addNewProduct = productData => async (dispatch) => {
+export const addNewProduct = productData => async (dispatch, getState) => {
     try {
+        const language = getState().language.name;
         dispatch(createProductRequest());
 
         const products = productData.map(async (elem) => {
@@ -71,8 +73,8 @@ export const addNewProduct = productData => async (dispatch) => {
         dispatch(createProductSuccess());
 
         notification.addNotification({
-            title: 'Добавление продукта',
-            message: `Продукт добавлен успешно`,
+            title: (wordList[language].productsActions.addProductTitle),
+            message: (wordList[language].productsActions.addProductMessage),
             ...config.notification
         });
         dispatch(push('/products'))
@@ -94,15 +96,16 @@ export const getProductEdit = id => {
     }
 };
 export const putEditProduct = (id, data) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         try {
+            const language = getState().language.name;
             dispatch(editProductRequest());
             await axiosApi.put('/products/' + id, data);
             dispatch(editProductSuccess());
 
             notification.addNotification({
-                title: 'Редактирование',
-                message: `Продукт успешно изменён`,
+                title: (wordList[language].productsActions.editProductTitle),
+                message: (wordList[language].productsActions.editProductMessage),
                 ...config.notification
             });
             dispatch(push('/products'));
@@ -113,15 +116,16 @@ export const putEditProduct = (id, data) => {
     }
 };
 export const deleteProduct = (id, comment) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         try {
+            const language = getState().language.name;
             dispatch(deleteProductRequest());
             await axiosApi.delete(`/products/${id}`, {data: comment});
             dispatch(deleteProductSuccess());
 
             notification.addNotification({
-                title: 'Редактирование',
-                message: `Продукт успешно удален`,
+                title: (wordList[language].productsActions.deleteProductTitle),
+                message: (wordList[language].productsActions.deleteProductMessage),
                 ...config.notification
             });
             dispatch(push('/products'));

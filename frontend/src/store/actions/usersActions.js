@@ -1,6 +1,5 @@
 import axiosApi from "../../axiosAPI";
 import {push} from 'connected-react-router';
-import {toast} from "react-toastify";
 import {store as notification} from "react-notifications-component";
 import {
   ADD_USER_FAILURE,
@@ -11,7 +10,8 @@ import {
   GET_USERS_REQUEST,
   GET_USERS_SUCCESS, LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER
 } from "./actionsTypes";
-import config from '../../config'
+import config from '../../config';
+import {wordList} from "../../wordList";
 
 
 
@@ -63,19 +63,17 @@ export const getUsers = role => async dispatch => {
   }
 };
 
-export const addUser = user => async dispatch => {
+export const addUser = user => async (dispatch, getState) => {
   try {
+    const language = getState().language.name;
     dispatch(addUserRequest());
     await axiosApi.post('/users', user);
 
     dispatch(push('/users'));
-    toast.success('Пользователь добавлен успешно', {
-      position: toast.POSITION.TOP_CENTER
-    });
 
     notification.addNotification({
-      title: 'Добавление пользователя',
-      message: `Пользователь добавлен успешно`,
+      title: (wordList[language].usersActions.addUserTitle),
+      message: (wordList[language].usersActions.addUserMessage),
       ...config.notification
     });
   } catch (e) {
@@ -83,8 +81,9 @@ export const addUser = user => async dispatch => {
   }
 };
 
-export const deleteUser = (id, comment) => async dispatch => {
+export const deleteUser = (id, comment) => async (dispatch, getState) => {
   try {
+    const language = getState().language.name;
     dispatch(deleteUserRequest());
     await axiosApi.delete(`/users/${id}`, {data: comment});
 
@@ -92,8 +91,8 @@ export const deleteUser = (id, comment) => async dispatch => {
     dispatch(deleteUserSuccess());
 
     notification.addNotification({
-      title: "Удаленик",
-      message: 'Пользователь успешно удален',
+      title: (wordList[language].usersActions.deleteUserTitle),
+      message: (wordList[language].usersActions.deleteUserMessage),
       ...config.notification
     });
   } catch (e) {
@@ -106,21 +105,18 @@ export const logoutUser = () => {
 };
 
 export const loginUser = userData => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     try {
+      const language = getState().language.name;
       dispatch(loginUserRequest());
       const response = await axiosApi.post('/users/sessions', userData);
 
       dispatch(loginUserSuccess(response.data));
       dispatch(push('/'));
 
-      toast.success('Вы успешно залогинились', {
-        position: toast.POSITION.TOP_CENTER
-      });
-
       notification.addNotification({
-        title: 'Логин',
-        message: `Вы успешно вошли, как ${response.data.displayName}`,
+        title: (wordList[language].usersActions.loginUserTitle),
+        message: (wordList[language].usersActions.loginUserMessage) + response.data.displayName,
         ...config.notification
       });
     } catch (error) {
@@ -146,16 +142,16 @@ export const logoutUserGet = () => {
   return async (dispatch, getState) => {
     const token = getState().users.user.token;
     const headers = {'Authorization': 'Token ' + token};
+    const language = getState().language.name;
     await axiosApi.delete('/users/sessions', {headers});
 
     dispatch(push('/login'));
     dispatch(logoutUser());
 
     notification.addNotification({
-      title: "Логаут",
-      message: 'Вы успешно покинули свой аккаунт',
+      title: (wordList[language].usersActions.logoutUserTitle),
+      message: (wordList[language].usersActions.logoutUserMessage),
       ...config.notification
     });
-
   }
 };

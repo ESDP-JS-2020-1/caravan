@@ -225,6 +225,32 @@ export const wordList = {
             fridgeAvail: 'Есть',
             fridgeNotAvail: 'Отсутствует',
         },
+        productsActions: {
+            addProductTitle: 'Добавление продукта',
+            addProductMessage: 'Продукт добавлен успешно',
+            editProductTitle: 'Редактирование',
+            editProductMessage: 'Продукт успешно изменён',
+            deleteProductTitle: 'Удаление',
+            deleteProductMessage: 'Продукт успешно удален'
+        },
+        usersActions: {
+            loginUserTitle: 'Логин',
+            loginUserMessage: 'Вы успешно вошли, как ',
+            logoutUserTitle: 'Выход',
+            logoutUserMessage: 'Вы успешно покинули свой аккаунт',
+            addUserTitle: 'Добавление пользователя',
+            addUserMessage: 'Пользователь успешно добавлен',
+            deleteUserTitle: 'Удаление пользователя',
+            deleteUserMessage: 'Пользователь успешно удален'
+        },
+        requestsActions: {
+            createRequestTitle: 'Создание заявки',
+            createRequestMessage: 'Заявка создана успешно',
+            editRequestTitle: 'Редактирование',
+            editRequestMessage: 'Заявка успешно отредактирована',
+            deleteRequestTitle: 'Удаление',
+            deleteRequestMessage: 'Заявка успешно удалена'
+        }
     },
 
 
@@ -454,5 +480,31 @@ export const wordList = {
             fridgeAvail: 'Бар',
             fridgeNotAvail: 'Жок',
         },
+        productsActions: {
+            addProductTitle: 'Өнүмдү кошуу',
+            addProductMessage: 'Өнүм ийгиликтүү кошулду',
+            editProductTitle: 'Түзөтүү',
+            editProductMessage: 'Өнүм ийгиликтүү өзгөрүлдү',
+            deleteProductTitle: 'Жок кылуу',
+            deleteProductMessage: 'Өнүм ийгиликтүү жок болду'
+        },
+        usersActions: {
+            loginUserTitle: 'Кирүү',
+            loginUserMessage: 'Сиз ийгиликтүү кирдиңиз, ',
+            logoutUserTitle: 'Чыгуу',
+            logoutUserMessage: 'Сиз каттоо эсебиңизди ийгиликтүү калтырдыңыз',
+            addUserTitle: 'Колдонуучу кошуу',
+            addUserMessage: 'Колдонуучу ийгиликтүү кошулду',
+            deleteUserTitle: 'Колдонуучуну жок кылуу',
+            deleteUserMessage: 'Колдонуучу ийгиликтүү жок кылынды'
+        },
+        requestsActions: {
+            createRequestTitle: 'Арызды түзүү',
+            createRequestMessage: 'Арыз ийгиликтүү түзүлдү',
+            editRequestTitle: 'Түзөтүү',
+            editRequestMessage: 'Арыз ийгиликтүү түзөтүлдү',
+            deleteRequestTitle: 'Жок кылуу',
+            deleteRequestMessage: 'Арыз ийгиликтүү жок кылынды'
+        }
     }
 };
