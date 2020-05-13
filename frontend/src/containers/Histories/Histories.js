@@ -11,6 +11,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import Chip from "@material-ui/core/Chip";
 import moment from "moment";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({
     table: {
@@ -22,6 +23,7 @@ const Histories = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const histories = useSelector(state => state.histories.historiesList);
+    const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getHistoriesList());
@@ -32,10 +34,10 @@ const Histories = () => {
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Информация</TableCell>
-                        <TableCell align="right">Коментарий</TableCell>
-                        <TableCell align="right">Тип</TableCell>
-                        <TableCell align="right">Дата</TableCell>
+                        <TableCell>{wordList[language].histories.tableInfo}</TableCell>
+                        <TableCell align="right">{wordList[language].histories.tableComment}</TableCell>
+                        <TableCell align="right">{wordList[language].histories.tableType}</TableCell>
+                        <TableCell align="right">{wordList[language].histories.tableDate}</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -49,21 +51,21 @@ const Histories = () => {
                                 {history.type === 'delete' && (
                                     <Chip
                                         size="small"
-                                        label="Удалёние"
+                                        label={wordList[language].histories.deleteLabel}
                                         color="secondary"
                                     />
                                 )}
                                 {history.type === 'add' && (
                                     <Chip
                                         size="small"
-                                        label="Добавление"
+                                        label={wordList[language].histories.addLabel}
                                         color="primary"
                                     />
                                 )}
                                 {history.type === 'edit' && (
                                     <Chip
                                         size="small"
-                                        label="Редактирование"
+                                        label={wordList[language].histories.editLabel}
                                     />
                                 )}
                             </TableCell>

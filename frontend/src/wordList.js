@@ -165,6 +165,15 @@ export const wordList = {
             modalBtnNeg: 'Нет',
             modalBtnPos: 'Да',
         },
+        histories: {
+            tableInfo: 'Информация',
+            tableComment: 'Комментарий',
+            tableType: 'Тип',
+            tableDate: 'Дата',
+            deleteLabel: 'Удаление',
+            addLabel: 'Добавление',
+            editLabel: 'Редактирование',
+        },
     },
 
 
@@ -333,6 +342,15 @@ export const wordList = {
             inputDeleteComment: 'Жок кылуунун себеби',
             modalBtnNeg: 'Жок',
             modalBtnPos: 'Ооба',
+        },
+        histories: {
+            tableInfo: 'Маалымат',
+            tableComment: 'Түшүндүрмө',
+            tableType: 'Түрү',
+            tableDate: 'Датасы',
+            deleteLabel: 'Жок кылуу',
+            addLabel: 'Кошуу',
+            editLabel: 'Түзөтүү',
         },
     }
 };
