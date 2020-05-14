@@ -52,7 +52,7 @@ export const wordList = {
             addGroupBtn: 'Добавить группу',
             tableGroupTitle: 'Название',
             tableGroupQty: 'Количество участников',
-            addUsersBtn: 'Добавить пользователей'
+            addUsersBtn: 'Просмотреть группу'
         },
         groupInfo: {
             info: 'Информация о группе',

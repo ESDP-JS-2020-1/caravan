@@ -46,6 +46,28 @@ router.post('/', isAuth, permit('addGroup'), async (req, res) => {
     }
 });
 
+router.put('/edit/:id', isAuth, permit('editGroup'), async (req, res) => {
+    try {
+        const groupInfo = req.body;
+        const groupPermissions = [];
+        Object.keys(req.body.permissions).forEach(elem => {
+            if(req.body.permissions[elem] === true) groupPermissions.push(elem)
+        });
+
+        const group = await Group.findOne({_id: req.params.id});
+
+        group.name = groupInfo.name.name;
+
+        group.permissions = groupPermissions;
+
+        await group.save();
+
+        res.send(group)
+    } catch (e) {
+        res.status(404).send(e)
+    }
+});
+
 router.put('/user', isAuth, permit('addGroup'), async (req, res) => {
     try {
         const group = await Group.findOne({_id: req.body.group});
