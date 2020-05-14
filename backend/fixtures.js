@@ -67,7 +67,7 @@ const run = async () => {
                 'addProduct', 'deleteProduct', 'editProduct',
                 'getGroup', 'addGroup', 'deleteGroup',
                 'addRequest', 'deleteRequest', 'editRequest',
-                'viewHistory'
+                'viewHistory', 'editGroup'
             ]
     });
 
