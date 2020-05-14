@@ -132,7 +132,7 @@ const ProductList = () => {
                         <Table aria-label="caption table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell className={classes.paddingLeft}><b>Фото</b></TableCell>
+                                    <TableCell className={classes.paddingLeft}><b>{wordList[language].productList.photo}</b></TableCell>
                                     <TableCell className={classes.offPadding}><b>{wordList[language].productList.name}</b></TableCell>
                                     <TableCell className={classes.offPadding}><b>{wordList[language].productList.quantity}</b></TableCell>
                                     <TableCell className={classes.offPadding}><b>{wordList[language].productList.price}</b></TableCell>

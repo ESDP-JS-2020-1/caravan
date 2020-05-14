@@ -3,6 +3,7 @@ export const wordList = {
         necessarily: 'Обязательно',
         notNecessary: 'Не обязательно',
         productList: {
+            photo: 'Фото',
             name: 'Имя',
             quantity: 'Количество',
             price: 'Цена',
@@ -258,17 +259,18 @@ export const wordList = {
         necessarily: 'Сөзсүз',
         notNecessary: 'Кереги жок',
         productList: {
+            photo: 'Сүрөт',
             name: 'Наам',
-            quantity: 'Канча',
+            quantity: 'Сан',
             price: 'Баа',
             isRefrigeratorRequired: 'Ташуу үчүн муздаткычтын болушу',
             searchProduct: 'Продукцияны издөө',
-            addNewProduct: 'Жаңы өнүмдөрдү кошуу',
+            addNewProduct: 'Жаңы продукттарды кошуу',
             productListTitle: 'Продукт тизмеси'
         },
         loginBtn: 'Кирүү',
         authUserToolBar: {
-            requestBtn: 'Арыз берүү',
+            requestBtn: 'Өтүнүч берүү',
             greeting: 'Салам',
             logoutBtn: 'Чыгуу',
         },
@@ -276,7 +278,7 @@ export const wordList = {
             logo: 'Караван',
             groupList: 'Топтор',
             userList: 'Колдонуучулар',
-            requestList: 'Арыздар',
+            requestList: 'Өтүнүчтөр',
             historyList: 'Тарыхы'
         },
         login: {
@@ -295,7 +297,7 @@ export const wordList = {
             tablePhone: 'Телефон',
             tableCompanyName: 'Компаниянын аты',
             tableAddress: 'Дареги',
-            tableRole: 'Ролу',
+            tableRole: 'Кызматы',
             tableCarName: 'Унаанын аты',
             tableCarVolume: 'Унаанын көлөмү',
             tableRefrigerator: 'Муздаткычтын катышуусу',
@@ -312,7 +314,7 @@ export const wordList = {
         groupInfo: {
             info: 'Тобунун маалыматы',
             groupTitle: 'Тобунун аты',
-            groupPermits: 'Уруксат тизмеси',
+            groupPermits: 'Уруксаттардын тизмеси',
             groupUsers: 'Катышуучулар',
             groupUserName: 'Аты',
             groupUserInfo: 'Катышуучунун маалыматы',
@@ -332,10 +334,10 @@ export const wordList = {
         },
         addNewRequest: {
             productsBtn: 'Жеткиликтүү нерсе',
-            createRequestTitle: 'Арыз түзүү',
+            createRequestTitle: 'Өтүнүч түзүү',
             commentTitle: 'Түшүндүрмө',
             addRequestBtn: 'Кошуу',
-            createRequestBtn: 'Арыз түзүү',
+            createRequestBtn: 'Өтүнүч түзүү',
         },
         addNewRequestItem: {
             btnTitle: 'Аты',
@@ -359,7 +361,7 @@ export const wordList = {
             inputLogin: 'Логин',
             inputPassword: 'Пароль',
             inputName: 'Аты',
-            inputRole: 'Ролу',
+            inputRole: 'Кызматы',
             inputCarName: 'Унаанын модели',
             inputCarVolume: 'Унаанын көлөмү',
             inputRefrigerator: 'Муздаткычтын болушу',
@@ -371,7 +373,7 @@ export const wordList = {
             addBtn: 'Кошуу'
         },
         editProduct: {
-            editProductTitle: 'Өнүмдү түзөтүү',
+            editProductTitle: 'Продуктту түзөтүү',
             inputTitle: 'Аты',
             inputQty: 'Саны',
             inputPrice: 'Баасы',
@@ -379,18 +381,18 @@ export const wordList = {
             inputImg: 'Сүрөтү',
             editProductBtn: 'Түзөө',
             deleteProductBtn: 'Жок кылуу',
-            modalDeleteTitle: 'Бул өнүмдү чын эле алып салгыңыз келеби?',
+            modalDeleteTitle: 'Бул продуктту чын эле алып салгыңыз келеби?',
             modalComment: 'Түшүндүрмө',
             modalBtnNeg: 'Жок',
             modalBtnPos: 'Ооба',
-            modalEditTitle: 'Бул өнүмдү чын эле түзөткүңүз келеби?',
+            modalEditTitle: 'Бул продуктту чын эле түзөткүңүз келеби?',
         },
         editRequest: {
-            editRequestTitle: 'Арызды түзөтүү',
+            editRequestTitle: 'Өтүнүчтү түзөтүү',
             inputComment: 'Түшүндүрмө',
             addRequestBtn: 'Кошуу',
-            editRequestBtn: 'Арызды түзөтүү',
-            deleteRequestBtn: 'Арызды жок кылуу',
+            editRequestBtn: 'Өтүнүчтү түзөтүү',
+            deleteRequestBtn: 'Өтүнүчтү жок кылуу',
             modalBtnNeg: 'Жок',
             modalBtnPos: 'Ооба',
         },
@@ -405,7 +407,7 @@ export const wordList = {
             inputLogin: 'Логин',
             inputPassword: 'Пароль',
             inputName: 'Аты',
-            inputRole: 'Ролу',
+            inputRole: 'Кызматы',
             inputCarName: 'Унаанын модели',
             inputCarVolume: 'Унаанын көлөмү',
             inputRefrigerator: 'Муздаткычтын болушу',
@@ -430,11 +432,11 @@ export const wordList = {
             editLabel: 'Түзөтүү',
         },
         requestInfo: {
-            requestInfoTitle: 'Арыз жөнүндө маалымат',
+            requestInfoTitle: 'Өтүнүч жөнүндө маалымат',
             requestInfoUser: 'Колдонуучу',
             requestInfoPhone: 'Телефон',
             requestInfoDate: 'Түзүүнүн датасы',
-            requestInfoStatus: 'Статус',
+            requestInfoStatus: 'Даража',
             requestInfoMarket: 'Дүкөн',
             requestInfoAddress: 'Дареги',
             requestInfoCoord: 'Координаттар',
@@ -444,7 +446,7 @@ export const wordList = {
             requestInfoRefrigerator: 'Муздаткыч',
             refrigeratorNec: 'Кереги бар',
             refrigeratorNotNec: 'Кереги жок',
-            closeBtn: 'Арызды жабуу',
+            closeBtn: 'Өтүнүчтү жабуу',
             requestInfoCourier: 'Дайындалган экспедитор',
             requestInfoCourierDate: 'Дайындоо күнү',
             courierName: 'Аты',
@@ -459,7 +461,7 @@ export const wordList = {
         requestList: {
             tableUser: 'Колдонуучу',
             tableDate: 'Датасы',
-            tableStatus: 'Статус',
+            tableStatus: 'Даража',
         },
         requestListItem: {
             label_1: 'Күтүүдө',
@@ -468,7 +470,7 @@ export const wordList = {
         },
         userInfo: {
             userInfoTitle: 'Колдонуучунун маалыматы',
-            userInfoRole: 'Ролу',
+            userInfoRole: 'Кызматы',
             userInfoName: 'Колдонуучу',
             userInfoPhone: 'Телефон',
             userInfoMarket: 'Дүкөндүн аты',
@@ -481,12 +483,12 @@ export const wordList = {
             fridgeNotAvail: 'Жок',
         },
         productsActions: {
-            addProductTitle: 'Өнүмдү кошуу',
-            addProductMessage: 'Өнүм ийгиликтүү кошулду',
+            addProductTitle: 'Продуктту кошуу',
+            addProductMessage: 'Продукт ийгиликтүү кошулду',
             editProductTitle: 'Түзөтүү',
-            editProductMessage: 'Өнүм ийгиликтүү өзгөрүлдү',
+            editProductMessage: 'Продукт ийгиликтүү өзгөрүлдү',
             deleteProductTitle: 'Жок кылуу',
-            deleteProductMessage: 'Өнүм ийгиликтүү жок болду'
+            deleteProductMessage: 'Продукт ийгиликтүү жок болду'
         },
         usersActions: {
             loginUserTitle: 'Кирүү',
@@ -499,12 +501,12 @@ export const wordList = {
             deleteUserMessage: 'Колдонуучу ийгиликтүү жок кылынды'
         },
         requestsActions: {
-            createRequestTitle: 'Арызды түзүү',
-            createRequestMessage: 'Арыз ийгиликтүү түзүлдү',
+            createRequestTitle: 'Өтүнүчтү түзүү',
+            createRequestMessage: 'Өтүнүч ийгиликтүү түзүлдү',
             editRequestTitle: 'Түзөтүү',
-            editRequestMessage: 'Арыз ийгиликтүү түзөтүлдү',
+            editRequestMessage: 'Өтүнүч ийгиликтүү түзөтүлдү',
             deleteRequestTitle: 'Жок кылуу',
-            deleteRequestMessage: 'Арыз ийгиликтүү жок кылынды'
+            deleteRequestMessage: 'Өтүнүч ийгиликтүү жок кылынды'
         }
     }
 };
