@@ -16,14 +16,14 @@ echo '# API'
 cd ../backend
 
 echo '# Running fixtures'
-NODE_ENV=test npm run seed
+NODE_ENV=test yarn run seed
 
 echo '# Running API test'
-pm2 start "NODE_ENV=test npm run start" --name="caravan-api-test"
+pm2 start "NODE_ENV=test yarn run start" --name="caravan-api-test"
 
 echo '# Running frontend test'
 cd ../frontend
-pm2 start "npm run start:test" --name="caravan-frontend-test"
+pm2 start "yarn run start:test" --name="caravan-frontend-test"
 
 while ! nc -z localhost 3010; do
     sleep 0.1
