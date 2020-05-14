@@ -63,6 +63,7 @@ const AddGroup = () => {
         getGroup: false,
         addGroup: false,
         deleteGroup: false,
+        editGroup: false,
         addRequest: false,
         deleteRequest: false,
         editRequest: false,
