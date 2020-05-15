@@ -60,7 +60,7 @@ const UserInfo = props => {
             }
         }
     });
-    const coord = userInfo && userInfo.market.coordinates;
+    const coord = userInfo && userInfo.market && userInfo.market.coordinates;
 
     return (
         <Container>
