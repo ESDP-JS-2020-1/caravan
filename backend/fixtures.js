@@ -1,5 +1,3 @@
-import {getRequest} from "../frontend/src/store/actions/requestsActions";
-
 const mongoose = require('mongoose');
 const config = require("./config");
 
@@ -60,7 +58,7 @@ const run = async () => {
         }
     });
 
-    const [adminGroup,adminGroup2] = await Group.create({
+    const [adminGroup, adminGroup2, adminGroup3, adminGroup4] = await Group.create({
         name: 'Admin group',
         list: [{user: user1}],
         permissions:
@@ -69,33 +67,38 @@ const run = async () => {
                 'addProduct', 'deleteProduct', 'editProduct',
                 'getGroup', 'addGroup', 'deleteGroup',
                 'addRequest', 'deleteRequest', 'editRequest',
-                'viewHistory','getUser','getRequest'
+                'viewHistory', 'getUser', 'getRequest'
             ]
-    },{
+    }, {
         name: 'Courier group',
         list: [{user: user1}],
         permissions:
             [
-               'getRequest'
+                'getRequest'
             ]
-    },{
+    }, {
         name: 'Operator group',
         list: [{user: user2}],
         permissions:
             [
-                ' getRequest','getUser','getGroup','viewHistory','addRequest','deleteRequest'
+                ' getRequest', 'getUser', 'getGroup', 'viewHistory', 'addRequest', 'deleteRequest'
             ]
-    },{
+    }, {
         name: 'Market group',
         list: [{user: user3}],
         permissions:
             [
-                ' getRequest','addRequest',
+                ' getRequest', 'addRequest',
             ]
     });
-      user1.group.push(adminGroup._id);
-      user1.group.push(adminGroup2._id);
-      user1.save()
+    user1.group.push(adminGroup._id);
+    user2.group.push(adminGroup._id);
+    user3.group.push(adminGroup4._id);
+    user4.group.push(adminGroup3._id);
+    user1.save();
+    user2.save();
+    user3.save();
+    user4.save();
     const [product1, product2, product3] = await Product.create({
         name: 'Продукт-1',
         amount: '10 кг',
