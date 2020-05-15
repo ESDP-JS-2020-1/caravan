@@ -24,8 +24,8 @@ import Hidden from "@material-ui/core/Hidden";
 
 import ToolBar from "../UI/toolBar/toolBar";
 import {wordList} from "../../wordList";
-
-
+import Avatar from "@material-ui/core/Avatar";
+import caravan from './logotip.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme) => ({
     fullList: {
         width: 'auto',
     },
+    avatar: {
+        width: "180px",
+        height: "50px"
+    }
 }));
 
 
@@ -146,7 +150,7 @@ const Navigation = () => {
                             ))}
                         </Hidden>
                         <Typography variant="h6" className={classes.mainLink} component={NavLink} to='/' exact>
-                            {wordList[language].navigation.logo}
+                            <Avatar src={caravan} className={classes.avatar} variant="square"/>
                         </Typography>
                         <ToolBar/>
                     </Toolbar>
