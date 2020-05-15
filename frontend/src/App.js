@@ -37,21 +37,21 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={ProductList}/>
                     <Route path="/login" exact component={Login}/>
-                    <PrivateRoute path="/users" roles={['admin', 'operator']} exact component={UsersList}/>
-                    <PrivateRoute path="/user/:id" roles={['admin', 'operator']} exact component={UserInfo}/>
-                    <PrivateRoute path="/users/new" roles={['admin']} exact component={AddUser}/>
-                    <PrivateRoute path="/users/edit/:id" roles={['admin']} exact component={EditUser}/>
-                    <PrivateRoute path="/users/:id" exact roles={['admin', 'operator']} component={UsersList}/>
+                    <PrivateRoute path="/users" roles={['getUser']} exact component={UsersList}/>
+                    <PrivateRoute path="/user/:id" roles={['getGroup']} exact component={UserInfo}/>
+                    <PrivateRoute path="/users/new" roles={['addUser']} exact component={AddUser}/>
+                    <PrivateRoute path="/users/edit/:id" roles={['editUser']} exact component={EditUser}/>
+                    <PrivateRoute path="/users/:id" exact roles={['getUser']} component={UsersList}/>
                     <PrivateRoute path="/products" exact component={ProductList}/>
-                    <PrivateRoute path="/product/add" exact roles={['admin']} component={AddProduct}/>
-                    <PrivateRoute path="/product/edit/:id" exact roles={['admin']} component={EditProduct}/>
-                    <PrivateRoute path="/history" exact roles={['admin']} component={Histories}/>
+                    <PrivateRoute path="/product/add" exact roles={['addProduct']} component={AddProduct}/>
+                    <PrivateRoute path="/product/edit/:id" exact roles={['editProduct']} component={EditProduct}/>
+                    <PrivateRoute path="/history" exact roles={['viewHistory']} component={Histories}/>
                     <PrivateRoute path="/requests" exact component={RequestList}/>
-                    <PrivateRoute path="/requests/new" roles={['admin', 'market']} exact component={AddNewRequest}/>
+                    <PrivateRoute path="/requests/new" roles={['addRequest']} exact component={AddNewRequest}/>
                     <PrivateRoute path="/requests/:id" exact component={RequestInfo}/>
-                    <PrivateRoute path="/requests/edit/:id" exact roles={['admin']} component={EditRequest}/>
-                    <PrivateRoute path="/groups" exact component={GroupsList}/>
-                    <PrivateRoute path="/groups/new" exact component={AddGroup}/>
+                    <PrivateRoute path="/requests/edit/:id" exact roles={['editRequest']} component={EditRequest}/>
+                    <PrivateRoute path="/groups" exact  component={GroupsList}/>
+                    <PrivateRoute path="/groups/new" exact roles={['addGroup']} component={AddGroup}/>
                     <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
                 </Switch>
             </Container>

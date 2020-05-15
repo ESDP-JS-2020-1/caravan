@@ -47,7 +47,12 @@ const UserSchema = new mongoose.Schema({
         enum: ['courier', 'admin', 'operator', 'market'],
         default: 'market'
     },
-    avatar: String
+    avatar: String,
+    group:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Group',
+    }]
+
 });
 
 UserSchema.pre('save', async function (next) {

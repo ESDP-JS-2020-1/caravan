@@ -147,7 +147,7 @@ const AddProduct = () => {
                             {wordList[language].addProduct.addProductTitle}
                         </Typography>
                     </Box>
-                    <form  onSubmit={onSubmit}>
+                    <form   onSubmit={onSubmit}>
                         <Grid container direction='column' spacing={1}>
 
                             {product.map((p, i) => (
