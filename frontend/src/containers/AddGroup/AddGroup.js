@@ -66,7 +66,9 @@ const AddGroup = () => {
         addRequest: false,
         deleteRequest: false,
         editRequest: false,
-        viewHistory: false
+        viewHistory: false,
+        getUser:false,
+        getRequest: false,
     };
 
     const classes = useStyles();

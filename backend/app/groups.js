@@ -4,7 +4,7 @@ const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
 const Group = require('../models/Group');
-
+const User = require('../models/User');
 const router = express.Router();
 
 router.get('/', isAuth, permit('getGroup'), async (req, res) => {
@@ -32,7 +32,7 @@ router.post('/', isAuth, permit('addGroup'), async (req, res) => {
         const groupInfo = req.body;
         const groupPermissions = [];
         Object.keys(req.body.permissions).forEach(elem => {
-            if(req.body.permissions[elem] === true) groupPermissions.push(elem)
+            if (req.body.permissions[elem] === true) groupPermissions.push(elem)
         });
 
         const groupCheck = await Group.findOne({name: groupInfo.name});
@@ -51,7 +51,7 @@ router.put('/edit/:id', isAuth, permit('editGroup'), async (req, res) => {
         const groupInfo = req.body;
         const groupPermissions = [];
         Object.keys(req.body.permissions).forEach(elem => {
-            if(req.body.permissions[elem] === true) groupPermissions.push(elem)
+            if (req.body.permissions[elem] === true) groupPermissions.push(elem)
         });
 
         const group = await Group.findOne({_id: req.params.id});
@@ -70,8 +70,8 @@ router.put('/edit/:id', isAuth, permit('editGroup'), async (req, res) => {
 
 router.put('/user', isAuth, permit('addGroup'), async (req, res) => {
     try {
-        const group = await Group.findOne({_id: req.body.group});
 
+        const group = await Group.findOne({_id: req.body.group});
         group.list.pull({_id: req.body.user});
 
         await group.save();
@@ -92,19 +92,20 @@ router.put('/:id', isAuth, permit('addGroup'), async (req, res) => {
         if (!group) {
             return res.status(404).send({message: 'There is no such group'})
         }
+        const user = await User.findOne({_id: groupInfo.list[0]});
+        user.group.push(group._id);
 
         if (group.list.some(user => groupInfo.list.includes(user.user.toString()))) {
             return res.status(404).send({message: 'You cannot add users who are already in the group'})
         } else {
 
             group.list.push({user: groupInfo.list});
-
+            user.save()
             group.save();
 
             res.send(group)
         }
     } catch (e) {
-        console.log(e);
         res.status(404).send(e)
     }
 });

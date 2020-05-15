@@ -59,11 +59,11 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
 router.get('/', isAuth, async (req, res) => {
     try {
         if (req.query.role) {
-            const users = await User.find({role: req.query.role}).select({token: 0});
+            const users = await User.find({role: req.query.role}).populate('group').select({token: 0});
 
             return res.send(users)
         }
-        const users = await User.find().select({token: 0});
+        const users = await User.find().populate('group').select({token: 0});
 
         return res.send(users)
     } catch (e) {
@@ -73,7 +73,7 @@ router.get('/', isAuth, async (req, res) => {
 
 router.get('/:id', isAuth, async (req, res) => {
     try {
-        const users = await User.findOne({_id: req.params.id}).select({token: 0});
+        const users = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
 
         res.send(users)
     } catch (e) {
@@ -136,7 +136,7 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
 
 router.post('/sessions', async (req, res) => {
 
-        const user = await User.findOne({username: req.body.username});
+        const user = await User.findOne({username: req.body.username}).populate('group');
         if (!user) {
             res.status(404).send({message: 'Username or password not correct!'});
         } else {

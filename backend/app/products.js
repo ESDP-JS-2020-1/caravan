@@ -71,7 +71,6 @@ router.put('/:id', auth, permit('editProduct'), upload.single('file'), async (re
         productOne.image = product.image;
 
         productOne.save();
-
         return res.send(productOne);
     } catch (e) {
         res.status(404).send(e)
