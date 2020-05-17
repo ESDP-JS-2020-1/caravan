@@ -148,7 +148,7 @@ const RequestInfo = props => {
 				</>}
 
 				{request.nominatedCourier && <>
-					{user.role === 'courier' && user._id === request.nominatedCourier._id && request.request.status === 'performed' && <>
+					{(user.role === 'courier' || user.role === 'admin') && user._id === request.nominatedCourier._id && request.request.status === 'performed' && <>
 						<Button variant='contained' color='primary'
 								onClick={() => dispatch(closeRequest(request.request._id))}>
 							{wordList[language].requestInfo.closeBtn}
