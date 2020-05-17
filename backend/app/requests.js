@@ -3,6 +3,8 @@ const History = require('../models/History');
 const Request = require('../models/Request');
 const User = require('../models/User');
 const NominatedRequest = require('../models/NominatedRequest');
+const Statistic = require('../models/Statistic');
+
 const auth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
@@ -15,6 +17,13 @@ router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
         if(request.status === 'performed') {
             request.status = 'closed'
         } else return res.status(404).send({message: 'Request status is not performed!'});
+
+        const statData = request.products.map(async elem => await Statistic.create({
+            user: request.user._id,
+            product: elem._id
+        }));
+
+        await Promise.all(statData);
 
         await request.save();
 
