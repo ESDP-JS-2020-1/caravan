@@ -25,7 +25,7 @@ import Hidden from "@material-ui/core/Hidden";
 import ToolBar from "../UI/toolBar/toolBar";
 import {wordList} from "../../wordList";
 import Avatar from "@material-ui/core/Avatar";
-import caravan from './logotip.png';
+import caravan from './logo.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
