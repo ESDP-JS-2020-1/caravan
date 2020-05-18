@@ -46,6 +46,13 @@ export const getGroup = id => async dispatch => {
     }
 };
 
+export const editGroup = (data, id) => async dispatch => {
+    await axiosApi.put('/groups/edit/'+id, data);
+
+    dispatch(getGroup(id));
+    dispatch(push('/groups/'+id));
+};
+
 export const addUserToGroup = (idGroup, idUser) => async dispatch => {
     await axiosApi.put('/groups/'+idGroup, {list: [idUser]});
 

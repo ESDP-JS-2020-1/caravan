@@ -135,6 +135,13 @@ const GroupInfo = props => {
                     startIcon={<DeleteIcon/>}
                     onClick={handleOpenAndClose}
                 >{wordList[language].groupInfo.deleteGroupBtn}</Button>
+                {' '}
+                <Button
+                    variant='contained'
+                    color='primary'
+                    component={NavLink}
+                    to={`/groups/edit/${group._id}`}
+                >Редактировать</Button>
             </Paper>
             <Modal onClose={handleOpenAndClose} open={open} title={wordList[language].groupInfo.deleteModal}>
                 <Grid container justify='flex-end' spacing={1}>
