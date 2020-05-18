@@ -58,6 +58,7 @@ const AddGroup = () => {
         deleteUser: false,
         editUser: false,
         addProduct: false,
+        getStatistic: false,
         deleteProduct: false,
         editProduct: false,
         getGroup: false,
@@ -68,7 +69,7 @@ const AddGroup = () => {
         editRequest: false,
         viewHistory: false,
         getUser:false,
-        getRequest: false,
+        getRequest: false
     };
 
     const classes = useStyles();
