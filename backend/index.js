@@ -10,6 +10,7 @@ const histories = require('./app/histories');
 const requests = require('./app/requests');
 const nominateRequest = require('./app/nominatedRequest');
 const groups = require('./app/groups');
+const statistic = require('./app/statistics');
 
 const app = express();
 
@@ -26,6 +27,7 @@ const run = async () => {
     app.use('/requests', requests);
     app.use('/nominateRequest', nominateRequest);
     app.use('/groups', groups);
+    app.use('/stat', statistic);
 
     app.listen(config.port)
 };

@@ -7,6 +7,7 @@ const Group = require('./models/Group');
 const History = require('./models/History');
 const Request = require('./models/Request');
 const NominatedRequest = require('./models/NominatedRequest');
+const Statistic = require('./models/Statistic');
 
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOptions);
@@ -135,6 +136,28 @@ const run = async () => {
             amount: '2',
         }],
         comment: 'bla bla bla'
+    });
+
+    await Statistic.create({
+       user: user1,
+       product: product1,
+       amount: '2',
+       date: '2020-05-18T08:38:01.803Z'
+    }, {
+        user: user1,
+        product: product1,
+        amount: '2',
+        date: '2020-05-17T08:38:01.803Z'
+    }, {
+        user: user1,
+        product: product1,
+        amount: '2',
+        date: '2020-05-16T08:38:01.803Z'
+    }, {
+        user: user1,
+        product: product1,
+        amount: '2',
+        date: '2020-05-15T08:38:01.803Z'
     });
 
     await NominatedRequest.create({
