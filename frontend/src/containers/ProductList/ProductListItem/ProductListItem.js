@@ -12,6 +12,8 @@ import {makeStyles} from "@material-ui/core/styles";
 
 import apiURL from "../../../apiURL";
 import {wordList} from "../../../wordList";
+import EqualizerIcon from '@material-ui/icons/Equalizer';
+import Button from "@material-ui/core/Button";
 
 
 
@@ -53,6 +55,15 @@ const UserListItem = props => {
                 >
                     <EditIcon/>
                 </IconButton>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<EqualizerIcon/>}
+                    component={NavLink}
+                    to={`/product/stat/${props.id}`}
+                >
+                    Смотреть статистику
+                </Button>
             </TableCell>}
         </TableRow>
     );
