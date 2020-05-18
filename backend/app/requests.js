@@ -20,7 +20,8 @@ router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
 
         const statData = request.products.map(async elem => await Statistic.create({
             user: request.user._id,
-            product: elem.product
+            product: elem.product,
+            amount: elem.amount
         }));
 
         await Promise.all(statData);

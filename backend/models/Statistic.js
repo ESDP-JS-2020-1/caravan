@@ -13,6 +13,10 @@ const StatisticSchema = new Schema({
         ref: 'Product',
         required: true
     },
+    amount: {
+        type: String,
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now
