@@ -98,7 +98,7 @@ const RequestInfo = props => {
 
 					<Typography className={classes.padding} variant='h5'><b>
 						{wordList[language].requestInfo.requestInfoDate}
-					</b> {moment(request.date).format('MMMM Do YYYY, h:mm:ss a')}
+					</b> {moment(request.request.date).format('MMMM Do YYYY, h:mm:ss a')}
 					</Typography>
 
 					<Typography className={classes.padding}
