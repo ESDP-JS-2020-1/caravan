@@ -25,6 +25,8 @@ import GroupInfo from "./containers/GroupInfo/GroupInfo";
 
 import "./index.css"
 import './App.css';
+import ProductInfo from "./containers/ProductInfo/ProductInfo";
+import EditGroup from "./containers/EditGroup/EditGroup";
 
 
 
@@ -45,6 +47,7 @@ function App() {
                     <PrivateRoute path="/products" exact component={ProductList}/>
                     <PrivateRoute path="/product/add" exact roles={['addProduct']} component={AddProduct}/>
                     <PrivateRoute path="/product/edit/:id" exact roles={['editProduct']} component={EditProduct}/>
+                    <PrivateRoute path="/product/stat/:id" exact roles={['editProduct']} component={ProductInfo}/>
                     <PrivateRoute path="/history" exact roles={['viewHistory']} component={Histories}/>
                     <PrivateRoute path="/requests" exact component={RequestList}/>
                     <PrivateRoute path="/requests/new" roles={['addRequest']} exact component={AddNewRequest}/>
@@ -52,6 +55,7 @@ function App() {
                     <PrivateRoute path="/requests/edit/:id" exact roles={['editRequest']} component={EditRequest}/>
                     <PrivateRoute path="/groups" exact  component={GroupsList}/>
                     <PrivateRoute path="/groups/new" exact roles={['addGroup']} component={AddGroup}/>
+                    <PrivateRoute path="/groups/edit/:id" roles={['editGroup']} exact component={EditGroup}/>
                     <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
                 </Switch>
             </Container>
