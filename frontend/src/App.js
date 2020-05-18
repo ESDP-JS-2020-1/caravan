@@ -27,6 +27,7 @@ import "./index.css"
 import './App.css';
 import ProductInfo from "./containers/ProductInfo/ProductInfo";
 import EditGroup from "./containers/EditGroup/EditGroup";
+import Statistics from "./containers/Statistics/Statistics";
 
 
 
@@ -57,6 +58,7 @@ function App() {
                     <PrivateRoute path="/groups/new" exact roles={['addGroup']} component={AddGroup}/>
                     <PrivateRoute path="/groups/edit/:id" roles={['editGroup']} exact component={EditGroup}/>
                     <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
+                    <Route path="/statistics"  component={Statistics}/>
                 </Switch>
             </Container>
         </div>
