@@ -7,7 +7,6 @@ import clsx from 'clsx';
 import AppBar from "@material-ui/core/AppBar";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {Container} from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
@@ -131,30 +130,28 @@ const Navigation = () => {
     return (
         <div className={classes.root}>
             <AppBar position="static" color='primary'>
-                <Container>
-                    <Toolbar>
-                        <Hidden mdUp>
-                            {['left'].map((anchor) => (
-                                <IconButton onClick={toggleDrawer(anchor, !state[anchor])} key={anchor} edge="start"
-                                            className={classes.menuButton} color="inherit" aria-label="menu">
-                                    <MenuIcon/>
-                                    <SwipeableDrawer
-                                        anchor={anchor}
-                                        open={state[anchor]}
-                                        onClose={toggleDrawer(anchor, false)}
-                                        onOpen={toggleDrawer(anchor, true)}
-                                    >
-                                        {list(anchor)}
-                                    </SwipeableDrawer>
-                                </IconButton>
-                            ))}
-                        </Hidden>
-                        <Typography variant="h6" className={classes.mainLink} component={NavLink} to='/' exact>
-                            <Avatar src={caravan} className={classes.avatar} variant="square"/>
-                        </Typography>
-                        <ToolBar/>
-                    </Toolbar>
-                </Container>
+                <Toolbar>
+                    <Hidden mdUp>
+                        {['left'].map((anchor) => (
+                            <IconButton onClick={toggleDrawer(anchor, !state[anchor])} key={anchor} edge="start"
+                                        className={classes.menuButton} color="inherit" aria-label="menu">
+                                <MenuIcon/>
+                                <SwipeableDrawer
+                                    anchor={anchor}
+                                    open={state[anchor]}
+                                    onClose={toggleDrawer(anchor, false)}
+                                    onOpen={toggleDrawer(anchor, true)}
+                                >
+                                    {list(anchor)}
+                                </SwipeableDrawer>
+                            </IconButton>
+                        ))}
+                    </Hidden>
+                    <Typography variant="h6" className={classes.mainLink} component={NavLink} to='/' exact>
+                        <Avatar src={caravan} className={classes.avatar} variant="square"/>
+                    </Typography>
+                    <ToolBar/>
+                </Toolbar>
             </AppBar>
         </div>
     );

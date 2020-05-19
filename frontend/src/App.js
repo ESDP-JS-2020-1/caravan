@@ -25,7 +25,6 @@ import GroupInfo from "./containers/GroupInfo/GroupInfo";
 
 import "./index.css"
 import './App.css';
-import ProductInfo from "./containers/ProductInfo/ProductInfo";
 import EditGroup from "./containers/EditGroup/EditGroup";
 import Statistics from "./containers/Statistics/Statistics";
 
@@ -40,25 +39,29 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={ProductList}/>
                     <Route path="/login" exact component={Login}/>
+
                     <PrivateRoute path="/users" roles={['getUser']} exact component={UsersList}/>
                     <PrivateRoute path="/user/:id" roles={['getGroup']} exact component={UserInfo}/>
                     <PrivateRoute path="/users/new" roles={['addUser']} exact component={AddUser}/>
                     <PrivateRoute path="/users/edit/:id" roles={['editUser']} exact component={EditUser}/>
                     <PrivateRoute path="/users/:id" exact roles={['getUser']} component={UsersList}/>
+
                     <PrivateRoute path="/products" exact component={ProductList}/>
                     <PrivateRoute path="/product/add" exact roles={['addProduct']} component={AddProduct}/>
                     <PrivateRoute path="/product/edit/:id" exact roles={['editProduct']} component={EditProduct}/>
-                    <PrivateRoute path="/product/stat/:id" exact roles={['editProduct']} component={ProductInfo}/>
+                    <PrivateRoute path="/product/stat/:id" exact  roles={['getStatistic']} component={Statistics}/>
+
                     <PrivateRoute path="/history" exact roles={['viewHistory']} component={Histories}/>
+
                     <PrivateRoute path="/requests" exact component={RequestList}/>
                     <PrivateRoute path="/requests/new" roles={['addRequest']} exact component={AddNewRequest}/>
                     <PrivateRoute path="/requests/:id" exact component={RequestInfo}/>
                     <PrivateRoute path="/requests/edit/:id" exact roles={['editRequest']} component={EditRequest}/>
+
                     <PrivateRoute path="/groups" exact  component={GroupsList}/>
                     <PrivateRoute path="/groups/new" exact roles={['addGroup']} component={AddGroup}/>
                     <PrivateRoute path="/groups/edit/:id" roles={['editGroup']} exact component={EditGroup}/>
                     <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
-                    <Route path="/statistics"  component={Statistics}/>
                 </Switch>
             </Container>
         </div>
