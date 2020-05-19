@@ -102,17 +102,20 @@ const run = async () => {
     user4.save();
     const [product1, product2, product3] = await Product.create({
         name: 'Продукт-1',
-        amount: '10 кг',
+        amount: '10',
         price: '1000 coм',
-        isRefrigeratorRequired: true
+        isRefrigeratorRequired: true,
+        productType: 'кг'
     }, {
         name: 'Продукт-2',
-        amount: '15 кг',
-        price: '1001 coм'
+        amount: '15',
+        price: '1001 coм',
+        productType: 'кг'
     }, {
         name: 'Продукт-3',
-        amount: '20 кг',
-        price: '500 coм'
+        amount: '20',
+        price: '500 coм',
+        productType: 'кг'
     });
 
     await History.create({

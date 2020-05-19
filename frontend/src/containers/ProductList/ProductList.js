@@ -95,6 +95,7 @@ const ProductList = () => {
                 key={elem._id}
                 title={elem.name}
                 amount={elem.amount}
+                productType={elem.productType}
                 price={elem.price}
                 image={elem.image}
                 isRefrigeratorRequired={elem.isRefrigeratorRequired}
@@ -135,6 +136,7 @@ const ProductList = () => {
                                     <TableCell className={classes.paddingLeft}><b>{wordList[language].productList.photo}</b></TableCell>
                                     <TableCell className={classes.offPadding}><b>{wordList[language].productList.name}</b></TableCell>
                                     <TableCell className={classes.offPadding}><b>{wordList[language].productList.quantity}</b></TableCell>
+                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.productType}</b></TableCell>
                                     <TableCell className={classes.offPadding}><b>{wordList[language].productList.price}</b></TableCell>
                                     <TableCell className={classes.offPadding}><b>{wordList[language].productList.isRefrigeratorRequired}</b></TableCell>
                                     <TableCell className={classes.offPadding}>

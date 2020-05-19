@@ -7,6 +7,7 @@ export const wordList = {
             photo: 'Фото',
             name: 'Имя',
             quantity: 'Количество',
+            productType: 'Тип',
             price: 'Цена',
             isRefrigeratorRequired: 'Наличие холодильника для перевозки',
             searchProduct: 'Поиск продуктов',
@@ -96,6 +97,7 @@ export const wordList = {
         addProductItem: {
             inputTitle: 'Название',
             inputQty: 'Количество',
+            inputType: 'Тип продукта',
             inputPrice: 'Цена',
             inputRefrigerator: 'Необходим ли холодильник для перевозки?',
             inputImg: 'Изображение',
@@ -269,6 +271,7 @@ export const wordList = {
             photo: 'Сүрөт',
             name: 'Наам',
             quantity: 'Сан',
+            productType: 'түрү',
             price: 'Баа',
             isRefrigeratorRequired: 'Ташуу үчүн муздаткычтын болушу',
             searchProduct: 'Продукцияны издөө',
@@ -358,6 +361,7 @@ export const wordList = {
         addProductItem: {
             inputTitle: 'Аты',
             inputQty: 'Саны',
+            inputType: 'Продуктун түрү',
             inputPrice: 'Баа',
             inputRefrigerator: 'Ташуу үчүн муздаткыч керекпи?',
             inputImg: 'Сүрөт',

@@ -7,12 +7,16 @@ const ProductSchema = new mongoose.Schema({
         unique: true
     },
     amount: {
-        type: String,
+        type: Number,
         required: true
     },
     price: {
         type: String,
         required: true
+    },
+    productType: {
+      type: String,
+      required: true
     },
     isRefrigeratorRequired: {
       type: Boolean,
