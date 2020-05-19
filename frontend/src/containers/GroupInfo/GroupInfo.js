@@ -19,7 +19,7 @@ import {addUserToGroup, deleteGroup, deleteGroupUser, getGroup} from "../../stor
 import {getUsers} from "../../store/actions/usersActions";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
-
+import {checkPermission} from "../../CheckPermission";
 
 
 const useStyles = makeStyles({
@@ -94,16 +94,16 @@ const GroupInfo = props => {
                                     <Typography variant="h6" style={{marginRight: '10px'}}>
                                         <b>{wordList[language].groupInfo.groupUserName}:</b> {elem.user.displayName}
                                     </Typography>
-                                    <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>
+                                    {checkPermission('getUser') && <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>
                                         {wordList[language].groupInfo.groupUserInfo}
-                                    </Button>
-                                    <IconButton
+                                    </Button>}
+                                    {checkPermission('editGroup') &&<IconButton
                                         id={'deleteUser' + id}
                                         style={{margin: '0 0 0 5px'}}
                                         variant='contained'
                                         color='secondary'
                                         onClick={() => dispatch(deleteGroupUser(elem._id, props.match.params.id, elem._id))}
-                                    ><DeleteIcon/></IconButton>
+                                    ><DeleteIcon/></IconButton>}
                                 </CardContent>
                             </Card>
                         ))}
@@ -118,30 +118,33 @@ const GroupInfo = props => {
                                     <Typography variant="h6" style={{marginRight: '10px'}}>
                                         <b>{wordList[language].groupInfo.addUserToGroupUserName}:</b> {elem.displayName}
                                     </Typography>
+                                    {checkPermission('getUser') &&
                                     <Button style={{marginLeft: 'auto'}} variant='contained' component={NavLink}
-                                            to={`/user/${elem._id}`}>{wordList[language].groupInfo.addUserToGroupInfo}</Button>
+                                            to={`/user/${elem._id}`}>{wordList[language].groupInfo.addUserToGroupInfo}</Button>}
+                                    {checkPermission('addGroup') &&
                                     <Button style={{marginLeft: '5px'}}
                                             onClick={() => dispatch(addUserToGroup(props.match.params.id, elem._id))}
-                                            variant='contained' color='primary'>{wordList[language].groupInfo.addUserToGroupBtn}</Button>
+                                            variant='contained'
+                                            color='primary'>{wordList[language].groupInfo.addUserToGroupBtn}</Button>}
                                 </CardContent>
                             </Card>
                         ))}
                     </Box>}
                 </>}
-                <Button
+                {checkPermission('deleteGroup') && <Button
                     style={{margin: '15px 0'}}
                     variant='contained'
                     color='secondary'
                     startIcon={<DeleteIcon/>}
                     onClick={handleOpenAndClose}
-                >{wordList[language].groupInfo.deleteGroupBtn}</Button>
+                >{wordList[language].groupInfo.deleteGroupBtn}</Button>}
                 {' '}
-                <Button
+                {checkPermission('editGroup') && <Button
                     variant='contained'
                     color='primary'
                     component={NavLink}
                     to={`/groups/edit/${group._id}`}
-                >Редактировать</Button>
+                >Редактировать</Button>}
             </Paper>
             <Modal onClose={handleOpenAndClose} open={open} title={wordList[language].groupInfo.deleteModal}>
                 <Grid container justify='flex-end' spacing={1}>
@@ -156,7 +159,7 @@ const GroupInfo = props => {
                         <Button
                             variant="contained"
                             color="secondary"
-                            onClick={() =>dispatch(deleteGroup(props.match.params.id))}
+                            onClick={() => dispatch(deleteGroup(props.match.params.id))}
                             id='yes'
                         >{wordList[language].groupInfo.deleteBtnPos}</Button>
                     </Grid>

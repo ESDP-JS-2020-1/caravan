@@ -59,7 +59,7 @@ const run = async () => {
         }
     });
 
-    const [adminGroup, adminGroup2, adminGroup3, adminGroup4] = await Group.create({
+    const [adminGroup, courierGroup2, operatorGroup3, marketGroup4] = await Group.create({
         name: 'Admin group',
         list: [{user: user1}],
         permissions:
@@ -94,8 +94,8 @@ const run = async () => {
     });
     user1.group.push(adminGroup._id);
     user2.group.push(adminGroup._id);
-    user3.group.push(adminGroup4._id);
-    user4.group.push(adminGroup3._id);
+    user3.group.push(marketGroup4._id);
+    user4.group.push(operatorGroup3._id);
     user1.save();
     user2.save();
     user3.save();

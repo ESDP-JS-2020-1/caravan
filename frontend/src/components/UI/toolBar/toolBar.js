@@ -15,6 +15,7 @@ import Hidden from "@material-ui/core/Hidden";
 import AuthUserToolBar from "./authUserToolBar";
 import NoAuthUserToolBar from "./noAuthToolBar";
 import {wordList} from "../../../wordList";
+import {checkPermission} from "../../../CheckPermission";
 
 
 
@@ -58,9 +59,9 @@ const ToolBar = () => {
         <>
 
             <Hidden smDown>
-                {user && user.role === 'admin' && (
+
                     <>
-                        <Button
+                       { checkPermission('viewHistory') && <Button
                             color='primary'
                             component={NavLink}
                             to='/history'
@@ -71,8 +72,8 @@ const ToolBar = () => {
                             <span className={classes.line}>
                             {wordList[language].navigation.historyList}
                             </span>
-                        </Button>
-                        <Button
+                        </Button>}
+                       {checkPermission('getGroup') && <Button
                             color='primary'
                             component={NavLink}
                             to='/groups'
@@ -84,8 +85,8 @@ const ToolBar = () => {
                                 {wordList[language].navigation.groupList}
                             </span>
 
-                        </Button>
-                        <Button
+                        </Button>}
+                        {checkPermission('getUser') && <Button
                             color='primary'
                             component={NavLink}
                             to='/users'
@@ -97,8 +98,8 @@ const ToolBar = () => {
                                 {wordList[language].navigation.userList}
                             </span>
 
-                        </Button>
-                        <Button
+                        </Button>}
+                        {checkPermission('getRequest') && <Button
                             color='primary'
                             component={NavLink}
                             to='/requests'
@@ -110,9 +111,9 @@ const ToolBar = () => {
                                 {wordList[language].navigation.requestList}
                             </span>
 
-                        </Button>
+                        </Button>}
                     </>
-                )}
+
             </Hidden>
 
             {user && <Button

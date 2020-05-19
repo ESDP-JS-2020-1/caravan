@@ -41,7 +41,7 @@ function App() {
                     <Route path="/" exact component={ProductList}/>
                     <Route path="/login" exact component={Login}/>
                     <PrivateRoute path="/users" roles={['getUser']} exact component={UsersList}/>
-                    <PrivateRoute path="/user/:id" roles={['getGroup']} exact component={UserInfo}/>
+                    <PrivateRoute path="/user/:id" roles={['getUser']} exact component={UserInfo}/>
                     <PrivateRoute path="/users/new" roles={['addUser']} exact component={AddUser}/>
                     <PrivateRoute path="/users/edit/:id" roles={['editUser']} exact component={EditUser}/>
                     <PrivateRoute path="/users/:id" exact roles={['getUser']} component={UsersList}/>
@@ -58,7 +58,7 @@ function App() {
                     <PrivateRoute path="/groups/new" exact roles={['addGroup']} component={AddGroup}/>
                     <PrivateRoute path="/groups/edit/:id" roles={['editGroup']} exact component={EditGroup}/>
                     <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
-                    <Route path="/statistics"  component={Statistics}/>
+                    <PrivateRoute path="/statistics" roles={['getStatistic']} exact component={Statistics}/>
                 </Switch>
             </Container>
         </div>

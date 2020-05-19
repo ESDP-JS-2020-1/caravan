@@ -16,6 +16,7 @@ import Button from "@material-ui/core/Button";
 
 import {getGroups} from "../../store/actions/groupActions";
 import {wordList} from "../../wordList";
+import {checkPermission} from "../../CheckPermission";
 
 
 
@@ -39,9 +40,9 @@ const GroupsList = () => {
     return (
         <div>
             <Typography variant='h4'>{wordList[language].groupsList.listGroupTitle}</Typography>
-            <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
+           {checkPermission('addGroup') && <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
                 {wordList[language].groupsList.addGroupBtn}
-            </Button>
+            </Button>}
             <TableContainer component={Paper}>
                 <Table aria-label="caption table">
                     <TableHead>

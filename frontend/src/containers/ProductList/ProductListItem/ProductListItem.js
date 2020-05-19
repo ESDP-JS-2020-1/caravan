@@ -14,6 +14,7 @@ import apiURL from "../../../apiURL";
 import {wordList} from "../../../wordList";
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import Button from "@material-ui/core/Button";
+import {checkPermission} from "../../../CheckPermission";
 
 
 
@@ -44,9 +45,9 @@ const UserListItem = props => {
                     wordList[language].notNecessary
                 }
             </TableCell>
-            {props.userInfo.role === 'admin' &&
+
             <TableCell className={classes.offPadding}>
-                <IconButton
+                {checkPermission('editProduct') && <IconButton
                     aria-label="edit"
                     component={NavLink}
                     to={`/product/edit/${props.id}`}
@@ -54,8 +55,8 @@ const UserListItem = props => {
                     exact
                 >
                     <EditIcon/>
-                </IconButton>
-                <Button
+                </IconButton>}
+                {checkPermission('getStatistic') &&  <Button
                     variant="contained"
                     color="primary"
                     startIcon={<EqualizerIcon/>}
@@ -63,8 +64,8 @@ const UserListItem = props => {
                     to={`/product/stat/${props.id}`}
                 >
                     Смотреть статистику
-                </Button>
-            </TableCell>}
+                </Button>}
+            </TableCell>
         </TableRow>
     );
 };

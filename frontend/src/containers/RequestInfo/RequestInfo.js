@@ -23,6 +23,7 @@ import {
 
 
 import {wordList} from "../../wordList";
+import {checkPermission} from "../../CheckPermission";
 
 const useStyles = makeStyles({
 	flex: {
@@ -148,13 +149,8 @@ const RequestInfo = props => {
 				</>}
 
 				{request.nominatedCourier && <>
-					{(user.role === 'courier' || user.role === 'admin') && user._id === request.nominatedCourier._id && request.request.status === 'performed' && <>
-						<Button variant='contained' color='primary'
-								onClick={() => dispatch(closeRequest(request.request._id))}>
-							{wordList[language].requestInfo.closeBtn}
-						</Button>
-					</>}
-					{user.role === 'admin' && request.request.status === 'performed' && <>
+
+					{checkPermission('closeRequest') && request.request.status === 'performed' && <>
 						<Button variant='contained' color='primary'
 								onClick={() => dispatch(closeRequest(request.request._id))}>
 							{wordList[language].requestInfo.closeBtn}

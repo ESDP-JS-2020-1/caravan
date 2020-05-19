@@ -11,8 +11,6 @@ import {
 } from "./actionsTypes";
 import {getUsers} from "./usersActions";
 
-
-
 const getGroupsRequest = () => ({type: GET_GROUPS_REQUEST});
 const getGroupsSuccess = groups => ({type: GET_GROUPS_SUCCESS, groups });
 const getGroupsError = error => ({type: GET_GROUPS_ERROR, error});

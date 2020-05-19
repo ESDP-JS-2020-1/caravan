@@ -30,6 +30,7 @@ import {getUsers} from "../../store/actions/usersActions";
 import UserListItem from "./UserListItem/UserListItem";
 import FormElement from "../UI/Form/FormElement";
 import {wordList} from "../../wordList";
+import {checkPermission} from "../../CheckPermission";
 
 
 
@@ -74,7 +75,7 @@ const UsersList = props => {
                         type="search"
                     />
                 </Grid>
-                <Grid item>
+               { checkPermission('addUser') && <Grid item>
                     <Button
                         variant='contained'
                         color='primary'
@@ -84,7 +85,7 @@ const UsersList = props => {
                     >
                         {wordList[language].usersList.addUserBtn}
                     </Button>
-                </Grid>
+                </Grid>}
             </Grid>
             <Grid container item>
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop: '10px'}}>

@@ -8,6 +8,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import TableRow from "@material-ui/core/TableRow";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import CheckIcon from '@material-ui/icons/Check';
+import {checkPermission} from "../../../CheckPermission";
 
 
 
@@ -42,7 +43,7 @@ const UserListItem = props => {
                     <TableCell> </TableCell>
                 </>}
             </>}
-            <TableCell>
+           { checkPermission("editUser") && <TableCell>
                 <IconButton
                     aria-label="editUser"
                     component={NavLink}
@@ -52,7 +53,7 @@ const UserListItem = props => {
                 >
                     <EditIcon/>
                 </IconButton>
-            </TableCell>
+            </TableCell>}
             <TableCell>
                 <IconButton
                     aria-label="show info"
