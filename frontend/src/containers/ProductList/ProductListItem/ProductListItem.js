@@ -38,6 +38,7 @@ const UserListItem = props => {
             </TableCell>
             <TableCell className={classes.offPadding}>{props.title}</TableCell>
             <TableCell className={classes.offPadding}>{props.amount}</TableCell>
+            <TableCell className={classes.offPadding}>{props.productType}</TableCell>
             <TableCell className={classes.offPadding}>{props.price}</TableCell>
             <TableCell className={classes.offPadding}>
                 {props.isRefrigeratorRequired ?

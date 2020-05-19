@@ -53,11 +53,19 @@ const AddProductItem = (
 							</Grid>
 							<Grid item>
 								<FormElement
+									type="number"
 									id='amount'
 									required
 									propertyName='amount'
 									title={wordList[language].addProductItem.inputQty}
 									value={product[index].amount}
+									onChange={(e) => onChange(e, index)}
+								/>
+								<FormElement
+									id='productType'
+									required
+									propertyName='productType'
+									title={wordList[language].addProductItem.inputType}
 									onChange={(e) => onChange(e, index)}
 								/>
 							</Grid>

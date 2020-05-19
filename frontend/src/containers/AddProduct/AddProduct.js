@@ -65,6 +65,7 @@ const AddProduct = () => {
     const [product, setProduct] = useState([{
         name: '',
         amount: '',
+        productType: '',
         price: '',
         image: '',
         comment: '',
@@ -105,6 +106,7 @@ const AddProduct = () => {
         const newProduct = product[0] ? [...product, {
             name: '',
             amount: '',
+            productType: '',
             price: '',
             image: '',
             comment: '',
@@ -112,6 +114,7 @@ const AddProduct = () => {
         }] : [{
             name: '',
             amount: '',
+            productType: '',
             price: '',
             image: '',
             comment: '',
@@ -130,7 +133,6 @@ const AddProduct = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
-
         dispatch(addNewProduct(product))
     };
 
