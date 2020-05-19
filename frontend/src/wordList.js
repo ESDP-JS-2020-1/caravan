@@ -2,6 +2,7 @@ export const wordList = {
     ru: {
         necessarily: 'Обязательно',
         notNecessary: 'Не обязательно',
+        search: 'Поиск',
         productList: {
             photo: 'Фото',
             name: 'Имя',
@@ -251,6 +252,11 @@ export const wordList = {
             editRequestMessage: 'Заявка успешно отредактирована',
             deleteRequestTitle: 'Удаление',
             deleteRequestMessage: 'Заявка успешно удалена'
+        },
+        statistic: {
+            statisticTitle: 'Статистика',
+            statisticSearchFieldTitle: 'Получить статистику за указанное количество дней',
+            salesStatistics: 'Статистика продаж'
         }
     },
 
@@ -258,6 +264,7 @@ export const wordList = {
     kg: {
         necessarily: 'Сөзсүз',
         notNecessary: 'Кереги жок',
+        search: 'издөө',
         productList: {
             photo: 'Сүрөт',
             name: 'Наам',
@@ -507,6 +514,11 @@ export const wordList = {
             editRequestMessage: 'Өтүнүч ийгиликтүү түзөтүлдү',
             deleteRequestTitle: 'Жок кылуу',
             deleteRequestMessage: 'Өтүнүч ийгиликтүү жок кылынды'
+        },
+        statistic: {
+            statisticTitle: 'Статистика',
+            statisticSearchFieldTitle: 'Киргизилген күндөрдүн санын статистикасын алуу',
+            salesStatistics: 'Сатуу статистикасы'
         }
     }
 };
