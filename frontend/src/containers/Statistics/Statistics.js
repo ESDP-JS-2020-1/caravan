@@ -46,7 +46,7 @@ const Statistics = () => {
     useEffect(() => {
         dispatch(getProductsList());
         dispatch(getStatistics(id, numberOfDays));
-    }, [dispatch, numberOfDays, id]);
+    }, [dispatch, id]);
 
     const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 
