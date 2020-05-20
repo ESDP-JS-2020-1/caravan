@@ -202,7 +202,6 @@ When('я заполняю  поля формы:', (table) => {
 
 When('нажимаю на кнопку {string}',(btnName) => {
   I.click(btnName);
-  I.wait(3)
 });
 
 Then('я вижу текст после изминений {string}', (text) => {
