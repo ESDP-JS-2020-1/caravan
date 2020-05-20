@@ -32,6 +32,10 @@ When('я попадаю на страницу список заявок',() => {
   I.amOnPage('/requests');
 });
 
+When('я попадаю на страницу групп',() => {
+  I.amOnPage('/groups');
+});
+
 When('я заполняю поля формы добавления:', table => {
   const tableData = table.parse().rawData;
 
@@ -198,6 +202,7 @@ When('я заполняю  поля формы:', (table) => {
 
 When('нажимаю на кнопку {string}',(btnName) => {
   I.click(btnName);
+  I.wait(3)
 });
 
 Then('я вижу текст после изминений {string}', (text) => {
