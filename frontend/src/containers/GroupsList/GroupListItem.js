@@ -20,6 +20,7 @@ const GroupListItem = props => {
             <TableCell>{props.amount}</TableCell>
             <TableCell>
                 <Button
+                    id={'name' + props.index}
                     variant='contained'
                     color='primary'
                     component={NavLink}

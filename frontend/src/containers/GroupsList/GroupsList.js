@@ -29,8 +29,9 @@ const GroupsList = () => {
         dispatch(getGroups())
     }, [dispatch]);
 
-    const groupsList = groups && groups.map(elem => (
+    const groupsList = groups && groups.map((elem, index) => (
         <GroupListItem
+            index={index}
             key={elem._id}
             id={elem._id}
             name={elem.name}
