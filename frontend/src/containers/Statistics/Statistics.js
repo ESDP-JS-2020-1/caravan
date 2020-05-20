@@ -41,7 +41,7 @@ const Statistics = () => {
     const [numberOfDays, setNumberOfDays] = useState('7');
 
     const dispatch = useDispatch();
-    const {id} = useParams()
+    const {id, days} = useParams()
 
     const statistics = useSelector(state => state.statistics.statistics);
     const language = useSelector(state => state.language.name);
@@ -54,9 +54,10 @@ const Statistics = () => {
     }
 
     useEffect(() => {
+        setNumberOfDays(day => days)
         dispatch(getProductsList());
-        dispatch(getStatistics(id, numberOfDays));
-    }, [dispatch, id]);
+        dispatch(getStatistics(id, days));
+    }, [dispatch, id, days]);
 
     const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 

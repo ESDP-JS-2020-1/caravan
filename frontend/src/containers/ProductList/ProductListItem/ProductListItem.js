@@ -62,7 +62,7 @@ const UserListItem = props => {
                     color="primary"
                     startIcon={<EqualizerIcon/>}
                     component={NavLink}
-                    to={`/product/stat/${props.id}`}
+                    to={`/product/stat/${props.id}/7`}
                 >
                     Смотреть статистику
                 </Button>}
