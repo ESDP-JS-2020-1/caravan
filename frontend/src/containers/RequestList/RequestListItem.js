@@ -47,7 +47,7 @@ const ProductListItem = props => {
                     aria-label="show info"
                     component={NavLink}
                     to={`/requests/${props.id}`}
-                    id={props.edit}
+                    id={props.user.role + 'Q' + props.user.phone}
                     exact
                 >
                     <VisibilityIcon/>

@@ -163,12 +163,6 @@ const run = async () => {
         date: '2020-05-15T08:38:01.803Z'
     });
 
-    await NominatedRequest.create({
-        courier: user4,
-        request: request,
-        date: Date.now()
-    });
-
     mongoose.connection.close();
 };
 

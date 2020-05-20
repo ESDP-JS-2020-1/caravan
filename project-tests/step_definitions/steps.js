@@ -28,6 +28,14 @@ When('я попаду на страницу добавления нового п
   I.amOnPage('/users/new');
 });
 
+When('я попадаю на страницу список заявок',() => {
+  I.amOnPage('/requests');
+});
+
+When('попадаю на страницу информация о заявки',() => {
+  I.amOnPage('/requests/:id');
+});
+
 When('я заполняю поля формы добавления:', table => {
   const tableData = table.parse().rawData;
 
