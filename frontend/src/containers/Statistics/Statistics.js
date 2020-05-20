@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from 'react-router-dom'
+import {NavLink, useParams} from 'react-router-dom'
 
 import {Bar} from 'react-chartjs-2';
 import moment from "moment";
@@ -47,16 +47,12 @@ const Statistics = () => {
     const language = useSelector(state => state.language.name);
 
     const inputChangeHandler = e => setNumberOfDays(e.target.value)
-    const search = () => {
-        if(numberOfDays) {
-            dispatch(getStatistics(id, numberOfDays));
-        }
-    }
 
     useEffect(() => {
-        setNumberOfDays(day => days)
         dispatch(getProductsList());
         dispatch(getStatistics(id, days));
+
+        setNumberOfDays(day => days)
     }, [dispatch, id, days]);
 
     const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
@@ -99,7 +95,7 @@ const Statistics = () => {
                                 />
                             </Grid>
                             <Grid item>
-                                <Button variant='contained' color='primary' onClick={search}>
+                                <Button variant='contained' color='primary' component={NavLink} to={`/product/stat/${id}/${numberOfDays}`}>
                                     {wordList[language].search}
                                 </Button>
                             </Grid>
