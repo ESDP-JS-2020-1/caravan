@@ -20,6 +20,9 @@ import {getProductsList} from "../../store/actions/productsActions";
 import ProductListItem from "./ProductListItem/ProductListItem";
 import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
+import {checkPermission} from "../../CheckPermission";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import Box from "@material-ui/core/Box";
 
 
 
@@ -77,6 +80,7 @@ const ProductList = () => {
 
     useEffect(() => {
         dispatch(getProductsList());
+
     }, [dispatch]);
 
     const [search, setSearch] = useState({search: ''});
@@ -87,7 +91,22 @@ const ProductList = () => {
     };
 
     const productList = products.filter(word => word.name.search(search.search) !== -1);
-
+    const card = productList.map((elem) => {
+        return (
+            <ProductCard
+                userInfo={user}
+                key={elem._id}
+                title={elem.name}
+                amount={elem.amount}
+                productType={elem.productType}
+                price={elem.price}
+                image={elem.image}
+                isRefrigeratorRequired={elem.isRefrigeratorRequired}
+                id={elem._id}
+            />
+        )
+    });
+  
     const productsList = productList.map((elem) => {
         return (
             <ProductListItem
@@ -114,7 +133,7 @@ const ProductList = () => {
                                 {wordList[language].productList.productListTitle}
                             </Typography>
                         </Grid>
-                        {user.role === 'admin' &&
+                        { checkPermission('addProduct') &&
                         <Grid item>
                             <Button
                                 variant='contained'
@@ -128,7 +147,7 @@ const ProductList = () => {
                         }
                     </Grid>
                 </Grid>
-                <Grid item>
+                { window.innerWidth > 600 &&  <Grid item>
                     <TableContainer component={Paper}>
                         <Table aria-label="caption table">
                             <TableHead>
@@ -150,11 +169,21 @@ const ProductList = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {productsList}
+                                {window.innerWidth > 600 && productsList}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </Grid>
+
+                </Grid>}
+                {window.innerWidth < 600 &&  <Grid style={{flexWrap:'wrap'}} item xs={12} sm={6} >
+                     <Box m={1}> <FormElement
+                        type='search'
+                        propertyName='search'
+                        title={wordList[language].productList.searchProduct}
+                        onChange={changeSearch}
+                    /></Box>
+                    {card}
+                </Grid>}
             </Grid>
         </>
     );
