@@ -27,6 +27,9 @@ import Box from "@material-ui/core/Box";
 
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        minWidth: '900px',
+    },
     offPadding: {
         padding: '10px 0'
     },
@@ -109,6 +112,7 @@ const ProductList = () => {
   
     const productsList = productList.map((elem) => {
         return (
+
             <ProductListItem
                 userInfo={user}
                 key={elem._id}
@@ -120,6 +124,7 @@ const ProductList = () => {
                 isRefrigeratorRequired={elem.isRefrigeratorRequired}
                 id={elem._id}
             />
+
         )
     });
 
@@ -148,6 +153,7 @@ const ProductList = () => {
                     </Grid>
                 </Grid>
                 { window.innerWidth > 600 &&  <Grid item>
+                    <Paper className={classes.root}>
                     <TableContainer component={Paper}>
                         <Table aria-label="caption table">
                             <TableHead>
@@ -173,9 +179,9 @@ const ProductList = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-
+                    </Paper>
                 </Grid>}
-                {window.innerWidth < 600 &&  <Grid style={{flexWrap:'wrap'}} item xs={12} sm={6} >
+                {window.innerWidth < 600 &&  <Grid style={{flexWrap:'wrap'}} item xs={12} sm={10} >
                      <Box m={1}> <FormElement
                         type='search'
                         propertyName='search'
