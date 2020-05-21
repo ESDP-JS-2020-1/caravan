@@ -151,8 +151,16 @@ const ProductList = () => {
                         </Grid>
                         }
                     </Grid>
+                   {window.innerWidth < 900 && <Grid item>
+                        <Box m={1}> <FormElement
+                            type='search'
+                            propertyName='search'
+                            title={wordList[language].productList.searchProduct}
+                            onChange={changeSearch}
+                        /></Box>
+                    </Grid>}
                 </Grid>
-                { window.innerWidth > 600 &&  <Grid item>
+                { window.innerWidth > 900 &&  <Grid item>
                     <Paper className={classes.root}>
                     <TableContainer component={Paper}>
                         <Table aria-label="caption table">
@@ -175,19 +183,14 @@ const ProductList = () => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {window.innerWidth > 600 && productsList}
+                                {window.innerWidth > 900 && productsList}
                             </TableBody>
                         </Table>
                     </TableContainer>
                     </Paper>
                 </Grid>}
-                {window.innerWidth < 600 &&  <Grid style={{flexWrap:'wrap'}} item xs={12} sm={10} >
-                     <Box m={1}> <FormElement
-                        type='search'
-                        propertyName='search'
-                        title={wordList[language].productList.searchProduct}
-                        onChange={changeSearch}
-                    /></Box>
+                {window.innerWidth < 900 &&  <Grid  container >
+
                     {card}
                 </Grid>}
             </Grid>

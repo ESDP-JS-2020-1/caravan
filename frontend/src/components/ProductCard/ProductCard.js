@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
     root: {width: '100%'},
@@ -28,6 +29,9 @@ const useStyles = makeStyles({
     },
     contentText:{
         textAlign:'center'
+    },
+    padding: {
+        padding: '10px'
     }
 
 
@@ -37,7 +41,7 @@ const ProductCard = (props) => {
     const classes = useStyles();
     const language = useSelector(state => state.language.name);
     return (
-<Box component={'div'} mt={2}>
+<Grid item xs={12} sm={6} md={4} className={classes.padding}>
         <Card  className={classes.root}>
             <CardActionArea>
                 {props.image && <CardMedia
@@ -83,7 +87,7 @@ const ProductCard = (props) => {
                     </Box>
             </CardActions>
         </Card>
-</Box>
+</Grid>
     );
 }
 export default ProductCard;
