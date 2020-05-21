@@ -31,7 +31,8 @@ import UserListItem from "./UserListItem/UserListItem";
 import FormElement from "../UI/Form/FormElement";
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
-
+import UserCardItem from "./UserCardItem";
+import Typography from "@material-ui/core/Typography";
 
 
 const UsersList = props => {
@@ -75,7 +76,7 @@ const UsersList = props => {
                         type="search"
                     />
                 </Grid>
-               { checkPermission('addUser') && <Grid item>
+                {checkPermission('addUser') && <Grid item>
                     <Button
                         variant='contained'
                         color='primary'
@@ -88,6 +89,57 @@ const UsersList = props => {
                 </Grid>}
             </Grid>
             <Grid container item>
+                {window.innerWidth <= 1200 &&
+                <>
+                    <Typography variant='h4'>Поиск по ролям</Typography>
+                    <IconButton onClick={handleClick}><MenuIcon/></IconButton>
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <List component="nav" aria-label="main mailbox folders" style={{padding: '0'}}>
+                            <div>
+                                <ListItem onClick={handleClose} component={NavLink} to={'/users'}
+                                          style={{fontSize: 'bold'}} button>
+                                    {wordList[language].usersList.listItemUsers}
+                                </ListItem>
+                                <Divider/>
+                            </div>
+                            {['admin', 'operator', 'courier', 'market'].map((e, i) => (
+                                <div key={i}>
+                                    <ListItem onClick={handleClose} component={NavLink} to={'/users/' + e}
+                                              button>
+                                        {e}
+                                        <ListItemIcon style={{marginLeft: '10px'}}>
+                                            {e === 'operator' && <ContactPhoneIcon/>}
+                                            {e === 'admin' && <AccountBoxIcon/>}
+                                            {e === 'courier' && <LocalShippingIcon/>}
+                                            {e === 'market' && <ShoppingCartIcon/>}
+                                        </ListItemIcon>
+                                    </ListItem>
+                                </div>
+                            ))}
+                        </List>
+                    </Menu>
+                    <Grid container>
+                        {users && productList.map(user => {
+                            const edit = currentUser.username !== user.username ? 'edit' : null;
+                            return (
+                                <UserCardItem
+                                    key={user._id}
+                                    id={user._id}
+                                    edit={edit}
+                                    user={user}
+                                    paramsRole={props.match.params.id}
+                                />
+                            )
+                        })}
+                    </Grid>
+                </>}
+                {window.innerWidth > 1200 &&
                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{marginTop: '10px'}}>
                     <TableContainer component={Paper}>
                         <Table aria-label="caption table">
@@ -170,7 +222,7 @@ const UsersList = props => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                </Grid>
+                </Grid>}
             </Grid>
         </Box>
     );
