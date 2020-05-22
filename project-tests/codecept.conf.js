@@ -4,7 +4,7 @@ exports.config = {
     Puppeteer: {
       url: 'http://localhost:3010',
       show: !process.env.CI,
-      headless: !!!process.env.CI,
+      headless: !!process.env.CI,
       windowSize: '800x600'
     }
   },
