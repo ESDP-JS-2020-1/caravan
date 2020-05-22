@@ -52,7 +52,7 @@ const UserListItem = props => {
                     aria-label="edit"
                     component={NavLink}
                     to={`/product/edit/${props.id}`}
-                    id={props.edit}
+                    id="edit"
                     exact
                 >
                     <EditIcon/>
