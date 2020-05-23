@@ -11,6 +11,8 @@ import Avatar from "@material-ui/core/Avatar";
 
 import {logoutUserGet} from "../../../store/actions/usersActions";
 import {wordList} from "../../../wordList";
+import {checkPermission} from "../../../CheckPermission";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -65,6 +67,19 @@ const AuthUserToolBar = () => {
 				onClose={handleClose}
 			>
 				<ListItem disabled>{wordList[language].authUserToolBar.greeting}, {user.displayName}!</ListItem>
+				<Divider/>
+				<MenuItem
+					component={NavLink}
+					to={`/user/${user._id}`}
+				>
+					Информация об аккаунте
+				</MenuItem>
+				{checkPermission('getStatistic') &&<MenuItem
+					component={NavLink}
+					to={`/users/stat/${user._id}/7`}
+				>
+					Моя статистика
+				</MenuItem>}
 				<Divider/>
 				<MenuItem onClick={logout}>{wordList[language].authUserToolBar.logoutBtn}</MenuItem>
 			</Menu>
