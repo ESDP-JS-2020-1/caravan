@@ -95,7 +95,7 @@ export const createRequest = requestData => async (dispatch, getState) => {
         });
         dispatch(push('/'));
     } catch (e) {
-        dispatch(createRequestError(e));
+        dispatch(createRequestError(e.response.data.error));
     }
 };
 
@@ -108,8 +108,6 @@ export const fetchRequestEdit =id=>{
       }catch (e) {
           dispatch(fetchFailure(e))
       }
-
-
   }
 };
 export const putRequestEdit =(id,data)=>{
@@ -126,7 +124,8 @@ export const putRequestEdit =(id,data)=>{
                 ...config.notification
             });
         }catch (e) {
-            dispatch(putFailure(e))
+            console.log(e)
+            dispatch(putFailure(e.response.data.error))
         }
 
     }
