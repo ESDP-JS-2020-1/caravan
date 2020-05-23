@@ -85,7 +85,7 @@ export const getRequests = () => async dispatch => {
 export const createRequest = requestData => async (dispatch, getState) => {
     try {
         const language = getState().language.name;
-        await axiosApi.post('/requests', requestData);
+        const data = await axiosApi.post('/requests', requestData);
 
         dispatch(createRequestSuccess());
         notification.addNotification({
@@ -93,7 +93,7 @@ export const createRequest = requestData => async (dispatch, getState) => {
             message: (wordList[language].requestsActions.createRequestMessage),
             ...config.notification
         });
-        dispatch(push('/'));
+        dispatch(push('/requests/'+data.data._id));
     } catch (e) {
         dispatch(createRequestError(e.response.data.error));
     }
@@ -117,7 +117,7 @@ export const putRequestEdit =(id,data)=>{
             dispatch(putRequest());
              await axiosApi.put('/requests/'+id,data);
             dispatch(putSuccess());
-            dispatch(push('/'));
+            dispatch(push('/requests/'+id));
             notification.addNotification({
                 title: (wordList[language].requestsActions.editRequestTitle),
                 message: (wordList[language].requestsActions.editRequestMessage),
