@@ -50,25 +50,28 @@ const EditRequestItems = (
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Box style={{width: '100%', marginBottom: "10px"}}>
-                            {products && (
+                            {products[0] && (
                                 <Grid item>
                                     <Autocomplete
                                         id={'free-solo-demo' + index}
-                                        options={products.map((option) => option)}
+                                        options={products}
+                                        value={products.find(elem => elem.name === r.product.name)}
                                         getOptionLabel={option => option.name}
                                         className={classes.autocomplete}
                                         onChange={(value, element) => onAutoCompleteChange(element, index)}
-                                        renderInput={(params) =>
+                                        renderInput={(params) =><>
                                             <TextField
                                                 {...params}
                                                 required
+                                                value={'Продукт-1'}
                                                 label={wordList[language].editRequestItems.chooseProd}
                                                 variant="outlined"
                                                 id={'title'+index}
                                                 name='title'
                                                 title='Название'
                                             />
-                                        }
+                                            {r.product && <><b>На складе есть: </b> {r.product.amount}</>}
+                                        </>}
                                     />
                                 </Grid>
                             )}
