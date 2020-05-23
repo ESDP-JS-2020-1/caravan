@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import CheckIcon from '@material-ui/icons/Check';
 import {checkPermission} from "../../../CheckPermission";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
 
 
 
@@ -64,6 +65,15 @@ const UserListItem = props => {
                 >
                     <VisibilityIcon/>
                 </IconButton>
+            </TableCell>
+            <TableCell>
+                {checkPermission('getStatistic') &&  <IconButton
+                    variant="contained"
+                    component={NavLink}
+                    to={`/users/stat/${props.id}/7`}
+                >
+                    <EqualizerIcon/>
+                </IconButton>}
             </TableCell>
         </TableRow>
     );

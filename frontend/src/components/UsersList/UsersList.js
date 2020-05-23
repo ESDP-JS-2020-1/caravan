@@ -173,6 +173,8 @@ const UsersList = props => {
                                     </TableCell>
                                     <TableCell>
                                     </TableCell>
+                                    <TableCell>
+                                    </TableCell>
                                 </TableRow>
                                 <Menu
                                     id="simple-menu"
