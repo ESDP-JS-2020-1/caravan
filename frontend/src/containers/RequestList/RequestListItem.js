@@ -31,15 +31,17 @@ const ProductListItem = props => {
             </TableCell>
             {props.userRoleInfo === 'admin' &&
             <TableCell >
-                <IconButton
-                    aria-label="edit"
-                    component={NavLink}
-                    to={`/requests/edit/${props.id}`}
-                    id={props.edit}
-                    exact
-                >
-                    <EditIcon/>
-                </IconButton>
+                { props.status !== 'closed' &&
+                    <IconButton
+                        aria-label="edit"
+                        component={NavLink}
+                        to={`/requests/edit/${props.id}`}
+                        id={props.edit}
+                        exact
+                    >
+                        <EditIcon/>
+                    </IconButton>
+                }
             </TableCell>
             }
             <TableCell >

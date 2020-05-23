@@ -145,6 +145,8 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 
         const requestOne = await Request.findOne({_id: req.params.id}).populate('user');
 
+        if(requestOne.status === 'closed') return res.status(400).send({error: 'This request is closed, you cant edit this request!'})
+
         if (!requestOne) return res.status(404).send({message: 'Not found'});
 
         let historyData = {

@@ -176,7 +176,7 @@ const EditRequest = (props) => {
                             </Grid>}
                             {error &&
                             <Alert severity="error">
-                                {error === 'One of products in request has more products than is in stock!' && 'В одном из продуктов заявки вы выбрали больше товара чем имеется на скалде!'}
+                                {error === 'One of products in request has more products than is in stock!' ? 'В одном из продуктов заявки вы выбрали больше товара чем имеется на скалде!' : error}
                             </Alert>
                             }
                             <Grid item>
