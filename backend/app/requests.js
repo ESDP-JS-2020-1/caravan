@@ -2,6 +2,7 @@ const express = require('express');
 const History = require('../models/History');
 const Request = require('../models/Request');
 const User = require('../models/User');
+const Product = require('../models/Product');
 const NominatedRequest = require('../models/NominatedRequest');
 const Statistic = require('../models/Statistic');
 
@@ -14,7 +15,7 @@ router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
     try {
         const request = await Request.findOne({_id: req.params.id});
 
-        if(request.status === 'performed') {
+        if (request.status === 'performed') {
             request.status = 'closed'
         } else return res.status(404).send({message: 'Request status is not performed!'});
 
@@ -37,7 +38,7 @@ router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
     try {
         const request = await Request.findOne({_id: req.params.id})
-            .populate(['user','products.product']);
+            .populate(['user', 'products.product']);
 
         const courierList = await User.find({role: 'courier'});
 
@@ -105,6 +106,17 @@ router.get('/:id', auth, async (req, res) => {
 router.post('/', [auth, permit('addRequest')], async (req, res) => {
     try {
         const request = req.body;
+        request.products = request.products.map(elem => ({
+                product: elem.product,
+                amount: elem.amount
+            }
+        ))
+
+        for (let i = 0; i < request.products.length; i++) {
+            const product = await Product.findOne({_id: request.products[i].product});
+
+            if (product.amount < request.products[i].amount) return res.status(400).send({error: `One of products in request has more products than is in stock!`});
+        }
 
         const successfulRequest = await Request.create({
             user: req.currentUser,
@@ -112,8 +124,17 @@ router.post('/', [auth, permit('addRequest')], async (req, res) => {
             products: request.products
         });
 
+        for (let i = 0; i < request.products.length; i++) {
+            const product = await Product.findOne({_id: request.products[i].product});
+
+            product.amount = product.amount - request.products[i].amount
+
+            await product.save();
+        }
+
         return res.send(successfulRequest);
     } catch (e) {
+        console.log(e)
         res.status(400).send(e);
     }
 });
@@ -134,6 +155,18 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
         if (requestOne.comment) historyData.comment = requestOne.comment;
 
         await History.create(historyData);
+
+        for (let i = 0; i < requestOne.products.length; i++) {
+            const product = await Product.findOne({_id: requestOne.products[i].product});
+
+            if (product.amount < requestOne.products[i].amount && (requestOne.products[i].amount < request.products[i].amount)) return res.status(400).send({error: `One of products in request has more products than is in stock!`});
+
+            if(requestOne.products[i].amount !== request.products[i].amount){
+                product.amount = parseInt(product.amount) - parseInt(request.products[i].amount) + parseInt(requestOne.products[i].amount)
+
+                await product.save();
+            }
+        }
 
         requestOne.user = request.user;
         requestOne.products = request.products;
@@ -166,7 +199,16 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
         const history = new History(historyData);
         await history.save();
 
+        for (let i = 0; i < requestOne.products.length; i++) {
+            const product = await Product.findOne({_id: requestOne.products[i].product});
+
+            product.amount = parseInt(product.amount) + parseInt(requestOne.products[i].amount)
+
+            await product.save();
+        }
+
         await Request.deleteOne({_id: req.params.id});
+
         return res.send({message: 'Delete'})
     } catch (e) {
         res.status(500).send(e)

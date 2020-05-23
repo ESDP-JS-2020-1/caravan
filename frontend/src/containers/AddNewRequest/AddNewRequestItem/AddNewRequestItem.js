@@ -45,13 +45,13 @@ const AddNewRequestItem = (
                         id={`panel${index}bh-header`}
                     >
                         <Typography className={classes.heading} id="addNew">
-                            {wordList[language].addNewRequestItem.btnTitle}: {r.title}
+                            {wordList[language].addNewRequestItem.btnTitle}: {r.productInfo && r.productInfo.name}
                             {wordList[language].addNewRequestItem.btnQty}: {r.amount}
                         </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Box className={classes.mainBox}>
-                            {products && (
+                            {products &&  (
                                 <Grid item>
                                     <Autocomplete
                                         id="combo-box-demo"
@@ -59,7 +59,7 @@ const AddNewRequestItem = (
                                         getOptionLabel={option => option.name}
                                         className={classes.autocomplete}
                                         onChange={(e, value) => onAutoCompleteChange(value, index)}
-                                        renderInput={(params) =>
+                                        renderInput={(params) =><>
                                             <TextField
                                                 {...params}
                                                 required
@@ -69,7 +69,8 @@ const AddNewRequestItem = (
                                                 name='title'
                                                 title={wordList[language].addNewRequestItem.btnTitle}
                                             />
-                                        }
+                                        {r.productInfo && <><b>На складе есть: </b> {r.productInfo.amount}</>}
+                                        </>}
                                     />
                                 </Grid>
                             )}
