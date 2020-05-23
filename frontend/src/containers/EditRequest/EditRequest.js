@@ -174,9 +174,11 @@ const EditRequest = (props) => {
                                 />
 
                             </Grid>}
-                            {error && <Grid item>
-                                <Alert severity='error'>{error}</Alert>
-                            </Grid>}
+                            {error &&
+                            <Alert severity="error">
+                                {error === 'One of products in request has more products than is in stock!' && 'В одном из продуктов заявки вы выбрали больше товара чем имеется на скалде!'}
+                            </Alert>
+                            }
                             <Grid item>
                                 <Box className={classes.formBtn} component="span">
                                     <Button
@@ -200,6 +202,7 @@ const EditRequest = (props) => {
                                 </Box>
 
                             </Grid>
+
                             <Grid item>
                                 <Button
                                     className={classes.formButton}
