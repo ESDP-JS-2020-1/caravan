@@ -94,7 +94,7 @@ const StatisticsUser = () => {
                                 />
                             </Grid>
                             <Grid item>
-                                <Button variant='contained' color='primary' component={NavLink} to={`/product/stat/${id}/${numberOfDays}`}>
+                                <Button variant='contained' color='primary' component={NavLink} to={`/users/stat/${id}/${numberOfDays}`}>
                                     {wordList[language].search}
                                 </Button>
                             </Grid>
