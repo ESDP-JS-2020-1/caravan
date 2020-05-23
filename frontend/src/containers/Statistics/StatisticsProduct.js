@@ -6,7 +6,7 @@ import {NavLink, useParams} from 'react-router-dom'
 import {Bar} from 'react-chartjs-2';
 import moment from "moment";
 
-import {getStatistics} from "../../store/actions/statisticsActions";
+import {getStatisticsProduct} from "../../store/actions/statisticsActions";
 import {getProductsList} from "../../store/actions/productsActions";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -24,7 +24,7 @@ const useStyle = makeStyles({
 })
 
 
-const Statistics = () => {
+const StatisticsProduct = () => {
 
     const classes = useStyle()
 
@@ -50,7 +50,7 @@ const Statistics = () => {
 
     useEffect(() => {
         dispatch(getProductsList());
-        dispatch(getStatistics(id, days));
+        dispatch(getStatisticsProduct(id, days));
 
         setNumberOfDays(day => days)
     }, [dispatch, id, days]);
@@ -129,4 +129,4 @@ const Statistics = () => {
     );
 };
 
-export default Statistics;
+export default StatisticsProduct;
