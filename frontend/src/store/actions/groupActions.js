@@ -1,15 +1,16 @@
 import axiosApi from "../../axiosAPI";
 import {push} from 'connected-react-router';
 import {
-    GET_GROUPS_REQUEST,
-    GET_GROUPS_SUCCESS,
-    GET_GROUPS_ERROR,
-
+    GET_GROUP_ERROR,
     GET_GROUP_REQUEST,
     GET_GROUP_SUCCESS,
-    GET_GROUP_ERROR,
+    GET_GROUPS_ERROR,
+    GET_GROUPS_REQUEST,
+    GET_GROUPS_SUCCESS,
 } from "./actionsTypes";
 import {getUsers} from "./usersActions";
+import {store as notification} from "react-notifications-component";
+import config from "../../config";
 
 const getGroupsRequest = () => ({type: GET_GROUPS_REQUEST});
 const getGroupsSuccess = groups => ({type: GET_GROUPS_SUCCESS, groups });
@@ -22,6 +23,12 @@ const getGroupError = error => ({type: GET_GROUP_ERROR, error});
 export const addNewGroup = group => async dispatch => {
     await axiosApi.post('/groups', group);
     dispatch(push('/groups'))
+
+    notification.addNotification({
+        title: "Добавление группы",
+        message: "Группа успешно обавлена!",
+        ...config.notification
+    });
 };
 
 export const getGroups = () => async dispatch => {
