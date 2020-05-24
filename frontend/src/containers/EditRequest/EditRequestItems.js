@@ -44,8 +44,8 @@ const EditRequestItems = (
                         aria-label={'check'}
                     >
                         <Box className={classes.heading}>
-                            <Chip label={(wordList[language].editRequestItems.title)+(r.product.name ? r.product.name : '')} variant="outlined" />
-                            <Chip label={(wordList[language].editRequestItems.qty)+r.amount} variant="outlined" />
+                            <Chip label={(wordList[language].editRequestItems.title)+(r.product ? r.product.name : '')} variant="outlined" />
+                            <Chip label={(wordList[language].editRequestItems.qty)+(r.product ? r.product.amount : '')} variant="outlined" />
                         </Box>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
