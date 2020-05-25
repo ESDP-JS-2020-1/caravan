@@ -6,6 +6,10 @@ if (env === 'test') {
 	url = "http://localhost:8010";
 }
 
+if (env === 'production') {
+	url = 'http://198.211.125.161:8000'
+}
+
 const apiURL = {
 	url,
 };
