@@ -18,7 +18,6 @@ import {wordList} from "../../../wordList";
 import {checkPermission} from "../../../CheckPermission";
 
 
-
 const useStyles = makeStyles({
     button: {
         color: 'white',
@@ -60,75 +59,74 @@ const ToolBar = () => {
 
             <Hidden smDown>
 
-                    <>
-                       { checkPermission('viewHistory') && <Button
-                            color='primary'
-                            component={NavLink}
-                            to='/history'
-                            exact
-                            activeClassName='Mui-disabled'
-                            className={classes.button}
-                        >
+                <>
+                    {checkPermission('viewHistory') && <Button
+                        color='primary'
+                        component={NavLink}
+                        to='/history'
+                        exact
+                        activeClassName='Mui-disabled'
+                        className={classes.button}
+                    >
                             <span className={classes.line}>
                             {wordList[language].navigation.historyList}
                             </span>
-                        </Button>}
-                       {checkPermission('getGroup') && <Button
-                            color='primary'
-                            component={NavLink}
-                            to='/groups'
-                            exact
-                            activeClassName='Mui-disabled'
-                            className={classes.button}
-                        >
+                    </Button>}
+                    {checkPermission('getGroup') && <Button
+                        color='primary'
+                        component={NavLink}
+                        to='/groups'
+                        exact
+                        activeClassName='Mui-disabled'
+                        className={classes.button}
+                    >
                             <span className={classes.line}>
                                 {wordList[language].navigation.groupList}
                             </span>
 
-                        </Button>}
-                        {checkPermission('getUser') && <Button
-                            color='primary'
-                            component={NavLink}
-                            to='/users'
-                            exact
-                            activeClassName='Mui-disabled'
-                            className={classes.button}
-                        >
+                    </Button>}
+                    {checkPermission('getUser') && <Button
+                        color='primary'
+                        component={NavLink}
+                        to='/users'
+                        exact
+                        activeClassName='Mui-disabled'
+                        className={classes.button}
+                    >
                             <span className={classes.line}>
                                 {wordList[language].navigation.userList}
                             </span>
 
-                        </Button>}
-                        {checkPermission('getRequest') && <Button
-                            color='primary'
-                            component={NavLink}
-                            to='/requests'
-                            exact
-                            activeClassName='Mui-disabled'
-                            className={classes.button}
-                        >
+                    </Button>}
+                    {checkPermission('getRequest') && <Button
+                        color='primary'
+                        component={NavLink}
+                        to='/requests'
+                        exact
+                        activeClassName='Mui-disabled'
+                        className={classes.button}
+                    >
                             <span className={classes.line}>
                                 {wordList[language].navigation.requestList}
                             </span>
 
-                        </Button>}
-                    </>
+                    </Button>}
+                    <Button
+                        color='primary'
+                        className={classes.button}
+                        component={NavLink}
+                        to='/requests/new'
+                        exact
+                        activeClassName='Mui-disabled'
+                    >
+                        <span className={classes.line}>
+                              {wordList[language].authUserToolBar.requestBtn}
+                        </span>
+                    </Button>
+                </>
 
             </Hidden>
 
-            {user && <Button
-                color='primary'
-                className={classes.button}
-                component={NavLink}
-                to='/requests/new'
-                exact
-                activeClassName='Mui-disabled'
-            >
-                <span className={classes.line}>
-                          {wordList[language].authUserToolBar.requestBtn}
-                            </span>
-
-            </Button>}
 
             <Button
                 startIcon={<TranslateIcon/>}

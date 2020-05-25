@@ -20,6 +20,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import HistoryIcon from '@material-ui/icons/History';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Hidden from "@material-ui/core/Hidden";
+import PostAddIcon from '@material-ui/icons/PostAdd';
 
 import ToolBar from "../UI/toolBar/toolBar";
 import {wordList} from "../../wordList";
@@ -86,6 +87,14 @@ const Navigation = () => {
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
+            <NavLink style={{textDecoration: 'none', color: 'black'}} to="/requests/new">
+                <List>
+                    <ListItem button>
+                        <ListItemIcon>{<PostAddIcon/>}</ListItemIcon>
+                        <ListItemText>{wordList[language].authUserToolBar.requestBtn}</ListItemText>
+                    </ListItem>
+                </List>
+            </NavLink>
             {user && user.role === 'admin' && (
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/groups">
                     <List>
@@ -126,6 +135,7 @@ const Navigation = () => {
             )}
         </div>
     );
+
 
     return (
         <div className={classes.root}>
