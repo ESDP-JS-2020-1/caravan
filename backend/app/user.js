@@ -25,13 +25,13 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
             phone: user.phone,
         };
 
-        if(createUser.role === 'market') createUser.market = {
+        if (createUser.role === 'market') createUser.market = {
             address: user.address,
             coordinates: user.coordinates,
             companyName: user.companyName,
         };
 
-        if(createUser.role === 'courier') createUser.courier = {
+        if (createUser.role === 'courier') createUser.courier = {
             carName: user.carName,
             carVolume: user.carVolume,
             carRefrigerator: user.carRefrigerator
