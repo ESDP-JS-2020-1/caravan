@@ -13,7 +13,7 @@ import {checkPermission} from "../../CheckPermission";
 import Grid from "@material-ui/core/Grid";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import EditIcon from "@material-ui/icons/Edit";
-import Paper from "@material-ui/core/Paper";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles({
     root: {width: '100%', padding: '10px'},
@@ -35,8 +35,8 @@ const ProductCard = (props) => {
     const language = useSelector(state => state.language.name);
     return (
         <Grid item xs={12} sm={6} md={4} className={classes.padding}>
-            <Paper elevation={3}>
-                <Card className={classes.root}>
+
+                <Card style={{padding:'1px'}}>
                     {props.image && <CardMedia
                         className={classes.media}
                         image={apiURL.url + '/uploads/productImage/' + props.image}
@@ -61,31 +61,31 @@ const ProductCard = (props) => {
                         </Typography>
 
                         {checkPermission('editProduct')
-                        && <Button xs={12} sm={12}
+                        && <IconButton xs={12} sm={12}
                                    variant='contained'
                                    color="primary"
                                    component={NavLink}
                                    to={`/product/edit/${props.id}`}
                                    id={props.edit}
-                                   startIcon={<EditIcon/>}
                                    style={{margin: '10px 0 7px 0'}}
+                                       id={'productEdit'+ props.index}
                         >
-                            Редактировать
-                        </Button>}
+                            <EditIcon/>
+                        </IconButton>}
                         {checkPermission('getStatistic')
-                        && <Button xs={12} sm={12}
+                        && <IconButton xs={12} sm={12}
                                    variant='contained'
                                    color="primary"
                                    component={NavLink}
                                    to={`/product/stat/${props.id}/7`}
-                                   startIcon={<EqualizerIcon/>}
+
                         >
-                            Смотреть статистику
-                        </Button>}
+                            <EqualizerIcon/>
+                        </IconButton>}
                     </CardContent>
 
                 </Card>
-            </Paper>
+
         </Grid>
     );
 }

@@ -94,7 +94,7 @@ const ProductList = () => {
     };
 
     const productList = products.filter(word => word.name.search(search.search) !== -1);
-    const card = productList.map((elem) => {
+    const card = productList.map((elem,i) => {
         return (
             <ProductCard
                 userInfo={user}
@@ -106,6 +106,7 @@ const ProductList = () => {
                 image={elem.image}
                 isRefrigeratorRequired={elem.isRefrigeratorRequired}
                 id={elem._id}
+                index={i}
             />
         )
     });
