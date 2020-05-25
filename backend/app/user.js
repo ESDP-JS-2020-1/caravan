@@ -111,6 +111,7 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
             const salt = await bcrypt.genSalt(10);
 
             user.password = await bcrypt.hash(user.password, salt);
+            await User.updateOne({_id: req.params.id}, {password: user.password});
         }
 
         editableUser.username = user.username;

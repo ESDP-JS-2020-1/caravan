@@ -244,7 +244,7 @@ const EditUser = props => {
                                     onChange={changeCommentInput}
                                 />
                             </Grid>
-                            {error && <Grid item>
+                            {error && editClient && <Grid item>
                                 <Alert severity='error'>{error}</Alert>
                             </Grid>}
                             <Grid item>

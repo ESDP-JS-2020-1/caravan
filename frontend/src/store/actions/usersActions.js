@@ -128,9 +128,12 @@ export const loginUser = userData => {
 export const editUser = (userData, id) => {
   return async (dispatch, getState) => {
     try {
-      const _id = await getState().users.user._id;
+      const username = await getState().users.user.username;
       const response = await axiosApi.put(`/users/edit/${id}`, userData);
-      if(response.data._id === _id) dispatch(loginUserSuccess(response.data));
+      console.log(response.data.username, username,response.data.username === username)
+      if(response.data.username === username) {
+        return dispatch(push('/login'))
+      }
       dispatch(push('/users'))
     } catch (error) {
       console.log(error);
