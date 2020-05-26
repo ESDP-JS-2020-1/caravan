@@ -1,5 +1,6 @@
 const {nanoid} = require('nanoid');
 const bcrypt = require('bcrypt');
+const addToHistory = require('../plugins/addToHistory');
 
 const SALT_FACTOR = 10;
 
@@ -79,6 +80,8 @@ UserSchema.set('toJSON', {
 UserSchema.methods.addToken = function () {
     this.token = nanoid();
 };
+
+UserSchema.plugin(addToHistory)
 
 const User = mongoose.model('User', UserSchema);
 

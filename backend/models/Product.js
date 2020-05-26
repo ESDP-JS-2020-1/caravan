@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const addToHistory = require('../plugins/addToHistory');
 
 const ProductSchema = new mongoose.Schema({
     name: {
@@ -29,6 +30,8 @@ const ProductSchema = new mongoose.Schema({
     },
     image: String
 });
+
+ProductSchema.plugin(addToHistory)
 
 const Product = mongoose.model('Product', ProductSchema);
 
