@@ -8,15 +8,17 @@ module.exports = async (req, res, next) => {
     } else {
         const [type, token] = authHeader.split(' ');
         const user = await User.findOne({token});
-        const groups = await Group.find({list: {$elemMatch: {user: user._id}}});
-        let permissions = new Set();
-        groups.forEach(elemt => elemt.permissions.forEach(permit => permissions.add(permit)));
-        permissions = [...permissions];
         if (type !== 'token' || !user) {
             return res.status(404).send({error: 'Access denied'})
         } else {
+            if(user){
+                const groups = await Group.find({list: {$elemMatch: {user: user._id}}});
+                let permissions = new Set();
+                groups.forEach(elemt => elemt.permissions.forEach(permit => permissions.add(permit)));
+                permissions = [...permissions];
+                req.currentPermissions = permissions;
+            }
             req.currentUser = user;
-            req.currentPermissions = permissions;
             return next();
         }
     }
