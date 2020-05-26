@@ -70,6 +70,9 @@ const useStyles = makeStyles((theme) => ({
             width: '20ch',
         }
     },
+    table: {
+        overflow: 'visible'
+    }
 }));
 
 const ProductList = () => {
@@ -163,7 +166,7 @@ const ProductList = () => {
                 </Grid>
                 { window.innerWidth > 900 &&  <Grid item >
                     <Paper className={classes.root}>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} className={classes.table}>
                         <Table aria-label="caption table" >
                             <TableHead>
                                 <TableRow>
