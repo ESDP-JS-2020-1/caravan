@@ -12,18 +12,17 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
     try {
         const user = req.body;
 
-        if (req.file) {
-            req.body.avatar = req.file.filename
-        }
-
         const createUser = {
             username: user.username,
             password: user.password,
             displayName: user.displayName,
             role: user.role,
-            avatar: user.avatar,
             phone: user.phone,
         };
+
+        if (req.file) {
+            createUser.avatar = req.file.filename
+        }
 
         if (createUser.role === 'market') createUser.market = {
             address: user.address,
