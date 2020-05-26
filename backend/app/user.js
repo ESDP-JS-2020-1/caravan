@@ -94,14 +94,14 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
                 address: user.address,
                 coordinates: {lat: user.lat, lng: user.lng},
             }
-            console.log(editableUser.market)
         }
 
         if (user.role === 'courier') {
-            editableUser.courier.carName = user.carName;
-            editableUser.courier.carVolume = user.carVolume;
-            editableUser.courier.carRefrigerator = user.carRefrigerator;
-
+            editableUser.courier = {
+                carName: user.carName,
+                carVolume: user.carVolume,
+                carRefrigerator: user.carRefrigerator,
+            }
         }
 
         if (req.file) user.avatar = req.file.filename;
@@ -112,6 +112,7 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
             const salt = await bcrypt.genSalt(10);
 
             user.password = await bcrypt.hash(user.password, salt);
+            await User.updateOne({_id: req.params.id}, {password: user.password});
         }
 
         editableUser.username = user.username;
