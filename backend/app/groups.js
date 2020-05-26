@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', isAuth, permit('getGroup'), async (req, res) => {
     try {
-        const groups = await Group.find();
+        const groups = await Group.find({ isRemoved: false });
 
         res.send(groups);
     } catch (e) {
@@ -118,7 +118,8 @@ router.delete('/:id', isAuth, permit('deleteGroup'), async (req, res) => {
             return res.status(404).send({message: 'Group is not defined!'})
         }
 
-        await Group.deleteOne({_id: group._id});
+        group.isRemoved = true;
+        group.save(req)
 
         res.send({message: 'Success'})
     } catch (e) {

@@ -5,6 +5,11 @@ const GroupSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    isRemoved: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     list: [{
         user: {
             type: mongoose.Schema.Types.ObjectId,

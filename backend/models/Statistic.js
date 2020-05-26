@@ -8,6 +8,11 @@ const StatisticSchema = new Schema({
         ref: 'User',
         required: true
     },
+    isRemoved: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     product: {
         type: Schema.Types.ObjectId,
         ref: 'Product',

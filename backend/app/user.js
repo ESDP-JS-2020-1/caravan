@@ -63,7 +63,7 @@ router.get('/', isAuth, async (req, res) => {
 
             return res.send(users)
         }
-        const users = await User.find().populate('group').select({token: 0});
+        const users = await User.find({ isRemoved: false }).populate('group').select({token: 0});
 
         return res.send(users)
     } catch (e) {
@@ -187,7 +187,8 @@ router.delete('/:id', isAuth, permit('deleteUser'), async (req, res) => {
         if (!user) return res.status(404).send({message: "User not found"});
         if (user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
 
-        await User.deleteOne({_id: user._id});
+        user.isRemoved = true;
+        user.save(req);
 
         const history = new History({
             title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,

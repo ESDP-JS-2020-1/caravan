@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', auth, async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({ isRemoved: false });
 
         return res.send(products);
     } catch (e) {
@@ -81,6 +81,7 @@ router.delete('/:id', auth, permit('deleteProduct'), async (req, res) => {
     let product = req.body;
     try {
         const productOne = await Product.findOne({_id: req.params.id});
+
         if (!productOne) {
             return res.status(404).send({message: 'Product not found'})
         }
@@ -93,7 +94,9 @@ router.delete('/:id', auth, permit('deleteProduct'), async (req, res) => {
         const history = new History(historyData);
         await history.save();
 
-        await Product.deleteOne({_id: req.params.id});
+        productOne.isRemoved = true;
+        productOne.save(req);
+
         return res.send({message: 'Delete'})
     } catch (e) {
         res.status(500).send(e)

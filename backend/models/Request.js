@@ -8,6 +8,11 @@ const RequestSchema = new Schema({
         ref: 'User',
         required: true
     },
+    isRemoved: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     products: [{
         product: {
             type: Schema.Types.ObjectId,

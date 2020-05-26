@@ -10,6 +10,11 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    isRemoved: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     price: {
         type: String,
         required: true
