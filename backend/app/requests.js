@@ -1,5 +1,4 @@
 const express = require('express');
-const History = require('../models/History');
 const Request = require('../models/Request');
 const User = require('../models/User');
 const Product = require('../models/Product');
@@ -152,15 +151,6 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 
         if (!requestOne) return res.status(404).send({message: 'Not found'});
 
-        let historyData = {
-            title: req.currentUser.displayName + ' отредактировал заявку ' + requestOne.user.displayName,
-            type: 'edit'
-        };
-
-        if (requestOne.comment) historyData.comment = requestOne.comment;
-
-        await History.create(historyData);
-
         for (let i = 0; i < requestOne.products.length; i++) {
             const product = await Product.findOne({_id: requestOne.products[i].product});
 
@@ -177,7 +167,7 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
         requestOne.products = request.products;
         requestOne.comment = request.comment;
 
-        requestOne.save();
+        requestOne.save(req);
 
         return res.send(requestOne)
     } catch (e) {
@@ -195,14 +185,6 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
         if (!requestOne) {
             return res.status(404).send({message: 'Request not found'})
         }
-
-        let historyData = {title: req.currentUser.displayName + ' удалил заявку ' + requestOne._id, type: 'delete'};
-
-        if (requestOne.comment) {
-            historyData.comment = requestOne.comment
-        }
-        const history = new History(historyData);
-        await history.save();
 
         for (let i = 0; i < requestOne.products.length; i++) {
             const product = await Product.findOne({_id: requestOne.products[i].product});

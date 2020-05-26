@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const History = require('../models/History');
 const upload = require('../multer');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
@@ -38,16 +37,8 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
 
         const newUser = new User(createUser);
 
-        const history = new History({
-            title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
-            comment: req.body.comment,
-            type: 'add'
-        });
-
-        await history.save();
-
         newUser.addToken();
-        await newUser.save();
+        await newUser.save(req);
 
         res.send(newUser)
     } catch (e) {
@@ -119,14 +110,7 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
         editableUser.role = user.role;
         editableUser.phone = user.phone;
 
-        await History.create({
-            title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
-            comment: req.body.comment,
-            type: 'edit'
-        });
-        editableUser.addToken();
-
-        await editableUser.save();
+        await editableUser.save(req);
 
         res.send(editableUser);
     } catch (e) {
@@ -188,13 +172,6 @@ router.delete('/:id', isAuth, permit('deleteUser'), async (req, res) => {
 
         user.isRemoved = true;
         user.save(req);
-
-        const history = new History({
-            title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
-            comment: req.body.comment,
-            type: 'delete'
-        });
-        await history.save();
 
         res.send('success')
     } catch (e) {

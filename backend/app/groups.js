@@ -39,7 +39,8 @@ router.post('/', isAuth, permit('addGroup'), async (req, res) => {
 
         if (groupCheck) return res.status(404).send({message: 'Such a group already exists!'});
 
-        const group = await Group.create({name: groupInfo.name, permissions: groupPermissions});
+        const group = new Group({name: groupInfo.name, permissions: groupPermissions});
+        group.save(req)
 
         res.send(group);
     } catch (e) {
@@ -60,7 +61,7 @@ router.put('/edit/:id', isAuth, permit('editGroup'), async (req, res) => {
 
         group.permissions = groupPermissions;
 
-        await group.save();
+        await group.save(req);
 
         res.send(group)
     } catch (e) {
@@ -74,7 +75,7 @@ router.put('/user', isAuth, permit('addGroup'), async (req, res) => {
         const group = await Group.findOne({_id: req.body.group});
         group.list.pull({_id: req.body.user});
 
-        await group.save();
+        await group.save(req);
 
 
         res.send(group)
@@ -101,7 +102,7 @@ router.put('/:id', isAuth, permit('addGroup'), async (req, res) => {
 
             group.list.push({user: groupInfo.list});
             user.save()
-            group.save();
+            group.save(req);
 
             res.send(group)
         }
