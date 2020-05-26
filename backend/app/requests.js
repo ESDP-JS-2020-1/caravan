@@ -209,7 +209,8 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
             await product.save();
         }
 
-        await Request.deleteOne({_id: req.params.id});
+        requestOne.isRemoved = true;
+        requestOne.save(req);
 
         return res.send({message: 'Delete'})
     } catch (e) {

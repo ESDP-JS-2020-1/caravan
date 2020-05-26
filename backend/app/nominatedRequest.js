@@ -39,7 +39,7 @@ router.delete('/:id', isAuth, permit('addRequest'), async (req, res) => {
 
         request.status = 'pending';
 
-        await request.save();
+        request.save();
 
         res.send({message: 'Deleted!'});
     } catch (e) {

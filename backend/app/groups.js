@@ -118,7 +118,8 @@ router.delete('/:id', isAuth, permit('deleteGroup'), async (req, res) => {
             return res.status(404).send({message: 'Group is not defined!'})
         }
 
-        await Group.deleteOne({_id: group._id});
+        group.isRemoved = true;
+        group.save(req)
 
         res.send({message: 'Success'})
     } catch (e) {
