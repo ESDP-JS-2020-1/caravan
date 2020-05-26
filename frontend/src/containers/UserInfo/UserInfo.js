@@ -61,6 +61,7 @@ const UserInfo = props => {
         }
     });
     const coord = userInfo && userInfo.market && userInfo.market.coordinates;
+    console.log(coord)
 
     return (
         <Container>

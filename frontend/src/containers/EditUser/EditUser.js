@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useDispatch, useSelector} from "react-redux";
 
@@ -14,10 +14,11 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
-import {deleteUser, editUser, getUser, getUserSuccess} from "../../store/actions/usersActions";
+import {deleteUser, editUser, getUser} from "../../store/actions/usersActions";
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
+import {Map, Marker, TileLayer} from "react-leaflet";
 
 
 
@@ -61,11 +62,18 @@ const EditUser = props => {
 
     const [open, setOpen] = React.useState(false);
 
+
+
     const [comment, setComment] = React.useState('');
+    const [user, setUser] = React.useState(null);
+    const [coordinate, setCoordinate] = useState({lat: '', lng: ''});
 
     useEffect(() => {
-        dispatch(getUser(props.match.params.id));
-    }, [dispatch, props.match.params.id]);
+        if(editClient === undefined || user === null) dispatch(getUser(props.match.params.id));
+
+        if(editClient && editClient.role === 'market') setCoordinate(coords => editClient.market.coordinates)
+        setUser(user => editClient)
+    }, [dispatch, props.match.params.id, editClient]);
 
     const error = useSelector(state => state.users.error);
 
@@ -76,21 +84,24 @@ const EditUser = props => {
         await dispatch(deleteUser(props.match.params.id, remove))
     };
 
-    const checkboxChangeHandler = e => dispatch(getUserSuccess({
-        ...editClient,
-        courier: {...editClient.courier, carRefrigerator: e.target.checked}
-    }));
-    const inputChangeHandler = e => dispatch(getUserSuccess({...editClient, [e.target.name]: e.target.value}));
-    const phoneChangeHandler = value => dispatch(getUserSuccess({...editClient, phone: value}));
-    const fileChangeHandler = e => dispatch(getUserSuccess({...editClient, [e.target.name]: e.target.files[0]}));
+    const checkboxChangeHandler = e =>setUser({...user, courier: {...user.courier, carRefrigerator: e.target.checked}});
+    const inputChangeHandler = e => {
+        if(e.target.name === 'role' && e.target.value === 'market' && !user.market){
+            return  setUser({...user, [e.target.name]: e.target.value, market: {companyName: '', address: ''}});
+        } else if(e.target.name === 'role' && e.target.value === 'courier' && !user.courier){
+            return  setUser({...user, [e.target.name]: e.target.value, courier: {carName: '', carVolume: '', carRefrigerator: false}});
+        }
+
+        setUser({...user, [e.target.name]: e.target.value});
+    }
+
+    const marketChangeHandler = e => setUser({...user, market: {...user.market,[e.target.name]: e.target.value}});
+    const courierChangeHandler = e => setUser({...user, courier: {...user.courier,[e.target.name]: e.target.value}});
+
+    const phoneChangeHandler = value => setUser({...user, phone: value});
+    const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
     const changeCommentInput = e => {
         setComment(e.target.value)
-    };
-    const changeMarket = (e) => {
-        dispatch(getUserSuccess({...editClient, market: {...editClient.market, [e.target.name]: e.target.value}}))
-    };
-    const changeCourier = (e) => {
-        dispatch(getUserSuccess({...editClient, courier: {...editClient.courier, [e.target.name]: e.target.value}}))
     };
 
     const handleClickOpen = () => setOpen(true);
@@ -100,19 +111,36 @@ const EditUser = props => {
 
     const onSubmit = e => {
         e.preventDefault();
+        const userInfo = {...user}
+        if(userInfo.role === 'market'){
+            delete userInfo.courier
+        } else if(userInfo.role === 'courier'){
+            delete userInfo.market
+        }
         const data = new FormData();
-        Object.keys(editClient).forEach(value => {
+        Object.keys(userInfo).forEach(value => {
             if (value === 'courier') {
-                data.append(value, JSON.stringify(editClient[value]))
+                return  Object.keys(userInfo.courier).forEach(courier => data.append(courier, userInfo.courier[courier]))
             }
             if (value === 'market') {
-                data.append(value, JSON.stringify(editClient[value]))
+                return  Object.keys(userInfo.market).forEach(market => data.append(market, userInfo.market[market]))
             }
-            data.append(value, editClient[value])
+            data.append(value, userInfo[value])
         });
         data.append('comment', comment);
+        data.append('lat', coordinate.lat);
+        data.append('lng', coordinate.lng);
         dispatch(editUser(data, props.match.params.id))
     };
+
+    const addMarker = (event) => {
+
+        if (event.originalEvent.target.id !== 'select'){
+            setCoordinate({...coordinate, lat: event.latlng.lat, lng: event.latlng.lng});
+        }
+
+    };
+
 
     return (
         <Container>
@@ -123,7 +151,7 @@ const EditUser = props => {
                             {wordList[language].editUser.editUserTitle}
                         </Typography>
                     </Box>
-                    <form onSubmit={onSubmit}>
+                    {user && <form onSubmit={onSubmit}>
                         {editClient && <Grid container direction='column' spacing={1}>
                             <Grid item>
                                 <FormElement
@@ -131,7 +159,7 @@ const EditUser = props => {
                                     required
                                     propertyName='username'
                                     title={wordList[language].editUser.inputLogin}
-                                    value={editClient.username}
+                                    value={user.username}
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
@@ -148,7 +176,7 @@ const EditUser = props => {
                                     id="displayName"
                                     propertyName='displayName'
                                     title={wordList[language].editUser.inputName}
-                                    value={editClient.displayName}
+                                    value={user.displayName}
                                     onChange={inputChangeHandler}
                                 />
                             </Grid>
@@ -156,20 +184,20 @@ const EditUser = props => {
                                 <FormElement
                                     propertyName='role'
                                     title={wordList[language].editUser.inputRole}
-                                    value={editClient.role}
+                                    value={user.role}
                                     onChange={inputChangeHandler}
                                     type='select'
                                     options={roles}
                                 />
                             </Grid>
-                            {editClient.role === 'courier' && <>
+                            {user.role === 'courier' && <>
                                 <Grid item>
                                     <FormElement
                                         id='carName'
                                         propertyName='carName'
                                         title={wordList[language].editUser.inputCarName}
-                                        defaultValue={editClient.courier ? editClient.courier.carName : ''}
-                                        onChange={changeCourier}
+                                        defaultValue={user.courier.carName}
+                                        onChange={courierChangeHandler}
                                     />
                                 </Grid>
 
@@ -178,8 +206,8 @@ const EditUser = props => {
                                         id='carVolume'
                                         propertyName='carVolume'
                                         title={wordList[language].editUser.inputCarVolume}
-                                        defaultValue={editClient.courier ? editClient.courier.carVolume : ''}
-                                        onChange={changeCourier}
+                                        defaultValue={user.courier.carVolume}
+                                        onChange={courierChangeHandler}
                                     />
                                 </Grid>
 
@@ -188,8 +216,8 @@ const EditUser = props => {
                                     control={
                                         <Checkbox
                                             id='carRefrigerator'
-                                            checked={editClient.courier ? editClient.courier.carRefrigerator : false}
-                                            value={editClient.courier ? editClient.courier.carRefrigerator : false}
+                                            checked={user.courier ? user.courier.carRefrigerator : false}
+                                            value={user.courier ? user.courier.carRefrigerator : false}
                                             onChange={checkboxChangeHandler}
                                             inputProps={{'aria-label': 'primary checkbox'}}
                                         />
@@ -198,29 +226,51 @@ const EditUser = props => {
                                 />
 
                             </>}
-                            {editClient.role === 'market' && <>
+                            {user.role === 'market' && <>
                                 <Grid item>
                                     <FormElement
                                         propertyName='companyName'
                                         title={wordList[language].editUser.inputCompanyName}
-                                        value={editClient.market ? editClient.market.companyName : ''}
-                                        onChange={changeMarket}
+                                        value={user.market.companyName}
+                                        onChange={marketChangeHandler}
                                     />
                                 </Grid>
                                 <Grid item>
                                     <FormElement
                                         propertyName='address'
                                         title={wordList[language].editUser.inputCompanyAddress}
-                                        value={editClient.market ? editClient.market.address : ''}
-                                        onChange={changeMarket}
+                                        value={user.market.address}
+                                        onChange={marketChangeHandler}
                                     />
+                                </Grid>
+                                <Grid item>
+                                    <FormElement
+                                        disabled
+                                        id='coordinates'
+                                        propertyName='coordinates'
+                                        title={wordList[language].addUser.inputCoordinates}
+                                        value={coordinate.lat + ' ' + coordinate.lng}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>
+                                <Grid>
+                                    {/*42.87658326294315 74.6050579195933*/}
+                                    <div style={{height: '300px'}}>
+                                        <Map onClick={addMarker} center={coordinate.lat ? [coordinate.lat, coordinate.lng] : [42.87658326294315, 74.6050579195933]} zoom={10} style={{background: '#000',height : '100%', width: '100%'}}>
+                                            <TileLayer
+                                                url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
+                                            />
+
+                                            <Marker position={coordinate.lat ? [coordinate.lat, coordinate.lng] : [42.87658326294315, 74.6050579195933]}/>
+                                        </Map>
+                                    </div>
                                 </Grid>
                             </>}
                             <Grid item>
                                 <FormElement
                                     propertyName='avatar'
                                     title={wordList[language].editUser.inputAvatar}
-                                    value={editClient.avatar}
+                                    value={user.avatar}
                                     onChange={fileChangeHandler}
                                     type='file'
                                 />
@@ -231,7 +281,7 @@ const EditUser = props => {
                                     required
                                     className={classes.phoneInput}
                                     defaultCountry={'kg'}
-                                    value={editClient.phone}
+                                    value={user.phone}
                                     onChange={phoneChangeHandler}
                                 />
                             </Grid>
@@ -271,7 +321,7 @@ const EditUser = props => {
                                 </Button>
                             </Grid>
                         </Grid>}
-                    </form>
+                    </form>}
                 </Box>
             </Grid>
             <Modal onClose={handleClose} open={open} title={wordList[language].editUser.modalDeleteTitle}>

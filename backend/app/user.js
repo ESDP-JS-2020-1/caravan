@@ -89,17 +89,18 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
         const editableUser = await User.findOne({_id: req.params.id});
 
         if (user.role === 'market') {
-            user.market = JSON.parse(req.body.market[0]);
-            editableUser.market.companyName = user.market.companyName;
-            editableUser.market.address = user.market.address;
-            editableUser.market.coordinates = user.market.coordinates
+            editableUser.market = {
+                companyName: user.companyName,
+                address: user.address,
+                coordinates: {lat: user.lat, lng: user.lng},
+            }
+            console.log(editableUser.market)
         }
 
         if (user.role === 'courier') {
-            user.courier = JSON.parse(req.body.courier[0]);
-            editableUser.courier.carName = user.courier.carName;
-            editableUser.courier.carVolume = user.courier.carVolume;
-            editableUser.courier.carRefrigerator = user.courier.carRefrigerator;
+            editableUser.courier.carName = user.carName;
+            editableUser.courier.carVolume = user.carVolume;
+            editableUser.courier.carRefrigerator = user.carRefrigerator;
 
         }
 
@@ -111,7 +112,6 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
             const salt = await bcrypt.genSalt(10);
 
             user.password = await bcrypt.hash(user.password, salt);
-            await User.updateOne({_id: req.params.id}, {password: user.password});
         }
 
         editableUser.username = user.username;
@@ -130,6 +130,7 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
 
         res.send(editableUser);
     } catch (e) {
+        console.log(e)
         res.status(500).send(e)
     }
 });
