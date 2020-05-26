@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const addToHistory = require('../plugins/addToHistory');
 
 const GroupSchema = new mongoose.Schema({
     name: {
@@ -19,5 +20,7 @@ const GroupSchema = new mongoose.Schema({
     }],
     permissions: [String]
 });
+
+GroupSchema.plugin(addToHistory)
 
 module.exports = mongoose.model('Group', GroupSchema);

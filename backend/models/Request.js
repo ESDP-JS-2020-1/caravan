@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const addToHistory = require('../plugins/addToHistory');
 
 const Schema = mongoose.Schema;
 
@@ -36,6 +37,7 @@ const RequestSchema = new Schema({
     }
 });
 
+RequestSchema.plugin(addToHistory)
 
 const Request = mongoose.model('Request', RequestSchema);
 
