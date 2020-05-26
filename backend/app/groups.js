@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', isAuth, permit('getGroup'), async (req, res) => {
     try {
-        const groups = await Group.find();
+        const groups = await Group.find({ isRemoved: false });
 
         res.send(groups);
     } catch (e) {

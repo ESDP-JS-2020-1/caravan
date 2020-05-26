@@ -63,7 +63,7 @@ router.get('/', isAuth, async (req, res) => {
 
             return res.send(users)
         }
-        const users = await User.find().populate('group').select({token: 0});
+        const users = await User.find({ isRemoved: false }).populate('group').select({token: 0});
 
         return res.send(users)
     } catch (e) {

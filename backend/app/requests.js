@@ -58,14 +58,17 @@ router.get('/', auth, async (req, res) => {
     try {
         if (req.currentUser.role === 'market') {
 
-            const requests = await Request.find({user: req.currentUser._id})
+            const requests = await Request.find({user: req.currentUser._id, isRemoved: false})
                 .sort({date: -1})
                 .populate('user');
 
             return res.send(requests);
         } else if (req.currentUser.role === 'courier') {
 
-            const requests = await NominatedRequest.find({courier: req.currentUser._id})
+            const requests = await NominatedRequest.find({
+                courier: req.currentUser._id,
+                isRemoved: false
+            })
                 .sort({date: -1})
                 .select({courier: 0})
                 .populate({
@@ -79,7 +82,7 @@ router.get('/', auth, async (req, res) => {
 
             return res.send(requests);
         }
-        const requests = await Request.find()
+        const requests = await Request.find({ isRemoved: false })
             .sort({date: -1})
             .populate('user');
 

@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', auth, async (req, res) => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({ isRemoved: false });
 
         return res.send(products);
     } catch (e) {
