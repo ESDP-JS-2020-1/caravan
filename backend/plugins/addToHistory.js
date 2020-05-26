@@ -7,9 +7,11 @@ module.exports = function (schema) {
     schema.pre('save', function (next, request) {
         type = this.isNew ? 'add' : 'edit';
 
-        if(typeof request === 'object') {
+        if(Object.keys(request).length !== 0) {
             user = request.currentUser;
             if(this.isRemoved) type = 'delete';
+        } else {
+            throw new Error('You must add request to "save"!')
         }
 
         next()
