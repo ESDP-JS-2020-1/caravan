@@ -5,12 +5,12 @@ module.exports = function (schema) {
     let user, type;
 
     schema.pre('save', function (next, request) {
+        type = this.isNew ? 'add' : 'edit';
+
         if(typeof request === 'object') {
             user = request.currentUser;
-            if(request.isRemoved) type = 'delete';
+            if(this.isRemoved) type = 'delete';
         }
-
-        type = this.isNew ? 'add' : 'edit';
 
         next()
     })
