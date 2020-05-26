@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             width: '20ch',
         }
-    }
+    },
 }));
 
 const ProductList = () => {
@@ -131,7 +131,7 @@ const ProductList = () => {
 
     return (
         <>
-            <Grid container direction='column' spacing={1}>
+            <Grid container direction='column' spacing={1} >
                 <Grid item>
                     <Grid container justify='space-between' alignItems='center'>
                         <Grid item>
@@ -161,10 +161,10 @@ const ProductList = () => {
                         /></Box>
                     </Grid>}
                 </Grid>
-                { window.innerWidth > 900 &&  <Grid item>
+                { window.innerWidth > 900 &&  <Grid item >
                     <Paper className={classes.root}>
                     <TableContainer component={Paper}>
-                        <Table aria-label="caption table">
+                        <Table aria-label="caption table" >
                             <TableHead>
                                 <TableRow>
                                     <TableCell className={classes.paddingLeft}><b>{wordList[language].productList.photo}</b></TableCell>
