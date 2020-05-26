@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
 const HistorySchema = new mongoose.Schema({
-    title: {
-        type: String,
-        required: true
+    user: {
+      type: mongoose.Schema.Types.ObjectId
     },
-    comment: String,
+    info: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
+    },
     type: {
         type: String,
         enum: ['edit', 'delete', 'add']
