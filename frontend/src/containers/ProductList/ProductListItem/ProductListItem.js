@@ -26,11 +26,11 @@ const UserListItem = props => {
         avatar: {
             width: '100px',
             height: '100px',
-            transition: '0.7s',
+            transition: '0.4s',
             '&:hover': {
                 transform: 'scale(2.5)',
                 zIndex: '100',
-                marginLeft: '60%',
+                marginLeft: '40%',
             },
         }
     }));
