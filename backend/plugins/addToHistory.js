@@ -10,8 +10,6 @@ module.exports = function (schema) {
         if(Object.keys(request).length !== 0) {
             user = request.currentUser;
             if(this.isRemoved) type = 'delete';
-        } else {
-            throw new Error('You must add request to "save"!')
         }
 
         next()
