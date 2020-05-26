@@ -21,11 +21,17 @@ import {checkPermission} from "../../../CheckPermission";
 const UserListItem = props => {
     const useStyles = makeStyles(() => ({
         offPadding: {
-            padding: props.image ? '0px' : '10px 0'
+            padding: props.image ? '0px' : '10px 0',
         },
         avatar: {
             width: '100px',
-            height: '100px'
+            height: '100px',
+            transition: '0.7s',
+            '&:hover': {
+                transform: 'scale(2.5)',
+                zIndex: '100',
+                marginLeft: '60%',
+            },
         }
     }));
 
