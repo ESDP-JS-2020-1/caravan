@@ -9,15 +9,11 @@ const router = express.Router();
 
 router.get('/', isAuth, permit('getGroup'), async (req, res) => {
     try {
-        const groups = await Group.find({ isRemoved: false });
-
-        if (!groups) {
-            return res.status(404).send({message: 'Groups are not found!'});
-        }
+        const groups = await Group.find();
 
         res.send(groups);
     } catch (e) {
-        res.status(500).send(e)
+        res.status(404).send(e)
     }
 });
 
@@ -25,13 +21,9 @@ router.get('/:id', isAuth, permit('getGroup'), async (req, res) => {
     try {
         const group = await Group.findOne({_id: req.params.id}).populate('list.user');
 
-        if (!group) {
-            return res.status(404).send({message: 'Group is not found!'});
-        }
-
         res.send(group);
     } catch (e) {
-        res.status(500).send(e)
+        res.status(404).send(e)
     }
 });
 
@@ -45,14 +37,12 @@ router.post('/', isAuth, permit('addGroup'), async (req, res) => {
 
         const groupCheck = await Group.findOne({name: groupInfo.name});
 
-        if (groupCheck) return res.status(400).send({message: 'Such group already exists!'});
+        if (groupCheck) return res.status(404).send({message: 'Such a group already exists!'});
 
-        const group = new Group({name: groupInfo.name, permissions: groupPermissions});
-        group.save(req);
+        const group = await Group.create({name: groupInfo.name, permissions: groupPermissions});
 
         res.send(group);
     } catch (e) {
-        res.status(500).send(e)
     }
 });
 
@@ -66,19 +56,15 @@ router.put('/edit/:id', isAuth, permit('editGroup'), async (req, res) => {
 
         const group = await Group.findOne({_id: req.params.id});
 
-        if (!group) {
-            return res.status(404).send({message: 'Group is not found!'});
-        }
-
         group.name = groupInfo.name.name;
 
         group.permissions = groupPermissions;
 
-        await group.save(req);
+        await group.save();
 
         res.send(group)
     } catch (e) {
-        res.status(500).send(e);
+        res.status(404).send(e)
     }
 });
 
@@ -86,18 +72,14 @@ router.put('/user', isAuth, permit('addGroup'), async (req, res) => {
     try {
 
         const group = await Group.findOne({_id: req.body.group});
-
-        if (!group) {
-            return res.status(404).send({message: 'Group is not found!'});
-        }
-
         group.list.pull({_id: req.body.user});
 
-        await group.save(req);
+        await group.save();
 
-        res.send(group);
+
+        res.send(group)
     } catch (e) {
-        res.status(500).send(e);
+
     }
 });
 
@@ -111,11 +93,6 @@ router.put('/:id', isAuth, permit('addGroup'), async (req, res) => {
             return res.status(404).send({message: 'There is no such group'})
         }
         const user = await User.findOne({_id: groupInfo.list[0]});
-
-        if (!user) {
-            return res.status(404).send({message: 'User not found!'});
-        }
-
         user.group.push(group._id);
 
         if (group.list.some(user => groupInfo.list.includes(user.user.toString()))) {
@@ -123,13 +100,13 @@ router.put('/:id', isAuth, permit('addGroup'), async (req, res) => {
         } else {
 
             group.list.push({user: groupInfo.list});
-            user.save();
-            group.save(req);
+            user.save()
+            group.save();
 
             res.send(group)
         }
     } catch (e) {
-        res.status(500).send(e)
+        res.status(404).send(e)
     }
 });
 
@@ -141,12 +118,11 @@ router.delete('/:id', isAuth, permit('deleteGroup'), async (req, res) => {
             return res.status(404).send({message: 'Group is not defined!'})
         }
 
-        group.isRemoved = true;
-        group.save(req);
+        await Group.deleteOne({_id: group._id});
 
         res.send({message: 'Success'})
     } catch (e) {
-        res.status(500).send(e)
+
     }
 });
 

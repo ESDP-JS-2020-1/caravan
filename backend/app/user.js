@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
+const History = require('../models/History');
 const upload = require('../multer');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
@@ -8,181 +9,195 @@ const permit = require('../middleware/permit');
 const router = express.Router();
 
 router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req, res) => {
-	try {
-		const user = req.body;
+    try {
+        const user = req.body;
 
-		const createUser = {
-			username: user.username,
-			password: user.password,
-			displayName: user.displayName,
-			role: user.role,
-			phone: user.phone,
-		};
+        if (req.file) {
+            req.body.avatar = req.file.filename
+        }
 
-		if (req.file) {
-			createUser.avatar = req.file.filename
-		}
+        const createUser = {
+            username: user.username,
+            password: user.password,
+            displayName: user.displayName,
+            role: user.role,
+            avatar: user.avatar,
+            phone: user.phone,
+        };
 
-		if (createUser.role === 'market') createUser.market = {
-			address: user.address,
-			coordinates: user.coordinates,
-			companyName: user.companyName,
-		};
+        if (createUser.role === 'market') createUser.market = {
+            address: user.address,
+            coordinates: user.coordinates,
+            companyName: user.companyName,
+        };
 
-		if (createUser.role === 'courier') createUser.courier = {
-			carName: user.carName,
-			carVolume: user.carVolume,
-			carRefrigerator: user.carRefrigerator
-		};
+        if (createUser.role === 'courier') createUser.courier = {
+            carName: user.carName,
+            carVolume: user.carVolume,
+            carRefrigerator: user.carRefrigerator
+        };
 
-		const newUser = new User(createUser);
+        const newUser = new User(createUser);
 
-		newUser.addToken();
-		await newUser.save(req);
+        const history = new History({
+            title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
+            comment: req.body.comment,
+            type: 'add'
+        });
 
-		res.send(newUser)
-	} catch (e) {
-		res.status(500).send(e)
-	}
+        await history.save();
+
+        newUser.addToken();
+        await newUser.save();
+
+        res.send(newUser)
+    } catch (e) {
+        res.status(404).send(e)
+    }
 });
 
 router.get('/', isAuth, async (req, res) => {
-	try {
-		if (req.query.role) {
-			const users = await User.find({role: req.query.role}).populate('group').select({token: 0});
+    try {
+        if (req.query.role) {
+            const users = await User.find({role: req.query.role}).populate('group').select({token: 0});
 
-			return res.send(users)
-		}
-		const users = await User.find({isRemoved: false}).populate('group').select({token: 0});
+            return res.send(users)
+        }
+        const users = await User.find().populate('group').select({token: 0});
 
-		return res.send(users)
-	} catch (e) {
-		res.status(500).send(e)
-	}
+        return res.send(users)
+    } catch (e) {
+        res.status(500).send(e)
+    }
 });
 
 router.get('/:id', isAuth, async (req, res) => {
-	try {
-		const user = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
+    try {
+        const users = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
 
-		if (!user) {
-			return res.status(404).send({message: 'Not found!'});
-		}
-
-		res.send(user)
-	} catch (e) {
-		res.status(500).send(e)
-	}
+        res.send(users)
+    } catch (e) {
+        res.status(500).send(e)
+    }
 });
 
 router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), async (req, res) => {
-	const user = req.body;
+    const user = req.body;
 
 
-	try {
-		const editableUser = await User.findOne({_id: req.params.id});
+    try {
+        const editableUser = await User.findOne({_id: req.params.id});
 
-		if (user.role === 'market') {
-			editableUser.market = {
-				companyName: user.companyName,
-				address: user.address,
-				coordinates: {lat: user.lat, lng: user.lng},
-			}
-		}
+        if (user.role === 'market') {
+            user.market = JSON.parse(req.body.market[0]);
+            editableUser.market.companyName = user.market.companyName;
+            editableUser.market.address = user.market.address;
+            editableUser.market.coordinates = user.market.coordinates
+        }
 
-		if (user.role === 'courier') {
-			editableUser.courier = {
-				carName: user.carName,
-				carVolume: user.carVolume,
-				carRefrigerator: user.carRefrigerator,
-			}
-		}
+        if (user.role === 'courier') {
+            user.courier = JSON.parse(req.body.courier[0]);
+            editableUser.courier.carName = user.courier.carName;
+            editableUser.courier.carVolume = user.courier.carVolume;
+            editableUser.courier.carRefrigerator = user.courier.carRefrigerator;
 
-		if (req.file) user.avatar = req.file.filename;
+        }
 
-		if (user.avatar) editableUser.avatar = user.avatar;
+        if (req.file) user.avatar = req.file.filename;
 
-		if (user.password) {
-			const salt = await bcrypt.genSalt(10);
+        if (user.avatar) editableUser.avatar = user.avatar;
 
-			user.password = await bcrypt.hash(user.password, salt);
-			await User.updateOne({_id: req.params.id}, {password: user.password});
-		}
+        if (user.password) {
+            const salt = await bcrypt.genSalt(10);
 
-		editableUser.username = user.username;
-		editableUser.displayName = user.displayName;
-		editableUser.role = user.role;
-		editableUser.phone = user.phone;
+            user.password = await bcrypt.hash(user.password, salt);
+            await User.updateOne({_id: req.params.id}, {password: user.password});
+        }
 
-		await editableUser.save(req);
+        editableUser.username = user.username;
+        editableUser.displayName = user.displayName;
+        editableUser.role = user.role;
+        editableUser.phone = user.phone;
 
-		res.send(editableUser);
-	} catch (e) {
-		res.status(500).send(e)
-	}
+        await History.create({
+            title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
+            comment: req.body.comment,
+            type: 'edit'
+        });
+        editableUser.addToken();
+
+        await editableUser.save();
+
+        res.send(editableUser);
+    } catch (e) {
+        res.status(500).send(e)
+    }
 });
 
 
 router.post('/sessions', async (req, res) => {
-		try {
-			const user = await User.findOne({username: req.body.username}).populate('group');
-			if (!user) {
-				res.status(404).send({message: 'Username or password not correct!'});
-			} else {
-				const correctPassword = await bcrypt.compare(req.body.password, user.password);
-				if (!correctPassword) {
-					return res.status(404).send({message: 'Username or password not correct!'});
-				}
-			}
 
-			user.addToken();
-			user.save();
+        const user = await User.findOne({username: req.body.username}).populate('group');
+        if (!user) {
+            res.status(404).send({message: 'Username or password not correct!'});
+        } else {
+            const correctPassword = await bcrypt.compare(req.body.password, user.password);
+            if (!correctPassword) {
+                return res.status(404).send({message: 'Username or password not correct!'});
+            }
+        }
 
-			res.send(user)
-		} catch (e) {
-			return res.status(500).send(e)
-		}
-	}
+        user.addToken();
+        user.save();
+
+        res.send(user)
+    }
 );
 
 router.delete('/sessions', async (req, res) => {
-	const success = {message: "success"};
-	try {
-		const token = req.get('Authorization').split(' ')[1];
+    const success = {message: "success"};
+    try {
+        const token = req.get('Authorization').split(' ')[1];
 
-		if (!token) return res.send(success);
+        if (!token) return res.send(success);
 
-		const user = await User.findOne({token});
+        const user = await User.findOne({token});
 
-		if (!user) return res.send(success);
+        if (!user) return res.send(success);
 
-		user.addToken();
-		await user.save();
+        user.addToken();
+        await user.save();
 
-		return res.send(success);
+        return res.send(success);
 
-	} catch (e) {
-		res.send(success)
-	}
+    } catch (e) {
+        res.send(success)
+    }
 
 });
 
 router.delete('/:id', isAuth, permit('deleteUser'), async (req, res) => {
-	try {
-		const id = req.params.id;
+    try {
+        const id = req.params.id;
 
-		const user = await User.findOne({_id: id});
+        const user = await User.findOne({_id: id});
 
-		if (!user) return res.status(404).send({message: "User not found"});
-		if (user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
+        if (!user) return res.status(404).send({message: "User not found"});
+        if (user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
 
-		user.isRemoved = true;
-		user.save(req);
+        await User.deleteOne({_id: user._id});
 
-		res.send('success')
-	} catch (e) {
-		res.status(500).send(e)
-	}
+        const history = new History({
+            title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
+            comment: req.body.comment,
+            type: 'delete'
+        });
+        await history.save();
+
+        res.send('success')
+    } catch (e) {
+        res.status(500).send(e)
+    }
 });
 
 module.exports = router;

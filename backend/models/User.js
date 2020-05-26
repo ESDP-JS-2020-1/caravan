@@ -54,10 +54,7 @@ const UserSchema = new mongoose.Schema({
         default: 'market'
     },
     avatar: String,
-    group:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Group',
-    }]
+    permissions:[String]
 
 });
 

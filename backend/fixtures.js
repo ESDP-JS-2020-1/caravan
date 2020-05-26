@@ -4,7 +4,9 @@ const config = require("./config");
 const User = require('./models/User');
 const Product = require('./models/Product');
 const Group = require('./models/Group');
+const History = require('./models/History');
 const Request = require('./models/Request');
+const NominatedRequest = require('./models/NominatedRequest');
 const Statistic = require('./models/Statistic');
 
 const run = async () => {
@@ -57,7 +59,7 @@ const run = async () => {
         }
     });
 
-    const [adminGroup, operatorGroup3, marketGroup4] = await Group.create({
+    const [adminGroup, courierGroup2, operatorGroup3, marketGroup4] = await Group.create({
         name: 'Admin group',
         list: [{user: user1}],
         permissions:
@@ -98,7 +100,7 @@ const run = async () => {
     user2.save();
     user3.save();
     user4.save();
-    const [product1] = await Product.create({
+    const [product1, product2, product3] = await Product.create({
         name: 'Продукт-1',
         amount: '10',
         price: '1000 coм',
@@ -116,12 +118,27 @@ const run = async () => {
         productType: 'кг'
     });
 
-    await Request.create({
+    await History.create({
+        title: 'Гриша удалил пользователя Jack',
+        comment: 'I dont know',
+        type: 'delete'
+    }, {
+        title: 'Гриша добавил пользователя Jack',
+        comment: 'No comment',
+        type: 'add'
+    }, {
+        title: 'Гриша редактировал пользователя Jack',
+        comment: 'Change his name',
+        type: 'edit'
+    });
+
+    const request = await Request.create({
         user: user1,
         products: [{
             product: product1,
             amount: '2',
-        }]
+        }],
+        comment: 'bla bla bla'
     });
 
     await Statistic.create({
