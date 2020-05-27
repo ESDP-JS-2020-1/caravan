@@ -62,9 +62,6 @@ const EditUser = props => {
 
     const [open, setOpen] = React.useState(false);
 
-
-
-    const [comment, setComment] = React.useState('');
     const [user, setUser] = React.useState(null);
     const [coordinate, setCoordinate] = useState({lat: '', lng: ''});
 
@@ -78,10 +75,7 @@ const EditUser = props => {
     const error = useSelector(state => state.users.error);
 
     const removeUser = async () => {
-        const remove = {
-            comment: comment
-        };
-        await dispatch(deleteUser(props.match.params.id, remove))
+        await dispatch(deleteUser(props.match.params.id))
     };
 
     const checkboxChangeHandler = e =>setUser({...user, courier: {...user.courier, carRefrigerator: e.target.checked}});
@@ -100,9 +94,6 @@ const EditUser = props => {
 
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
-    const changeCommentInput = e => {
-        setComment(e.target.value)
-    };
 
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -127,7 +118,6 @@ const EditUser = props => {
             }
             data.append(value, userInfo[value])
         });
-        data.append('comment', comment);
         data.append('lat', coordinate.lat);
         data.append('lng', coordinate.lng);
         dispatch(editUser(data, props.match.params.id))
@@ -254,7 +244,6 @@ const EditUser = props => {
                                     />
                                 </Grid>
                                 <Grid>
-                                    {/*42.87658326294315 74.6050579195933*/}
                                     <div style={{height: '300px'}}>
                                         <Map onClick={addMarker} center={coordinate.lat ? [coordinate.lat, coordinate.lng] : [42.87658326294315, 74.6050579195933]} zoom={10} style={{background: '#000',height : '100%', width: '100%'}}>
                                             <TileLayer
@@ -283,15 +272,6 @@ const EditUser = props => {
                                     defaultCountry={'kg'}
                                     value={user.phone}
                                     onChange={phoneChangeHandler}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <FormElement
-                                    id="comment"
-                                    propertyName='comment'
-                                    title={wordList[language].editUser.inputEditComment}
-                                    value={comment}
-                                    onChange={changeCommentInput}
                                 />
                             </Grid>
                             {error && editClient && <Grid item>
@@ -325,15 +305,6 @@ const EditUser = props => {
                 </Box>
             </Grid>
             <Modal onClose={handleClose} open={open} title={wordList[language].editUser.modalDeleteTitle}>
-                <Box ml={2} mr={2}>
-                    <FormElement
-                        id="comment"
-                        propertyName='comment'
-                        title={wordList[language].editUser.inputDeleteComment}
-                        value={comment}
-                        onChange={changeCommentInput}
-                    />
-                </Box>
                 {error && <Box mb={1}>
                     <Alert severity="error">{error}</Alert>
                 </Box>}

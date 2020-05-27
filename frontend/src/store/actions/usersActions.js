@@ -81,11 +81,11 @@ export const addUser = user => async (dispatch, getState) => {
   }
 };
 
-export const deleteUser = (id, comment) => async (dispatch, getState) => {
+export const deleteUser = (id) => async (dispatch, getState) => {
   try {
     const language = getState().language.name;
     dispatch(deleteUserRequest());
-    await axiosApi.delete(`/users/${id}`, {data: comment});
+    await axiosApi.delete(`/users/${id}`);
 
     dispatch(push('/users'));
     dispatch(deleteUserSuccess());
