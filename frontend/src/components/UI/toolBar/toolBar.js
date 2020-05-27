@@ -111,7 +111,7 @@ const ToolBar = () => {
                             </span>
 
                     </Button>}
-                    <Button
+                    {checkPermission('addRequest') && <Button
                         color='primary'
                         className={classes.button}
                         component={NavLink}
@@ -122,7 +122,7 @@ const ToolBar = () => {
                         <span className={classes.line}>
                               {wordList[language].authUserToolBar.requestBtn}
                         </span>
-                    </Button>
+                    </Button>}
                 </>
 
             </Hidden>

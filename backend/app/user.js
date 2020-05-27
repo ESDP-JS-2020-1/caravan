@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const History = require('../models/History');
 const upload = require('../multer');
+const Group = require('../models/Group');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
@@ -146,7 +147,10 @@ router.post('/sessions', async (req, res) => {
                 return res.status(404).send({message: 'Username or password not correct!'});
             }
         }
-
+   let permissions = await Group.find({'list.user':user._id}).select({ "permissions": 1, "_id": 0});
+    const permission = new Set()
+    permissions.forEach(p=>p.permissions.forEach(p=> permission.add(p)));
+    user.permissions= [...permission];
         user.addToken();
         user.save();
 

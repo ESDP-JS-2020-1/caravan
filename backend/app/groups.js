@@ -19,7 +19,7 @@ router.get('/', isAuth, permit('getGroup'), async (req, res) => {
 
 router.get('/:id', isAuth, permit('getGroup'), async (req, res) => {
     try {
-        const group = await Group.findOne({_id: req.params.id});
+        const group = await Group.findOne({_id: req.params.id}).populate('list.user');
 
         res.send(group);
     } catch (e) {
@@ -70,7 +70,6 @@ router.put('/edit/:id', isAuth, permit('editGroup'), async (req, res) => {
 
 router.put('/user', isAuth, permit('addGroup'), async (req, res) => {
     try {
-        console.log(req.body.user);
         const group = await Group.findOne({_id: req.body.group});
         group.list.pull({_id: req.body.user});
 
