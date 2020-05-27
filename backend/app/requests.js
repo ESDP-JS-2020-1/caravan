@@ -122,7 +122,6 @@ router.post('/', [auth, permit('addRequest')], async (req, res) => {
 
         const successfulRequest = await Request.create({
             user: req.currentUser,
-            comment: request.comment,
             products: request.products
         });
 
@@ -165,7 +164,6 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 
         requestOne.user = request.user;
         requestOne.products = request.products;
-        requestOne.comment = request.comment;
 
         requestOne.save(req);
 

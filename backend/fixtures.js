@@ -121,8 +121,7 @@ const run = async () => {
         products: [{
             product: product1,
             amount: '2',
-        }],
-        comment: 'bla bla bla'
+        }]
     });
 
     await Statistic.create({

@@ -25,7 +25,6 @@ const RequestSchema = new Schema({
             required: true
         }
     }],
-    comment: String,
     status: {
         type: String,
         enum: ['pending', 'performed', 'closed'],
