@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get('/', isAuth, permit('viewHistory'), async (req, res) => {
     try {
-        const products = await History.find().sort({date: -1});
+        const products = await History.find().sort({date: -1}).populate('user');
         res.send(products)
     } catch (e) {
         res.status(404).send(e)
