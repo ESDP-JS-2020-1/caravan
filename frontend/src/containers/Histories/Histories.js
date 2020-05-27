@@ -17,11 +17,18 @@ import {getHistoriesList} from "../../store/actions/HistoriesActions";
 
 
 import {wordList} from "../../wordList";
+import {NavLink} from "react-router-dom";
 
 const useStyles = makeStyles({
     table: {
         minWidth: 650,
     },
+    title: {
+        width: '60%',
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    }
 });
 
 const Histories = () => {
@@ -45,37 +52,77 @@ const Histories = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {histories.map((history) => (
-                        <TableRow key={history._id}>
-                            <TableCell component="th" scope="row">
-                                {history.title}
-                            </TableCell>
-                            <TableCell align="right">
-                                {history.type === 'delete' && (
-                                    <Chip
-                                        size="small"
-                                        label={wordList[language].histories.deleteLabel}
-                                        color="secondary"
-                                    />
-                                )}
-                                {history.type === 'add' && (
-                                    <Chip
-                                        size="small"
-                                        label={wordList[language].histories.addLabel}
-                                        color="primary"
-                                    />
-                                )}
-                                {history.type === 'edit' && (
-                                    <Chip
-                                        size="small"
-                                        label={wordList[language].histories.editLabel}
-                                    />
-                                )}
-                            </TableCell>
-                            <TableCell
-                                align="right">{moment(history.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
-                        </TableRow>
-                    ))}
+                    {histories.map((history) => {
+                        const info = history.info;
+
+                        const userName = history.user ? history.user.displayName : 'fixtureOperation';
+                        let operationType = '';
+                        let documentInfo = '';
+
+                        if (userName !== 'fixtureOperation') {
+                            switch (history.type) {
+                                case 'edit':
+                                    operationType = 'редактировал';
+                                    break;
+                                case 'delete':
+                                    operationType = 'удалил';
+                                    break;
+                                case 'add':
+                                    operationType = 'добавил';
+                                    break;
+                            }
+                        }
+
+                        if (userName !== 'fixtureOperation') {
+                            if (info.displayName) {
+                                documentInfo = info.displayName;
+                                operationType += ' пользователя'
+                            }
+                            if (info.name) documentInfo = info.name;
+                            if (info.status) documentInfo = 'звавку';
+                        }
+
+                        return (
+                            <TableRow key={history._id}>
+                                <TableCell component="th" scope="row">
+                                    {
+                                        <div className={classes.title}>
+                                            <b>{userName}</b>
+                                            <p>{operationType}</p>
+                                            {documentInfo === 'звавку' ?
+                                                <NavLink exact to={`/requests/${info._id}`}>{documentInfo}</NavLink> :
+                                                <p>{documentInfo}</p>}
+                                        </div>
+                                        // `${userName} ${operationType}`
+                                    }
+                                </TableCell>
+                                <TableCell align="right">
+                                    {history.type === 'delete' && (
+                                        <Chip
+                                            size="small"
+                                            label={wordList[language].histories.deleteLabel}
+                                            color="secondary"
+                                        />
+                                    )}
+                                    {history.type === 'add' && (
+                                        <Chip
+                                            size="small"
+                                            label={wordList[language].histories.addLabel}
+                                            color="primary"
+                                        />
+                                    )}
+                                    {history.type === 'edit' && (
+                                        <Chip
+                                            size="small"
+                                            label={wordList[language].histories.editLabel}
+                                        />
+                                    )}
+                                </TableCell>
+                                <TableCell
+                                    align="right">{moment(history.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
+                            </TableRow>
+                        )
+                    })}
                 </TableBody>
             </Table>
         </TableContainer>

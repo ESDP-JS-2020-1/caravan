@@ -120,17 +120,18 @@ router.post('/', [auth, permit('addRequest')], async (req, res) => {
             if (product.amount < request.products[i].amount) return res.status(400).send({error: `One of products in request has more products than is in stock!`});
         }
 
-        const successfulRequest = await Request.create({
+        const successfulRequest = new Request({
             user: req.currentUser,
             products: request.products
         });
+        successfulRequest.save(req);
 
         for (let i = 0; i < request.products.length; i++) {
             const product = await Product.findOne({_id: request.products[i].product});
 
             product.amount = product.amount - request.products[i].amount
 
-            await product.save();
+            await product.save(req);
         }
 
         return res.send(successfulRequest);
