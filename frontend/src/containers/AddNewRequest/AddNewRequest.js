@@ -12,7 +12,6 @@ import {makeStyles} from "@material-ui/core/styles";
 
 import {createRequest, createRequestInit} from "../../store/actions/requestsActions";
 import AddNewRequestItem from "./AddNewRequestItem/AddNewRequestItem";
-import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
 import Alert from "@material-ui/lab/Alert";
 
@@ -77,8 +76,7 @@ const AddNewRequest =() => {
             product: '',
             amount: '',
             productInfo: ''
-        }],
-        comment: ''
+        }]
     });
 
     const [expanded, setExpanded] = React.useState(false);
@@ -104,8 +102,6 @@ const AddNewRequest =() => {
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-
-    const commentChange = e => setRequest({...request, comment: e.target.value});
 
     const addRequest = (e) => {
         e.preventDefault();
@@ -170,14 +166,6 @@ const AddNewRequest =() => {
                                     r={r}
                                 />
                             ))}
-
-                            <FormElement
-                                id='comment'
-                                propertyName='comment'
-                                title={wordList[language].addNewRequest.commentTitle}
-                                value={request.comment}
-                                onChange={commentChange}
-                            />
 
                             {error &&
                             <Alert severity="error">
