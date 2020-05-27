@@ -10,18 +10,27 @@ router.get('/', auth, async (req, res) => {
     try {
         const products = await Product.find({ isRemoved: false });
 
+        if (!products) {
+            return res.status(404).send({message: 'Products are not found!'});
+        }
+
         return res.send(products);
     } catch (e) {
-        res.status(400).send(e);
+        res.status(500).send(e);
     }
 });
 router.get('/:id', auth, async (req, res) => {
 
     try {
         const product = await Product.findOne({_id: req.params.id});
+
+        if (!product) {
+            return res.status(404).send({message: 'Product not found!'});
+        }
+
         res.send(product)
     } catch (e) {
-        res.status(400).send(e);
+        res.status(500).send(e);
     }
 });
 
@@ -37,7 +46,7 @@ router.post('/', [auth, permit('addProduct'), upload.single('image')], async (re
 
         return res.send({message: 'success'});
     } catch (e) {
-        res.status(400).send(e);
+        res.status(500).send(e);
     }
 });
 
@@ -58,7 +67,7 @@ router.put('/:id', auth, permit('editProduct'), upload.single('file'), async (re
         productOne.save(req);
         return res.send(productOne);
     } catch (e) {
-        res.status(404).send(e)
+        res.status(500).send(e)
     }
 });
 
