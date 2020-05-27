@@ -18,8 +18,7 @@ router.get('/product/:id/:date', isAuth, async (req, res) => {
 
         res.send({product, statistic})
     } catch (e) {
-        console.log(e);
-        res.status(404).send(e)
+        res.status(500).send(e)
     }
 });
 
@@ -34,8 +33,7 @@ router.get('/user/:id/:date', isAuth, async (req, res) => {
 
         res.send({user, statistic})
     } catch (e) {
-        console.log(e);
-        res.status(404).send(e)
+        res.status(500).send(e)
     }
 });
 
