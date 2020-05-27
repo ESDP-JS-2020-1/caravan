@@ -40,7 +40,6 @@ const Histories = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell>{wordList[language].histories.tableInfo}</TableCell>
-                        <TableCell align="right">{wordList[language].histories.tableComment}</TableCell>
                         <TableCell align="right">{wordList[language].histories.tableType}</TableCell>
                         <TableCell align="right">{wordList[language].histories.tableDate}</TableCell>
                     </TableRow>
@@ -51,7 +50,6 @@ const Histories = () => {
                             <TableCell component="th" scope="row">
                                 {history.title}
                             </TableCell>
-                            <TableCell align="right">{history.comment}</TableCell>
                             <TableCell align="right">
                                 {history.type === 'delete' && (
                                     <Chip
