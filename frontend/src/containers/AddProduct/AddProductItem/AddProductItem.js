@@ -97,15 +97,6 @@ const AddProductItem = (
 									type='file'
 								/>
 							</Grid>
-							<Grid item style={{marginTop: '2%'}}>
-								<FormElement
-									id="comment"
-									propertyName='comment'
-									title={wordList[language].addProductItem.inputComment}
-									value={product[index].comment}
-									onChange={(e) => onChange(e, index)}
-								/>
-							</Grid>
 						</Box>
 					</ExpansionPanelDetails>
 				</ExpansionPanel>

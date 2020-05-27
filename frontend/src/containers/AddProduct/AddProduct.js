@@ -68,7 +68,6 @@ const AddProduct = () => {
         productType: '',
         price: '',
         image: '',
-        comment: '',
         isRefrigeratorRequired: false
     }]);
     const [expanded, setExpanded] = React.useState(false);
@@ -109,7 +108,6 @@ const AddProduct = () => {
             productType: '',
             price: '',
             image: '',
-            comment: '',
             isRefrigeratorRequired: false
         }] : [{
             name: '',
@@ -117,7 +115,6 @@ const AddProduct = () => {
             productType: '',
             price: '',
             image: '',
-            comment: '',
             isRefrigeratorRequired: false
         }];
 
