@@ -71,7 +71,6 @@ const AddUser = () => {
         carName: '',
         carVolume: '',
         carRefrigerator: false,
-        comment: '',
         coordinates: {}
     });
 
@@ -234,15 +233,6 @@ const AddUser = () => {
                                     className={classes.phoneInput}
                                     defaultCountry={'kg'}
                                     onChange={phoneChangeHandler}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <FormElement
-                                    id="comment"
-                                    propertyName='comment'
-                                    title={wordList[language].addUser.inputComment}
-                                    value={user.comment}
-                                    onChange={inputChangeHandler}
                                 />
                             </Grid>
                             {error && <Grid item>
