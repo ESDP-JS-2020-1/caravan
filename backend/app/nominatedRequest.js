@@ -23,11 +23,11 @@ router.post('/', isAuth, permit('addRequest'), async (req, res) => {
 
         await request.save();
 
-        const NewNominatedRequest = await NominatedRequest.create(whiteList);
+        const newNominatedRequest = await NominatedRequest.create(whiteList);
 
-        res.send(NewNominatedRequest);
+        res.send(newNominatedRequest);
     } catch (e) {
-        res.status(404).send(e);
+        res.status(500).send(e);
     }
 });
 
@@ -43,7 +43,7 @@ router.delete('/:id', isAuth, permit('addRequest'), async (req, res) => {
 
         res.send({message: 'Deleted!'});
     } catch (e) {
-        res.status(404).send(e);
+        res.status(500).send(e);
     }
 });
 
