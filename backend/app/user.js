@@ -1,9 +1,8 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
-const History = require('../models/History');
-const upload = require('../multer');
 const Group = require('../models/Group');
+const upload = require('../multer');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
@@ -13,18 +12,17 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
     try {
         const user = req.body;
 
-        if (req.file) {
-            req.body.avatar = req.file.filename
-        }
-
         const createUser = {
             username: user.username,
             password: user.password,
             displayName: user.displayName,
             role: user.role,
-            avatar: user.avatar,
             phone: user.phone,
         };
+
+        if (req.file) {
+            createUser.avatar = req.file.filename
+        }
 
         if (createUser.role === 'market') createUser.market = {
             address: user.address,
@@ -40,20 +38,12 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
 
         const newUser = new User(createUser);
 
-        const history = new History({
-            title: req.currentUser.displayName + ' добавил пользователя ' + user.displayName,
-            comment: req.body.comment,
-            type: 'add'
-        });
-
-        await history.save();
-
         newUser.addToken();
-        await newUser.save();
+        await newUser.save(req);
 
         res.send(newUser)
     } catch (e) {
-        res.status(404).send(e)
+        res.status(500).send(e)
     }
 });
 
@@ -64,7 +54,7 @@ router.get('/', isAuth, async (req, res) => {
 
             return res.send(users)
         }
-        const users = await User.find().populate('group').select({token: 0});
+        const users = await User.find({isRemoved: false}).populate('group').select({token: 0});
 
         return res.send(users)
     } catch (e) {
@@ -74,9 +64,13 @@ router.get('/', isAuth, async (req, res) => {
 
 router.get('/:id', isAuth, async (req, res) => {
     try {
-        const users = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
+        const user = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
 
-        res.send(users)
+        if (!user) {
+            return res.status(404).send({message: 'Not found!'});
+        }
+
+        res.send(user)
     } catch (e) {
         res.status(500).send(e)
     }
@@ -90,18 +84,19 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
         const editableUser = await User.findOne({_id: req.params.id});
 
         if (user.role === 'market') {
-            user.market = JSON.parse(req.body.market[0]);
-            editableUser.market.companyName = user.market.companyName;
-            editableUser.market.address = user.market.address;
-            editableUser.market.coordinates = user.market.coordinates
+            editableUser.market = {
+                companyName: user.companyName,
+                address: user.address,
+                coordinates: {lat: user.lat, lng: user.lng},
+            }
         }
 
         if (user.role === 'courier') {
-            user.courier = JSON.parse(req.body.courier[0]);
-            editableUser.courier.carName = user.courier.carName;
-            editableUser.courier.carVolume = user.courier.carVolume;
-            editableUser.courier.carRefrigerator = user.courier.carRefrigerator;
-
+            editableUser.courier = {
+                carName: user.carName,
+                carVolume: user.carVolume,
+                carRefrigerator: user.carRefrigerator,
+            }
         }
 
         if (req.file) user.avatar = req.file.filename;
@@ -120,14 +115,7 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
         editableUser.role = user.role;
         editableUser.phone = user.phone;
 
-        await History.create({
-            title: req.currentUser.displayName + ' редактировал пользователя ' + user.displayName,
-            comment: req.body.comment,
-            type: 'edit'
-        });
-        editableUser.addToken();
-
-        await editableUser.save();
+        await editableUser.save(req);
 
         res.send(editableUser);
     } catch (e) {
@@ -137,24 +125,27 @@ router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), asy
 
 
 router.post('/sessions', async (req, res) => {
-
-        const user = await User.findOne({username: req.body.username}).populate('group');
-        if (!user) {
-            res.status(404).send({message: 'Username or password not correct!'});
-        } else {
-            const correctPassword = await bcrypt.compare(req.body.password, user.password);
-            if (!correctPassword) {
-                return res.status(404).send({message: 'Username or password not correct!'});
+        try {
+            const user = await User.findOne({username: req.body.username}).populate('group');
+            if (!user) {
+                res.status(404).send({message: 'Username or password not correct!'});
+            } else {
+                const correctPassword = await bcrypt.compare(req.body.password, user.password);
+                if (!correctPassword) {
+                    return res.status(404).send({message: 'Username or password not correct!'});
+                }
             }
-        }
-   let permissions = await Group.find({'list.user':user._id}).select({ "permissions": 1, "_id": 0});
-    const permission = new Set()
-    permissions.forEach(p=>p.permissions.forEach(p=> permission.add(p)));
-    user.permissions= [...permission];
-        user.addToken();
-        user.save();
+            let permissions = await Group.find({'list.user':user._id}).select({ "permissions": 1, "_id": 0});
+            const permission = new Set()
+            permissions.forEach(p=>p.permissions.forEach(p=> permission.add(p)));
+           user.permissions= [...permission];
+            user.addToken();
+            user.save();
 
-        res.send(user)
+            res.send(user)
+        } catch (e) {
+            return res.status(500).send(e)
+        }
     }
 );
 
@@ -189,14 +180,8 @@ router.delete('/:id', isAuth, permit('deleteUser'), async (req, res) => {
         if (!user) return res.status(404).send({message: "User not found"});
         if (user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
 
-        await User.deleteOne({_id: user._id});
-
-        const history = new History({
-            title: req.currentUser.displayName + ' удалил пользователя ' + user.displayName,
-            comment: req.body.comment,
-            type: 'delete'
-        });
-        await history.save();
+        user.isRemoved = true;
+        user.save(req);
 
         res.send('success')
     } catch (e) {
