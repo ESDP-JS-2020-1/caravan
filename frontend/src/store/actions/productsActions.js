@@ -115,12 +115,12 @@ export const putEditProduct = (id, data) => {
 
     }
 };
-export const deleteProduct = (id, comment) => {
+export const deleteProduct = (id) => {
     return async (dispatch, getState) => {
         try {
             const language = getState().language.name;
             dispatch(deleteProductRequest());
-            await axiosApi.delete(`/products/${id}`, {data: comment});
+            await axiosApi.delete(`/products/${id}`);
             dispatch(deleteProductSuccess());
 
             notification.addNotification({
