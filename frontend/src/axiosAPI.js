@@ -1,5 +1,5 @@
 import axios from 'axios';
-import apiURL from "./apiURL";
+import {apiURL} from "./config";
 import {store} from "./store/configureStore";
 
 const axiosApi = axios.create({

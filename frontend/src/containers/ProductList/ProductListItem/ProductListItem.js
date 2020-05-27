@@ -10,7 +10,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
 
-import apiURL from "../../../apiURL";
+import {apiURL} from "../../../config";
 import {wordList} from "../../../wordList";
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import Button from "@material-ui/core/Button";
