@@ -68,9 +68,13 @@ const EditUser = props => {
     useEffect(() => {
         if(editClient === undefined || user === null) dispatch(getUser(props.match.params.id));
 
-        if(editClient && editClient.role === 'market') setCoordinate(coords => editClient.market.coordinates)
-        setUser(user => editClient)
-    }, [dispatch, props.match.params.id, editClient]);
+        if(editClient && editClient.role === 'market') {
+            setCoordinate(coords => editClient.market.coordinates)
+        }
+        if(editClient && user === null){
+            setUser(user => editClient)
+        }
+    }, [dispatch, props.match.params.id, editClient, user]);
 
     const error = useSelector(state => state.users.error);
 
