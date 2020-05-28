@@ -53,7 +53,8 @@ const Histories = () => {
                 </TableHead>
                 <TableBody>
                     {histories.map((history) => {
-                        const info = history.info;
+                        const info = history.info.data;
+                        const schemaNameInPlural = history.info.schemaNameInPlural;
 
                         const userName = history.user ? history.user.displayName : 'fixtureOperation';
                         let operationType = '';
@@ -92,11 +93,8 @@ const Histories = () => {
                                         <div className={classes.title}>
                                             <b>{userName}</b>
                                             <p>{operationType}</p>
-                                            {documentInfo === 'звавку' ?
-                                                <NavLink exact to={`/requests/${info._id}`}>{documentInfo}</NavLink> :
-                                                <p>{documentInfo}</p>}
+                                            {<NavLink exact to={`/${schemaNameInPlural}/${info._id}`}>{documentInfo}</NavLink>}
                                         </div>
-                                        // `${userName} ${operationType}`
                                     }
                                 </TableCell>
                                 <TableCell align="right">
