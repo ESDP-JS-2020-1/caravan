@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import {wordList} from "../../wordList";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -67,6 +68,7 @@ const EditGroup = props => {
 
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups.group);
+    const language = useSelector(state => state.language.name);
 
     const [groupInfo, setGroupInfo] = useState({name: ''});
     const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
@@ -120,7 +122,7 @@ const EditGroup = props => {
                                 id='groupName'
                                 required
                                 propertyName='name'
-                                title='Название'
+                                title={wordList[language].editGroup.title}
                                 value={groupInfo.name}
                                 onChange={changeGroupInfo}
                             />
@@ -131,7 +133,7 @@ const EditGroup = props => {
                                 variant='contained'
                                 color='primary'
                                 onClick={() => dispatch(editGroup({name: groupInfo, permissions: checkboxes}, props.match.params.id))}
-                            >Редактировать</Button>
+                            >{wordList[language].editGroup.btn}</Button>
                         </Grid>
                     </Grid>
                     {Object.keys(initialCheckboxes).map((elem, id) => (

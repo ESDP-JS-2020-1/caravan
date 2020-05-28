@@ -12,7 +12,8 @@ export const wordList = {
             isRefrigeratorRequired: 'Наличие холодильника для перевозки',
             searchProduct: 'Поиск продуктов',
             addNewProduct: 'Добавить новые продукты',
-            productListTitle: 'Список продуктов'
+            productListTitle: 'Список продуктов',
+            statisticBtn: 'Смотреть статистику'
         },
         loginBtn: 'Вход',
         authUserToolBar: {
@@ -68,6 +69,7 @@ export const wordList = {
             addUserToGroupUserName: 'Имя',
             addUserToGroupInfo: 'Информация',
             addUserToGroupBtn: 'Добавить в группу',
+            editGroupBtn: 'Редактировать',
             deleteGroupBtn: 'Удалить группу',
             deleteModal: 'Вы уверены что хотите удалить эту группу?',
             deleteBtnNeg: 'Нет',
@@ -259,6 +261,10 @@ export const wordList = {
             statisticTitle: 'Статистика',
             statisticSearchFieldTitle: 'Получить статистику за указанное количество дней',
             salesStatistics: 'Статистика продаж'
+        },
+        editGroup: {
+            title: 'Название',
+            btn: 'Редактировать'
         }
     },
 
@@ -276,7 +282,8 @@ export const wordList = {
             isRefrigeratorRequired: 'Ташуу үчүн муздаткычтын болушу',
             searchProduct: 'Продукцияны издөө',
             addNewProduct: 'Жаңы продукттарды кошуу',
-            productListTitle: 'Продукт тизмеси'
+            productListTitle: 'Продукт тизмеси',
+            statisticBtn: 'Статистиканы көрүү'
         },
         loginBtn: 'Кирүү',
         authUserToolBar: {
@@ -332,6 +339,7 @@ export const wordList = {
             addUserToGroupUserName: 'Аты',
             addUserToGroupInfo: 'Маалымат',
             addUserToGroupBtn: 'Тобуна кошуу',
+            editGroupBtn: 'Түзөө',
             deleteGroupBtn: 'Тобун жок кылуу',
             deleteModal: 'Бул топту чын эле жок кылгыңыз келеби?',
             deleteBtnNeg: 'Жок',
@@ -523,6 +531,10 @@ export const wordList = {
             statisticTitle: 'Статистика',
             statisticSearchFieldTitle: 'Киргизилген күндөрдүн санын статистикасын алуу',
             salesStatistics: 'Сатуу статистикасы'
+        },
+        editGroup: {
+            title: 'Аты',
+            btn: 'Түзөө'
         }
     }
 };
