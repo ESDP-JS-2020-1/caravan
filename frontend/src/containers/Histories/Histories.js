@@ -70,6 +70,9 @@ const Histories = () => {
                                 case 'add':
                                     operationType = 'добавил';
                                     break;
+                                default:
+                                    operationType = 'Not found';
+                                    break;
                             }
                         }
 
