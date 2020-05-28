@@ -20,6 +20,8 @@ export const wordList = {
             requestBtn: 'Подать заявку',
             greeting: 'Привет',
             logoutBtn: 'Выйти',
+            accountBtn: 'Информация об аккаунте',
+            statisticBtn: 'Моя статистика'
         },
         navigation: {
             logo: 'Караван',
@@ -290,6 +292,8 @@ export const wordList = {
             requestBtn: 'Өтүнүч берүү',
             greeting: 'Салам',
             logoutBtn: 'Чыгуу',
+            accountBtn: 'Эсептин маалыматы',
+            statisticBtn: 'Менин статистикам'
         },
         navigation: {
             logo: 'Караван',
