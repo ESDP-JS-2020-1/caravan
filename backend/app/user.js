@@ -66,6 +66,8 @@ router.get('/:id', isAuth, async (req, res) => {
     try {
         const user = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
 
+        if (user.market) user.market.coordinates = JSON.parse(user.market.coordinates);
+
         if (!user) {
             return res.status(404).send({message: 'Not found!'});
         }
