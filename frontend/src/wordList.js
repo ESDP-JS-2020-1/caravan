@@ -262,7 +262,7 @@ export const wordList = {
             deleteRequestMessage: 'Заявка успешно удалена'
         },
         statistic: {
-            statisticTitle: 'Статистика',
+            statisticTitle: 'Статистика покупок',
             statisticSearchFieldTitle: 'Получить статистику за указанное количество дней',
             salesStatistics: 'Статистика продаж'
         },
@@ -536,7 +536,7 @@ export const wordList = {
             deleteRequestMessage: 'Өтүнүч ийгиликтүү жок кылынды'
         },
         statistic: {
-            statisticTitle: 'Статистика',
+            statisticTitle: 'Сатып алуу статистикасы',
             statisticSearchFieldTitle: 'Киргизилген күндөрдүн санын статистикасын алуу',
             salesStatistics: 'Сатуу статистикасы'
         },
