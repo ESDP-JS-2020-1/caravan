@@ -70,7 +70,7 @@ const UserListItem = props => {
                     component={NavLink}
                     to={`/product/stat/${props.id}/7`}
                 >
-                    Смотреть статистику
+                    {wordList[language].productList.statisticBtn}
                 </Button>}
             </TableCell>
         </TableRow>
