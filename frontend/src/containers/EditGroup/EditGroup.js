@@ -56,7 +56,7 @@ const EditGroup = props => {
     const permissions = useSelector(state => state.groups.permissions);
 
     const [groupInfo, setGroupInfo] = useState({name: ''});
-    const [checkboxes, setCheckboxes] = useState(null);
+    const [checkboxes, setCheckboxes] = useState(undefined);
 
 
     const changeGroupInfo = e => setGroupInfo({...groupInfo, [e.target.name]: e.target.value});
@@ -65,7 +65,7 @@ const EditGroup = props => {
 
     useEffect(() => {
 
-        if(group.permissions === undefined) {
+        if(checkboxes === undefined) {
             dispatch(getGroup(props.match.params.id));
             if(permissions === undefined) dispatch(getPermissions())
         }
