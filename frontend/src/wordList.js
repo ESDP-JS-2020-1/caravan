@@ -128,7 +128,7 @@ export const wordList = {
         editProduct: {
             editProductTitle: 'Редактирование продукта',
             inputTitle: 'Название',
-            inputQty: 'Количество',
+            inputQty: 'Сколько нужно добавить продуктов',
             inputPrice: 'Цена',
             inputRefrigerator: 'Необходим ли холодильник для перевозки?',
             inputImg: 'Изображение',

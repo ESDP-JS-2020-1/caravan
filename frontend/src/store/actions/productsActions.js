@@ -88,6 +88,8 @@ export const getProductEdit = id => {
         try {
             dispatch(getProductRequest());
             const response = await axiosApi.get('/products/' + id);
+
+            response.data.addProduct = '';
             dispatch(getProductSuccess(response.data))
         } catch (e) {
             dispatch(getProductFailure(e))

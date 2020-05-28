@@ -105,11 +105,15 @@ const EditProduct = (props) => {
                                 onChange={changeHandler}
                                 value={editProduct.name}
                             />
+                            <span style={{padding: '10px 0 20px', fontSize: '20px'}} >
+                                <b>На складе есть: </b> {editProduct.amount}
+                            </span>
                             <FormElement
-                                propertyName={'amount'}
+                                type='number'
+                                propertyName={'addProduct'}
                                 title={wordList[language].editProduct.inputQty}
                                 onChange={changeHandler}
-                                value={editProduct.amount}
+                                value={editProduct.addProduct}
                             />
                             <FormElement
                                 propertyName={'price'}
