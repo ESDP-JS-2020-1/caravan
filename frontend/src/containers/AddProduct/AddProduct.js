@@ -102,21 +102,16 @@ const AddProduct = () => {
     const addProduct = (e) => {
         e.preventDefault();
 
-        const newProduct = product[0] ? [...product, {
+        const productInfo = {
             name: '',
             amount: '',
             productType: '',
             price: '',
             image: '',
             isRefrigeratorRequired: false
-        }] : [{
-            name: '',
-            amount: '',
-            productType: '',
-            price: '',
-            image: '',
-            isRefrigeratorRequired: false
-        }];
+        }
+
+        const newProduct = product[0] ? [...product, productInfo] : [productInfo];
 
         setProduct(newProduct)
     };
