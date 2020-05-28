@@ -11,6 +11,7 @@ import {
 import {getUsers} from "./usersActions";
 import {store as notification} from "react-notifications-component";
 import config from "../../config";
+import {wordList} from "../../wordList";
 
 const getPermissionsSuccess = permission => ({type: GET_PERMISSIONS_SUCCESS, permission });
 const getGroupsRequest = () => ({type: GET_GROUPS_REQUEST});
@@ -27,13 +28,14 @@ export const getPermissions = () => async dispatch => {
   dispatch(getPermissionsSuccess(permissions.data))
 };
 
-export const addNewGroup = group => async dispatch => {
+export const addNewGroup = group => async (dispatch, getState) => {
+    const language = getState().language.name;
     await axiosApi.post('/groups', group);
-    dispatch(push('/groups'))
+    dispatch(push('/groups'));
 
     notification.addNotification({
-        title: "Добавление группы",
-        message: "Группа успешно обавлена!",
+        title: (wordList[language].groupActions.addGroupTitle),
+        message: (wordList[language].groupActions.addGroupMessage),
         ...config.notification
     });
 };

@@ -269,6 +269,10 @@ export const wordList = {
         editGroup: {
             title: 'Название',
             btn: 'Редактировать'
+        },
+        groupActions: {
+            addGroupTitle: 'Добавление группы',
+            addGroupMessage: 'Группа успешно добавлена!'
         }
     },
 
@@ -543,6 +547,10 @@ export const wordList = {
         editGroup: {
             title: 'Аты',
             btn: 'Түзөө'
+        },
+        groupActions: {
+            addGroupTitle: 'Топту кошуу',
+            addGroupMessage: 'Топ ийгиликтүү кошулду!'
         }
     }
 };
