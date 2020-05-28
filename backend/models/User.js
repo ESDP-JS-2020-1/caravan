@@ -78,8 +78,10 @@ UserSchema.methods.addToken = function () {
     this.token = nanoid();
 };
 
-UserSchema.plugin(addToHistory)
+const schemaName = 'User';
 
-const User = mongoose.model('User', UserSchema);
+UserSchema.plugin(addToHistory, { schemaName })
+
+const User = mongoose.model(schemaName, UserSchema);
 
 module.exports = User;
