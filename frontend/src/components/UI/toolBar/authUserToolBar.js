@@ -71,12 +71,14 @@ const AuthUserToolBar = () => {
 				<MenuItem
 					component={NavLink}
 					to={`/user/${user._id}`}
+					onClick={handleClose}
 				>
 					{wordList[language].authUserToolBar.accountBtn}
 				</MenuItem>
 				{checkPermission('getStatistic') &&<MenuItem
 					component={NavLink}
 					to={`/users/stat/${user._id}/7`}
+					onClick={handleClose}
 				>
 					{wordList[language].authUserToolBar.statisticBtn}
 				</MenuItem>}
