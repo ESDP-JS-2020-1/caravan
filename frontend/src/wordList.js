@@ -92,6 +92,7 @@ export const wordList = {
         addNewRequestItem: {
             btnTitle: 'Название',
             btnQty: 'Количество',
+            productQty: 'На складе есть: '
         },
         addProduct: {
             addProductTitle: 'Добавление продуктов',
@@ -364,6 +365,7 @@ export const wordList = {
         addNewRequestItem: {
             btnTitle: 'Аты',
             btnQty: 'Саны',
+            productQty: 'Сактоочу бөлмөдө: '
         },
         addProduct: {
             addProductTitle: 'Продуктту кошуу',
