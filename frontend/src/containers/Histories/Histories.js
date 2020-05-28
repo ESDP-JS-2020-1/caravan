@@ -93,7 +93,9 @@ const Histories = () => {
                                         <div className={classes.title}>
                                             <b>{userName}</b>
                                             <p>{operationType}</p>
-                                            {<NavLink exact to={`/${schemaNameInPlural}/${info._id}`}>{documentInfo}</NavLink>}
+                                            {history.type === 'delete' ?
+                                                <p>{documentInfo}</p>  :
+                                                <NavLink exact to={`/${schemaNameInPlural}/${info._id}`}>{documentInfo}</NavLink>}
                                         </div>
                                     }
                                 </TableCell>
