@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {editGroup, getGroup} from "../../store/actions/groupActions";
+import {editGroup, getGroup, getPermissions} from "../../store/actions/groupActions";
 import {useDispatch, useSelector} from "react-redux";
 import FormElement from "../../components/UI/Form/FormElement";
 import Grid from "@material-ui/core/Grid";
@@ -48,30 +48,15 @@ const useStyles = makeStyles({
 
 const EditGroup = props => {
     const classes = useStyles();
-    const initialCheckboxes = {
-        addUser: false,
-        deleteUser: false,
-        editUser: false,
-        addProduct: false,
-        getStatistic: false,
-        deleteProduct: false,
-        editProduct: false,
-        getGroup: false,
-        addGroup: false,
-        deleteGroup: false,
-        addRequest: false,
-        editGroup: false,
-        deleteRequest: false,
-        editRequest: false,
-        viewHistory: false
-    };
 
     const dispatch = useDispatch();
     const group = useSelector(state => state.groups.group);
     const language = useSelector(state => state.language.name);
 
+    const permissions = useSelector(state => state.groups.permissions);
+
     const [groupInfo, setGroupInfo] = useState({name: ''});
-    const [checkboxes, setCheckboxes] = useState(initialCheckboxes);
+    const [checkboxes, setCheckboxes] = useState(null);
 
 
     const changeGroupInfo = e => setGroupInfo({...groupInfo, [e.target.name]: e.target.value});
@@ -80,37 +65,25 @@ const EditGroup = props => {
 
     useEffect(() => {
 
-        if(group.permissions ) {
-            const groupPermissions = [...group.permissions];
-            const permissions = {
-                addUser: false,
-                deleteUser: false,
-                editUser: false,
-                addProduct: false,
-                getStatistic: false,
-                deleteProduct: false,
-                editProduct: false,
-                getGroup: false,
-                addGroup: false,
-                deleteGroup: false,
-                addRequest: false,
-                editGroup: false,
-                deleteRequest: false,
-                editRequest: false,
-                viewHistory: false
-            };
+        if(group.permissions === undefined) {
+            dispatch(getGroup(props.match.params.id));
+            if(permissions === undefined) dispatch(getPermissions())
+        }
 
-            Object.keys(permissions).forEach(elem => {
+        if(group.permissions && permissions) {
+            const groupPermissions = [...group.permissions];
+
+            permissions.forEach(elem => {
                 if( elem === groupPermissions.find(element => element === elem)){
                     permissions[elem] = true
+                } else {
+                    permissions[elem] = false
                 }
             });
             setGroupInfo(name => ({name: group.name}));
             setCheckboxes(elem => ({...permissions}));
-        } else if(group.permissions === undefined) {
-            dispatch(getGroup(props.match.params.id));
         }
-    }, [dispatch, props.match.params.id, group.permissions, group.name]);
+    }, [dispatch, props.match.params.id, group, permissions]);
 
     return (
         <Container>
@@ -136,7 +109,7 @@ const EditGroup = props => {
                             >{wordList[language].editGroup.btn}</Button>
                         </Grid>
                     </Grid>
-                    {Object.keys(initialCheckboxes).map((elem, id) => (
+                    {checkboxes && permissions && permissions.map((elem, id) => (
                         <FormElement
                             key={id}
                             type='checkbox'

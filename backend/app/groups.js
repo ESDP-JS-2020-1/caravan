@@ -3,6 +3,8 @@ const express = require('express');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
+const permission = require('../permissionsForUsers');
+
 const Group = require('../models/Group');
 const User = require('../models/User');
 const router = express.Router();
@@ -12,6 +14,14 @@ router.get('/', isAuth, permit('getGroup'), async (req, res) => {
         const groups = await Group.find();
 
         res.send(groups);
+    } catch (e) {
+        res.status(404).send(e)
+    }
+});
+
+router.get('/permissions', isAuth, permit('getGroup'), async (req, res) => {
+    try {
+        res.send(permission);
     } catch (e) {
         res.status(404).send(e)
     }
