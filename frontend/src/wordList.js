@@ -20,6 +20,8 @@ export const wordList = {
             requestBtn: 'Подать заявку',
             greeting: 'Привет',
             logoutBtn: 'Выйти',
+            accountBtn: 'Информация об аккаунте',
+            statisticBtn: 'Моя статистика'
         },
         navigation: {
             logo: 'Караван',
@@ -86,10 +88,12 @@ export const wordList = {
             commentTitle: 'Комментарий',
             addRequestBtn: 'Добавить',
             createRequestBtn: 'Создать заявку',
+            error: 'В одном из продуктов заявки вы выбрали больше товара, чем имеется на складе!'
         },
         addNewRequestItem: {
             btnTitle: 'Название',
             btnQty: 'Количество',
+            productQty: 'На складе есть: '
         },
         addProduct: {
             addProductTitle: 'Добавление продуктов',
@@ -290,6 +294,8 @@ export const wordList = {
             requestBtn: 'Өтүнүч берүү',
             greeting: 'Салам',
             logoutBtn: 'Чыгуу',
+            accountBtn: 'Эсептин маалыматы',
+            statisticBtn: 'Менин статистикам'
         },
         navigation: {
             logo: 'Караван',
@@ -356,10 +362,12 @@ export const wordList = {
             commentTitle: 'Түшүндүрмө',
             addRequestBtn: 'Кошуу',
             createRequestBtn: 'Өтүнүч түзүү',
+            error: 'Колдонмонун продукттун биринде сиз кампага караганда көбүрөөк товарды тандадыңыз!'
         },
         addNewRequestItem: {
             btnTitle: 'Аты',
             btnQty: 'Саны',
+            productQty: 'Сактоочу бөлмөдө: '
         },
         addProduct: {
             addProductTitle: 'Продуктту кошуу',

@@ -69,7 +69,7 @@ const AddNewRequestItem = (
                                                 name='title'
                                                 title={wordList[language].addNewRequestItem.btnTitle}
                                             />
-                                        {r.productInfo && <><b>На складе есть: </b> {r.productInfo.amount}</>}
+                                        {r.productInfo && <><b>{wordList[language].addNewRequestItem.productQty} </b> {r.productInfo.amount}</>}
                                         </>}
                                     />
                                 </Grid>

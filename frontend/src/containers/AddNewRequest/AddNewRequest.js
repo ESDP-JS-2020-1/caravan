@@ -69,7 +69,7 @@ const AddNewRequest =() => {
 
     const dispatch = useDispatch();
     const language = useSelector(state => state.language.name);
-    const error = useSelector(state => state.requests.error)
+    const error = useSelector(state => state.requests.error);
 
     const [request, setRequest] = useState({
         products: [{
@@ -170,7 +170,7 @@ const AddNewRequest =() => {
                             {error &&
                             <Alert severity="error">
                                 {error === 'One of products in request has more products than is in stock!' &&
-                                'В одном из продуктов заявки вы выбрали больше товара чем имеется на скалде!'}
+                                (wordList[language].addNewRequest.error)}
                             </Alert>
                             }
                             <Grid item>

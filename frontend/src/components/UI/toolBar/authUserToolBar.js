@@ -72,13 +72,13 @@ const AuthUserToolBar = () => {
 					component={NavLink}
 					to={`/user/${user._id}`}
 				>
-					Информация об аккаунте
+					{wordList[language].authUserToolBar.accountBtn}
 				</MenuItem>
 				{checkPermission('getStatistic') &&<MenuItem
 					component={NavLink}
 					to={`/users/stat/${user._id}/7`}
 				>
-					Моя статистика
+					{wordList[language].authUserToolBar.statisticBtn}
 				</MenuItem>}
 				<Divider/>
 				<MenuItem onClick={logout}>{wordList[language].authUserToolBar.logoutBtn}</MenuItem>
