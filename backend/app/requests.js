@@ -136,7 +136,6 @@ router.post('/', [auth, permit('addRequest')], async (req, res) => {
 
         return res.send(successfulRequest);
     } catch (e) {
-        console.log(e)
         res.status(400).send(e);
     }
 });
