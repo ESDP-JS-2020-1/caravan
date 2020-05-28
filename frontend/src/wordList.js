@@ -88,6 +88,7 @@ export const wordList = {
             commentTitle: 'Комментарий',
             addRequestBtn: 'Добавить',
             createRequestBtn: 'Создать заявку',
+            error: 'В одном из продуктов заявки вы выбрали больше товара, чем имеется на складе!'
         },
         addNewRequestItem: {
             btnTitle: 'Название',
@@ -361,6 +362,7 @@ export const wordList = {
             commentTitle: 'Түшүндүрмө',
             addRequestBtn: 'Кошуу',
             createRequestBtn: 'Өтүнүч түзүү',
+            error: 'Колдонмонун продукттун биринде сиз кампага караганда көбүрөөк товарды тандадыңыз!'
         },
         addNewRequestItem: {
             btnTitle: 'Аты',
