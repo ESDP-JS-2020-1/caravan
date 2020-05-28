@@ -1,6 +1,9 @@
 const History = require('../models/History');
+const pluralize = require('pluralize')
 
-module.exports = function (schema) {
+module.exports = function (schema, { schemaName }) {
+
+    const schemaNameInPlural = pluralize(schemaName).toLowerCase();
 
     let user, type;
 
@@ -16,7 +19,7 @@ module.exports = function (schema) {
     })
 
     schema.post('save', async function (info) {
-        await History.create({ user, info, type })
+        await History.create({ user, info: { data: info, schemaNameInPlural }, type })
     })
 
 }
