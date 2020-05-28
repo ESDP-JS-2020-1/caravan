@@ -6,12 +6,13 @@ import {
     GET_GROUP_SUCCESS,
     GET_GROUPS_ERROR,
     GET_GROUPS_REQUEST,
-    GET_GROUPS_SUCCESS,
+    GET_GROUPS_SUCCESS, GET_PERMISSIONS_SUCCESS,
 } from "./actionsTypes";
 import {getUsers} from "./usersActions";
 import {store as notification} from "react-notifications-component";
 import config from "../../config";
 
+const getPermissionsSuccess = permission => ({type: GET_PERMISSIONS_SUCCESS, permission });
 const getGroupsRequest = () => ({type: GET_GROUPS_REQUEST});
 const getGroupsSuccess = groups => ({type: GET_GROUPS_SUCCESS, groups });
 const getGroupsError = error => ({type: GET_GROUPS_ERROR, error});
@@ -19,6 +20,12 @@ const getGroupsError = error => ({type: GET_GROUPS_ERROR, error});
 const getGroupRequest = () => ({type: GET_GROUP_REQUEST});
 const getGroupSuccess = group => ({type: GET_GROUP_SUCCESS, group });
 const getGroupError = error => ({type: GET_GROUP_ERROR, error});
+
+export const getPermissions = () => async dispatch => {
+  const permissions = await axiosApi.get('/groups/permissions');
+
+  dispatch(getPermissionsSuccess(permissions.data))
+};
 
 export const addNewGroup = group => async dispatch => {
     await axiosApi.post('/groups', group);
@@ -35,6 +42,7 @@ export const getGroups = () => async dispatch => {
     try {
         dispatch(getGroupsRequest());
         const groups  = await axiosApi.get('/groups');
+
         dispatch(getGroupsSuccess(groups.data))
     } catch (error) {
         dispatch(getGroupsError(error));
