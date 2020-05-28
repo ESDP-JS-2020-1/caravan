@@ -21,6 +21,8 @@ const GroupSchema = new mongoose.Schema({
     permissions: [String]
 });
 
-GroupSchema.plugin(addToHistory)
+const schemaName = 'Group';
 
-module.exports = mongoose.model('Group', GroupSchema);
+GroupSchema.plugin(addToHistory, { schemaName })
+
+module.exports = mongoose.model(schemaName, GroupSchema);

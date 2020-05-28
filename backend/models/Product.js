@@ -31,8 +31,10 @@ const ProductSchema = new mongoose.Schema({
     image: String
 });
 
-ProductSchema.plugin(addToHistory)
+const schemaName = 'Product';
 
-const Product = mongoose.model('Product', ProductSchema);
+ProductSchema.plugin(addToHistory, { schemaName })
+
+const Product = mongoose.model(schemaName, ProductSchema);
 
 module.exports = Product;
