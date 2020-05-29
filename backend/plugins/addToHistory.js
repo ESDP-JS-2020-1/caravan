@@ -19,7 +19,9 @@ module.exports = function (schema, { schemaName }) {
     })
 
     schema.post('save', async function (info) {
-        await History.create({ user, info: { data: info, schemaNameInPlural }, type })
+        if (user) {
+            await History.create({ user, info: { data: info, schemaNameInPlural }, type })
+        }
     })
 
 }
