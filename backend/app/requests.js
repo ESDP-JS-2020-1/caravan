@@ -39,11 +39,13 @@ router.get('/:id', auth, async (req, res) => {
         const request = await Request.findOne({_id: req.params.id})
             .populate(['user', 'products.product']);
 
+        const sumPrice = request.products.reduce((sum, num) => sum + (parseInt(num.product.price) * parseInt(num.amount)), 0)
+
         const courierList = await User.find({role: 'courier'});
 
         const isNominated = await NominatedRequest.findOne({request: req.params.id}).populate('courier');
 
-        const data = {request, courierList, isNominated: !!isNominated};
+        const data = {request, courierList, isNominated: !!isNominated, sumPrice};
 
         if (!!isNominated) data.nominatedCourier = isNominated.courier;
 
@@ -86,20 +88,6 @@ router.get('/', auth, async (req, res) => {
             .populate('user');
 
         return res.send(requests);
-    } catch (e) {
-        res.status(400).send(e);
-    }
-});
-router.get('/:id', auth, async (req, res) => {
-    try {
-
-        const requests = await Request.find({_id: req.params.id});
-        if (!requests) {
-            return res.status(404).send({message: 'Not found'})
-        }
-        return res.send(requests);
-
-
     } catch (e) {
         res.status(400).send(e);
     }
