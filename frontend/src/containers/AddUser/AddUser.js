@@ -76,6 +76,7 @@ const AddUser = () => {
 
     const dispatch = useDispatch();
     const error = useSelector(state => state.users.error);
+
     const language = useSelector(state => state.language.name);
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
@@ -113,6 +114,8 @@ const AddUser = () => {
                             <Grid item>
                                 <FormElement
                                     id='username'
+                                    error={!!error}
+                                    helperText={error && error.keyValue['username'] ? `Пользователь с таким логином уже существкет` : ''}
                                     required
                                     propertyName='username'
                                     title={wordList[language].addUser.inputLogin}
@@ -236,7 +239,7 @@ const AddUser = () => {
                                 />
                             </Grid>
                             {error && <Grid item>
-                                <Alert severity='error'>{error}</Alert>
+                                <Alert severity='error'>{'Произошла ошибка!'}</Alert>
                             </Grid>}
                             <Grid item>
                                 <Box className={classes.formBtn} component="span">
