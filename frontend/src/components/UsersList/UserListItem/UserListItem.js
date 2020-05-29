@@ -59,7 +59,7 @@ const UserListItem = props => {
                 <IconButton
                     aria-label="show info"
                     component={NavLink}
-                    to={`/user/${props.id}`}
+                    to={`/users/${props.id}`}
                     id={props.edit}
                     exact
                 >

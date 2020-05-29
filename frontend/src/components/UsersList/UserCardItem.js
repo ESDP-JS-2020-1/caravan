@@ -66,7 +66,7 @@ const UserCardItem = props => {
                     <IconButton
                         aria-label="share"
                         component={NavLink}
-                        to={`/user/${props.id}`}
+                        to={`/users/${props.id}`}
                         id={props.edit}
                         exact
                     >
