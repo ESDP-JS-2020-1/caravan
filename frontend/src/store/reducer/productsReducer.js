@@ -28,7 +28,7 @@ const productsReducer = (state = initialState, action) => {
     case CREATE_PRODUCT_INIT:
       return {...state, error: null};
     case CREATE_PRODUCT_ERROR:
-      return {...state, error: action.error.response.data.message};
+      return {...state, error: action.error.response.data};
     case GET_PRODUCT_REQUEST:
       return{...state,loading: true};
     case GET_PRODUCT_SUCCESS:

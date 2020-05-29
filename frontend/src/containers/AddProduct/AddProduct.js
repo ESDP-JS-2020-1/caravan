@@ -15,7 +15,6 @@ import AddProductItem from "./AddProductItem/AddProductItem";
 import {wordList} from "../../wordList";
 
 
-
 const useStyles = makeStyles((theme) => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -61,6 +60,11 @@ const AddProduct = () => {
     const dispatch = useDispatch();
 
     const error = useSelector(state => state.products.error);
+
+    let errorMessage;
+    if (error) {
+        errorMessage = `Продукт с названием ${error.op.name} уже существует!`
+    }
 
     const [product, setProduct] = useState([{
         name: '',
@@ -121,6 +125,8 @@ const AddProduct = () => {
         products.splice(id, 1);
 
         setProduct(products);
+
+        if (products.length < 1) dispatch(createProductInit());
     };
 
     const onSubmit = async e => {
@@ -141,27 +147,33 @@ const AddProduct = () => {
                             {wordList[language].addProduct.addProductTitle}
                         </Typography>
                     </Box>
-                    <form   onSubmit={onSubmit}>
+                    <form onSubmit={onSubmit}>
                         <Grid container direction='column' spacing={1}>
 
-                            {product.map((p, i) => (
-                                <AddProductItem
-                                    key={i}
-                                    product={product}
-                                    expanded={expanded}
-                                    classes={classes}
-                                    onChange={inputChangeHandler}
-                                    checkboxChangeHandler={checkboxChangeHandler}
-                                    handleChange={handleChange}
-                                    fileChange={fileChangeHandler}
-                                    onRemove={deleteProduct}
-                                    index={i}
-                                    p={p}
-                                />
-                            ))}
+                            {product.length !== 0 ?
+                                product.map((p, i) => (
+                                    <AddProductItem
+                                        key={i}
+                                        product={product}
+                                        expanded={expanded}
+                                        classes={classes}
+                                        onChange={inputChangeHandler}
+                                        checkboxChangeHandler={checkboxChangeHandler}
+                                        handleChange={handleChange}
+                                        fileChange={fileChangeHandler}
+                                        onRemove={deleteProduct}
+                                        index={i}
+                                        p={p}
+                                    />
+                                )) :
+                                <Box my={2}>
+                                    <Typography variant='h5'>
+                                        {'Нет добавленных продуктов'}
+                                    </Typography>
+                                </Box>}
 
                             {error && <Grid item>
-                                <Alert severity='error'>{error}</Alert>
+                                <Alert severity='error'>{errorMessage}</Alert>
                             </Grid>}
                             <Grid item>
                                 <Box className={classes.formBtn} component="span">
