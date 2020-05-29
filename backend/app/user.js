@@ -82,8 +82,6 @@ router.get('/:id', isAuth, async (req, res) => {
         delete user.password;
         user.groups = groups;
 
-        console.log(user)
-
         res.send(user)
     } catch (e) {
         console.log(e)
