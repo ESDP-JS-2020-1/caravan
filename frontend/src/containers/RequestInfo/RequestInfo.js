@@ -200,7 +200,7 @@ const RequestInfo = props => {
                     </Card>
                 </>}
 
-                {!request.isNominated &&
+                {!request.isNominated && user.role === 'admin' &&
                 <Button
                     className={classes.margin}
                     variant='contained'
@@ -209,6 +209,16 @@ const RequestInfo = props => {
                 >
                     {wordList[language].requestInfo.nominateCourierBtn}
                 </Button>}
+
+				{!request.isNominated && user.role === 'operator' &&
+				<Button
+					className={classes.margin}
+					variant='contained'
+					color='primary'
+					onClick={showCouriersHandler}
+				>
+					{wordList[language].requestInfo.nominateCourierBtn}
+				</Button>}
 
                 {showCouriers && !request.isNominated &&
                 <Box style={{padding: '10px'}} border={1} borderRadius={6} borderColor='#cccccc'>
