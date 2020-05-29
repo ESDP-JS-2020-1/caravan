@@ -12,6 +12,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import {addNewGroup, getPermissions} from "../../store/actions/groupActions";
 import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
+import Alert from "@material-ui/lab/Alert";
 
 
 
@@ -57,6 +58,8 @@ const AddGroup = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const language = useSelector(state => state.language.name);
+
+    const error = useSelector(state => state.groups.error)
 
     const permissions = useSelector(state => state.groups.permissions);
 
@@ -118,6 +121,11 @@ const AddGroup = () => {
                                     onChange={(e) => changeCheckboxesInfo(e)}
                                 />
                             ))}
+                            {!!error && <Grid item>
+                                <Alert severity="error">
+                                    {error}
+                                </Alert>
+                            </Grid>}
                             <Grid item>
                                 <Box className={classes.formBtn} component="span">
                                     <Button
