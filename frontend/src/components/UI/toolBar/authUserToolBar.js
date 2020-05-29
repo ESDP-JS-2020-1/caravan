@@ -70,7 +70,7 @@ const AuthUserToolBar = () => {
 				<Divider/>
 				<MenuItem
 					component={NavLink}
-					to={`/user/${user._id}`}
+					to={`/users/${user._id}`}
 					onClick={handleClose}
 				>
 					{wordList[language].authUserToolBar.accountBtn}
