@@ -1,4 +1,6 @@
 import {
+    ADD_GROUP_FAILURE,
+    ADD_GROUP_REQUEST, ADD_GROUP_SUCCESS,
     GET_GROUP_ERROR, GET_GROUP_REQUEST, GET_GROUP_SUCCESS,
     GET_GROUPS_ERROR, GET_GROUPS_REQUEST, GET_GROUPS_SUCCESS, GET_PERMISSIONS_SUCCESS,
 } from "../actions/actionsTypes";
@@ -13,6 +15,13 @@ const initialState = {
 
 const groupReducer = (state = initialState, action) => {
     switch (action.type) {
+
+        case ADD_GROUP_REQUEST:
+            return {...state, loading: true}
+        case ADD_GROUP_SUCCESS:
+            return {...state, loading: false}
+        case ADD_GROUP_FAILURE:
+            return {...state, error: action.error.response.data.message}
 
         case GET_GROUPS_REQUEST:
             return {...state, loading: true};
@@ -29,7 +38,7 @@ const groupReducer = (state = initialState, action) => {
         case GET_GROUP_SUCCESS:
             return {...state, group: action.group, loading: false};
         case GET_GROUP_ERROR:
-            return {...state, error: action.error, loading: false};
+            return {...state, error: action.error   , loading: false};
         default: return state
     }
 };

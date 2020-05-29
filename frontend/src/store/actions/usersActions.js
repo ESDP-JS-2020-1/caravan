@@ -8,7 +8,7 @@ import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS, GET_USERS_FAILURE,
   GET_USERS_REQUEST,
-  GET_USERS_SUCCESS, LOGIN_USER_FAILURE, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER
+  GET_USERS_SUCCESS, LOGIN_USER_FAILURE, LOGIN_USER_INIT, LOGIN_USER_REQUEST, LOGIN_USER_SUCCESS, LOGOUT_USER
 } from "./actionsTypes";
 import config from '../../config';
 import {wordList} from "../../wordList";
@@ -26,6 +26,8 @@ export const getUsersFailure = error => ({type: GET_USERS_FAILURE, error});
 export const loginUserRequest = () => ({type: LOGIN_USER_REQUEST});
 export const loginUserSuccess = user => ({type: LOGIN_USER_SUCCESS, user});
 export const loginUserFailure = error => ({type: LOGIN_USER_FAILURE, error});
+
+export const LoginUserInit = () => ({type: LOGIN_USER_INIT})
 
 export const addUserRequest = () => ({type: ADD_USER_REQUEST});
 export const addUserFailure = error => ({type: ADD_USER_FAILURE, error});

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useDispatch, useSelector} from "react-redux";
 
@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 
 import FormElement from "../../components/UI/Form/FormElement";
-import {loginUser} from "../../store/actions/usersActions";
+import {loginUser, LoginUserInit} from "../../store/actions/usersActions";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {wordList} from "../../wordList";
 
@@ -53,7 +53,7 @@ const Login = () => {
         password: '',
     });
 
-    const error = useSelector(state => state.users.loginError);
+    const error = useSelector(state => state.users.error);
     const loading = useSelector(state => state.users.loginLoading);
     const language = useSelector(state => state.language.name);
 
@@ -66,6 +66,10 @@ const Login = () => {
 
         dispatch(loginUser(state))
     };
+
+    useEffect(() => {
+        dispatch(LoginUserInit())
+    }, [])
 
     return (
         <Container>
@@ -99,7 +103,7 @@ const Login = () => {
                         />
                         <Box>
                             {error && (
-                                <Alert severity="error">{error.message}</Alert>
+                                <Alert severity="error">{error}</Alert>
                             )}
                         </Box>
                         <Box component="span" className={classes.formBtn}>

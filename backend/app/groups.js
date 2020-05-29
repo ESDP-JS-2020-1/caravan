@@ -66,6 +66,8 @@ router.put('/edit/:id', isAuth, permit('editGroup'), async (req, res) => {
 
         const group = await Group.findOne({_id: req.params.id});
 
+        if (group.name === groupInfo.name.name) return res.status(404).send({message: 'Such a group already exists!'});
+
         group.name = groupInfo.name.name;
 
         group.permissions = groupPermissions;
