@@ -106,7 +106,7 @@ const EditProduct = (props) => {
                                 value={editProduct.name}
                             />
                             <span style={{padding: '10px 0 20px', fontSize: '20px'}} >
-                                <b>На складе есть: </b> {editProduct.amount}
+                                <b>{wordList[language].editProduct.availableProductQty}</b> {editProduct.amount}
                             </span>
                             <FormElement
                                 type='number'

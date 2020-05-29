@@ -139,6 +139,7 @@ export const wordList = {
             modalBtnNeg: 'Нет',
             modalBtnPos: 'Да',
             modalEditTitle: 'Вы уверены что хотите отредактировать этот продукт?',
+            availableProductQty: 'На складе есть: '
         },
         editRequest: {
             editRequestTitle: 'Редактировать заявку',
@@ -417,6 +418,7 @@ export const wordList = {
             modalBtnNeg: 'Жок',
             modalBtnPos: 'Ооба',
             modalEditTitle: 'Бул продуктту чын эле түзөткүңүз келеби?',
+            availableProductQty: 'Товар сактоочу бөлмөдө: '
         },
         editRequest: {
             editRequestTitle: 'Өтүнүчтү түзөтүү',
