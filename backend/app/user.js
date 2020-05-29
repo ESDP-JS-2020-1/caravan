@@ -64,16 +64,29 @@ router.get('/', isAuth, async (req, res) => {
 
 router.get('/:id', isAuth, async (req, res) => {
     try {
-        const user = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
-
-        if (user.market) user.market.coordinates = JSON.parse(user.market.coordinates);
+        let user = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
 
         if (!user) {
             return res.status(404).send({message: 'Not found!'});
         }
 
+        const groups = await Group.find({list: {$elemMatch: {user: user._id}}});
+        let permissions = await Group.find({'list.user':user._id}).select({ "permissions": 1, "_id": 0});
+        const permission = new Set()
+        permissions.forEach(p=>p.permissions.forEach(p=> permission.add(p)));
+
+        user.permissions = [...permission];
+
+        user = {...user._doc}
+
+        delete user.password;
+        user.groups = groups;
+
+        console.log(user)
+
         res.send(user)
     } catch (e) {
+        console.log(e)
         res.status(500).send(e)
     }
 });
