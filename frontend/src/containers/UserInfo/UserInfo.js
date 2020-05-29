@@ -14,6 +14,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {getUser} from "../../store/actions/usersActions";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import {wordList} from "../../wordList";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -77,6 +78,18 @@ const UserInfo = props => {
                         <Typography variant='h5'> <b>{wordList[language].userInfo.userInfoName} </b>{userInfo.displayName}</Typography>
 
                         <Typography variant='h5'><b>{wordList[language].userInfo.userInfoPhone} </b>{userInfo.phone}</Typography>
+
+                        <Typography variant='h5' >
+                            <b>{wordList[language].groupInfo.groupPermits}: </b></Typography>
+                            <ul style={{margin: '0 0 20px 0'}}>
+                                {userInfo.permissions.map((elem, id) => <li key={id}>{elem}</li>)}
+                            </ul>
+
+                        <Typography variant='h5' >
+                            <b>Список групп: </b></Typography>
+                        <ul style={{margin: '0 0 20px 0'}}>
+                            {userInfo.groups.map((elem, id) => <li key={id} ><NavLink to={`/groups/${elem._id}`}>{elem.name}</NavLink></li>)}
+                        </ul>
                         <Divider/>
                         {userInfo.role === 'market' && <>
                             <Typography variant='h5'><b>{wordList[language].userInfo.userInfoMarket} </b>{userInfo.market.companyName}</Typography>
