@@ -18,6 +18,7 @@ import {getHistoriesList} from "../../store/actions/HistoriesActions";
 
 import {wordList} from "../../wordList";
 import {NavLink} from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
     table: {
@@ -42,93 +43,98 @@ const Histories = () => {
     }, [dispatch]);
 
     return (
-        <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>{wordList[language].histories.tableInfo}</TableCell>
-                        <TableCell align="right">{wordList[language].histories.tableType}</TableCell>
-                        <TableCell align="right">{wordList[language].histories.tableDate}</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {histories.map((history) => {
-                        const info = history.info.data;
-                        const schemaNameInPlural = history.info.schemaNameInPlural;
-
-                        const userName = history.user ? history.user.displayName : 'fixtureOperation';
-                        let operationType = '';
-                        let documentInfo = '';
-
-                        if (userName !== 'fixtureOperation') {
-                            switch (history.type) {
-                                case 'edit':
-                                    operationType = 'редактировал';
-                                    break;
-                                case 'delete':
-                                    operationType = 'удалил';
-                                    break;
-                                case 'add':
-                                    operationType = 'добавил';
-                                    break;
-                                default:
-                                    operationType = 'Not found';
-                                    break;
-                            }
-                        }
-
-                        if (userName !== 'fixtureOperation') {
-                            if (info.displayName) {
-                                documentInfo = info.displayName;
-                                operationType += ' пользователя'
-                            }
-                            if (info.name) documentInfo = info.name;
-                            if (info.status) documentInfo = 'звавку';
-                        }
-
-                        return (
-                            <TableRow key={history._id}>
-                                <TableCell component="th" scope="row">
-                                    {
-                                        <div className={classes.title}>
-                                            <b>{userName}</b>
-                                            <p>{operationType}</p>
-                                            {history.type === 'delete' ?
-                                                <p>{documentInfo}</p>  :
-                                                <NavLink exact to={`/${schemaNameInPlural}/${info._id}`}>{documentInfo}</NavLink>}
-                                        </div>
-                                    }
-                                </TableCell>
-                                <TableCell align="right">
-                                    {history.type === 'delete' && (
-                                        <Chip
-                                            size="small"
-                                            label={wordList[language].histories.deleteLabel}
-                                            color="secondary"
-                                        />
-                                    )}
-                                    {history.type === 'add' && (
-                                        <Chip
-                                            size="small"
-                                            label={wordList[language].histories.addLabel}
-                                            color="primary"
-                                        />
-                                    )}
-                                    {history.type === 'edit' && (
-                                        <Chip
-                                            size="small"
-                                            label={wordList[language].histories.editLabel}
-                                        />
-                                    )}
-                                </TableCell>
-                                <TableCell
-                                    align="right">{moment(history.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
+        <div>
+            {histories.length !== 0 ?
+                <TableContainer component={Paper}>=
+                    <Table className={classes.table} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>{wordList[language].histories.tableInfo}</TableCell>
+                                <TableCell align="right">{wordList[language].histories.tableType}</TableCell>
+                                <TableCell align="right">{wordList[language].histories.tableDate}</TableCell>
                             </TableRow>
-                        )
-                    })}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                        </TableHead>
+                        <TableBody>
+                            {histories.map((history) => {
+                                const info = history.info.data;
+                                const schemaNameInPlural = history.info.schemaNameInPlural;
+
+                                const userName = history.user.displayName;
+                                let operationType = '';
+                                let documentInfo = '';
+
+                                if (userName !== 'fixtureOperation') {
+                                    switch (history.type) {
+                                        case 'edit':
+                                            operationType = 'редактировал';
+                                            break;
+                                        case 'delete':
+                                            operationType = 'удалил';
+                                            break;
+                                        case 'add':
+                                            operationType = 'добавил';
+                                            break;
+                                        default:
+                                            operationType = 'Not found';
+                                            break;
+                                    }
+                                }
+
+                                if (info.displayName) {
+                                    documentInfo = info.displayName;
+                                    operationType += ' пользователя'
+                                }
+                                if (info.name) documentInfo = info.name;
+                                if (info.status) documentInfo = 'звавку';
+
+
+                                return (
+                                    <TableRow key={history._id}>
+                                        <TableCell component="th" scope="row">
+                                            {
+                                                <div className={classes.title}>
+                                                    <b>{userName}</b>
+                                                    <p>{operationType}</p>
+                                                    {history.type === 'delete' ?
+                                                        <p>{documentInfo}</p>  :
+                                                        <NavLink exact to={`/${schemaNameInPlural}/${info._id}`}>{documentInfo}</NavLink>}
+                                                </div>
+                                            }
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {history.type === 'delete' && (
+                                                <Chip
+                                                    size="small"
+                                                    label={wordList[language].histories.deleteLabel}
+                                                    color="secondary"
+                                                />
+                                            )}
+                                            {history.type === 'add' && (
+                                                <Chip
+                                                    size="small"
+                                                    label={wordList[language].histories.addLabel}
+                                                    color="primary"
+                                                />
+                                            )}
+                                            {history.type === 'edit' && (
+                                                <Chip
+                                                    size="small"
+                                                    label={wordList[language].histories.editLabel}
+                                                />
+                                            )}
+                                        </TableCell>
+                                        <TableCell
+                                            align="right">{moment(history.date).format('MMMM Do YYYY, h:mm:ss a')}</TableCell>
+                                    </TableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer> :
+            <Typography variant='h3'>
+                {'В истории пока ничего нет!'}
+            </Typography>}
+        </div>
     );
 };
 
