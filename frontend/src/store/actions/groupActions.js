@@ -1,6 +1,8 @@
 import axiosApi from "../../axiosAPI";
 import {push} from 'connected-react-router';
 import {
+    ADD_GROUP_FAILURE,
+    ADD_GROUP_REQUEST, ADD_GROUP_SUCCESS,
     GET_GROUP_ERROR,
     GET_GROUP_REQUEST,
     GET_GROUP_SUCCESS,
@@ -13,14 +15,19 @@ import {store as notification} from "react-notifications-component";
 import config from "../../config";
 import {wordList} from "../../wordList";
 
-const getPermissionsSuccess = permission => ({type: GET_PERMISSIONS_SUCCESS, permission });
-const getGroupsRequest = () => ({type: GET_GROUPS_REQUEST});
-const getGroupsSuccess = groups => ({type: GET_GROUPS_SUCCESS, groups });
-const getGroupsError = error => ({type: GET_GROUPS_ERROR, error});
 
-const getGroupRequest = () => ({type: GET_GROUP_REQUEST});
-const getGroupSuccess = group => ({type: GET_GROUP_SUCCESS, group });
-const getGroupError = error => ({type: GET_GROUP_ERROR, error});
+export const addGroupRequest = () => ({type: ADD_GROUP_REQUEST});
+export const addGroupSuccess = () => ({type: ADD_GROUP_SUCCESS});
+export const addGroupFailure = error => ({type: ADD_GROUP_FAILURE, error});
+
+export const getPermissionsSuccess = permission => ({type: GET_PERMISSIONS_SUCCESS, permission });
+export const getGroupsRequest = () => ({type: GET_GROUPS_REQUEST});
+export const getGroupsSuccess = groups => ({type: GET_GROUPS_SUCCESS, groups });
+export const getGroupsError = error => ({type: GET_GROUPS_ERROR, error});
+
+export const getGroupRequest = () => ({type: GET_GROUP_REQUEST});
+export const getGroupSuccess = group => ({type: GET_GROUP_SUCCESS, group });
+export const getGroupError = error => ({type: GET_GROUP_ERROR, error});
 
 export const getPermissions = () => async dispatch => {
   const permissions = await axiosApi.get('/groups/permissions');
@@ -29,15 +36,24 @@ export const getPermissions = () => async dispatch => {
 };
 
 export const addNewGroup = group => async (dispatch, getState) => {
-    const language = getState().language.name;
-    await axiosApi.post('/groups', group);
-    dispatch(push('/groups'));
+    try {
+        dispatch(addGroupRequest())
 
-    notification.addNotification({
-        title: (wordList[language].groupActions.addGroupTitle),
-        message: (wordList[language].groupActions.addGroupMessage),
-        ...config.notification
-    });
+        const language = getState().language.name;
+        await axiosApi.post('/groups', group);
+
+        dispatch(addGroupSuccess())
+
+        dispatch(push('/groups'));
+
+        notification.addNotification({
+            title: (wordList[language].groupActions.addGroupTitle),
+            message: (wordList[language].groupActions.addGroupMessage),
+            ...config.notification
+        });
+    } catch (e) {
+        dispatch(addGroupFailure(e))
+    }
 };
 
 export const getGroups = () => async dispatch => {
@@ -62,10 +78,17 @@ export const getGroup = id => async dispatch => {
 };
 
 export const editGroup = (data, id) => async dispatch => {
-    await axiosApi.put('/groups/edit/'+id, data);
+    try {
+        dispatch(addGroupRequest())
+        await axiosApi.put('/groups/edit/'+id, data);
 
-    dispatch(getGroup(id));
-    dispatch(push('/groups/'+id));
+        dispatch(getGroup(id));
+        dispatch(push('/groups/'+id));
+
+        dispatch(addGroupSuccess())
+    } catch (e) {
+        dispatch(addGroupFailure(e))
+    }
 };
 
 export const addUserToGroup = (idGroup, idUser) => async dispatch => {
