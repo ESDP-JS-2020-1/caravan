@@ -8,7 +8,7 @@ import {
   GET_USERS_FAILURE,
   GET_USERS_REQUEST,
   GET_USERS_SUCCESS,
-  LOGIN_USER_FAILURE,
+  LOGIN_USER_FAILURE, LOGIN_USER_INIT,
   LOGIN_USER_REQUEST,
   LOGIN_USER_SUCCESS,
   LOGOUT_USER,
@@ -24,8 +24,7 @@ const initialState = {
   client: null,
   loading: false,
   error: null,
-  loginLoading: false,
-  loginError: null,
+  loginLoading: false
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -37,12 +36,15 @@ const usersReducer = (state = initialState, action) => {
     case REGISTER_USER_FAILURE:
       return {...state, registerError: action.error, registerLoading: false};
 
+
+    case LOGIN_USER_INIT:
+      return {...state, error: null}
     case LOGIN_USER_REQUEST:
       return {...state, loginLoading: true};
     case LOGIN_USER_SUCCESS:
       return {...state, loginLoading: false, loginError: null, user: action.user};
     case LOGIN_USER_FAILURE:
-      return {...state, loginLoading: false, loginError: action.error};
+      return {...state, loginLoading: false, error: action.error.response.data.message};
     case LOGOUT_USER:
       return {...state, user: null};
 
