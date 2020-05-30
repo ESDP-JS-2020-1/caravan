@@ -83,7 +83,7 @@ router.get('/', auth, async (req, res) => {
 
             return res.send(requests);
         }
-        const requests = await Request.find({ isRemoved: false })
+        const requests = await Request.find({isRemoved: false})
             .sort({date: -1})
             .populate('user');
 
@@ -100,12 +100,16 @@ router.post('/', [auth, permit('addRequest')], async (req, res) => {
                 product: elem.product,
                 amount: elem.amount
             }
-        ))
+        ));
+
+        const products = await Product.find({_id: {$in: request.products.map(p => (p.product))}});
 
         for (let i = 0; i < request.products.length; i++) {
-            const product = await Product.findOne({_id: request.products[i].product});
-
-            if (product.amount < request.products[i].amount) return res.status(400).send({error: `One of products in request has more products than is in stock!`});
+            for (let j = 0; j < products.length; j++) {
+                if (products[j]._id.toString() === request.products[i].product.toString()) {
+                    if (products[j].amount < request.products[i].amount) return res.status(400).send({error: `One of products in request has more products than is in stock!`});
+                }
+            }
         }
 
         const successfulRequest = new Request({
@@ -115,11 +119,12 @@ router.post('/', [auth, permit('addRequest')], async (req, res) => {
         successfulRequest.save(req);
 
         for (let i = 0; i < request.products.length; i++) {
-            const product = await Product.findOne({_id: request.products[i].product});
-
-            product.amount = product.amount - request.products[i].amount
-
-            await product.save(req);
+            for (let j = 0; j < products.length; j++) {
+                if (products[j]._id.toString() === request.products[i].product.toString()) {
+                    products[j].amount = products[j].amount - request.products[i].amount;
+                    await products[j].save(req);
+                }
+            }
         }
 
         return res.send(successfulRequest);
@@ -132,21 +137,43 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
     try {
         const request = req.body;
 
+
         const requestOne = await Request.findOne({_id: req.params.id}).populate('user');
 
-        if(requestOne.status === 'closed') return res.status(400).send({error: 'This request is closed, you cant edit this request!'})
+        if (requestOne.status === 'closed') return res.status(400).send({error: 'This request is closed, you cant edit this request!'});
 
         if (!requestOne) return res.status(404).send({message: 'Not found'});
 
+        const arrIdNew = request.products.map(p => p.product._id);
+        const arrIdOld = requestOne.products.map(p => p.product);
+
+        const products = await Product.find({_id: {$in: [...arrIdNew, ...arrIdOld].map(p => p)}});
+
         for (let i = 0; i < requestOne.products.length; i++) {
-            const product = await Product.findOne({_id: requestOne.products[i].product});
+            for (let j = 0; j < products.length; j++) {
 
-            if(requestOne.products[i].amount !== request.products[i].amount){
-                product.amount = parseInt(product.amount) - parseInt(request.products[i].amount) + parseInt(requestOne.products[i].amount)
+                if (products[j]._id.toString() === requestOne.products[i].product.toString()) {
 
-                if (product.amount < 0) return res.status(400).send({error: `One of products in request has more products than is in stock!`});
+                    products[j].amount = parseInt(products[j].amount) + parseInt(requestOne.products[i].amount);
 
-                await product.save();
+                    await products[j].save();
+                }
+            }
+        }
+
+        for (let i = 0; i < request.products.length; i++) {
+            for (let j = 0; j < products.length; j++) {
+
+                if (request.products[i].product._id.toString() === products[j]._id.toString()) {
+
+                    products[j].amount = parseInt(products[j].amount) - parseInt(request.products[i].amount);
+
+                    if (products[j].amount < 0) {
+                        return res.status(400).send({error: `One of products in request has more products than is in stock!`});
+                    }
+
+                    await products[j].save();
+                }
             }
         }
 
@@ -157,6 +184,7 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 
         return res.send(requestOne)
     } catch (e) {
+        console.log(e)
         res.status(500).send(e)
     }
 
@@ -172,12 +200,18 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
             return res.status(404).send({message: 'Request not found'})
         }
 
+        const products = await Product.find({_id: {$in: requestOne.products.map(p => (p.product))}});
+
         for (let i = 0; i < requestOne.products.length; i++) {
-            const product = await Product.findOne({_id: requestOne.products[i].product});
+            for (let j = 0; j < products.length; j++) {
 
-            product.amount = parseInt(product.amount) + parseInt(requestOne.products[i].amount)
+                if (products[j].id.toString() === requestOne.products[i].product.toString()) {
 
-            await product.save();
+                    products[j].amount = parseInt(products[j].amount) + parseInt(requestOne.products[i].amount);
+
+                    await products[j].save();
+                }
+            }
         }
 
         requestOne.isRemoved = true;
