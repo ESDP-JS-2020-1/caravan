@@ -144,10 +144,9 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 
         if (!requestOne) return res.status(404).send({message: 'Not found'});
 
-        const arrIdNew = request.products.map(p => p.product._id);
-        const arrIdOld = requestOne.products.map(p => p.product);
+const arrId = [...request.products,...requestOne.products].map(p=>p.product._id || p.product);
 
-        const products = await Product.find({_id: {$in: [...arrIdNew, ...arrIdOld]}});
+        const products = await Product.find({_id: {$in: arrId}});
 
         for (let i = 0; i < requestOne.products.length; i++) {
             for (let j = 0; j < products.length; j++) {
