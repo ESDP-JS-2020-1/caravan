@@ -147,7 +147,7 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
         const arrIdNew = request.products.map(p => p.product._id);
         const arrIdOld = requestOne.products.map(p => p.product);
 
-        const products = await Product.find({_id: {$in: [...arrIdNew, ...arrIdOld].map(p => p)}});
+        const products = await Product.find({_id: {$in: [...arrIdNew, ...arrIdOld]}});
 
         for (let i = 0; i < requestOne.products.length; i++) {
             for (let j = 0; j < products.length; j++) {
