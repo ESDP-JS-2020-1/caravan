@@ -63,7 +63,7 @@ const ToolBar = () => {
                     {checkPermission('viewHistory') && <Button
                         color='primary'
                         component={NavLink}
-                        to='/history'
+                        to='/history/1/10'
                         exact
                         activeClassName='Mui-disabled'
                         className={classes.button}
