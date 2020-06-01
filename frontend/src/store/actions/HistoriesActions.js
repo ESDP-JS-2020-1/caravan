@@ -7,10 +7,10 @@ export const geHistoriesRequest = () => ({type: GET_HISTORIES_REQUEST});
 export const getHistoriesSuccess = histories => ({type: GET_HISTORIES_SUCCESS, histories});
 export const getHistoriesError = error => ({type: GET_HISTORIES_ERROR, error});
 
-export const getHistoriesList = () => async dispatch => {
+export const getHistoriesList = (page, limit) => async dispatch => {
     try {
         dispatch(geHistoriesRequest());
-        const histories = await axiosApi.get('/histories');
+        const histories = await axiosApi.get(`/histories/ ${page} / ${limit} `);
         dispatch(getHistoriesSuccess(histories.data))
     } catch (error) {
         dispatch(getHistoriesError(error));
