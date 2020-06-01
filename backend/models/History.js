@@ -4,8 +4,10 @@ const aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 
 const HistorySchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        displayName: {
+            type: String,
+            required: true
+        }
     },
     info: {
         type: Object,
