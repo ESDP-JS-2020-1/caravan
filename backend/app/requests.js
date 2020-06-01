@@ -18,7 +18,7 @@ router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
             request.status = 'closed'
         } else return res.status(400).send({message: 'Request status is not performed!'});
 
-        const statData = request.products.map(async elem => await Statistic.create({
+        const statData = request.products.map(async elem => Statistic.create({
             user: request.user._id,
             product: elem.product,
             amount: elem.amount
