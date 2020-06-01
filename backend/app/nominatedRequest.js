@@ -19,7 +19,7 @@ router.post('/', isAuth, permit('addRequest'), async (req, res) => {
 
         if(request.status === 'pending') {
             request.status = 'performed'
-        } else return res.status(404).send({message: 'Request status is not pending!'});
+        } else return res.status(400).send({message: 'Request status is not pending!'});
 
         await request.save();
 
