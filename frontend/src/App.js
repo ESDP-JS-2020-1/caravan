@@ -52,7 +52,7 @@ function App() {
                     <PrivateRoute path="/product/edit/:id" exact roles={['editProduct']} component={EditProduct}/>
                     <PrivateRoute path="/product/stat/:id/:days" exact  roles={['getStatistic']} component={StatisticsProduct}/>
 
-                    <PrivateRoute path="/history" exact roles={['viewHistory']} component={Histories}/>
+                    <PrivateRoute path="/history/:page/:limit" exact roles={['viewHistory']} component={Histories}/>
 
                     <PrivateRoute path="/requests" exact component={RequestList}/>
                     <PrivateRoute path="/requests/new" roles={['addRequest']} exact component={AddNewRequest}/>
