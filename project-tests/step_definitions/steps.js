@@ -4,6 +4,10 @@ Given('я нахожусь на странице логина', () => {
   I.amOnPage('/login');
 });
 
+When('нахожусь на странице добавления пользователя', () => {
+  I.amOnPage('/users/new')
+})
+
 When('я заполняю поля формы:', table => {
   const tableData = table.parse().rawData;
 
