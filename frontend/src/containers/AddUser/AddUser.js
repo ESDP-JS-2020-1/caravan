@@ -114,8 +114,8 @@ const AddUser = () => {
                             <Grid item>
                                 <FormElement
                                     id='username'
-                                    error={!!error}
-                                    helperText={error && error.keyValue['username'] ? `Пользователь с таким логином уже существкет` : ''}
+                                    error={error}
+                                    helperText={error && error.keyValue['username'] ? `Пользователь с таким логином уже существует` : ''}
                                     required
                                     propertyName='username'
                                     title={wordList[language].addUser.inputLogin}
