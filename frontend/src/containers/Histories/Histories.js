@@ -19,6 +19,7 @@ import {getHistoriesList} from "../../store/actions/HistoriesActions";
 import {wordList} from "../../wordList";
 import {NavLink} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import Pagination from "@material-ui/lab/Pagination";
 
 const useStyles = makeStyles({
     table: {
@@ -32,20 +33,21 @@ const useStyles = makeStyles({
     }
 });
 
-const Histories = () => {
+const Histories = props => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const histories = useSelector(state => state.histories.historiesList);
     const language = useSelector(state => state.language.name);
 
     useEffect(() => {
-        dispatch(getHistoriesList());
-    }, [dispatch]);
+        dispatch(getHistoriesList(props.match.params.page, props.match.params.limit));
+    }, [dispatch, props.match.params.page, props.match.params.limit]);
 
     return (
         <div>
+            <Pagination count={histories.pageAmount} color="primary" onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)} />
             {histories.length !== 0 ?
-                <TableContainer component={Paper}>=
+                <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -55,7 +57,7 @@ const Histories = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {histories.map((history) => {
+                            {histories.history.docs && histories.history.docs.map((history) => {
                                 const info = history.info.data;
                                 const schemaNameInPlural = history.info.schemaNameInPlural;
 
