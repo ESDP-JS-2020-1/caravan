@@ -7,10 +7,16 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
-router.get('/', isAuth, permit('viewHistory'), async (req, res) => {
+router.get('/:page/:limit', isAuth, permit('viewHistory'), async (req, res) => {
     try {
-        const histories = await History.find().sort({date: -1}).populate('user');
-        res.send(histories)
+        const historyLength = await History.find();
+        const aggregateQuery = History.aggregate();
+
+        const history = await History.aggregatePaginate(aggregateQuery, { page: req.params.page, limit: req.params.limit });
+
+        const pageAmount = Math.ceil(historyLength.length / req.params.limit)
+
+        res.send({history, pageAmount})
     } catch (e) {
         res.status(500).send(e)
     }
