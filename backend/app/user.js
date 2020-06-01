@@ -84,7 +84,6 @@ router.get('/:id', isAuth, async (req, res) => {
 
         res.send(user)
     } catch (e) {
-        console.log(e)
         res.status(500).send(e)
     }
 });
