@@ -59,7 +59,7 @@ router.put('/:id', auth, permit('editProduct'), upload.single('file'), async (re
         if (req.file) product.image = req.file.filename;
 
         productOne.name = product.name;
-        productOne.amount = parseInt(productOne.amount) + parseInt(product.addProduct);
+        if(product.addProduct) productOne.amount = parseInt(productOne.amount) + parseInt(product.addProduct);
         productOne.price = product.price;
         productOne.isRefrigeratorRequired = product.isRefrigeratorRequired;
         productOne.image = product.image;
