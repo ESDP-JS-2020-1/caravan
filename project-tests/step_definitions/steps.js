@@ -4,6 +4,22 @@ Given('я нахожусь на странице логина', () => {
   I.amOnPage('/login');
 });
 
+When('нахожусь на странице добавления пользователя', () => {
+  I.amOnPage('/users/new')
+})
+
+When('я нахожусь на странице добавления продукта', () => {
+  I.amOnPage('/product/add')
+})
+
+When('я нахожусь на странице добавления заявки', () => {
+  I.amOnPage('/requests/new')
+})
+
+When('я нахожусь на странице групп', () => {
+  I.amOnPage('/groups')
+})
+
 When('я заполняю поля формы:', table => {
   const tableData = table.parse().rawData;
 
