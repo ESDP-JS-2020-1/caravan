@@ -16,7 +16,7 @@ router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
 
         if (request.status === 'performed') {
             request.status = 'closed'
-        } else return res.status(404).send({message: 'Request status is not performed!'});
+        } else return res.status(400).send({message: 'Request status is not performed!'});
 
         const statData = request.products.map(async elem => await Statistic.create({
             user: request.user._id,
@@ -142,7 +142,7 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 
         if (requestOne.status === 'closed') return res.status(400).send({error: 'This request is closed, you cant edit this request!'});
 
-        if (!requestOne) return res.status(404).send({message: 'Not found'});
+        if (!requestOne) return res.status(404).send({message: 'Request not found'});
 
 const arrId = [...request.products,...requestOne.products].map(p=>p.product._id || p.product);
 
@@ -183,7 +183,6 @@ const arrId = [...request.products,...requestOne.products].map(p=>p.product._id 
 
         return res.send(requestOne)
     } catch (e) {
-        console.log(e)
         res.status(500).send(e)
     }
 
