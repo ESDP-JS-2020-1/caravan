@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useDispatch, useSelector} from "react-redux";
 
@@ -17,6 +17,10 @@ import FormElement from "../../components/UI/Form/FormElement";
 import {addUser} from "../../store/actions/usersActions";
 import MapDisplay from "../Map/DeviceMap";
 import {wordList} from "../../wordList";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import Chip from "@material-ui/core/Chip";
+import TextField from "@material-ui/core/TextField";
+import {getGroups} from "../../store/actions/groupActions";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -72,16 +76,30 @@ const AddUser = () => {
         carRefrigerator: false,
         coordinates: {}
     });
+    const [group, setGroup] = useState({
+        group: ''
+    });
 
     const dispatch = useDispatch();
     const error = useSelector(state => state.users.error);
+    const groups = useSelector(state => state.groups.groups);
 
     const language = useSelector(state => state.language.name);
+
+    useEffect(() => {
+        dispatch(getGroups())
+    }, [dispatch]);
+
+    const groupArray = [];
+    groups.map(group => {
+        groupArray.push(group.name)
+    });
 
     const inputChangeHandler = e => setUser({...user, [e.target.name]: e.target.value});
     const checkboxChangeHandler = e => setUser({...user, carRefrigerator: e.target.checked});
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
+    const permissionsChangeHandler = (e, group) => {setGroup(JSON.stringify(group))};
 
     const roles = ['admin', 'courier', 'operator', 'market'];
 
@@ -96,6 +114,7 @@ const AddUser = () => {
                 data.append(value, user[value])
             }
         });
+        data.append('group', group);
         dispatch(addUser(data))
     };
 
@@ -235,6 +254,22 @@ const AddUser = () => {
                                     className={classes.phoneInput}
                                     defaultCountry={'kg'}
                                     onChange={phoneChangeHandler}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <Autocomplete
+                                    options={groupArray}
+                                    multiple
+                                    onChange={permissionsChangeHandler}
+                                    freeSolo
+                                    renderTags={(value, getTagProps) =>
+                                        value.map((option, index) => (
+                                            <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+                                        ))
+                                    }
+                                    renderInput={(params) => (
+                                        <TextField {...params} variant="outlined" label="Добавить в группы"/>
+                                    )}
                                 />
                             </Grid>
                             {error && <Grid item>

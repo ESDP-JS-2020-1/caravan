@@ -83,7 +83,6 @@ router.put('/edit/:id', isAuth, permit('editGroup'), async (req, res) => {
 router.put('/user', isAuth, permit('addGroup'), async (req, res) => {
     try {
         const group = await Group.findOne({_id: req.body.group});
-
         if (!group) return res.status(404).send({message: 'Group not found!'});
 
         group.list.pull({_id: req.body.user});

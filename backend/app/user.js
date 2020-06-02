@@ -40,8 +40,15 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
 
         newUser.addToken();
         await newUser.save(req);
+        res.send(newUser);
 
-        res.send(newUser)
+        const group = await Group.find({name: JSON.parse(req.body.group)});
+        if (!group) return res.status(404).send({message: 'Group not found!'});
+        group.map(async list => {
+            list.list.push({user: newUser._id});
+           await list.save()
+        });
+
     } catch (e) {
         res.status(500).send(e)
     }
