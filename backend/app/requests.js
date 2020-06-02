@@ -221,5 +221,15 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
     }
 });
 
+router.get('/removed', auth, permit('getTrash'), async (req, res) => {
+    try {
+        const removed = await Request.find({ isRemoved: true });
+
+        res.send(removed);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+})
+
 module.exports = router;
 

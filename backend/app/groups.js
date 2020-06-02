@@ -131,4 +131,14 @@ router.delete('/:id', isAuth, permit('deleteGroup'), async (req, res) => {
     }
 });
 
+router.get('/removed', isAuth, permit('getTrash'), async (req, res) => {
+    try {
+        const removed = await Group.find({ isRemoved: true });
+
+        res.send(removed);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+})
+
 module.exports = router;

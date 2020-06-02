@@ -21,6 +21,8 @@ const CLOSE_REQUEST_PERMISSION = 'closeRequest';
 const VIEW_HISTORY_PERMISSION = 'viewHistory';
 const GET_STATISTIC_PERMISSION = 'getStatistic';
 
+const GET_TRASH = 'getTrash';
+
 module.exports = [
     GET_USER_PERMISSION
     , ADD_USER_PERMISSION
@@ -44,4 +46,6 @@ module.exports = [
 
     , VIEW_HISTORY_PERMISSION
     , GET_STATISTIC_PERMISSION
+
+    , GET_TRASH
 ];
