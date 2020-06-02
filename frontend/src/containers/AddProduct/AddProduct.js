@@ -14,7 +14,6 @@ import {addNewProduct, createProductInit} from "../../store/actions/productsActi
 import AddProductItem from "./AddProductItem/AddProductItem";
 import {wordList} from "../../wordList";
 
-
 const useStyles = makeStyles((theme) => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -95,7 +94,6 @@ const AddProduct = () => {
     const fileChangeHandler = (e, i) => {
         let newProduct = [...product];
         newProduct[i][e.target.name] = e.target.files[0];
-
         setProduct(newProduct)
     };
 
@@ -105,7 +103,6 @@ const AddProduct = () => {
 
     const addProduct = (e) => {
         e.preventDefault();
-
         const productInfo = {
             name: '',
             amount: '',
@@ -113,19 +110,15 @@ const AddProduct = () => {
             price: '',
             image: '',
             isRefrigeratorRequired: false
-        }
-
+        };
         const newProduct = product[0] ? [...product, productInfo] : [productInfo];
-
         setProduct(newProduct)
     };
 
     const deleteProduct = id => {
         const products = [...product];
         products.splice(id, 1);
-
         setProduct(products);
-
         if (products.length < 1) dispatch(createProductInit());
     };
 
@@ -149,7 +142,6 @@ const AddProduct = () => {
                     </Box>
                     <form onSubmit={onSubmit}>
                         <Grid container direction='column' spacing={1}>
-
                             {product.length !== 0 ?
                                 product.map((p, i) => (
                                     <AddProductItem

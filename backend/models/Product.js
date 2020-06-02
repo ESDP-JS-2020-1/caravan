@@ -21,19 +21,19 @@ const ProductSchema = new mongoose.Schema({
         required: true
     },
     productType: {
-      type: String,
-      required: true
+        type: String,
+        required: true
     },
     isRefrigeratorRequired: {
-      type: Boolean,
-      default: false
+        type: Boolean,
+        default: false
     },
     image: String
 });
 
 const schemaName = 'Product';
 
-ProductSchema.plugin(addToHistory, { schemaName })
+ProductSchema.plugin(addToHistory, {schemaName});
 
 const Product = mongoose.model(schemaName, ProductSchema);
 

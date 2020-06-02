@@ -12,9 +12,12 @@ router.get('/:page/:limit', isAuth, permit('viewHistory'), async (req, res) => {
         const historyLength = await History.find();
         const aggregateQuery = History.aggregate();
 
-        const history = await History.aggregatePaginate(aggregateQuery, { page: req.params.page, limit: req.params.limit });
+        const history = await History.aggregatePaginate(aggregateQuery, {
+            page: req.params.page,
+            limit: req.params.limit
+        });
 
-        const pageAmount = Math.ceil(historyLength.length / req.params.limit)
+        const pageAmount = Math.ceil(historyLength.length / req.params.limit);
 
         res.send({history, pageAmount})
     } catch (e) {

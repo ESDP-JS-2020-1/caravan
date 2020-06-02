@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
         if (type !== 'token' || !user) {
             return res.status(404).send({error: 'Access denied'})
         } else {
-            if(user){
+            if (user) {
                 const groups = await Group.find({list: {$elemMatch: {user: user._id}}});
                 let permissions = new Set();
                 groups.forEach(elemt => elemt.permissions.forEach(permit => permissions.add(permit)));

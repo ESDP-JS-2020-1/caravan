@@ -6,7 +6,7 @@ const {nanoid} = require('nanoid');
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         if (file.fieldname === 'avatar') {
-        cb(null, config.userAvatar);
+            cb(null, config.userAvatar);
         } else {
             cb(null, config.productImage);
         }

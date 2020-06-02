@@ -10,8 +10,7 @@ const router = express.Router();
 
 router.get('/', isAuth, permit('getGroup'), async (req, res) => {
     try {
-        const groups = await Group.find({ isRemoved: false });
-
+        const groups = await Group.find({isRemoved: false});
         res.send(groups);
     } catch (e) {
         res.status(500).send(e)
@@ -85,7 +84,7 @@ router.put('/user', isAuth, permit('addGroup'), async (req, res) => {
     try {
         const group = await Group.findOne({_id: req.body.group});
 
-        if (!group) return res.status(404).send({message: 'Group not found!'})
+        if (!group) return res.status(404).send({message: 'Group not found!'});
 
         group.list.pull({_id: req.body.user});
         group.save(req);

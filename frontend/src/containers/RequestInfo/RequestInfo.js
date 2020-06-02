@@ -123,12 +123,8 @@ const RequestInfo = props => {
                     <Divider/>
 
                     <Box className={classes.boxPd} border={1} borderRadius={6}>
-                        <Typography className={classes.padding}
-                                    variant='h5'><b>Сумма заказа: </b>{request.sumPrice} сом
-                        </Typography>
                         <Typography
-                            variant='h5'><b>{wordList[language].requestInfo.requestInfoProducts}: </b>
-                        </Typography>
+                            variant='h5'><b>{wordList[language].requestInfo.requestInfoProducts}: </b></Typography>
                         {request.request.products.map((elem, id) => (
                             <Card key={id}>
                                 <CardContent>
@@ -137,9 +133,6 @@ const RequestInfo = props => {
                                     </Typography>
                                     <Typography variant="h6" component="h2">
                                         <b>{wordList[language].requestInfo.requestInfoProductsQty}:</b> {elem.amount}
-                                    </Typography>
-                                    <Typography variant="h6" component="h2">
-                                        <b>Цена:</b> {elem.product.price}
                                     </Typography>
                                     <Typography variant="h6" component="h2">
                                         <b>
@@ -154,7 +147,6 @@ const RequestInfo = props => {
                         ))}
                     </Box>
                 </>}
-
 
                 {request.nominatedCourier && <>
 
@@ -200,7 +192,7 @@ const RequestInfo = props => {
                     </Card>
                 </>}
 
-                {!request.isNominated && user.role === 'admin' &&
+                {!request.isNominated &&
                 <Button
                     className={classes.margin}
                     variant='contained'
@@ -209,16 +201,6 @@ const RequestInfo = props => {
                 >
                     {wordList[language].requestInfo.nominateCourierBtn}
                 </Button>}
-
-				{!request.isNominated && user.role === 'operator' &&
-				<Button
-					className={classes.margin}
-					variant='contained'
-					color='primary'
-					onClick={showCouriersHandler}
-				>
-					{wordList[language].requestInfo.nominateCourierBtn}
-				</Button>}
 
                 {showCouriers && !request.isNominated &&
                 <Box style={{padding: '10px'}} border={1} borderRadius={6} borderColor='#cccccc'>

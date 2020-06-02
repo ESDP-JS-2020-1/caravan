@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/', auth, async (req, res) => {
     try {
-        const products = await Product.find({ isRemoved: false });
+        const products = await Product.find({isRemoved: false});
 
         if (!products) {
             return res.status(404).send({message: 'Products are not found!'});
@@ -59,7 +59,7 @@ router.put('/:id', auth, permit('editProduct'), upload.single('file'), async (re
         if (req.file) product.image = req.file.filename;
 
         productOne.name = product.name;
-        if(product.addProduct) productOne.amount = parseInt(productOne.amount) + parseInt(product.addProduct);
+        if (product.addProduct) productOne.amount = parseInt(productOne.amount) + parseInt(product.addProduct);
         productOne.price = product.price;
         productOne.isRefrigeratorRequired = product.isRefrigeratorRequired;
         productOne.image = product.image;

@@ -57,8 +57,8 @@ const RequestList = () => {
                             <TableCell> <b>{wordList[language].requestList.tableUser}</b> </TableCell>
                             <TableCell> <b>{wordList[language].requestList.tableDate}</b> </TableCell>
                             <TableCell> <b>{wordList[language].requestList.tableStatus}</b> </TableCell>
-                            <TableCell>  </TableCell>
-                            <TableCell>  </TableCell>
+                            <TableCell> </TableCell>
+                            <TableCell> </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

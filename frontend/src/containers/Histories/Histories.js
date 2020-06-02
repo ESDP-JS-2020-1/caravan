@@ -15,7 +15,6 @@ import Chip from "@material-ui/core/Chip";
 
 import {getHistoriesList} from "../../store/actions/HistoriesActions";
 
-
 import {wordList} from "../../wordList";
 import {NavLink} from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
@@ -45,7 +44,8 @@ const Histories = props => {
 
     return (
         <div>
-            <Pagination count={histories.pageAmount} color="primary" onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)} />
+            <Pagination count={histories.pageAmount} color="primary"
+                        onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)}/>
             {histories.length !== 0 ?
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
@@ -87,8 +87,7 @@ const Histories = props => {
                                     operationType += ' пользователя'
                                 }
                                 if (info.name) documentInfo = info.name;
-                                if (info.status) documentInfo = 'звавку';
-
+                                if (info.status) documentInfo = 'заявку';
 
                                 return (
                                     <TableRow key={history._id}>
@@ -98,8 +97,9 @@ const Histories = props => {
                                                     <b>{userName}</b>
                                                     <p>{operationType}</p>
                                                     {history.type === 'delete' ?
-                                                        <p>{documentInfo}</p>  :
-                                                        <NavLink exact to={`/${schemaNameInPlural}/${info._id}`}>{documentInfo}</NavLink>}
+                                                        <p>{documentInfo}</p> :
+                                                        <NavLink exact
+                                                                 to={`/${schemaNameInPlural}/${info._id}`}>{documentInfo}</NavLink>}
                                                 </div>
                                             }
                                         </TableCell>
@@ -133,9 +133,9 @@ const Histories = props => {
                         </TableBody>
                     </Table>
                 </TableContainer> :
-            <Typography variant='h3'>
-                {'В истории пока ничего нет!'}
-            </Typography>}
+                <Typography variant='h3'>
+                    {'В истории пока ничего нет!'}
+                </Typography>}
         </div>
     );
 };

@@ -21,32 +21,32 @@ const useStyle = makeStyles({
     search: {
         marginLeft: 'auto'
     }
-})
+});
 
 
 const StatisticsProduct = () => {
 
-    const classes = useStyle()
+    const classes = useStyle();
 
     const createRandomColor = () => {
         const r = Math.floor(Math.random() * 255);
         const g = Math.floor(Math.random() * 255);
         const b = Math.floor(Math.random() * 255);
 
-        const opacityFactor = 0.7
+        const opacityFactor = 0.7;
 
         return `rgba(${r},${g},${b},${opacityFactor})`
-    }
+    };
 
     const [numberOfDays, setNumberOfDays] = useState('7');
 
     const dispatch = useDispatch();
-    const {id, days} = useParams()
+    const {id, days} = useParams();
 
     const statistics = useSelector(state => state.statistics.statistics);
     const language = useSelector(state => state.language.name);
 
-    const inputChangeHandler = e => setNumberOfDays(e.target.value)
+    const inputChangeHandler = e => setNumberOfDays(e.target.value);
 
     useEffect(() => {
         dispatch(getProductsList());
@@ -57,9 +57,9 @@ const StatisticsProduct = () => {
 
     const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 
-    const amounts = statistics.statistic && statistics.statistic.map(elem => parseInt(elem.amount))
-    const dates = statistics.statistic && statistics.statistic.map(elem => moment(elem.date).format(dateFormat))
-    const colors = statistics.statistic && statistics.statistic.map(() => createRandomColor())
+    const amounts = statistics.statistic && statistics.statistic.map(elem => parseInt(elem.amount));
+    const dates = statistics.statistic && statistics.statistic.map(elem => moment(elem.date).format(dateFormat));
+    const colors = statistics.statistic && statistics.statistic.map(() => createRandomColor());
 
     const data = {
         labels: dates,
@@ -69,7 +69,7 @@ const StatisticsProduct = () => {
             backgroundColor: colors,
             borderWidth: 1
         }]
-    }
+    };
 
     return (
         <Box mt={1}>
@@ -95,7 +95,8 @@ const StatisticsProduct = () => {
                                 />
                             </Grid>
                             <Grid item>
-                                <Button variant='contained' color='primary' component={NavLink} to={`/product/stat/${id}/${numberOfDays}`}>
+                                <Button variant='contained' color='primary' component={NavLink}
+                                        to={`/product/stat/${id}/${numberOfDays}`}>
                                     {wordList[language].search}
                                 </Button>
                             </Grid>

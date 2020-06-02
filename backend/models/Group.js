@@ -23,6 +23,6 @@ const GroupSchema = new mongoose.Schema({
 
 const schemaName = 'Group';
 
-GroupSchema.plugin(addToHistory, { schemaName })
+GroupSchema.plugin(addToHistory, {schemaName});
 
 module.exports = mongoose.model(schemaName, GroupSchema);

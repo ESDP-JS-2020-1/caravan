@@ -17,7 +17,6 @@ import Button from "@material-ui/core/Button";
 import {checkPermission} from "../../../CheckPermission";
 
 
-
 const UserListItem = props => {
     const useStyles = makeStyles(() => ({
         offPadding: {
@@ -40,7 +39,8 @@ const UserListItem = props => {
     return (
         <TableRow>
             <TableCell className={classes.offPadding}>
-                {props.image && <Avatar className={classes.avatar} variant="square" src={apiURL.url +'/uploads/productImage/'+props.image}/>}
+                {props.image && <Avatar className={classes.avatar} variant="square"
+                                        src={apiURL.url + '/uploads/productImage/' + props.image}/>}
             </TableCell>
             <TableCell className={classes.offPadding}>{props.title}</TableCell>
             <TableCell className={classes.offPadding}>{props.amount}</TableCell>
@@ -63,7 +63,7 @@ const UserListItem = props => {
                 >
                     <EditIcon/>
                 </IconButton>}
-                {checkPermission('getStatistic') &&  <Button
+                {checkPermission('getStatistic') && <Button
                     variant="contained"
                     color="primary"
                     startIcon={<EqualizerIcon/>}

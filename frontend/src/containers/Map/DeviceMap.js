@@ -11,9 +11,8 @@ import {createCoordinateSuccess} from "../../store/actions/usersActions";
 import 'leaflet/dist/leaflet.css';
 
 
-
 Leaflet.Icon.Default.imagePath =
-    '../node_modules/leaflet'
+    '../node_modules/leaflet';
 
 delete Leaflet.Icon.Default.prototype._getIconUrl;
 
@@ -38,7 +37,7 @@ const MapDisplay = () => {
     const addMarker = (event) => {
         const marker = {...event.latlng};
 
-        if (event.originalEvent.target.id !== 'select'){
+        if (event.originalEvent.target.id !== 'select') {
             setState({...state, marker});
             dispatch(createCoordinateSuccess({lat: event.latlng.lat, lng: event.latlng.lng}))
         }
@@ -47,11 +46,12 @@ const MapDisplay = () => {
 
 
     const myPopup = (SearchInfo) => {
-        return(
+        return (
             <Popup>
                 <div>
                     <p>I am a custom popUp</p>
-                    <p>latitude and longitude from search component: lat:{SearchInfo.latLng.lat} lng:{SearchInfo.latLng.lng}</p>
+                    <p>latitude and longitude from search component:
+                        lat:{SearchInfo.latLng.lat} lng:{SearchInfo.latLng.lng}</p>
                 </div>
             </Popup>
         );
@@ -65,18 +65,18 @@ const MapDisplay = () => {
     const basemapsDict = {
         osm: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         hot: "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
-        dark:"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
+        dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png",
         cycle: "https://dev.{s}.tile.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png"
     };
 
     const position = [state.lat, state.lng];
 
     return (
-        <Map onClick={addMarker} center={position} zoom={state.zoom} style={{height : '100%'}}>
+        <Map onClick={addMarker} center={position} zoom={state.zoom} style={{height: '100%'}}>
             <ReactLeafletSearch
-                popUp={ myPopup }
-                showMarker = {true}
-                position="topleft" />
+                popUp={myPopup}
+                showMarker={true}
+                position="topleft"/>
             <TileLayer
                 url={basemapsDict[state.basemap]}
             />
@@ -86,6 +86,6 @@ const MapDisplay = () => {
 
         </Map>
     )
-}
+};
 
 export default MapDisplay;

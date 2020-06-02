@@ -16,7 +16,6 @@ import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
 
 
-
 const useStyles = makeStyles((theme) => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -61,16 +60,27 @@ const EditProduct = (props) => {
     const editProduct = useSelector(state => state.products.editProduct);
     const language = useSelector(state => state.language.name);
 
+    const [comment, setComment] = React.useState('');
+
     useEffect(() => {
         dispatch(getProductEdit(props.match.params.id));
     }, [dispatch, props.match.params.id]);
 
     const fileChangeHandler = e => dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.files[0]}));
     const changeHandler = e => (dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.value})));
-    const checkboxChangeHandler = () => (dispatch(getProductSuccess({...editProduct, isRefrigeratorRequired: !editProduct.isRefrigeratorRequired})));
+    const checkboxChangeHandler = () => (dispatch(getProductSuccess({
+        ...editProduct,
+        isRefrigeratorRequired: !editProduct.isRefrigeratorRequired
+    })));
+    const changeCommentInput = e => {
+        setComment(e.target.value)
+    };
 
     const removeProduct = async () => {
-        await dispatch(deleteProduct(props.match.params.id))
+        const remove = {
+            comment: comment
+        };
+        await dispatch(deleteProduct(props.match.params.id, remove))
     };
 
     const onSubmit = e => {
@@ -80,13 +90,14 @@ const EditProduct = (props) => {
         Object.keys(editProduct).forEach(key => {
             formData.append(key, editProduct[key])
         });
+        formData.append('comment', comment);
         dispatch(putEditProduct(props.match.params.id, formData))
     };
 
     const [open, setOpen] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
     const handleOpenAndClose = () => (setOpen(!open));
-    const handleOpenEdit = ()=>(setOpenEdit(!openEdit));
+    const handleOpenEdit = () => (setOpenEdit(!openEdit));
 
     return (
         <Container>
@@ -105,15 +116,11 @@ const EditProduct = (props) => {
                                 onChange={changeHandler}
                                 value={editProduct.name}
                             />
-                            <span style={{padding: '10px 0 20px', fontSize: '20px'}} >
-                                <b>{wordList[language].editProduct.availableProductQty}</b> {editProduct.amount}
-                            </span>
                             <FormElement
-                                type='number'
-                                propertyName={'addProduct'}
+                                propertyName={'amount'}
                                 title={wordList[language].editProduct.inputQty}
                                 onChange={changeHandler}
-                                value={editProduct.addProduct}
+                                value={editProduct.amount}
                             />
                             <FormElement
                                 propertyName={'price'}
@@ -165,6 +172,11 @@ const EditProduct = (props) => {
                 </Box>
             </Grid>
             <Modal onClose={handleOpenAndClose} open={open} title={wordList[language].editProduct.modalDeleteTitle}>
+                <FormElement
+                    propertyName={'comment'}
+                    title={wordList[language].editProduct.modalComment}
+                    onChange={changeCommentInput}
+                />
                 {error && <Box mb={1}>
                     <Alert severity="error">{error}</Alert>
                 </Box>}
@@ -187,6 +199,11 @@ const EditProduct = (props) => {
                 </Grid>
             </Modal>
             <Modal onClose={handleOpenEdit} open={openEdit} title={wordList[language].editProduct.modalEditTitle}>
+                <FormElement
+                    propertyName={'comment'}
+                    title={wordList[language].editProduct.modalComment}
+                    onChange={changeCommentInput}
+                />
                 {error && <Box mb={1}>
                     <Alert severity="error">{error}</Alert>
                 </Box>}

@@ -38,7 +38,7 @@ const RequestSchema = new Schema({
 
 const schemaName = 'Request';
 
-RequestSchema.plugin(addToHistory, { schemaName })
+RequestSchema.plugin(addToHistory, {schemaName});
 
 const Request = mongoose.model(schemaName, RequestSchema);
 

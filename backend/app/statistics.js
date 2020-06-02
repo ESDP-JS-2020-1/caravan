@@ -1,8 +1,8 @@
 const express = require('express');
 
 const Statistics = require('../models/Statistic'),
-      Product = require('../models/Product'),
-      User = require('../models/User');
+    Product = require('../models/Product'),
+    User = require('../models/User');
 const isAuth = require('../middleware/isAuth');
 
 const router = express.Router();

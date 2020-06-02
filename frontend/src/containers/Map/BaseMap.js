@@ -1,12 +1,7 @@
 import React from 'react';
-
 import './Maps.css'
 
-
-
 const BaseMap = props => {
-
-
     return (
         <div className="basemaps-container">
             <select id="select" value={props.basemap} onChange={(e) => props.onChange(e.currentTarget.value)}>

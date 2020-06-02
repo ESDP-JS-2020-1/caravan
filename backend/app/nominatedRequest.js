@@ -17,7 +17,7 @@ router.post('/', isAuth, permit('addRequest'), async (req, res) => {
 
         const request = await Request.findOne({_id: whiteList.request});
 
-        if(request.status === 'pending') {
+        if (request.status === 'pending') {
             request.status = 'performed'
         } else return res.status(400).send({message: 'Request status is not pending!'});
 

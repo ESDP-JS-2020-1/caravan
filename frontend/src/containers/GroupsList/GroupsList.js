@@ -18,8 +18,6 @@ import {getGroups} from "../../store/actions/groupActions";
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
 
-
-
 const GroupsList = () => {
     const dispatch = useDispatch();
     const groups = useSelector(state => state.groups.groups);
@@ -41,16 +39,17 @@ const GroupsList = () => {
     return (
         <div>
             <Typography variant='h4'>{wordList[language].groupsList.listGroupTitle}</Typography>
-           {checkPermission('addGroup') && <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
+            {checkPermission('addGroup') &&
+            <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
                 {wordList[language].groupsList.addGroupBtn}
             </Button>}
             <TableContainer component={Paper}>
                 <Table aria-label="caption table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>       <b>{wordList[language].groupsList.tableGroupTitle}</b>        </TableCell>
+                            <TableCell> <b>{wordList[language].groupsList.tableGroupTitle}</b> </TableCell>
                             <TableCell> <b>{wordList[language].groupsList.tableGroupQty}</b> </TableCell>
-                            <TableCell>                              </TableCell>
+                            <TableCell> </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

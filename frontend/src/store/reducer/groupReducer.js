@@ -17,11 +17,11 @@ const groupReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case ADD_GROUP_REQUEST:
-            return {...state, loading: true}
+            return {...state, loading: true};
         case ADD_GROUP_SUCCESS:
-            return {...state, loading: false}
+            return {...state, loading: false};
         case ADD_GROUP_FAILURE:
-            return {...state, error: action.error.response.data.message}
+            return {...state, error: action.error.response.data.message};
 
         case GET_GROUPS_REQUEST:
             return {...state, loading: true};
@@ -38,8 +38,9 @@ const groupReducer = (state = initialState, action) => {
         case GET_GROUP_SUCCESS:
             return {...state, group: action.group, loading: false};
         case GET_GROUP_ERROR:
-            return {...state, error: action.error   , loading: false};
-        default: return state
+            return {...state, error: action.error, loading: false};
+        default:
+            return state
     }
 };
 

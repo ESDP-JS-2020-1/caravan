@@ -18,8 +18,6 @@ import {addUser} from "../../store/actions/usersActions";
 import MapDisplay from "../Map/DeviceMap";
 import {wordList} from "../../wordList";
 
-
-
 const useStyles = makeStyles({
     formBtn: {
         marginTop: '1%',
@@ -56,6 +54,7 @@ const useStyles = makeStyles({
         height: '410px'
     }
 });
+
 const AddUser = () => {
     const classes = useStyles();
     const coordinate = useSelector(state => state.users.coordinates);
@@ -91,7 +90,7 @@ const AddUser = () => {
 
         const data = new FormData();
         Object.keys(user).forEach(value => {
-            if (value === 'coordinates'){
+            if (value === 'coordinates') {
                 data.append(value, JSON.stringify(coordinate))
             } else {
                 data.append(value, user[value])
@@ -181,7 +180,7 @@ const AddUser = () => {
                                             checked={user.carRefrigerator}
                                             value={user.carRefrigerator}
                                             onChange={checkboxChangeHandler}
-                                            inputProps={{ 'aria-label': 'primary checkbox' }}
+                                            inputProps={{'aria-label': 'primary checkbox'}}
                                         />
                                     }
                                     label={wordList[language].addUser.inputRefrigerator}
@@ -207,15 +206,15 @@ const AddUser = () => {
                                     />
                                 </Grid>
                                 {coordinate && <Grid item>
-                                        <FormElement
-                                            disabled
-                                            id='coordinates'
-                                            propertyName='coordinates'
-                                            title={wordList[language].addUser.inputCoordinates}
-                                            value={coordinate.lat + ' ' + coordinate.lng}
-                                            onChange={inputChangeHandler}
-                                        />
-                                    </Grid>}
+                                    <FormElement
+                                        disabled
+                                        id='coordinates'
+                                        propertyName='coordinates'
+                                        title={wordList[language].addUser.inputCoordinates}
+                                        value={coordinate.lat + ' ' + coordinate.lng}
+                                        onChange={inputChangeHandler}
+                                    />
+                                </Grid>}
                                 <Box className={classes.boxMapDisplay}>
                                     <MapDisplay/>
                                 </Box>

@@ -71,13 +71,13 @@ router.get('/:id', isAuth, async (req, res) => {
         }
 
         const groups = await Group.find({list: {$elemMatch: {user: user._id}}});
-        let permissions = await Group.find({'list.user':user._id}).select({ "permissions": 1, "_id": 0});
-        const permission = new Set()
-        permissions.forEach(p=>p.permissions.forEach(p=> permission.add(p)));
+        let permissions = await Group.find({'list.user': user._id}).select({"permissions": 1, "_id": 0});
+        const permission = new Set();
+        permissions.forEach(p => p.permissions.forEach(p => permission.add(p)));
 
         user.permissions = [...permission];
 
-        user = {...user._doc}
+        user = {...user._doc};
 
         delete user.password;
         user.groups = groups;
@@ -147,10 +147,10 @@ router.post('/sessions', async (req, res) => {
                     return res.status(404).send({message: 'Username or password not correct!'});
                 }
             }
-            let permissions = await Group.find({'list.user':user._id}).select({ "permissions": 1, "_id": 0});
-            const permission = new Set()
-            permissions.forEach(p=>p.permissions.forEach(p=> permission.add(p)));
-           user.permissions= [...permission];
+            let permissions = await Group.find({'list.user': user._id}).select({"permissions": 1, "_id": 0});
+            const permission = new Set();
+            permissions.forEach(p => p.permissions.forEach(p => permission.add(p)));
+            user.permissions = [...permission];
             user.addToken();
             user.save();
 
@@ -190,7 +190,8 @@ router.delete('/:id', isAuth, permit('deleteUser'), async (req, res) => {
         const user = await User.findOne({_id: id});
 
         if (!user) return res.status(404).send({message: "User not found"});
-        if (user._id.toString() === req.currentUser._id.toString()) return res.status(401).send({message: "You cannot delete yourself"});
+        if (user._id.toString() === req.currentUser._id.toString())
+            return res.status(401).send({message: "You cannot delete yourself"});
 
         user.isRemoved = true;
         user.save(req);

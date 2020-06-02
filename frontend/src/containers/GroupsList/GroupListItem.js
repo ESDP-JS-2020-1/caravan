@@ -10,7 +10,6 @@ import Button from "@material-ui/core/Button";
 import {wordList} from "../../wordList";
 
 
-
 const GroupListItem = props => {
     const language = useSelector(state => state.language.name);
 

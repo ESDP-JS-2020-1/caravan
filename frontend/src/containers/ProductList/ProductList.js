@@ -25,7 +25,6 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import Box from "@material-ui/core/Box";
 
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: '900px',
@@ -97,7 +96,7 @@ const ProductList = () => {
     };
 
     const productList = products.filter(word => word.name.search(search.search) !== -1);
-    const card = productList.map((elem,i) => {
+    const card = productList.map((elem, i) => {
         return (
             <ProductCard
                 userInfo={user}
@@ -113,7 +112,7 @@ const ProductList = () => {
             />
         )
     });
-  
+
     const productsList = productList.map((elem) => {
         return (
 
@@ -134,7 +133,7 @@ const ProductList = () => {
 
     return (
         <>
-            <Grid container direction='column' spacing={1} >
+            <Grid container direction='column' spacing={1}>
                 <Grid item>
                     <Grid container justify='space-between' alignItems='center'>
                         <Grid item>
@@ -142,7 +141,7 @@ const ProductList = () => {
                                 {wordList[language].productList.productListTitle}
                             </Typography>
                         </Grid>
-                        { checkPermission('addProduct') &&
+                        {checkPermission('addProduct') &&
                         <Grid item>
                             <Button
                                 variant='contained'
@@ -155,7 +154,7 @@ const ProductList = () => {
                         </Grid>
                         }
                     </Grid>
-                   {window.innerWidth < 900 && <Grid item>
+                    {window.innerWidth < 900 && <Grid item>
                         <Box m={1}> <FormElement
                             type='search'
                             propertyName='search'
@@ -164,37 +163,42 @@ const ProductList = () => {
                         /></Box>
                     </Grid>}
                 </Grid>
-                { window.innerWidth > 900 &&  <Grid item >
+                {window.innerWidth > 900 && <Grid item>
                     <Paper className={classes.root}>
-                    <TableContainer component={Paper} className={classes.table}>
-                        <Table aria-label="caption table" >
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell className={classes.paddingLeft}><b>{wordList[language].productList.photo}</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.name}</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.quantity}</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.productType}</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.price}</b></TableCell>
-                                    <TableCell className={classes.offPadding}><b>{wordList[language].productList.isRefrigeratorRequired}</b></TableCell>
-                                    <TableCell className={classes.offPadding}>
-                                        <FormElement
-                                            type='search'
-                                            propertyName='search'
-                                            title={wordList[language].productList.searchProduct}
-                                            onChange={changeSearch}
-                                        />
-                                    </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {window.innerWidth > 900 && productsList}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                        <TableContainer component={Paper} className={classes.table}>
+                            <Table aria-label="caption table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell
+                                            className={classes.paddingLeft}><b>{wordList[language].productList.photo}</b></TableCell>
+                                        <TableCell
+                                            className={classes.offPadding}><b>{wordList[language].productList.name}</b></TableCell>
+                                        <TableCell
+                                            className={classes.offPadding}><b>{wordList[language].productList.quantity}</b></TableCell>
+                                        <TableCell
+                                            className={classes.offPadding}><b>{wordList[language].productList.productType}</b></TableCell>
+                                        <TableCell
+                                            className={classes.offPadding}><b>{wordList[language].productList.price}</b></TableCell>
+                                        <TableCell
+                                            className={classes.offPadding}><b>{wordList[language].productList.isRefrigeratorRequired}</b></TableCell>
+                                        <TableCell className={classes.offPadding}>
+                                            <FormElement
+                                                type='search'
+                                                propertyName='search'
+                                                title={wordList[language].productList.searchProduct}
+                                                onChange={changeSearch}
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {window.innerWidth > 900 && productsList}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Paper>
                 </Grid>}
-                {window.innerWidth < 900 &&  <Grid  container >
-
+                {window.innerWidth < 900 && <Grid container>
                     {card}
                 </Grid>}
             </Grid>

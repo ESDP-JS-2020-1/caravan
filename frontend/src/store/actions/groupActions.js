@@ -20,19 +20,19 @@ export const addGroupRequest = () => ({type: ADD_GROUP_REQUEST});
 export const addGroupSuccess = () => ({type: ADD_GROUP_SUCCESS});
 export const addGroupFailure = error => ({type: ADD_GROUP_FAILURE, error});
 
-export const getPermissionsSuccess = permission => ({type: GET_PERMISSIONS_SUCCESS, permission });
+export const getPermissionsSuccess = permission => ({type: GET_PERMISSIONS_SUCCESS, permission});
 export const getGroupsRequest = () => ({type: GET_GROUPS_REQUEST});
-export const getGroupsSuccess = groups => ({type: GET_GROUPS_SUCCESS, groups });
+export const getGroupsSuccess = groups => ({type: GET_GROUPS_SUCCESS, groups});
 export const getGroupsError = error => ({type: GET_GROUPS_ERROR, error});
 
 export const getGroupRequest = () => ({type: GET_GROUP_REQUEST});
-export const getGroupSuccess = group => ({type: GET_GROUP_SUCCESS, group });
+export const getGroupSuccess = group => ({type: GET_GROUP_SUCCESS, group});
 export const getGroupError = error => ({type: GET_GROUP_ERROR, error});
 
 export const getPermissions = () => async dispatch => {
-  const permissions = await axiosApi.get('/groups/permissions');
+    const permissions = await axiosApi.get('/groups/permissions');
 
-  dispatch(getPermissionsSuccess(permissions.data))
+    dispatch(getPermissionsSuccess(permissions.data))
 };
 
 export const addNewGroup = group => async (dispatch, getState) => {
@@ -59,7 +59,7 @@ export const addNewGroup = group => async (dispatch, getState) => {
 export const getGroups = () => async dispatch => {
     try {
         dispatch(getGroupsRequest());
-        const groups  = await axiosApi.get('/groups');
+        const groups = await axiosApi.get('/groups');
 
         dispatch(getGroupsSuccess(groups.data))
     } catch (error) {
@@ -70,7 +70,7 @@ export const getGroups = () => async dispatch => {
 export const getGroup = id => async dispatch => {
     try {
         dispatch(getGroupRequest());
-        const group  = await axiosApi.get('/groups/'+id);
+        const group = await axiosApi.get('/groups/' + id);
         dispatch(getGroupSuccess(group.data))
     } catch (error) {
         dispatch(getGroupError(error));
@@ -79,11 +79,11 @@ export const getGroup = id => async dispatch => {
 
 export const editGroup = (data, id) => async dispatch => {
     try {
-        dispatch(addGroupRequest())
-        await axiosApi.put('/groups/edit/'+id, data);
+        dispatch(addGroupRequest());
+        await axiosApi.put('/groups/edit/' + id, data);
 
         dispatch(getGroup(id));
-        dispatch(push('/groups/'+id));
+        dispatch(push('/groups/' + id));
 
         dispatch(addGroupSuccess())
     } catch (e) {
@@ -92,7 +92,7 @@ export const editGroup = (data, id) => async dispatch => {
 };
 
 export const addUserToGroup = (idGroup, idUser) => async dispatch => {
-    await axiosApi.put('/groups/'+idGroup, {list: [idUser]});
+    await axiosApi.put('/groups/' + idGroup, {list: [idUser]});
 
     dispatch(getGroup(idGroup));
     dispatch(getUsers());
@@ -100,13 +100,13 @@ export const addUserToGroup = (idGroup, idUser) => async dispatch => {
 
 export const deleteGroupUser = (id, idGroup) => async dispatch => {
     const data = {group: idGroup, user: id};
-    await  axiosApi.put('/groups/user/', data);
+    await axiosApi.put('/groups/user/', data);
 
     dispatch(getGroup(idGroup));
 };
 
 export const deleteGroup = id => async dispatch => {
-  await  axiosApi.delete('/groups/'+id);
+    await axiosApi.delete('/groups/' + id);
 
-  dispatch(push('/groups'))
+    dispatch(push('/groups'))
 };

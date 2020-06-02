@@ -14,8 +14,6 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {getUser} from "../../store/actions/usersActions";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import {wordList} from "../../wordList";
-import {NavLink} from "react-router-dom";
-
 
 
 const useStyles = makeStyles({
@@ -73,33 +71,31 @@ const UserInfo = props => {
                         </Typography>
                     </Box>
                     {userInfo && <>
-                        <Typography variant='h5'> <b>{wordList[language].userInfo.userInfoRole} </b>{userInfo.role}</Typography>
+                        <Typography variant='h5'> <b>{wordList[language].userInfo.userInfoRole} </b>{userInfo.role}
+                        </Typography>
 
-                        <Typography variant='h5'> <b>{wordList[language].userInfo.userInfoName} </b>{userInfo.displayName}</Typography>
+                        <Typography variant='h5'>
+                            <b>{wordList[language].userInfo.userInfoName} </b>{userInfo.displayName}</Typography>
 
-                        <Typography variant='h5'><b>{wordList[language].userInfo.userInfoPhone} </b>{userInfo.phone}</Typography>
-
-                        <Typography variant='h5' >
-                            <b>{wordList[language].groupInfo.groupPermits}: </b></Typography>
-                            <ul style={{margin: '0 0 20px 0'}}>
-                                {userInfo.permissions.map((elem, id) => <li key={id}>{elem}</li>)}
-                            </ul>
-
-                        <Typography variant='h5' >
-                            <b>Список групп: </b></Typography>
-                        <ul style={{margin: '0 0 20px 0'}}>
-                            {userInfo.groups.map((elem, id) => <li key={id} ><NavLink to={`/groups/${elem._id}`}>{elem.name}</NavLink></li>)}
-                        </ul>
+                        <Typography variant='h5'><b>{wordList[language].userInfo.userInfoPhone} </b>{userInfo.phone}
+                        </Typography>
                         <Divider/>
                         {userInfo.role === 'market' && <>
-                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoMarket} </b>{userInfo.market.companyName}</Typography>
+                            <Typography
+                                variant='h5'><b>{wordList[language].userInfo.userInfoMarket} </b>{userInfo.market.companyName}
+                            </Typography>
 
-                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoAddress} </b>{userInfo.market.address}</Typography>
+                            <Typography
+                                variant='h5'><b>{wordList[language].userInfo.userInfoAddress} </b>{userInfo.market.address}
+                            </Typography>
 
-                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoCoord} </b>lat: {coord.lat} , lng: {coord.lng}</Typography>
+                            <Typography
+                                variant='h5'><b>{wordList[language].userInfo.userInfoCoord} </b>lat: {coord.lat} ,
+                                lng: {coord.lng}</Typography>
 
                             <div style={{height: '300px'}}>
-                                <Map center={[coord.lat, coord.lng]} zoom={10} style={{background: '#000',height : '100%', width: '100%'}}>
+                                <Map center={[coord.lat, coord.lng]} zoom={10}
+                                     style={{background: '#000', height: '100%', width: '100%'}}>
                                     <TileLayer
                                         url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
                                     />
@@ -108,12 +104,16 @@ const UserInfo = props => {
                                 </Map>
                             </div>
 
-                            </>}
+                        </>}
 
                         {userInfo.role === 'courier' && <>
-                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoCar} </b>{userInfo.courier.carName}</Typography>
+                            <Typography
+                                variant='h5'><b>{wordList[language].userInfo.userInfoCar} </b>{userInfo.courier.carName}
+                            </Typography>
 
-                            <Typography variant='h5'><b>{wordList[language].userInfo.userInfoCarVolume} </b>{userInfo.courier.carVolume}</Typography>
+                            <Typography
+                                variant='h5'><b>{wordList[language].userInfo.userInfoCarVolume} </b>{userInfo.courier.carVolume}
+                            </Typography>
 
                             <Typography variant='h5'><b>
                                 {wordList[language].userInfo.userInfoFridge}

@@ -67,17 +67,16 @@ const EditGroup = props => {
 
 
     useEffect(() => {
-
-        if(checkboxes === undefined) {
+        if (checkboxes === undefined) {
             dispatch(getGroup(props.match.params.id));
-            if(permissions === undefined) dispatch(getPermissions())
+            if (permissions === undefined) dispatch(getPermissions())
         }
 
-        if(group.permissions && permissions) {
+        if (group.permissions && permissions) {
             const groupPermissions = [...group.permissions];
 
             permissions.forEach(elem => {
-                if( elem === groupPermissions.find(element => element === elem)){
+                if (elem === groupPermissions.find(element => element === elem)) {
                     permissions[elem] = true
                 } else {
                     permissions[elem] = false
@@ -92,7 +91,7 @@ const EditGroup = props => {
         <Container>
             <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
                 <Box component="div" boxShadow={10} p={5}>
-                    <Grid container >
+                    <Grid container>
                         <Grid item xs={9}>
                             <FormElement
                                 id='groupName'
@@ -108,7 +107,10 @@ const EditGroup = props => {
                                 style={{height: '55px'}}
                                 variant='contained'
                                 color='primary'
-                                onClick={() => dispatch(editGroup({name: groupInfo, permissions: checkboxes}, props.match.params.id))}
+                                onClick={() => dispatch(editGroup({
+                                    name: groupInfo,
+                                    permissions: checkboxes
+                                }, props.match.params.id))}
                             >{wordList[language].editGroup.btn}</Button>
                         </Grid>
                     </Grid>

@@ -94,10 +94,11 @@ const GroupInfo = props => {
                                     <Typography variant="h6" style={{marginRight: '10px'}}>
                                         <b>{wordList[language].groupInfo.groupUserName}:</b> {elem.user.displayName}
                                     </Typography>
-                                    {checkPermission('getUser') && <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>
+                                    {checkPermission('getUser') &&
+                                    <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>
                                         {wordList[language].groupInfo.groupUserInfo}
                                     </Button>}
-                                    {checkPermission('editGroup') &&<IconButton
+                                    {checkPermission('editGroup') && <IconButton
                                         id={'deleteUser' + id}
                                         style={{margin: '0 0 0 5px'}}
                                         variant='contained'
@@ -144,7 +145,7 @@ const GroupInfo = props => {
                     color='primary'
                     component={NavLink}
                     to={`/groups/edit/${group._id}`}
-                >{wordList[language].groupInfo.editGroupBtn}</Button>}
+                >Редактировать</Button>}
             </Paper>
             <Modal onClose={handleOpenAndClose} open={open} title={wordList[language].groupInfo.deleteModal}>
                 <Grid container justify='flex-end' spacing={1}>

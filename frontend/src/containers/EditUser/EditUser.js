@@ -21,7 +21,6 @@ import {wordList} from "../../wordList";
 import {Map, Marker, TileLayer} from "react-leaflet";
 
 
-
 const useStyles = makeStyles(() => ({
     formBtn: {
         marginTop: '1%',
@@ -62,42 +61,53 @@ const EditUser = props => {
 
     const [open, setOpen] = React.useState(false);
 
+
+    const [comment, setComment] = React.useState('');
     const [user, setUser] = React.useState(null);
     const [coordinate, setCoordinate] = useState({lat: '', lng: ''});
 
     useEffect(() => {
-        if(editClient === undefined || user === null) dispatch(getUser(props.match.params.id));
+        if (editClient === undefined || user === null) dispatch(getUser(props.match.params.id));
 
-        if(editClient && editClient.role === 'market') {
-            setCoordinate(coords => editClient.market.coordinates)
-        }
-        if(editClient && user === null){
-            setUser(user => editClient)
-        }
-    }, [dispatch, props.match.params.id, editClient, user]);
+        if (editClient && editClient.role === 'market') setCoordinate(() => editClient.market.coordinates);
+        setUser(() => editClient)
+    }, [dispatch, props.match.params.id, editClient]);
 
     const error = useSelector(state => state.users.error);
 
     const removeUser = async () => {
-        await dispatch(deleteUser(props.match.params.id))
+        const remove = {
+            comment: comment
+        };
+        await dispatch(deleteUser(props.match.params.id, remove))
     };
 
-    const checkboxChangeHandler = e =>setUser({...user, courier: {...user.courier, carRefrigerator: e.target.checked}});
+    const checkboxChangeHandler = e => setUser({
+        ...user,
+        courier: {...user.courier, carRefrigerator: e.target.checked}
+    });
     const inputChangeHandler = e => {
-        if(e.target.name === 'role' && e.target.value === 'market' && !user.market){
-            return  setUser({...user, [e.target.name]: e.target.value, market: {companyName: '', address: ''}});
-        } else if(e.target.name === 'role' && e.target.value === 'courier' && !user.courier){
-            return  setUser({...user, [e.target.name]: e.target.value, courier: {carName: '', carVolume: '', carRefrigerator: false}});
+        if (e.target.name === 'role' && e.target.value === 'market' && !user.market) {
+            return setUser({...user, [e.target.name]: e.target.value, market: {companyName: '', address: ''}});
+        } else if (e.target.name === 'role' && e.target.value === 'courier' && !user.courier) {
+            return setUser({
+                ...user,
+                [e.target.name]: e.target.value,
+                courier: {carName: '', carVolume: '', carRefrigerator: false}
+            });
         }
 
         setUser({...user, [e.target.name]: e.target.value});
     }
 
-    const marketChangeHandler = e => setUser({...user, market: {...user.market,[e.target.name]: e.target.value}});
-    const courierChangeHandler = e => setUser({...user, courier: {...user.courier,[e.target.name]: e.target.value}});
+    const marketChangeHandler = e => setUser({...user, market: {...user.market, [e.target.name]: e.target.value}});
+    const courierChangeHandler = e => setUser({...user, courier: {...user.courier, [e.target.name]: e.target.value}});
 
     const phoneChangeHandler = value => setUser({...user, phone: value});
     const fileChangeHandler = e => setUser({...user, [e.target.name]: e.target.files[0]});
+    const changeCommentInput = e => {
+        setComment(e.target.value)
+    };
 
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -106,35 +116,33 @@ const EditUser = props => {
 
     const onSubmit = e => {
         e.preventDefault();
-        const userInfo = {...user}
-        if(userInfo.role === 'market'){
+        const userInfo = {...user};
+        if (userInfo.role === 'market') {
             delete userInfo.courier
-        } else if(userInfo.role === 'courier'){
+        } else if (userInfo.role === 'courier') {
             delete userInfo.market
         }
         const data = new FormData();
         Object.keys(userInfo).forEach(value => {
             if (value === 'courier') {
-                return  Object.keys(userInfo.courier).forEach(courier => data.append(courier, userInfo.courier[courier]))
+                return Object.keys(userInfo.courier).forEach(courier => data.append(courier, userInfo.courier[courier]))
             }
             if (value === 'market') {
-                return  Object.keys(userInfo.market).forEach(market => data.append(market, userInfo.market[market]))
+                return Object.keys(userInfo.market).forEach(market => data.append(market, userInfo.market[market]))
             }
             data.append(value, userInfo[value])
         });
+        data.append('comment', comment);
         data.append('lat', coordinate.lat);
         data.append('lng', coordinate.lng);
         dispatch(editUser(data, props.match.params.id))
     };
 
     const addMarker = (event) => {
-
-        if (event.originalEvent.target.id !== 'select'){
+        if (event.originalEvent.target.id !== 'select') {
             setCoordinate({...coordinate, lat: event.latlng.lat, lng: event.latlng.lng});
         }
-
     };
-
 
     return (
         <Container>
@@ -248,13 +256,17 @@ const EditUser = props => {
                                     />
                                 </Grid>
                                 <Grid>
+                                    {/*42.87658326294315 74.6050579195933*/}
                                     <div style={{height: '300px'}}>
-                                        <Map onClick={addMarker} center={coordinate.lat ? [coordinate.lat, coordinate.lng] : [42.87658326294315, 74.6050579195933]} zoom={10} style={{background: '#000',height : '100%', width: '100%'}}>
+                                        <Map onClick={addMarker}
+                                             center={coordinate.lat ? [coordinate.lat, coordinate.lng] : [42.87658326294315, 74.6050579195933]}
+                                             zoom={10} style={{background: '#000', height: '100%', width: '100%'}}>
                                             <TileLayer
                                                 url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
                                             />
 
-                                            <Marker position={coordinate.lat ? [coordinate.lat, coordinate.lng] : [42.87658326294315, 74.6050579195933]}/>
+                                            <Marker
+                                                position={coordinate.lat ? [coordinate.lat, coordinate.lng] : [42.87658326294315, 74.6050579195933]}/>
                                         </Map>
                                     </div>
                                 </Grid>
@@ -276,6 +288,15 @@ const EditUser = props => {
                                     defaultCountry={'kg'}
                                     value={user.phone}
                                     onChange={phoneChangeHandler}
+                                />
+                            </Grid>
+                            <Grid item>
+                                <FormElement
+                                    id="comment"
+                                    propertyName='comment'
+                                    title={wordList[language].editUser.inputEditComment}
+                                    value={comment}
+                                    onChange={changeCommentInput}
                                 />
                             </Grid>
                             {error && editClient && <Grid item>
@@ -309,6 +330,15 @@ const EditUser = props => {
                 </Box>
             </Grid>
             <Modal onClose={handleClose} open={open} title={wordList[language].editUser.modalDeleteTitle}>
+                <Box ml={2} mr={2}>
+                    <FormElement
+                        id="comment"
+                        propertyName='comment'
+                        title={wordList[language].editUser.inputDeleteComment}
+                        value={comment}
+                        onChange={changeCommentInput}
+                    />
+                </Box>
                 {error && <Box mb={1}>
                     <Alert severity="error">{error}</Alert>
                 </Box>}

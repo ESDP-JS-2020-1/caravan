@@ -8,7 +8,8 @@ const historiesReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_HISTORIES_SUCCESS:
             return {...state, historiesList: action.histories};
-        default: return state
+        default:
+            return state
     }
 };
 

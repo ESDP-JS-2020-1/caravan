@@ -57,7 +57,7 @@ const run = async () => {
         }
     });
 
-     await Group.create({
+    await Group.create({
         name: 'Admin group',
         list: [{user: user1}],
         permissions:
@@ -70,7 +70,7 @@ const run = async () => {
             ]
     }, {
         name: 'Courier group',
-        list: [{user: user1},{user: user4}],
+        list: [{user: user1}, {user: user4}],
         permissions:
             [
                 'getRequest'

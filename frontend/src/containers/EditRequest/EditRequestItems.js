@@ -44,8 +44,12 @@ const EditRequestItems = (
                         aria-label={'check'}
                     >
                         <Box className={classes.heading}>
-                            <Chip label={(wordList[language].editRequestItems.title)+(r.product ? r.product.name : '')} variant="outlined" />
-                            <Chip label={(wordList[language].editRequestItems.qty)+(r.product ? r.product.amount : '')} variant="outlined" />
+                            <Chip
+                                label={(wordList[language].editRequestItems.title) + (r.product ? r.product.name : '')}
+                                variant="outlined"/>
+                            <Chip
+                                label={(wordList[language].editRequestItems.qty) + (r.product ? r.product.amount : '')}
+                                variant="outlined"/>
                         </Box>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
@@ -59,14 +63,14 @@ const EditRequestItems = (
                                         getOptionLabel={option => option.name}
                                         className={classes.autocomplete}
                                         onChange={(value, element) => onAutoCompleteChange(element, index)}
-                                        renderInput={(params) =><>
+                                        renderInput={(params) => <>
                                             <TextField
                                                 {...params}
                                                 required
                                                 value={'Продукт-1'}
                                                 label={wordList[language].editRequestItems.chooseProd}
                                                 variant="outlined"
-                                                id={'title'+index}
+                                                id={'title' + index}
                                                 name='title'
                                                 title='Название'
                                             />
@@ -79,7 +83,7 @@ const EditRequestItems = (
                             <Grid item>
                                 <FormElement
                                     required
-                                    id={'amount'+index}
+                                    id={'amount' + index}
                                     propertyName='amount'
                                     title={wordList[language].editRequestItems.inputQty}
                                     value={request.products[index].amount}
@@ -96,7 +100,6 @@ const EditRequestItems = (
                     <DeleteIcon fontSize="large"/>
                 </IconButton>
             </Grid>
-
         </Grid>
     );
 };

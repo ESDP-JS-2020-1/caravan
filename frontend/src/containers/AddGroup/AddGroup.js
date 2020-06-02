@@ -14,8 +14,6 @@ import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
 import Alert from "@material-ui/lab/Alert";
 
-
-
 const useStyles = makeStyles({
     formBtn: {
         marginTop: '1%',
@@ -54,39 +52,35 @@ const useStyles = makeStyles({
 });
 
 const AddGroup = () => {
-
     const classes = useStyles();
     const dispatch = useDispatch();
     const language = useSelector(state => state.language.name);
 
-    const error = useSelector(state => state.groups.error)
+    const error = useSelector(state => state.groups.error);
 
     const permissions = useSelector(state => state.groups.permissions);
 
     const [groupInfo, setGroupInfo] = useState({name: ''});
     const [checkboxes, setCheckboxes] = useState(undefined);
 
-
     const changeGroupInfo = e => setGroupInfo({...groupInfo, [e.target.name]: e.target.value});
     const changeCheckboxesInfo = e => setCheckboxes({...checkboxes, [e.target.name]: !checkboxes[e.target.name]});
 
     useEffect(() => {
-        if(checkboxes === undefined && permissions === undefined) dispatch(getPermissions())
+        if (checkboxes === undefined && permissions === undefined) dispatch(getPermissions());
 
-        if(permissions && checkboxes === undefined) {
+        if (permissions && checkboxes === undefined) {
             const perms = {};
             permissions.forEach(e => perms[e] = false);
 
-            setCheckboxes(e => ({...perms}) );
+            setCheckboxes(e => ({...perms}));
         }
-    }, [dispatch, permissions, checkboxes])
+    }, [dispatch, permissions, checkboxes]);
 
     const addGroup = e => {
         e.preventDefault();
         const info = {...groupInfo};
-
         info.permissions = {...checkboxes};
-
         dispatch(addNewGroup(info))
     };
 

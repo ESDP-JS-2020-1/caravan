@@ -15,8 +15,6 @@ import AddNewRequestItem from "./AddNewRequestItem/AddNewRequestItem";
 import {wordList} from "../../wordList";
 import Alert from "@material-ui/lab/Alert";
 
-
-
 const useStyles = makeStyles((theme) => ({
     heading: {
         fontSize: theme.typography.pxToRem(15),
@@ -64,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AddNewRequest =() => {
+const AddNewRequest = () => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -84,17 +82,14 @@ const AddNewRequest =() => {
     const inputChangeHandler = (e, i) => {
         let newRequest = {...request};
         newRequest.products[i][e.target.name] = e.target.value;
-
         setRequest(newRequest);
-
     };
 
     const autoCompleteChangeHandler = (value, i) => {
-        if(value) {
+        if (value) {
             let newRequest = {...request};
             newRequest.products[i].product = value._id;
             newRequest.products[i].productInfo = value;
-
             setRequest(newRequest);
         }
     };
@@ -105,24 +100,23 @@ const AddNewRequest =() => {
 
     const addRequest = (e) => {
         e.preventDefault();
-
         const newRequest = {...request};
-
-        newRequest.products = request.products[0] ? [...request.products, {product: '', amount: '', productInfo: ''}] : [{product: '', amount: '', productInfo: ''}];
-
+        newRequest.products = request.products[0] ? [...request.products, {
+            product: '',
+            amount: '',
+            productInfo: ''
+        }] : [{product: '', amount: '', productInfo: ''}];
         setRequest(newRequest)
     };
 
     const removeRequest = id => {
         const requests = {...request};
         requests.products.splice(id, 1);
-
         setRequest(requests);
     };
 
     const submitFormHandler = async e => {
         e.preventDefault();
-
         dispatch(createRequest(request));
     };
 

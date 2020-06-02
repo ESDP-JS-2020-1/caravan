@@ -39,7 +39,7 @@ router.get('/:id', auth, async (req, res) => {
         const request = await Request.findOne({_id: req.params.id})
             .populate(['user', 'products.product']);
 
-        const sumPrice = request.products.reduce((sum, num) => sum + (parseInt(num.product.price) * parseInt(num.amount)), 0)
+        const sumPrice = request.products.reduce((sum, num) => sum + (parseInt(num.product.price) * parseInt(num.amount)), 0);
 
         const courierList = await User.find({role: 'courier'});
 
@@ -107,7 +107,8 @@ router.post('/', [auth, permit('addRequest')], async (req, res) => {
         for (let i = 0; i < request.products.length; i++) {
             for (let j = 0; j < products.length; j++) {
                 if (products[j]._id.toString() === request.products[i].product.toString()) {
-                    if (products[j].amount < request.products[i].amount) return res.status(400).send({error: `One of products in request has more products than is in stock!`});
+                    if (products[j].amount < request.products[i].amount)
+                        return res.status(400).send({error: `One of products in request has more products than is in stock!`});
                 }
             }
         }
@@ -144,7 +145,7 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 
         if (!requestOne) return res.status(404).send({message: 'Request not found'});
 
-const arrId = [...request.products,...requestOne.products].map(p=>p.product._id || p.product);
+        const arrId = [...request.products, ...requestOne.products].map(p => p.product._id || p.product);
 
         const products = await Product.find({_id: {$in: arrId}});
 

@@ -33,18 +33,18 @@ const UserSchema = new mongoose.Schema({
         required: true
     },
     phone: {
-      type: String,
-      required: true
+        type: String,
+        required: true
     },
     courier: {
         type: CourierSchema,
-        required: function() {
+        required: function () {
             return this.role === 'courier'
         }
     },
     market: {
         type: MarketSchema,
-        required: function() {
+        required: function () {
             return this.role === 'market'
         }
     },
@@ -54,12 +54,12 @@ const UserSchema = new mongoose.Schema({
         default: 'market'
     },
     avatar: String,
-    permissions:[String]
+    permissions: [String]
 
 });
 
 UserSchema.pre('save', async function (next) {
-    if(!this.isModified('password')) return next();
+    if (!this.isModified('password')) return next();
 
     const salt = await bcrypt.genSalt(SALT_FACTOR);
 
@@ -80,7 +80,7 @@ UserSchema.methods.addToken = function () {
 
 const schemaName = 'User';
 
-UserSchema.plugin(addToHistory, { schemaName })
+UserSchema.plugin(addToHistory, {schemaName});
 
 const User = mongoose.model(schemaName, UserSchema);
 

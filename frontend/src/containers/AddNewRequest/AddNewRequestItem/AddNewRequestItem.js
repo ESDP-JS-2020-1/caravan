@@ -19,7 +19,6 @@ import {getProductsList} from "../../../store/actions/productsActions";
 import {wordList} from "../../../wordList";
 
 
-
 const AddNewRequestItem = (
     {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange}
 ) => {
@@ -51,7 +50,7 @@ const AddNewRequestItem = (
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Box className={classes.mainBox}>
-                            {products &&  (
+                            {products && (
                                 <Grid item>
                                     <Autocomplete
                                         id="combo-box-demo"
@@ -59,7 +58,7 @@ const AddNewRequestItem = (
                                         getOptionLabel={option => option.name}
                                         className={classes.autocomplete}
                                         onChange={(e, value) => onAutoCompleteChange(value, index)}
-                                        renderInput={(params) =><>
+                                        renderInput={(params) => <>
                                             <TextField
                                                 {...params}
                                                 required
@@ -69,7 +68,8 @@ const AddNewRequestItem = (
                                                 name='title'
                                                 title={wordList[language].addNewRequestItem.btnTitle}
                                             />
-                                        {r.productInfo && <><b>{wordList[language].addNewRequestItem.productQty} </b> {r.productInfo.amount}</>}
+                                            {r.productInfo && <>
+                                                <b>{wordList[language].addNewRequestItem.productQty} </b> {r.productInfo.amount}</>}
                                         </>}
                                     />
                                 </Grid>

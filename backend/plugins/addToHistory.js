@@ -1,7 +1,7 @@
 const History = require('../models/History');
-const pluralize = require('pluralize')
+const pluralize = require('pluralize');
 
-module.exports = function (schema, { schemaName }) {
+module.exports = function (schema, {schemaName}) {
 
     const schemaNameInPlural = pluralize(schemaName).toLowerCase();
 
@@ -10,18 +10,16 @@ module.exports = function (schema, { schemaName }) {
     schema.pre('save', function (next, request) {
         type = this.isNew ? 'add' : 'edit';
 
-        if(Object.keys(request).length !== 0) {
+        if (Object.keys(request).length !== 0) {
             user = request.currentUser;
-            if(this.isRemoved) type = 'delete';
+            if (this.isRemoved) type = 'delete';
         }
-
         next()
-    })
+    });
 
     schema.post('save', async function (info) {
         if (user) {
-            await History.create({ user: {displayName: user.displayName}, info: { data: info, schemaNameInPlural }, type })
+            await History.create({user: {displayName: user.displayName}, info: {data: info, schemaNameInPlural}, type})
         }
     })
-
-}
+};

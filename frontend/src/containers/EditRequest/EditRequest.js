@@ -18,10 +18,9 @@ import {
     putRequestEdit
 } from "../../store/actions/requestsActions";
 import EditRequestItems from "./EditRequestItems";
+import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
-
-
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -72,7 +71,6 @@ const EditRequest = (props) => {
     const editRequest = useSelector(state => state.requests.oneRequest);
     const language = useSelector(state => state.language.name);
 
-
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = useState(false);
 
@@ -83,6 +81,7 @@ const EditRequest = (props) => {
 
         dispatch(fetchSuccess({...editRequest, products: newRequest}))
     };
+
     const changeHandlerComment = (e) => {
         let newRequest = {...editRequest};
         newRequest[e.target.name] = e.target.value;
@@ -124,7 +123,6 @@ const EditRequest = (props) => {
 
     const submitFormHandler = async e => {
         e.preventDefault();
-
         dispatch(putRequestEdit(props.match.params.id, editRequest));
     };
 
@@ -137,7 +135,6 @@ const EditRequest = (props) => {
     return (
         <Container>
             <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
-
                 <Box component="div" boxShadow={10} p={5}>
                     <Box className={classes.typography} component={'span'}>
                         <Typography className={classes.typographyText} variant="h6" gutterBottom>
@@ -163,9 +160,21 @@ const EditRequest = (props) => {
                                 />
                             ))}
 
+                            {editRequest.products && <Grid item>
+                                <FormElement
+                                    id='comment'
+                                    propertyName='comment'
+                                    title={wordList[language].editRequest.inputComment}
+                                    value={editRequest.comment}
+                                    onChange={changeHandlerComment}
+                                />
+
+                            </Grid>}
                             {error &&
                             <Alert severity="error">
-                                {error === 'One of products in request has more products than is in stock!' ? 'В одном из продуктов заявки вы выбрали больше товара чем имеется на скалде!' : error}
+                                {error === 'One of products in request has more products than is in stock!' ?
+                                    'В одном из продуктов заявки вы выбрали больше товара чем имеется на скалде!' :
+                                    error}
                             </Alert>
                             }
                             <Grid item>
