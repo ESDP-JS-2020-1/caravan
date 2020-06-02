@@ -48,7 +48,7 @@ const AuthUserToolBar = () => {
 				id='user'
 			>
 				<Avatar
-					src={user.avatar ? 'http://localhost:8000/uploads/userAvatar/' + user.avatar : "/broken-image.jpg"}
+					src={user.avatar ? 'http://localhost:8000/uploads/userAvatar/' + user.avatar : ""}
 					alt={user.displayName}/>
 			</IconButton>
 			<Menu
