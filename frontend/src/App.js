@@ -28,6 +28,7 @@ import './App.css';
 import EditGroup from "./containers/EditGroup/EditGroup";
 import StatisticsProduct from "./containers/Statistics/StatisticsProduct";
 import StatisticsUser from "./containers/Statistics/StatisticsUser";
+import Trash from "./containers/Trash/Trash";
 
 
 
@@ -63,6 +64,8 @@ function App() {
                     <PrivateRoute path="/groups/new" exact roles={['addGroup']} component={AddGroup}/>
                     <PrivateRoute path="/groups/edit/:id" roles={['editGroup']} exact component={EditGroup}/>
                     <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
+
+                    <PrivateRoute path="/trash" exact roles={['getTrash']} component={Trash}/>
                 </Switch>
             </Container>
         </div>
