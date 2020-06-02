@@ -54,7 +54,11 @@ const UserSchema = new mongoose.Schema({
         default: 'market'
     },
     avatar: String,
-    permissions:[String]
+    permissions:[String],
+    date: {
+        type: Date,
+        default: Date.now
+    }
 
 });
 
