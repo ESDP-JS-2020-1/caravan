@@ -133,6 +133,7 @@ router.delete('/:id', isAuth, permit('deleteGroup'), async (req, res) => {
         if (!group) return res.status(404).send({message: 'Group not found'});
 
         group.isRemoved = true;
+        group.date = Date.now();
         group.save(req);
 
         res.send({message: 'Success'})

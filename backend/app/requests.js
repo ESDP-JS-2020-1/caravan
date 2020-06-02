@@ -223,6 +223,7 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
         }
 
         requestOne.isRemoved = true;
+        requestOne.date = Date.now()
         requestOne.save(req);
 
         return res.send({message: 'Delete'})

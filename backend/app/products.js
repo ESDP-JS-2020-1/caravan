@@ -90,6 +90,7 @@ router.delete('/:id', auth, permit('deleteProduct'), async (req, res) => {
         }
 
         productOne.isRemoved = true;
+        productOne.date = Date.now()
         productOne.save(req);
 
         return res.send({message: 'Delete'})
