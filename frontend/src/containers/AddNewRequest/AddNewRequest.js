@@ -163,8 +163,7 @@ const AddNewRequest = () => {
 
                             {error &&
                             <Alert severity="error">
-                                {error === 'One of products in request has more products than is in stock!' &&
-                                (wordList[language].addNewRequest.error)}
+                                {error && error}
                             </Alert>
                             }
                             <Grid item>

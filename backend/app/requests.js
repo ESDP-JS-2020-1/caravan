@@ -96,6 +96,11 @@ router.get('/', auth, async (req, res) => {
 router.post('/', [auth, permit('addRequest')], async (req, res) => {
     try {
         const request = req.body;
+
+        for (let i = 0; i < request.products.length; i++) {
+            if(request.products[i].amount < 1) return res.status(400).send( {error: 'Amount of product request is not valid'} );
+        }
+
         request.products = request.products.map(elem => ({
                 product: elem.product,
                 amount: elem.amount
@@ -138,6 +143,9 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
     try {
         const request = req.body;
 
+        for (let i = 0; i < request.products.length; i++) {
+            if(request.products[i].amount < 1) return res.status(400).send( {response: {data: {error: 'Amount of product request is not valid'}}} );
+        }
 
         const requestOne = await Request.findOne({_id: req.params.id}).populate('user');
 

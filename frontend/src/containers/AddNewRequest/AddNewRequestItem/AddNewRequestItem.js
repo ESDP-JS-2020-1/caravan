@@ -24,6 +24,8 @@ const AddNewRequestItem = (
 ) => {
 
     const products = useSelector(state => state.products.productsList);
+    const options = [];
+          products.forEach(e => e.amount > 0 && options.push(e))
     const dispatch = useDispatch();
     const language = useSelector(state => state.language.name);
 
@@ -54,7 +56,7 @@ const AddNewRequestItem = (
                                 <Grid item>
                                     <Autocomplete
                                         id="combo-box-demo"
-                                        options={products}
+                                        options={options}
                                         getOptionLabel={option => option.name}
                                         className={classes.autocomplete}
                                         onChange={(e, value) => onAutoCompleteChange(value, index)}
