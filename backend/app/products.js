@@ -6,6 +6,16 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
+router.get('/removed', auth, permit('getTrash'), async (req, res) => {
+    try {
+        const removed = await Product.find({ isRemoved: true });
+
+        res.send(removed);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+})
+
 router.get('/', auth, async (req, res) => {
     try {
         const products = await Product.find({ isRemoved: false });
@@ -87,16 +97,6 @@ router.delete('/:id', auth, permit('deleteProduct'), async (req, res) => {
         res.status(500).send(e)
     }
 });
-
-router.get('/removed', auth, permit('getTrash'), async (req, res) => {
-    try {
-        const removed = await Product.find({ isRemoved: true });
-
-        res.send(removed);
-    } catch (e) {
-        res.status(500).send(e);
-    }
-})
 
 
 module.exports = router;
