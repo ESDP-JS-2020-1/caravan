@@ -88,7 +88,11 @@ const ProductList = () => {
 
     }, [dispatch]);
 
-    const [search, setSearch] = useState({search: ''});
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('product');
+
+    const [search, setSearch] = useState({search: myParam ? myParam : ''});
+
 
     const changeSearch = e => {
         if (e.target.value[e.target.value.length - 1] === '\\') return setSearch({search: ''});
@@ -159,6 +163,7 @@ const ProductList = () => {
                             type='search'
                             propertyName='search'
                             title={wordList[language].productList.searchProduct}
+                            value={search.search}
                             onChange={changeSearch}
                         /></Box>
                     </Grid>}
@@ -187,6 +192,7 @@ const ProductList = () => {
                                                 propertyName='search'
                                                 title={wordList[language].productList.searchProduct}
                                                 onChange={changeSearch}
+                                                value={search.search}
                                             />
                                         </TableCell>
                                     </TableRow>
