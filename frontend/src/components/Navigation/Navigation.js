@@ -21,11 +21,13 @@ import HistoryIcon from '@material-ui/icons/History';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Hidden from "@material-ui/core/Hidden";
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import ToolBar from "../UI/toolBar/toolBar";
 import {wordList} from "../../wordList";
 import Avatar from "@material-ui/core/Avatar";
 import caravan from './logo.png';
+import {checkPermission} from "../../CheckPermission";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -123,6 +125,16 @@ const Navigation = () => {
                     </ListItem>
                 </List>
             </NavLink>
+            {checkPermission('getTrash') && (
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/trash/all">
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon>{<DeleteIcon/>}</ListItemIcon>
+                            <ListItemText>{'Корзина'}</ListItemText>
+                        </ListItem>
+                    </List>
+                </NavLink>
+            )}
             {user && user.role === 'admin' && (
                 <NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">
                     <List>

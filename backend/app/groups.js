@@ -8,6 +8,16 @@ const permission = require('../permissionsForUsers');
 const Group = require('../models/Group');
 const router = express.Router();
 
+router.get('/removed', isAuth, permit('getTrash'), async (req, res) => {
+    try {
+        const removed = await Group.find({ isRemoved: true });
+
+        res.send(removed);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+})
+
 router.get('/', isAuth, permit('getGroup'), async (req, res) => {
     try {
         const groups = await Group.find({isRemoved: false});
@@ -121,6 +131,7 @@ router.delete('/:id', isAuth, permit('deleteGroup'), async (req, res) => {
         if (!group) return res.status(404).send({message: 'Group not found'});
 
         group.isRemoved = true;
+        group.date = Date.now();
         group.save(req);
 
         res.send({message: 'Success'})

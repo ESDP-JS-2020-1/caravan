@@ -10,6 +10,16 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
+router.get('/removed', auth, permit('getTrash'), async (req, res) => {
+    try {
+        const removed = await Request.find({ isRemoved: true });
+
+        res.send(removed);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+})
+
 router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
     try {
         const request = await Request.findOne({_id: req.params.id});
@@ -222,6 +232,7 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
         }
 
         requestOne.isRemoved = true;
+        requestOne.date = Date.now()
         requestOne.save(req);
 
         return res.send({message: 'Delete'})

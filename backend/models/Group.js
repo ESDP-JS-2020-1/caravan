@@ -18,7 +18,11 @@ const GroupSchema = new mongoose.Schema({
             require: true
         }
     }],
-    permissions: [String]
+    permissions: [String],
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const schemaName = 'Group';

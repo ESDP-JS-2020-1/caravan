@@ -28,7 +28,11 @@ const ProductSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    image: String
+    image: String,
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 const schemaName = 'Product';

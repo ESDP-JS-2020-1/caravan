@@ -66,7 +66,7 @@ const run = async () => {
                 'addProduct', 'getStatistic', 'deleteProduct', 'editProduct',
                 'getGroup', 'editGroup', 'addGroup', 'deleteGroup',
                 'addRequest', 'deleteRequest', 'editRequest',
-                'viewHistory', 'getUser', 'getRequest', 'closeRequest',
+                'viewHistory', 'getUser', 'getRequest', 'closeRequest', 'getTrash'
             ]
     }, {
         name: 'Courier group',

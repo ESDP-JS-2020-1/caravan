@@ -8,6 +8,16 @@ const permit = require('../middleware/permit');
 
 const router = express.Router();
 
+router.get('/removed', isAuth, permit('getTrash'), async (req, res) => {
+    try {
+        const removed = await User.find({ isRemoved: true });
+
+        res.send(removed);
+    } catch (e) {
+        res.status(500).send(e);
+    }
+})
+
 router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req, res) => {
     try {
         const user = req.body;
@@ -201,6 +211,7 @@ router.delete('/:id', isAuth, permit('deleteUser'), async (req, res) => {
             return res.status(401).send({message: "You cannot delete yourself"});
 
         user.isRemoved = true;
+        user.date = Date.now()
         user.save(req);
 
         res.send('success')
