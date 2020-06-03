@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 	}
 });
 
-const RequestCardItem = props => {
+const RequestCardItem = () => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
