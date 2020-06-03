@@ -44,8 +44,11 @@ const Histories = props => {
 
     return (
         <div>
-            <Pagination count={histories.pageAmount} color="primary"
-                        onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)}/>
+            <Pagination
+                count={histories.pageAmount}
+                color="primary"
+                onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)}
+            />
             {histories.length !== 0 ?
                 <TableContainer component={Paper}>
                     <Table className={classes.table} aria-label="simple table">
@@ -92,16 +95,17 @@ const Histories = props => {
                                 return (
                                     <TableRow key={history._id}>
                                         <TableCell component="th" scope="row">
-                                            {
-                                                <div className={classes.title}>
-                                                    <b>{userName}</b>
-                                                    <p>{operationType}</p>
-                                                    {history.type === 'delete' ?
-                                                        <p>{documentInfo}</p> :
-                                                        <NavLink exact
-                                                                 to={`/${schemaNameInPlural}/${info._id}`}>{documentInfo}</NavLink>}
-                                                </div>
-                                            }
+                                            <div className={classes.title}>
+                                                <b>{userName}</b>
+                                                <p>{operationType}</p>
+                                                {history.type === 'delete' ?
+                                                    <p>{documentInfo}</p> :
+                                                    <NavLink exact
+                                                             to={info.productType ?
+                                                                 `/?product=${info.name}`
+                                                                :`${schemaNameInPlural}/${info._id}`
+                                                             }>{documentInfo}</NavLink>}
+                                            </div>
                                         </TableCell>
                                         <TableCell align="right">
                                             {history.type === 'delete' && (
