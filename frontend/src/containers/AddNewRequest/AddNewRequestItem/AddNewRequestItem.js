@@ -87,7 +87,9 @@ const AddNewRequestItem = (
                                 />
                             </Grid>
                             <Grid item>
-                                <Typography>Общая цена: {parseInt(r.productInfo.price) * request[0].amount} Сом</Typography>
+                                <Typography>Общая цена: {parseInt(r.productInfo.price).toString() === NaN.toString() ? 0 :
+                                    parseInt(r.productInfo.price) * request[0].amount
+                                } Сом</Typography>
                             </Grid>
                         </Box>
                     </ExpansionPanelDetails>
