@@ -116,7 +116,7 @@ const Trash = () => {
                             id="combo-box-demo"
                             options={types}
                             getOptionLabel={(option) => option.title}
-                            onChange={(e, value) => dispatch(getTrash(value && value.value || 'all'))}
+                            onChange={(e, value) => dispatch(getTrash(value && (value.value || 'all')))}
                             value={types.find(e => e.value === type)}
                             style={{ width: 300 }}
                             renderInput={(params) => <TextField {...params} label={'Фильтр по типу'} variant="outlined" />}
