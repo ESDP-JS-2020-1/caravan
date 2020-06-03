@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
+import {useParams} from 'react-router-dom'
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -16,10 +17,12 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-
-import {getTrash} from "../../store/actions/trashActions";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import TextField from "@material-ui/core/TextField";
+
+import {getTrash} from "../../store/actions/trashActions";
 
 
 const useStyles = makeStyles({
@@ -42,6 +45,7 @@ const Trash = () => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
+    const { type } = useParams()
 
     const [sortDate, setSortDate] = useState(false);
 
@@ -53,11 +57,10 @@ const Trash = () => {
     const title = trash && trash.length !== 0 ? 'Козина' : 'Корзина пока пуста'
 
     useEffect(() => {
-        dispatch(getTrash())
+        dispatch(getTrash(type))
     }, [dispatch])
     useEffect(() => {
         if (trash) {
-            console.log(sortDate);
             if (!sortDate) trash = trash.sort((a, b) => {
                 const c = new Date(a.date);
                 const d = new Date(b.date);
@@ -71,6 +74,14 @@ const Trash = () => {
         }
     }, [sortDate, trash])
 
+    const types = [
+        {value: 'all', title: 'Все'},
+        {value: 'users', title: 'Пользователи'},
+        {value: 'requests', title: 'Заявки'},
+        {value: 'products', title: 'Продукты'},
+        {value: 'groups', title: 'Группы'},
+    ]
+
     if (loading) {
         return (
             <div className={classes.spinnerBlock}>
@@ -82,13 +93,13 @@ const Trash = () => {
     return trash && (
         <Container>
             <Box mt={1}>
-                <Grid container direction='column' spacing={1}>
+                <Grid container direction='column' spacing={2}>
                     <Grid item>
                         <Typography variant='h3' paragraph>
                             {title}
                         </Typography>
                     </Grid>
-                    <Grid item>
+                    {trash.length > 0 && <Grid item>
                         <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
                             <Button
                                 className={!sortDate && 'Mui-disabled'}
@@ -99,6 +110,17 @@ const Trash = () => {
                                 onClick={changeDateSort}
                             >{'От старого к новому'}</Button>
                         </ButtonGroup>
+                    </Grid>}
+                    <Grid item>
+                        <Autocomplete
+                            id="combo-box-demo"
+                            options={types}
+                            getOptionLabel={(option) => option.title}
+                            onChange={(e, value) => dispatch(getTrash(value.value || 'all'))}
+                            value={types.find(e => e.value === type)}
+                            style={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label={'Фильтр по типу'} variant="outlined" />}
+                        />
                     </Grid>
                     <Grid item container>
                         <TableContainer component={Paper}>
