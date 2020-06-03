@@ -25,7 +25,7 @@ const AddNewRequestItem = (
 
     const products = useSelector(state => state.products.productsList);
     const options = [];
-          products.forEach(e => e.amount > 0 && options.push(e))
+          products.forEach(e => e.amount > 0 && options.push(e));
     const dispatch = useDispatch();
     const language = useSelector(state => state.language.name);
 
@@ -34,7 +34,6 @@ const AddNewRequestItem = (
     }, [dispatch]);
 
     return (
-
         <Grid container alignItems='center' spacing={1}>
             <Grid item xs={11}>
                 <ExpansionPanel expanded={expanded === 'panel' + index}
@@ -86,6 +85,9 @@ const AddNewRequestItem = (
                                     value={request[index].amount}
                                     onChange={(e) => onChange(e, index)}
                                 />
+                            </Grid>
+                            <Grid item>
+                                <Typography>Общая цена: {parseInt(r.productInfo.price) * request[0].amount} Сом</Typography>
                             </Grid>
                         </Box>
                     </ExpansionPanelDetails>

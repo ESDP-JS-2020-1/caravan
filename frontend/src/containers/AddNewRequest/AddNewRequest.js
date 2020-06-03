@@ -123,7 +123,6 @@ const AddNewRequest = () => {
     useEffect(() => {
         dispatch(createRequestInit())
     }, [dispatch]);
-
     return (
         <Container>
             <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
