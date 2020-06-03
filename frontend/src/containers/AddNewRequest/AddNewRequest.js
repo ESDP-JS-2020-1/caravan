@@ -123,6 +123,14 @@ const AddNewRequest = () => {
     useEffect(() => {
         dispatch(createRequestInit())
     }, [dispatch]);
+
+        const totalPriceArray = [];
+        request.products.map(product => {
+           const totalPrice =  parseInt(product.productInfo.price) * product.amount;
+           totalPriceArray.push(totalPrice)
+        });
+        const sum = totalPriceArray.reduce((total, amount) => total + amount);
+
     return (
         <Container>
             <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
@@ -166,6 +174,11 @@ const AddNewRequest = () => {
                             </Alert>
                             }
                             <Grid item>
+                                <Grid item>
+                                    <Typography>Общая цена:
+                                        {parseInt(sum).toString() === NaN.toString() ? 0 : sum
+                                    } Сом</Typography>
+                                </Grid>
                                 <Box className={classes.formBtn} component="span">
                                     <Button
                                         onClick={addRequest}

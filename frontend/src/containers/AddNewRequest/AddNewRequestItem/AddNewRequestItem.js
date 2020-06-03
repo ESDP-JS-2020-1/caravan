@@ -86,11 +86,6 @@ const AddNewRequestItem = (
                                     onChange={(e) => onChange(e, index)}
                                 />
                             </Grid>
-                            <Grid item>
-                                <Typography>Общая цена: {parseInt(r.productInfo.price).toString() === NaN.toString() ? 0 :
-                                    parseInt(r.productInfo.price) * request[0].amount
-                                } Сом</Typography>
-                            </Grid>
                         </Box>
                     </ExpansionPanelDetails>
                 </ExpansionPanel>
