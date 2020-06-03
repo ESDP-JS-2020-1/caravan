@@ -1,7 +1,7 @@
 import {GET_STATISTIC_SUCCESS} from "../actions/actionsTypes";
 
 const initialState = {
-    statistics: {},
+    statistics: null,
 };
 
 const statisticsReducer = (state = initialState, action) => {
