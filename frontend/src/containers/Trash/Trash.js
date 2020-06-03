@@ -58,15 +58,15 @@ const Trash = () => {
 
     useEffect(() => {
         dispatch(getTrash(type))
-    }, [dispatch])
+    }, [dispatch, type])
     useEffect(() => {
         if (trash) {
-            if (!sortDate) trash = trash.sort((a, b) => {
+            if (!sortDate) trash.sort((a, b) => {
                 const c = new Date(a.date);
                 const d = new Date(b.date);
                 return c-d
             })
-            else trash = trash.sort((a, b) => {
+            else trash.sort((a, b) => {
                 const c = new Date(a.date);
                 const d = new Date(b.date);
                 return d-c
