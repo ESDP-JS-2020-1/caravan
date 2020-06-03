@@ -65,7 +65,7 @@ function App() {
                     <PrivateRoute path="/groups/edit/:id" roles={['editGroup']} exact component={EditGroup}/>
                     <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
 
-                    <PrivateRoute path="/trash" exact roles={['getTrash']} component={Trash}/>
+                    <PrivateRoute path="/trash/:type" roles={['getTrash']} component={Trash}/>
                 </Switch>
             </Container>
         </div>
