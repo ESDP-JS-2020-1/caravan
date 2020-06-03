@@ -60,27 +60,16 @@ const EditProduct = (props) => {
     const editProduct = useSelector(state => state.products.editProduct);
     const language = useSelector(state => state.language.name);
 
-    const [comment, setComment] = React.useState('');
-
     useEffect(() => {
         dispatch(getProductEdit(props.match.params.id));
     }, [dispatch, props.match.params.id]);
 
     const fileChangeHandler = e => dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.files[0]}));
     const changeHandler = e => (dispatch(getProductSuccess({...editProduct, [e.target.name]: e.target.value})));
-    const checkboxChangeHandler = () => (dispatch(getProductSuccess({
-        ...editProduct,
-        isRefrigeratorRequired: !editProduct.isRefrigeratorRequired
-    })));
-    const changeCommentInput = e => {
-        setComment(e.target.value)
-    };
+    const checkboxChangeHandler = () => (dispatch(getProductSuccess({...editProduct, isRefrigeratorRequired: !editProduct.isRefrigeratorRequired})));
 
     const removeProduct = async () => {
-        const remove = {
-            comment: comment
-        };
-        await dispatch(deleteProduct(props.match.params.id, remove))
+        await dispatch(deleteProduct(props.match.params.id))
     };
 
     const onSubmit = e => {
@@ -90,7 +79,6 @@ const EditProduct = (props) => {
         Object.keys(editProduct).forEach(key => {
             formData.append(key, editProduct[key])
         });
-        formData.append('comment', comment);
         dispatch(putEditProduct(props.match.params.id, formData))
     };
 
@@ -116,11 +104,17 @@ const EditProduct = (props) => {
                                 onChange={changeHandler}
                                 value={editProduct.name}
                             />
+
+                            <span style={{padding: '10px 0 20px', fontSize: '20px'}} >
+                                <b>{wordList[language].editProduct.availableProductQty}</b> {editProduct.amount}
+                            </span>
+
                             <FormElement
-                                propertyName={'amount'}
+                                type='number'
+                                propertyName={'addProduct'}
                                 title={wordList[language].editProduct.inputQty}
                                 onChange={changeHandler}
-                                value={editProduct.amount}
+                                value={editProduct.addProduct}
                             />
                             <FormElement
                                 propertyName={'price'}
@@ -172,11 +166,6 @@ const EditProduct = (props) => {
                 </Box>
             </Grid>
             <Modal onClose={handleOpenAndClose} open={open} title={wordList[language].editProduct.modalDeleteTitle}>
-                <FormElement
-                    propertyName={'comment'}
-                    title={wordList[language].editProduct.modalComment}
-                    onChange={changeCommentInput}
-                />
                 {error && <Box mb={1}>
                     <Alert severity="error">{error}</Alert>
                 </Box>}
@@ -199,11 +188,6 @@ const EditProduct = (props) => {
                 </Grid>
             </Modal>
             <Modal onClose={handleOpenEdit} open={openEdit} title={wordList[language].editProduct.modalEditTitle}>
-                <FormElement
-                    propertyName={'comment'}
-                    title={wordList[language].editProduct.modalComment}
-                    onChange={changeCommentInput}
-                />
                 {error && <Box mb={1}>
                     <Alert severity="error">{error}</Alert>
                 </Box>}
