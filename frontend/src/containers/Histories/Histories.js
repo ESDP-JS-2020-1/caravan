@@ -22,8 +22,8 @@ import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
     root: {
-      display: "flex",
-      flexDirection: 'column',
+        display: "flex",
+        flexDirection: 'column',
         margin: '20px 0 0 0'
     },
     table: {
@@ -43,33 +43,33 @@ const useStyles = makeStyles({
 
 const Histories = props => {
     const classes = useStyles();
+
     const dispatch = useDispatch();
+
     const histories = useSelector(state => state.histories.historiesList);
     const language = useSelector(state => state.language.name);
-
-    const determineType = (type) => {
-        switch (type) {
-            case 'edit':
-                return 'редактировал';
-            case 'delete':
-                return 'удалил';
-            case 'add':
-                return 'добавил';
-            default:
-                return 'Not found';
-        }
-    }
-    const determineInfo = (info) => {
-        if (info.displayName) return  info.displayName;
-        if (info.name) return  info.name;
-        if (info.status) return  'заявку';
-    }
 
     useEffect(() => {
         dispatch(getHistoriesList(props.match.params.page, props.match.params.limit));
     }, [dispatch, props.match.params.page, props.match.params.limit]);
 
-    return (
+    const historyList = (
+        histories && histories.history.docs.map((history) => {
+            const info = history.info.data;
+            const schemaNameInPlural = history.info.schemaNameInPlural;
+
+            return (
+                <HistoriesListItem
+                    key={history._id}
+                    info={info}
+                    schemaNameInPlural={schemaNameInPlural}
+                    history={history}
+                />
+            )
+        })
+    )
+
+    return histories && (
         <div className={classes.root}>
             {histories.length !== 0 ?
                 <>
@@ -84,62 +84,28 @@ const Histories = props => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {histories.history.docs && histories.history.docs.map((history) => {
-                                        const info = history.info.data;
-                                        const schemaNameInPlural = history.info.schemaNameInPlural;
-
-                                        const userName = history.user.displayName;
-                                        let operationType = determineType(history.type);
-                                        let documentInfo = determineInfo(info);
-
-                                        return (
-                                            <HistoriesListItem
-                                                key={history._id}
-                                                userName={userName}
-                                                operationType={operationType}
-                                                documentInfo={documentInfo}
-                                                info={info}
-                                                schemaNameInPlural={schemaNameInPlural}
-                                                history={history}
-                                            />
-                                        )
-                                    })}
+                                    {historyList}
                                 </TableBody>
                             </Table>
                         </TableContainer>
                     </Hidden>
                     <Hidden mdUp>
                         <Grid container spacing={1}>
-                            {histories.history.docs.map((history) => {
-                                const info = history.info.data;
-                                const schemaNameInPlural = history.info.schemaNameInPlural;
-
-                                const userName = history.user.displayName;
-                                let operationType = determineType(history.type);
-                                let documentInfo = determineInfo(info);
-
-                                return <HistoriesListItem
-                                    key={history._id}
-                                    userName={userName}
-                                    operationType={operationType}
-                                    documentInfo={documentInfo}
-                                    info={info}
-                                    schemaNameInPlural={schemaNameInPlural}
-                                    history={history}
-                                />
-                            })}
+                            {historyList}
                         </Grid>
                     </Hidden>
                 </> :
                 <Typography variant='h3'>
                     {'В истории пока ничего нет!'}
                 </Typography>}
-            <Pagination
-                className={classes.pagination}
-                count={histories.pageAmount}
-                color="primary"
-                onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)}
-            />
+            {histories.history.totalPages > 1 && (
+                <Pagination
+                    className={classes.pagination}
+                    count={histories.pageAmount}
+                    color="primary"
+                    onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)}
+                />
+            )}
         </div>
     );
 };

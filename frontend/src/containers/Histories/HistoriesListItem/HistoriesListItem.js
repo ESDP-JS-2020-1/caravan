@@ -52,14 +52,35 @@ const useStyles = makeStyles({
 })
 
 const HistoriesListItem = (
-    {userName, operationType, documentInfo, info, schemaNameInPlural, history}
+    {info, schemaNameInPlural, history}
 ) => {
     const classes = useStyles();
 
     const language = useSelector(state => state.language.name);
 
+    const determineType = (type) => {
+        switch (type) {
+            case 'edit':
+                return 'редактировал';
+            case 'delete':
+                return 'удалил';
+            case 'add':
+                return 'добавил';
+            default:
+                return 'Not found';
+        }
+    }
+    const determineInfo = (info) => {
+        if (info.displayName) return  info.displayName;
+        if (info.name) return  info.name;
+        if (info.status) return  'заявку';
+    }
+
     let text = ''
     let chipType = 'default'
+    const userName = history.user.displayName;
+    let operationType = determineType(history.type);
+    let documentInfo = determineInfo(info);
 
     switch (history.type) {
         case 'delete':
