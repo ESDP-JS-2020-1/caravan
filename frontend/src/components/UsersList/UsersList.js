@@ -62,7 +62,7 @@ const UsersList = props => {
         setSearch({search: e.target.value});
     };
 
-    const productList = users && users.filter(word => word.displayName.search(search.search) !== -1);
+    const productList = users && users.filter(word => word.displayName.search(new RegExp(search.search, 'i')) !== -1);
 
     return (
         <Box mt={2}>
