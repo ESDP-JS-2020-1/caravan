@@ -124,12 +124,15 @@ const AddNewRequest = () => {
         dispatch(createRequestInit())
     }, [dispatch]);
 
-        const totalPriceArray = [];
-        request.products.map(product => {
-           const totalPrice =  parseInt(product.productInfo.price) * product.amount;
-           totalPriceArray.push(totalPrice)
-        });
-        const sum = totalPriceArray.reduce((total, amount) => total + amount);
+    const totalPriceArray = [1];
+    request.products.map(product => {
+        if (product.productInfo.price) {
+            const slicePrice = product.productInfo.price.slice(0, -3);
+            const totalPrice = parseInt(slicePrice) * product.amount;
+            totalPriceArray.push(totalPrice)
+        }
+    });
+    const sum = totalPriceArray.reduce((total, amount) => total + amount);
 
     return (
         <Container>
@@ -176,8 +179,8 @@ const AddNewRequest = () => {
                             <Grid item>
                                 <Grid item>
                                     <Typography>Общая цена:
-                                        {parseInt(sum).toString() === NaN.toString() ? 0 : sum
-                                    } Сом</Typography>
+                                        {sum === 1 ? 0 : sum - 1
+                                        } Сом</Typography>
                                 </Grid>
                                 <Box className={classes.formBtn} component="span">
                                     <Button
