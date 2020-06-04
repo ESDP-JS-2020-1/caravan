@@ -60,28 +60,6 @@ const GroupsList = () => {
     ));
     return (
         <>
-        <div>
-            <Typography variant='h4'>{wordList[language].groupsList.listGroupTitle}</Typography>
-            {checkPermission('addGroup') &&
-            <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
-                {wordList[language].groupsList.addGroupBtn}
-            </Button>}
-            <TableContainer component={Paper}>
-                <Table aria-label="caption table">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell> <b>{wordList[language].groupsList.tableGroupTitle}</b> </TableCell>
-                            <TableCell> <b>{wordList[language].groupsList.tableGroupQty}</b> </TableCell>
-                            <TableCell> </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {groupsList}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </div>
-
             {window.innerWidth > 1200 &&
                 <Box component='div'>
                     <Typography variant='h4'>{wordList[language].groupsList.listGroupTitle}</Typography>
