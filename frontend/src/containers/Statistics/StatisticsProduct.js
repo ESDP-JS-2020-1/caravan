@@ -57,9 +57,12 @@ const StatisticsProduct = () => {
 
     const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 
-    const amounts = statistics.statistic && statistics.statistic.map(elem => parseInt(elem.amount));
-    const dates = statistics.statistic && statistics.statistic.map(elem => moment(elem.date).format(dateFormat));
-    const colors = statistics.statistic && statistics.statistic.map(() => createRandomColor());
+    const amounts = statistics && statistics.statistic.map(elem => {
+        console.log(elem);
+        return parseInt(elem.product.amount);
+    });
+    const dates = statistics && statistics.statistic.map(elem => moment(elem.date).format(dateFormat));
+    const colors = statistics && statistics.statistic.map(() => createRandomColor());
 
     const data = {
         labels: dates,
@@ -80,7 +83,7 @@ const StatisticsProduct = () => {
                             {wordList[language].statistic.statisticTitle}
                         </Typography>
                         <Typography variant='h3'>
-                            ({statistics.product && statistics.product.name})
+                            ({statistics && statistics.product.name})
                         </Typography>
                     </Grid>
                     <Grid item xs={6} className={classes.search}>
