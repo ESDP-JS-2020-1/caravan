@@ -11,13 +11,12 @@ export const getTrash = type => async dispatch => {
         const trash = [];
 
         if (type === 'all') {
-            dispatch(push(`/trash/${type}`))
             trash.push(axiosApi.get('/users/removed'))
             trash.push(axiosApi.get('/requests/removed'))
             trash.push(axiosApi.get('/products/removed'))
             trash.push(axiosApi.get('/groups/removed'))
         } else {
-            dispatch(push(`/trash/${type}`))
+            dispatch(push(`/trash/${type || 'all'}`))
             trash.push(axiosApi.get(`/${type}/removed`))
         }
 
