@@ -5,7 +5,6 @@ const User = require('./models/User');
 const Product = require('./models/Product');
 const Group = require('./models/Group');
 const Request = require('./models/Request');
-const Statistic = require('./models/Statistic');
 
 const run = async () => {
     await mongoose.connect(config.database, config.databaseOptions);
@@ -115,28 +114,6 @@ const run = async () => {
             product: product1,
             amount: '2',
         }]
-    });
-
-    await Statistic.create({
-        user: user1,
-        product: product1,
-        amount: '2',
-        date: '2020-05-18T08:38:01.803Z'
-    }, {
-        user: user1,
-        product: product1,
-        amount: '2',
-        date: '2020-05-17T08:38:01.803Z'
-    }, {
-        user: user1,
-        product: product1,
-        amount: '2',
-        date: '2020-05-16T08:38:01.803Z'
-    }, {
-        user: user1,
-        product: product1,
-        amount: '2',
-        date: '2020-05-15T08:38:01.803Z'
     });
 
     mongoose.connection.close();
