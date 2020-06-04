@@ -145,7 +145,7 @@ const GroupInfo = props => {
                     color='primary'
                     component={NavLink}
                     to={`/groups/edit/${group._id}`}
-                >Редактировать</Button>}
+                >{wordList[language].groupInfo.editGroupBtn}</Button>}
             </Paper>
             <Modal onClose={handleOpenAndClose} open={open} title={wordList[language].groupInfo.deleteModal}>
                 <Grid container justify='flex-end' spacing={1}>
