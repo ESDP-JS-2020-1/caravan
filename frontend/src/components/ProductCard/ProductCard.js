@@ -14,6 +14,7 @@ import EqualizerIcon from "@material-ui/icons/Equalizer";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 
+
 const useStyles = makeStyles({
     root: {width: '100%', padding: '10px'},
     media: {
@@ -25,8 +26,6 @@ const useStyles = makeStyles({
     padding: {
         padding: '10px'
     }
-
-
 });
 
 const ProductCard = (props) => {
@@ -44,15 +43,15 @@ const ProductCard = (props) => {
                 />}
                 <CardContent>
                     <Typography className={classes.typography} gutterBottom variant="h5"
-                                component="h5"><b>Название: </b> {props.title}</Typography>
+                                component="h5"><b>{wordList[language].productList.name}: </b> {props.title}</Typography>
                     <Typography className={classes.typography} gutterBottom variant="h5"
-                                component="h5"><b>Кол-во: </b> {props.amount}</Typography>
+                                component="h5"><b>{wordList[language].productList.quantity}: </b> {props.amount}</Typography>
                     <Typography className={classes.typography} gutterBottom variant="h5"
-                                component="h5"><b>Тип: </b> {props.productType}</Typography>
+                                component="h5"><b>{wordList[language].productList.productType}: </b> {props.productType}</Typography>
                     <Typography className={classes.typography} gutterBottom variant="h5"
-                                component="h5"><b>Цена: </b> {props.price}</Typography>
+                                component="h5"><b>{wordList[language].productList.price}: </b> {props.price}</Typography>
                     <Typography className={classes.typography} gutterBottom variant="h5" component="h5">
-                        <b>Холодильник: </b>
+                        <b>{wordList[language].productList.isRefrigeratorRequired}: </b>
                         {props.isRefrigeratorRequired ?
                             wordList[language].necessarily :
                             wordList[language].notNecessary
@@ -86,5 +85,7 @@ const ProductCard = (props) => {
 
         </Grid>
     );
-}
+};
+
+
 export default ProductCard;

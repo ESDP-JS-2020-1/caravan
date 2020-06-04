@@ -301,7 +301,7 @@ export const wordList = {
             photo: 'Сүрөт',
             name: 'Наам',
             quantity: 'Сан',
-            productType: 'түрү',
+            productType: 'Түрү',
             price: 'Баа',
             isRefrigeratorRequired: 'Ташуу үчүн муздаткычтын болушу',
             searchProduct: 'Продукцияны издөө',
