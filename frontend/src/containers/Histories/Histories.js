@@ -21,6 +21,11 @@ import HistoriesListItem from "./HistoriesListItem/HistoriesListItem";
 import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles({
+    root: {
+      display: "flex",
+      flexDirection: 'column',
+        margin: '20px 0 0 0'
+    },
     table: {
         minWidth: 650,
     },
@@ -29,6 +34,9 @@ const useStyles = makeStyles({
         display: "flex",
         alignItems: 'center',
         justifyContent: 'space-between'
+    },
+    pagination: {
+        margin: '15px auto 0 auto'
     }
 });
 
@@ -62,12 +70,7 @@ const Histories = props => {
     }, [dispatch, props.match.params.page, props.match.params.limit]);
 
     return (
-        <div>
-            <Pagination
-                count={histories.pageAmount}
-                color="primary"
-                onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)}
-            />
+        <div className={classes.root}>
             {histories.length !== 0 ?
                 <>
                     <Hidden smDown>
@@ -131,6 +134,12 @@ const Histories = props => {
                 <Typography variant='h3'>
                     {'В истории пока ничего нет!'}
                 </Typography>}
+            <Pagination
+                className={classes.pagination}
+                count={histories.pageAmount}
+                color="primary"
+                onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)}
+            />
         </div>
     );
 };
