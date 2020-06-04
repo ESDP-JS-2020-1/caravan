@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Statistics = require('../models/Statistic'),
+const
     Product = require('../models/Product'),
     User = require('../models/User'),
     Request = require('../models/Request');
@@ -13,15 +13,15 @@ router.get('/product/:id/:date', isAuth, async (req, res) => {
         const id = req.params.id;
 
         const data = await Request.find({
-            products: {$elemMatch: { product: id }},
+            products: {$elemMatch: {product: id}},
             date: {$gte: new Date(new Date() - req.params.date * 60 * 60 * 24 * 1000)},
             status: 'closed'
-        }).select({ products: 1, date: 1 });
+        }).select({products: 1, date: 1});
 
         const statistic = data.map((elem, index) => {
-            const product = elem.products.filter(product => product.product.toString() === id.toString() )[0];
+            const product = elem.products.filter(product => product.product.toString() === id.toString())[0];
             const date = data[index].date;
-            return { product, date }
+            return {product, date}
         }).flat();
 
         const product = await Product.findOne({_id: req.params.id});
@@ -34,10 +34,23 @@ router.get('/product/:id/:date', isAuth, async (req, res) => {
 
 router.get('/user/:id/:date', isAuth, async (req, res) => {
     try {
-        const statistic = await Statistics.find({
-            user: req.params.id,
+
+        const createRelevantData = (array) => {
+            const data = []
+            array.forEach(element => {
+                element.products.forEach(product => data.push({...product._doc, date: element.date}))
+            })
+            return (data)
+        }
+
+        const id = req.params.id;
+
+        const data = await Request.find({
+            user: id,
             date: {$gte: new Date(new Date() - req.params.date * 60 * 60 * 24 * 1000)}
-        }).populate(['user', 'product']);
+        }).select({products: 1, date: 1});
+
+        const statistic = createRelevantData(data);
 
         const user = await User.findOne({_id: req.params.id});
 

@@ -57,7 +57,10 @@ const StatisticsProduct = () => {
 
     const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
 
-    const amounts = statistics && statistics.statistic.map(elem => parseInt(elem.product.amount));
+    const amounts = statistics && statistics.statistic.map(elem => {
+        console.log(elem);
+        return parseInt(elem.product.amount);
+    });
     const dates = statistics && statistics.statistic.map(elem => moment(elem.date).format(dateFormat));
     const colors = statistics && statistics.statistic.map(() => createRandomColor());
 
