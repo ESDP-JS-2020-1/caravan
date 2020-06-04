@@ -274,6 +274,21 @@ export const wordList = {
         groupActions: {
             addGroupTitle: 'Добавление группы',
             addGroupMessage: 'Группа успешно добавлена!'
+        },
+        trash: {
+            trashTitle: 'Корзина',
+            emptyTrashTitle: 'Корзина пока пуста',
+            trashType1: 'Все',
+            trashType2: 'Пользователи',
+            trashType3: 'Заявки',
+            trashType4: 'Продукты',
+            trashType5: 'Группы',
+            btnType1: 'От нового к старому',
+            btnType2: 'От старого к новому',
+            autoCompleteLabel: 'Фильтр по типу',
+            tableTitle: 'Название',
+            tableDate: 'Дата',
+            request: 'Заявка'
         }
     },
 
@@ -553,6 +568,21 @@ export const wordList = {
         groupActions: {
             addGroupTitle: 'Топту кошуу',
             addGroupMessage: 'Топ ийгиликтүү кошулду!'
+        },
+        trash: {
+            trashTitle: 'Корзина',
+            emptyTrashTitle: 'Корзина бул учурда бош',
+            trashType1: 'Баары',
+            trashType2: 'Колдонуучулар',
+            trashType3: 'Өтүнүчтөр',
+            trashType4: 'Продукттар',
+            trashType5: 'Топтор',
+            btnType1: 'Жаңыдан эскиге',
+            btnType2: 'Эскиден жаңыга',
+            autoCompleteLabel: 'Түрүн тандоо',
+            tableTitle: 'Аты',
+            tableDate: 'Датасы',
+            request: 'Өтүнүч'
         }
     }
 };

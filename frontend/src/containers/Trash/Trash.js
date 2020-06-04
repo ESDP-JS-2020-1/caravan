@@ -23,6 +23,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
 import {getTrash} from "../../store/actions/trashActions";
+import {wordList} from "../../wordList";
 
 
 const useStyles = makeStyles({
@@ -39,48 +40,50 @@ const useStyles = makeStyles({
         left: '50%',
         margin: "-40px 0 0 -40px"
     }
-})
+});
 
 const Trash = () => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-    const { type } = useParams()
+    const { type } = useParams();
 
     const [sortDate, setSortDate] = useState(false);
 
     let trash = useSelector(state => state.trashReducer.trash);
     const loading = useSelector(state => state.trashReducer.loading);
+    const language = useSelector(state => state.language.name);
 
-    const changeDateSort = () => setSortDate(!sortDate)
+    const changeDateSort = () => setSortDate(!sortDate);
 
-    const title = trash && trash.length !== 0 ? 'Козина' : 'Корзина пока пуста'
+    const title = trash && trash.length !== 0 ? (wordList[language].trash.trashTitle) : (wordList[language].trash.emptyTrashTitle);
 
     useEffect(() => {
         dispatch(getTrash(type))
-    }, [dispatch, type])
+    }, [dispatch, type]);
+
     useEffect(() => {
         if (trash) {
             if (!sortDate) trash.sort((a, b) => {
                 const c = new Date(a.date);
                 const d = new Date(b.date);
                 return c-d
-            })
+            });
             else trash.sort((a, b) => {
                 const c = new Date(a.date);
                 const d = new Date(b.date);
                 return d-c
             })
         }
-    }, [sortDate, trash])
+    }, [sortDate, trash]);
 
     const types = [
-        {value: 'all', title: 'Все'},
-        {value: 'users', title: 'Пользователи'},
-        {value: 'requests', title: 'Заявки'},
-        {value: 'products', title: 'Продукты'},
-        {value: 'groups', title: 'Группы'},
-    ]
+        {value: 'all', title: (wordList[language].trash.trashType1)},
+        {value: 'users', title: (wordList[language].trash.trashType2)},
+        {value: 'requests', title: (wordList[language].trash.trashType3)},
+        {value: 'products', title: (wordList[language].trash.trashType4)},
+        {value: 'groups', title: (wordList[language].trash.trashType5)},
+    ];
 
     if (loading) {
         return (
@@ -104,11 +107,11 @@ const Trash = () => {
                             <Button
                                 className={!sortDate && 'Mui-disabled'}
                                 onClick={changeDateSort}
-                            >{'От нового к старому'}</Button>
+                            >{wordList[language].trash.btnType1}</Button>
                             <Button
                                 className={sortDate && 'Mui-disabled'}
                                 onClick={changeDateSort}
-                            >{'От старого к новому'}</Button>
+                            >{wordList[language].trash.btnType2}</Button>
                         </ButtonGroup>
                     </Grid>}
                     <Grid item>
@@ -119,7 +122,7 @@ const Trash = () => {
                             onChange={(e, value) => dispatch(getTrash(value && (value.value || 'all')))}
                             value={types.find(e => e.value === type)}
                             style={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label={'Фильтр по типу'} variant="outlined" />}
+                            renderInput={(params) => <TextField {...params} label={wordList[language].trash.autoCompleteLabel} variant="outlined" />}
                         />
                     </Grid>
                     <Grid item container>
@@ -127,19 +130,19 @@ const Trash = () => {
                             {trash.length !== 0 && <Table aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell><b>{'Название'}</b></TableCell>
-                                        <TableCell><b>{'Дата'}</b></TableCell>
+                                        <TableCell><b>{wordList[language].trash.tableTitle}</b></TableCell>
+                                        <TableCell><b>{wordList[language].trash.tableDate}</b></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {trash.map(info => {
 
                                         let documentInfo;
-                                        const date = moment(info.date).format('MMMM Do YYYY, h:mm:ss a')
+                                        const date = moment(info.date).format('MMMM Do YYYY, h:mm:ss a');
 
                                         if (info.displayName) documentInfo = info.displayName;
                                         if (info.name) documentInfo = info.name;
-                                        if (info.status) documentInfo = 'звавку';
+                                        if (info.status) documentInfo = (wordList[language].trash.request);
                                         return (
                                             <TableRow key={info._id}>
                                                 <TableCell>{documentInfo}</TableCell>
