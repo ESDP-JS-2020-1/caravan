@@ -49,8 +49,8 @@ const GroupCardItem = props => {
         <Grid item xs={12} sm={6} md={4} className={classes.padding}>
             <Card className={classes.root}>
                 <CardContent>
-                    <h2>Название: {props.name}</h2>
-                    <h3>Кол-во людей: {props.amount}</h3>
+                    <h2>{wordList[language].groupsList.tableGroupTitle}: {props.name}</h2>
+                    <h3>{wordList[language].groupsList.tableGroupQty}: {props.amount}</h3>
                 </CardContent>
                 <CardActions disableSpacing>
                     <Button
