@@ -95,7 +95,7 @@ const GroupInfo = props => {
                                         <b>{wordList[language].groupInfo.groupUserName}:</b> {elem.user.displayName}
                                     </Typography>
                                     {checkPermission('getUser') &&
-                                    <Button variant='contained' component={NavLink} to={`/user/${elem.user._id}`}>
+                                    <Button variant='contained' component={NavLink} to={`/users/${elem.user._id}`}>
                                         {wordList[language].groupInfo.groupUserInfo}
                                     </Button>}
                                     {checkPermission('editGroup') && <IconButton
@@ -121,7 +121,7 @@ const GroupInfo = props => {
                                     </Typography>
                                     {checkPermission('getUser') &&
                                     <Button style={{marginLeft: 'auto'}} variant='contained' component={NavLink}
-                                            to={`/user/${elem._id}`}>{wordList[language].groupInfo.addUserToGroupInfo}</Button>}
+                                            to={`/users/${elem._id}`}>{wordList[language].groupInfo.addUserToGroupInfo}</Button>}
                                     {checkPermission('addGroup') &&
                                     <Button style={{marginLeft: '5px'}}
                                             onClick={() => dispatch(addUserToGroup(props.match.params.id, elem._id))}
