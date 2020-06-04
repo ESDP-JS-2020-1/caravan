@@ -52,7 +52,8 @@ router.post('/', [auth, permit('addProduct'), upload.single('image')], async (re
 
         const products = req.body;
 
-        await Product.insertMany(products);
+        const product = new Product(products)
+        product.save(req)
 
         return res.send({message: 'success'});
     } catch (e) {
