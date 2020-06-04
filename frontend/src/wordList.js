@@ -299,7 +299,7 @@ export const wordList = {
             requestBtn: 'Өтүнүч берүү',
             greeting: 'Салам',
             logoutBtn: 'Чыгуу',
-            accountBtn: 'Эсептин маалыматы',
+            accountBtn: 'Колдонуучунун маалыматы',
             statisticBtn: 'Менин статистикам'
         },
         navigation: {
