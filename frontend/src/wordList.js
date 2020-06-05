@@ -52,6 +52,7 @@ export const wordList = {
             tableRefrigerator: 'Наличие холодильника',
             tableRefrigeratorAvailability: 'Есть',
             listItemUsers: 'Все',
+            searchRole: 'Поиск по ролям'
         },
         groupsList: {
             listGroupTitle: 'Список групп',
@@ -346,7 +347,8 @@ export const wordList = {
             tableCarVolume: 'Унаанын көлөмү',
             tableRefrigerator: 'Муздаткычтын катышуусу',
             tableRefrigeratorAvailability: 'Бар',
-            listItemUsers: 'Баары'
+            listItemUsers: 'Баары',
+            searchRole: 'Кызматты издөө'
         },
         groupsList: {
             listGroupTitle: 'Топтордун тизмеси',

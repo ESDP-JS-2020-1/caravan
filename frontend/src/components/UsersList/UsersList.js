@@ -91,7 +91,7 @@ const UsersList = props => {
             <Grid container item>
                 {window.innerWidth <= 1200 &&
                 <>
-                    <Typography variant='h4'>Поиск по ролям</Typography>
+                    <Typography variant='h4'>{wordList[language].usersList.searchRole}</Typography>
                     <IconButton onClick={handleClick}><MenuIcon/></IconButton>
                     <Menu
                         id="simple-menu"
