@@ -93,6 +93,9 @@ const HistoriesListItem = (
             break;
         case 'edit':
             text = wordList[language].histories.editLabel;
+            break;
+        default:
+            text = 'null';
     }
 
     return (
