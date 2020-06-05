@@ -178,7 +178,7 @@ const AddNewRequest = () => {
                             }
                             <Grid item>
                                 <Grid item>
-                                    <Typography>Общая цена:
+                                    <Typography>{wordList[language].addNewRequest.totalPrice}
                                         {sum === 1 ? 0 : sum - 1
                                         } Сом</Typography>
                                 </Grid>
