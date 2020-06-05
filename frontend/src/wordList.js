@@ -125,7 +125,8 @@ export const wordList = {
             inputCoordinates: 'Координаты',
             inputAvatar: 'Avatar',
             inputComment: 'Причина добавления',
-            addBtn: 'Добавить'
+            addBtn: 'Добавить',
+            addUserToGroupLabel: 'Добавить в группы'
         },
         editProduct: {
             editProductTitle: 'Редактирование продукта',
@@ -421,7 +422,8 @@ export const wordList = {
             inputCoordinates: 'Координаттар',
             inputAvatar: 'Avatar',
             inputComment: 'Кошуунун себеби',
-            addBtn: 'Кошуу'
+            addBtn: 'Кошуу',
+            addUserToGroupLabel: 'Топторго кошуу'
         },
         editProduct: {
             editProductTitle: 'Продуктту түзөтүү',

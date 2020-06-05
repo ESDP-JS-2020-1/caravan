@@ -268,7 +268,10 @@ const AddUser = () => {
                                         ))
                                     }
                                     renderInput={(params) => (
-                                        <TextField {...params} variant="outlined" label="Добавить в группы"/>
+                                        <TextField {...params}
+                                                   variant="outlined"
+                                                   label={wordList[language].addUser.addUserToGroupLabel}
+                                        />
                                     )}
                                 />
                             </Grid>
