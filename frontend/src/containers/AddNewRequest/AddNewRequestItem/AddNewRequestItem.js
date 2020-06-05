@@ -25,7 +25,11 @@ const AddNewRequestItem = (
 
     const products = useSelector(state => state.products.productsList);
     const options = [];
-          products.forEach(e => e.amount > 0 && options.push(e));
+          products.forEach(e => e.amount > 0  && !request.find(req => e._id === req.product) ?
+              options.push(e)
+              :
+              options.push({...e, name: e.name + ' (уже добавлен)'})
+          );
     const dispatch = useDispatch();
     const language = useSelector(state => state.language.name);
 
@@ -51,28 +55,49 @@ const AddNewRequestItem = (
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>
                         <Box className={classes.mainBox}>
-                            {products && (
+                            {options && (
                                 <Grid item>
-                                    <Autocomplete
-                                        id="combo-box-demo"
-                                        options={options}
-                                        getOptionLabel={option => option.name}
-                                        className={classes.autocomplete}
-                                        onChange={(e, value) => onAutoCompleteChange(value, index)}
-                                        renderInput={(params) => <>
-                                            <TextField
-                                                {...params}
-                                                required
-                                                label={wordList[language].addNewRequestItem.btnTitle}
-                                                variant="outlined"
-                                                id='title'
-                                                name='title'
-                                                title={wordList[language].addNewRequestItem.btnTitle}
-                                            />
-                                            {r.productInfo && <>
-                                                <b>{wordList[language].addNewRequestItem.productQty} </b> {r.productInfo.amount}</>}
-                                        </>}
-                                    />
+                                    {r.product === '' ?
+                                        <Autocomplete
+                                            options={options}
+                                            getOptionLabel={option => option.name}
+                                            className={classes.autocomplete}
+                                            onChange={(e, value) => onAutoCompleteChange(value, index)}
+                                            renderInput={params => <>
+                                                <TextField
+                                                    {...params}
+                                                    required
+                                                    label={wordList[language].addNewRequestItem.btnTitle}
+                                                    variant="outlined"
+                                                    id='title'
+                                                    name='title'
+                                                    title={wordList[language].addNewRequestItem.btnTitle}
+                                                />
+                                                {r.productInfo && <>
+                                                    <b>{wordList[language].addNewRequestItem.productQty} </b> {r.productInfo.amount}</>}
+                                            </>}
+                                        /> :
+                                        <Autocomplete
+                                            options={options}
+                                            getOptionLabel={option => option.name}
+                                            className={classes.autocomplete}
+                                            getOptionSelected={e => e._id === r.product}
+                                            onChange={(e, value) => onAutoCompleteChange(value, index)}
+                                            renderInput={params => <>
+                                                <TextField
+                                                    {...params}
+                                                    required
+                                                    label={wordList[language].addNewRequestItem.btnTitle}
+                                                    variant="outlined"
+                                                    id='title'
+                                                    name='title'
+                                                    title={wordList[language].addNewRequestItem.btnTitle}
+                                                />
+                                                {r.productInfo && <>
+                                                    <b>{wordList[language].addNewRequestItem.productQty} </b> {r.productInfo.amount}</>}
+                                            </>}
+                                        />
+                                    }
                                 </Grid>
                             )}
 
