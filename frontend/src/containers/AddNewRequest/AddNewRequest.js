@@ -125,7 +125,7 @@ const AddNewRequest = () => {
     }, [dispatch]);
 
     const totalPriceArray = [1];
-    request.products.map(product => {
+    request.products.forEach(product => {
         if (product.productInfo.price) {
             const slicePrice = product.productInfo.price.slice(0, -3);
             const totalPrice = parseInt(slicePrice) * product.amount;

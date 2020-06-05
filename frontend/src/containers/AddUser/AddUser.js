@@ -91,7 +91,7 @@ const AddUser = () => {
     }, [dispatch]);
 
     const groupArray = [];
-    groups.map(group => {
+    groups.forEach(group => {
         groupArray.push(group.name)
     });
 
