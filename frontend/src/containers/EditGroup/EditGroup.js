@@ -72,20 +72,16 @@ const EditGroup = props => {
             if (permissions === undefined) dispatch(getPermissions())
         }
 
-        if (group.permissions && permissions) {
+        if (group.permissions && permissions && checkboxes === undefined) {
             const groupPermissions = [...group.permissions];
 
             permissions.forEach(elem => {
-                if (elem === groupPermissions.find(element => element === elem)) {
-                    permissions[elem] = true
-                } else {
-                    permissions[elem] = false
-                }
+                permissions[elem] = elem === groupPermissions.find(element => element === elem);
             });
-            setGroupInfo(name => ({name: group.name}));
-            setCheckboxes(elem => ({...permissions}));
+            setGroupInfo(() => ({name: group.name}));
+            setCheckboxes(() => ({...permissions}));
         }
-    }, [dispatch, props.match.params.id, group, permissions]);
+    }, [dispatch, props.match.params.id, group, permissions, checkboxes]);
 
     return (
         <Container>
