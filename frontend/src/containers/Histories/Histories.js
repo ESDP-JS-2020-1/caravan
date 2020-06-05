@@ -71,7 +71,7 @@ const Histories = props => {
 
     return histories && (
         <div className={classes.root}>
-            {histories.length !== 0 ?
+            {histories.docs.length !== 0 ?
                 <>
                     <Hidden smDown>
                         <TableContainer component={Paper}>

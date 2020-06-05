@@ -9,13 +9,13 @@ const router = express.Router();
 
 router.get('/:page/:limit', isAuth, permit('viewHistory'), async (req, res) => {
     try {
-        const historyLength = await History.find();
+        // const historyLength = await History.find();
         const aggregateQuery = History.aggregate();
 
-        const pageAmount = Math.ceil(historyLength.length / req.params.limit);
+        // const pageAmount = Math.ceil(historyLength.length / req.params.limit);
 
         let page = req.params.page;
-            page = pageAmount - (page - 1)
+            // page = pageAmount - (page - 1)
 
         const history = await History.aggregatePaginate(aggregateQuery, {
             page: page,
