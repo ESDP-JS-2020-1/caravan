@@ -108,7 +108,7 @@ const HistoriesListItem = (
                                 <NavLink exact
                                          to={info.productType ?
                                              `/?product=${info.name}`
-                                             : `${schemaNameInPlural}/${info._id}`
+                                             : `/${schemaNameInPlural}/${info._id}`
                                          }>{documentInfo}</NavLink>}
                         </div>
                     </TableCell>
