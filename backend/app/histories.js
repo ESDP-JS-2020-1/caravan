@@ -21,10 +21,12 @@ router.get('/:page/:limit', isAuth, permit('viewHistory'), async (req, res) => {
             page: page,
             limit: req.params.limit
         });
+
         await history.docs.reverse();
 
-        res.send({history, pageAmount})
+        res.send(history)
     } catch (e) {
+        console.log(e)
         res.status(500).send(e)
     }
 });

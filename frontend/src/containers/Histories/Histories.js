@@ -54,7 +54,7 @@ const Histories = props => {
     }, [dispatch, props.match.params.page, props.match.params.limit]);
 
     const historyList = (
-        histories && histories.history.docs.map((history) => {
+        histories && histories.docs.map((history) => {
             const info = history.info.data;
             const schemaNameInPlural = history.info.schemaNameInPlural;
 
@@ -98,10 +98,10 @@ const Histories = props => {
                 <Typography variant='h3'>
                     {'В истории пока ничего нет!'}
                 </Typography>}
-            {histories.history.totalPages > 1 && (
+            {histories.totalPages > 1 && (
                 <Pagination
                     className={classes.pagination}
-                    count={histories.pageAmount}
+                    count={histories.totalPages}
                     color="primary"
                     onChange={(e, num) => props.history.push(`/history/ ${num} / 10 `)}
                 />
