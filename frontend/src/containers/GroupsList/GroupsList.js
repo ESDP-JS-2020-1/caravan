@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
     flex: {
         display: 'flex',
         flexWrap: 'wrap'
-    }
+    },
 }));
 
 
@@ -61,31 +61,41 @@ const GroupsList = () => {
     return (
         <>
             {window.innerWidth > 1200 &&
-                <Box component='div'>
-                    <Typography variant='h4'>{wordList[language].groupsList.listGroupTitle}</Typography>
-                    {checkPermission('addGroup') && <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
-                        {wordList[language].groupsList.addGroupBtn}
-                    </Button>}
-                    <TableContainer component={Paper}>
-                        <Table aria-label="caption table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>       <b>{wordList[language].groupsList.tableGroupTitle}</b>        </TableCell>
-                                    <TableCell> <b>{wordList[language].groupsList.tableGroupQty}</b> </TableCell>
-                                    <TableCell>                              </TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {groupsList}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Box>
+            <Box component='div'>
+                <Typography variant='h4'>{wordList[language].groupsList.listGroupTitle}</Typography>
+                {checkPermission('addGroup') &&
+                <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
+                    {wordList[language].groupsList.addGroupBtn}
+                </Button>}
+                <TableContainer component={Paper}>
+                    <Table aria-label="caption table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell> <b>{wordList[language].groupsList.tableGroupTitle}</b> </TableCell>
+                                <TableCell> <b>{wordList[language].groupsList.tableGroupQty}</b> </TableCell>
+                                <TableCell> </TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {groupsList}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
             }
             {window.innerWidth <= 1200 &&
+            <>
+                <Box component='div' m={2}>
+                    <Typography variant='h4'>{wordList[language].groupsList.listGroupTitle}</Typography>
+                    {checkPermission('addGroup') &&
+                    <Button variant='contained' color='primary' component={NavLink} to={`/groups/new`}>
+                        {wordList[language].groupsList.addGroupBtn}
+                    </Button>}
+                </Box>
                 <Box className={classes.flex} component='div'>
                     {groupsCard}
                 </Box>
+            </>
             }
         </>
     );
