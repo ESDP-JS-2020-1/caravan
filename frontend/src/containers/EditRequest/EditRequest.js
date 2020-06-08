@@ -210,6 +210,7 @@ const EditRequest = (props) => {
                                 title={wordList[language].editRequest.modalEditTitle}
                                 open={open}
                                 onClose={openAndClosed}
+                                title={'Вы действительно хотите удалить эту заявку?'}
                             >
                                 <Grid container justify="flex-end" spacing={1}>
                                     <Grid item>

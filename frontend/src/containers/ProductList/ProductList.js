@@ -100,7 +100,7 @@ const ProductList = () => {
         setSearch({search: e.target.value});
     };
 
-    const productList = products.filter(word => word.name.search(new RegExp(search.search, 'i')) !== -1);
+    const productList = products.filter(word => word.name.search(new RegExp( search.search , 'i')) !== -1);
     const card = productList.map((elem, i) => {
         return (
             <ProductCard
