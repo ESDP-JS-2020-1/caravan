@@ -44,9 +44,9 @@ function App() {
                     <PrivateRoute path="/users" roles={['getUser']} exact component={UsersList}/>
                     <PrivateRoute path="/users/new" roles={['addUser']} exact component={AddUser}/>
                     <PrivateRoute path="/users/:id" roles={['getUser']} exact component={UserInfo}/>
+                    <PrivateRoute path="/users/role/:id" roles={['getUser']} exact component={UsersList}/>
                     <PrivateRoute path="/users/edit/:id" roles={['editUser']} exact component={EditUser}/>
-                    <PrivateRoute path="/users/stat/:id/:days" exact roles={['getStatistic']}
-                                  component={StatisticsUser}/>
+                    <PrivateRoute path="/users/stat/:id/:days" exact roles={['getStatistic']} component={StatisticsUser}/>
 
                     <PrivateRoute path="/products" exact component={ProductList}/>
                     <PrivateRoute path="/product/add" exact roles={['addProduct']} component={AddProduct}/>

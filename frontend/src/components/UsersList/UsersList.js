@@ -110,7 +110,7 @@ const UsersList = props => {
                             </div>
                             {['admin', 'operator', 'courier', 'market'].map((e, i) => (
                                 <div key={i}>
-                                    <ListItem onClick={handleClose} component={NavLink} to={'/users/' + e}
+                                    <ListItem onClick={handleClose} component={NavLink} to={'/users/role/' + e}
                                               button>
                                         {e}
                                         <ListItemIcon style={{marginLeft: '10px'}}>
@@ -193,7 +193,7 @@ const UsersList = props => {
                                         </div>
                                         {['admin', 'operator', 'courier', 'market'].map((e, i) => (
                                             <div key={i}>
-                                                <ListItem onClick={handleClose} component={NavLink} to={'/users/' + e}
+                                                <ListItem onClick={handleClose} component={NavLink} to={'/users/role/' + e}
                                                           button>
                                                     {e}
                                                     <ListItemIcon style={{marginLeft: '10px'}}>
