@@ -6,25 +6,38 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        '& > * + *': {
-            marginLeft: theme.spacing(2),
-        },
+const useStyles = makeStyles({
+    spinnerBlock: {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        zIndex: -1
     },
     spinner: {
-        marginTop: '1%',
-        margin: '0 auto'
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        margin: "-40px 0 0 -40px"
+    },
+    spinnerItem: {
+        marginBottom: '10px'
     }
-}));
+});
 
 export default function CircularIndeterminate() {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <CircularProgress className={classes.spinner} color="secondary" />
+        <div className={classes.spinnerBlock}>
+            <div className={classes.spinner}>
+                <CircularProgress className={classes.spinnerItem}/>
+                <span>Загрузка...</span>
+            </div>
         </div>
     );
 }
