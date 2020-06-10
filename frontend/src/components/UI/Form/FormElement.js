@@ -108,9 +108,10 @@ const FormElement = props => {
 
     if (props.type === 'checkbox') {
         field = (
-            <div style={{
+            <label style={{
                 display: 'flex',
-                alignItems: 'center'
+                alignItems: 'center',
+                cursor: 'pointer'
             }}>
                 <Checkbox
                     checked={props.value}
@@ -121,7 +122,7 @@ const FormElement = props => {
                 <Typography variant='h6'>
                     {props.title}
                 </Typography>
-            </div>
+            </label>
         )
     }
 
