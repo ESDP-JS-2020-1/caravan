@@ -23,6 +23,7 @@ import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Box from "@material-ui/core/Box";
+import {Hidden} from "@material-ui/core";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
 
@@ -163,7 +164,8 @@ const ProductList = () => {
                         </Grid>
                         }
                     </Grid>
-                    {window.innerWidth < 900 && <Grid item>
+                    <Hidden mdUp>
+                        <Grid item>
                         <Box m={1}> <FormElement
                             type='search'
                             propertyName='search'
@@ -171,9 +173,10 @@ const ProductList = () => {
                             value={search.search}
                             onChange={changeSearch}
                         /></Box>
-                    </Grid>}
+                    </Grid>
+                    </Hidden>
                 </Grid>
-                {window.innerWidth > 900 && <Grid item>
+                <Hidden smDown> <Grid item>
                     <Paper className={classes.root}>
                         <TableContainer component={Paper} className={classes.table}>
                             <Table aria-label="caption table">
@@ -203,15 +206,20 @@ const ProductList = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {window.innerWidth > 900 && productsList}
+                                    <Hidden xlUp>
+                                     {productsList}
+                                    </Hidden>
                                 </TableBody>
                             </Table>
                         </TableContainer>
                     </Paper>
-                </Grid>}
-                {window.innerWidth < 900 && <Grid container>
-                    {card}
-                </Grid>}
+                </Grid>
+                </Hidden>
+                <Hidden mdUp>
+                    <Grid container>
+                        {card}
+                    </Grid>
+                </Hidden>
             </Grid>
         </>
     );
