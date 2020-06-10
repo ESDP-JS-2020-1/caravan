@@ -137,7 +137,7 @@ const AddNewRequest = () => {
     });
     const sum = totalPriceArray.reduce((total, amount) => total + amount);
 
-    const loading = useSelector(state => state.loading.loading)
+    const loading = useSelector(state => state.loading.loading);
     if (loading) {
         return <Spinner/>
     }

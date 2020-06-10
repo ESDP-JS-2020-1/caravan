@@ -56,16 +56,12 @@ const useStyles = makeStyles((theme) => ({
 
 const AddProduct = () => {
     const classes = useStyles();
-
     const dispatch = useDispatch();
-
     const error = useSelector(state => state.products.error);
-
     let errorMessage;
     if (error) {
         errorMessage = `Продукт с названием ${error.op.name} уже существует!`
     }
-
     const [product, setProduct] = useState([{
         name: '',
         amount: '',
@@ -132,7 +128,7 @@ const AddProduct = () => {
         dispatch(createProductInit())
     }, [dispatch]);
 
-    const loading = useSelector(state => state.loading.loading)
+    const loading = useSelector(state => state.loading.loading);
     if (loading) {
         return <Spinner/>
     }

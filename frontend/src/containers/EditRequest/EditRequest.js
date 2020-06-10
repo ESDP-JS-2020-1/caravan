@@ -132,7 +132,7 @@ const EditRequest = (props) => {
 
     }, [dispatch, props.match.params.id]);
 
-    const loading = useSelector(state => state.loading.loading)
+    const loading = useSelector(state => state.loading.loading);
     if (loading) {
         return <Spinner/>
     }
@@ -210,7 +210,6 @@ const EditRequest = (props) => {
                                 title={wordList[language].editRequest.modalEditTitle}
                                 open={open}
                                 onClose={openAndClosed}
-                                title={'Вы действительно хотите удалить эту заявку?'}
                             >
                                 <Grid container justify="flex-end" spacing={1}>
                                     <Grid item>

@@ -119,7 +119,7 @@ const AddUser = () => {
         dispatch(addUser(data))
     };
 
-    const loading = useSelector(state => state.loading.loading)
+    const loading = useSelector(state => state.loading.loading);
     if (loading) {
         return <Spinner/>
     }

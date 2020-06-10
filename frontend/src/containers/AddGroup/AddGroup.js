@@ -85,7 +85,7 @@ const AddGroup = () => {
         dispatch(addNewGroup(info))
     };
 
-    const loading = useSelector(state => state.loading.loading)
+    const loading = useSelector(state => state.loading.loading);
     if (loading) {
         return <Spinner/>
     }
