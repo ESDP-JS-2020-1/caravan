@@ -23,6 +23,7 @@ import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Box from "@material-ui/core/Box";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -119,7 +120,6 @@ const ProductList = () => {
 
     const productsList = productList.map((elem) => {
         return (
-
             <ProductListItem
                 userInfo={user}
                 key={elem._id}
@@ -134,6 +134,11 @@ const ProductList = () => {
 
         )
     });
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <>

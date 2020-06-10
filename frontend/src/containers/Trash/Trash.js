@@ -8,7 +8,6 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import TableContainer from "@material-ui/core/TableContainer";
 import Paper from "@material-ui/core/Paper";
@@ -24,26 +23,9 @@ import TextField from "@material-ui/core/TextField";
 
 import {getTrash} from "../../store/actions/trashActions";
 import {wordList} from "../../wordList";
-
-
-const useStyles = makeStyles({
-    spinnerBlock: {
-        position: 'absolute',
-        top: '0',
-        left: '0',
-        width: '100%',
-        height: '100%'
-    },
-    spinner: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        margin: "-40px 0 0 -40px"
-    }
-});
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const Trash = () => {
-    const classes = useStyles();
 
     const dispatch = useDispatch();
     const { type } = useParams();
@@ -51,7 +33,6 @@ const Trash = () => {
     const [sortDate, setSortDate] = useState(false);
 
     let trash = useSelector(state => state.trashReducer.trash);
-    const loading = useSelector(state => state.trashReducer.loading);
     const language = useSelector(state => state.language.name);
 
     const changeDateSort = () => setSortDate(!sortDate);
@@ -85,12 +66,9 @@ const Trash = () => {
         {value: 'groups', title: (wordList[language].trash.trashType5)},
     ];
 
+    const loading = useSelector(state => state.loading.loading)
     if (loading) {
-        return (
-            <div className={classes.spinnerBlock}>
-                <CircularProgress className={classes.spinner}/>
-            </div>
-        )
+        return <Spinner/>
     }
 
     return trash && (

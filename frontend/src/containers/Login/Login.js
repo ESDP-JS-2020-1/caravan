@@ -53,7 +53,6 @@ const Login = () => {
     });
 
     const error = useSelector(state => state.users.loginError);
-    const loading = useSelector(state => state.users.loginLoading);
     const language = useSelector(state => state.language.name);
 
     const dispatch = useDispatch();
@@ -65,6 +64,11 @@ const Login = () => {
 
         dispatch(loginUser(state))
     };
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

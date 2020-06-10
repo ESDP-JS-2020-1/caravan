@@ -55,13 +55,13 @@ const usersReducer = (state = initialState, action) => {
         case GET_USER_FAILURE:
             return {...state, error: action.error};
 
-        case GET_USERS_SUCCESS:
-            return {...state, users: action.users};
         case GET_USERS_REQUEST:
             return {...state, loading: true};
+        case GET_USERS_SUCCESS:
+            return {...state, users: action.users, loading: false}
         case GET_USERS_FAILURE:
+            return {...state, error: action.error, loading: false};
 
-            return {...state, error: action.error};
         case ADD_USER_FAILURE:
             return {...state, error: action.error.response.data};
 

@@ -14,6 +14,7 @@ import {deleteProduct, getProductEdit, getProductSuccess, putEditProduct} from "
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -86,6 +87,11 @@ const EditProduct = (props) => {
     const [openEdit, setOpenEdit] = useState(false);
     const handleOpenAndClose = () => (setOpen(!open));
     const handleOpenEdit = () => (setOpenEdit(!openEdit));
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

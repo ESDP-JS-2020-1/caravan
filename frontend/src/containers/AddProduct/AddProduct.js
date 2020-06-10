@@ -13,6 +13,7 @@ import Alert from "@material-ui/lab/Alert";
 import {addNewProduct, createProductInit} from "../../store/actions/productsActions";
 import AddProductItem from "./AddProductItem/AddProductItem";
 import {wordList} from "../../wordList";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -130,6 +131,11 @@ const AddProduct = () => {
     useEffect(() => {
         dispatch(createProductInit())
     }, [dispatch]);
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

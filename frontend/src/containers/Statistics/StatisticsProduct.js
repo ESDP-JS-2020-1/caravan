@@ -15,6 +15,7 @@ import FormElement from "../../components/UI/Form/FormElement";
 import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Box from "@material-ui/core/Box";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 const useStyle = makeStyles({
@@ -73,6 +74,11 @@ const StatisticsProduct = () => {
             borderWidth: 1
         }]
     };
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Box mt={1}>
