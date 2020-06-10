@@ -18,7 +18,6 @@ import {
     putRequestEdit
 } from "../../store/actions/requestsActions";
 import EditRequestItems from "./EditRequestItems";
-import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
 
@@ -159,17 +158,6 @@ const EditRequest = (props) => {
                                     r={r}
                                 />
                             ))}
-
-                            {editRequest.products && <Grid item>
-                                <FormElement
-                                    id='comment'
-                                    propertyName='comment'
-                                    title={wordList[language].editRequest.inputComment}
-                                    value={editRequest.comment}
-                                    onChange={changeHandlerComment}
-                                />
-
-                            </Grid>}
                             {error &&
                             <Alert severity="error">
                                 {error === 'One of products in request has more products than is in stock!' ?
@@ -213,6 +201,7 @@ const EditRequest = (props) => {
                                 </Button>
                             </Grid>
                             <Modal
+                                title={wordList[language].editRequest.modalEditTitle}
                                 open={open}
                                 onClose={openAndClosed}
                             >

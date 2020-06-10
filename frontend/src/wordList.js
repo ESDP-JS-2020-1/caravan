@@ -150,6 +150,7 @@ export const wordList = {
             addRequestBtn: 'Добавить',
             editRequestBtn: 'Редактировать заявку',
             deleteRequestBtn: 'Удалить заявку',
+            modalEditTitle: 'Вы уверены что хотите удалить эту заявку?',
             modalBtnNeg: 'Нет',
             modalBtnPos: 'Да',
         },
@@ -449,6 +450,7 @@ export const wordList = {
             deleteRequestBtn: 'Өтүнүчтү жок кылуу',
             modalBtnNeg: 'Жок',
             modalBtnPos: 'Ооба',
+            modalEditTitle: 'Бул Өтүнүчтү  чын эле алып салгыңыз келеби?',
         },
         editRequestItems: {
             title: 'Аты: ',
