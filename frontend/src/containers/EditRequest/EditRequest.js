@@ -21,6 +21,7 @@ import EditRequestItems from "./EditRequestItems";
 import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -131,6 +132,11 @@ const EditRequest = (props) => {
         dispatch(fetchRequestEdit(props.match.params.id))
 
     }, [dispatch, props.match.params.id]);
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

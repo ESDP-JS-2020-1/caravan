@@ -21,6 +21,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Chip from "@material-ui/core/Chip";
 import TextField from "@material-ui/core/TextField";
 import {getGroups} from "../../store/actions/groupActions";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -117,6 +118,11 @@ const AddUser = () => {
         data.append('group', group);
         dispatch(addUser(data))
     };
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

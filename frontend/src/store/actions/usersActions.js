@@ -78,6 +78,7 @@ export const addUser = user => async (dispatch, getState) => {
             ...config.notification
         });
     } catch (e) {
+        console.log(e);
         dispatch(addUserFailure(e))
     }
 };

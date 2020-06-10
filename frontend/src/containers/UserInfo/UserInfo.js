@@ -14,6 +14,7 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {getUser} from "../../store/actions/usersActions";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import {wordList} from "../../wordList";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 const useStyles = makeStyles({
@@ -60,6 +61,11 @@ const UserInfo = props => {
         }
     });
     const coord = userInfo && userInfo.market && userInfo.market.coordinates;
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

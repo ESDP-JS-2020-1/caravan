@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 import Grid from "@material-ui/core/Grid";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -15,7 +15,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 
 import FormElement from "../../../components/UI/Form/FormElement";
-import {getProductsList} from "../../../store/actions/productsActions";
 import {wordList} from "../../../wordList";
 
 
@@ -30,14 +29,9 @@ const AddNewRequestItem = (
               :
               options.push({...e, name: e.name + ' (уже добавлен)'})
           );
-    const dispatch = useDispatch();
     const language = useSelector(state => state.language.name);
 
-    useEffect(() => {
-        dispatch(getProductsList());
-    }, [dispatch]);
-
-    return (
+    return products && (
         <Grid container alignItems='center' spacing={1}>
             <Grid item xs={11}>
                 <ExpansionPanel expanded={expanded === 'panel' + index}
