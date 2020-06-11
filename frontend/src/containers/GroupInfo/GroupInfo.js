@@ -20,6 +20,7 @@ import {getUsers} from "../../store/actions/usersActions";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 const useStyles = makeStyles({
@@ -65,6 +66,12 @@ const GroupInfo = props => {
 
     const [open, setOpen] = useState(false);
     const handleOpenAndClose = () => (setOpen(!open));
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
+
     return (
         <>
             <Paper className={classes.paper} elevation={3}>

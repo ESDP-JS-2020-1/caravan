@@ -15,6 +15,8 @@ import {getRequests} from "../../store/actions/requestsActions";
 import {wordList} from "../../wordList";
 import Grid from "@material-ui/core/Grid";
 import RequestCardItem from "./RequestCardItem";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import Hidden from "@material-ui/core/Hidden";
 
 const RequestList = () => {
 	const dispatch = useDispatch();
@@ -26,6 +28,11 @@ const RequestList = () => {
 	useEffect(() => {
 		dispatch(getRequests());
 	}, [dispatch]);
+
+	const loading = useSelector(state => state.loading.loading);
+	if (loading) {
+		return <Spinner/>
+	}
 
 	let requestsList = requests.map((elem) => (
 		<RequestListItem
@@ -50,35 +57,46 @@ const RequestList = () => {
 		))
 	}
 
-	return (
-		<>
-			{window.innerWidth >= 1200 &&
-			<Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-				<TableContainer component={Paper}>
-					<Table aria-label="caption table">
-						<TableHead>
-							<TableRow>
-								<TableCell> <b>{wordList[language].requestList.tableUser}</b> </TableCell>
-								<TableCell> <b>{wordList[language].requestList.tableDate}</b> </TableCell>
-								<TableCell> <b>{wordList[language].requestList.tableStatus}</b> </TableCell>
-								<TableCell> </TableCell>
-								<TableCell> </TableCell>
-							</TableRow>
-						</TableHead>
-						<TableBody>
-							{requestsList}
-						</TableBody>
-					</Table>
-				</TableContainer>
-			</Grid>
-			}
+	const requestsCard = requests.map(elem => (
 
-			{window.innerWidth <= 1200 &&
-			<>
-                <RequestCardItem/>
-			</>
-			}
-		</>
+		<RequestCardItem
+			key={elem._id}
+			id={elem._id}
+			user={elem.user}
+			status={elem.status}
+			date={elem.date}
+		/>
+	));
+
+	return (
+		<Grid container direction='column' spacing={1}>
+			<Hidden smDown>
+				<Grid item >
+					<TableContainer component={Paper}>
+						<Table aria-label="caption table">
+							<TableHead>
+								<TableRow>
+									<TableCell> <b>{wordList[language].requestList.tableUser}</b> </TableCell>
+									<TableCell> <b>{wordList[language].requestList.tableDate}</b> </TableCell>
+									<TableCell> <b>{wordList[language].requestList.tableStatus}</b> </TableCell>
+									<TableCell> </TableCell>
+									<TableCell> </TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{requestsList}
+							</TableBody>
+						</Table>
+					</TableContainer>
+				</Grid>
+			</Hidden>
+
+			<Hidden mdUp>
+				<Grid container>
+					{requestsCard}
+				</Grid>
+			</Hidden>
+		</Grid>
 	);
 };
 

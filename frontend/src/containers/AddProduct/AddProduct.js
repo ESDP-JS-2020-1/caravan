@@ -13,6 +13,7 @@ import Alert from "@material-ui/lab/Alert";
 import {addNewProduct, createProductInit} from "../../store/actions/productsActions";
 import AddProductItem from "./AddProductItem/AddProductItem";
 import {wordList} from "../../wordList";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -55,16 +56,12 @@ const useStyles = makeStyles((theme) => ({
 
 const AddProduct = () => {
     const classes = useStyles();
-
     const dispatch = useDispatch();
-
     const error = useSelector(state => state.products.error);
-
     let errorMessage;
     if (error) {
         errorMessage = `Продукт с названием ${error.op.name} уже существует!`
     }
-
     const [product, setProduct] = useState([{
         name: '',
         amount: '',
@@ -130,6 +127,11 @@ const AddProduct = () => {
     useEffect(() => {
         dispatch(createProductInit())
     }, [dispatch]);
+
+    const loading = useSelector(state => state.loading.loading);
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

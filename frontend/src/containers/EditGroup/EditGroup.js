@@ -9,6 +9,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import {wordList} from "../../wordList";
 import Alert from "@material-ui/lab/Alert";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -82,6 +83,11 @@ const EditGroup = props => {
             setCheckboxes(() => ({...permissions}));
         }
     }, [dispatch, props.match.params.id, group, permissions, checkboxes]);
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

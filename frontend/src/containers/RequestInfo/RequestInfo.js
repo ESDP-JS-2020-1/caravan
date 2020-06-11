@@ -24,6 +24,7 @@ import {
 
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 const useStyles = makeStyles({
     flex: {
@@ -78,6 +79,11 @@ const RequestInfo = props => {
         if (request.request.products.find(elem => elem.isRefrigeratorRequired === true) !== undefined) return request.courierList.filter(courier => courier.carRefrigerator === true);
         return request.courierList;
     };
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Container>

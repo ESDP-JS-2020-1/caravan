@@ -33,6 +33,7 @@ import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
 import UserCardItem from "./UserCardItem";
 import Typography from "@material-ui/core/Typography";
+import Spinner from "../UI/Spinner/Spinner";
 
 
 const UsersList = props => {
@@ -63,6 +64,11 @@ const UsersList = props => {
     };
 
     const productList = users && users.filter(word => word.displayName.search(new RegExp(search.search, 'i')) !== -1);
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
 
     return (
         <Box mt={2}>
