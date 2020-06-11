@@ -42,7 +42,7 @@ const StatisticsUser = () => {
     const dispatch = useDispatch();
     const {id, days} = useParams();
 
-    const statistics = useSelector(state => state.statistics.statistics);
+    const statistics = useSelector(state => state.statistics.userStatistic);
     const language = useSelector(state => state.language.name);
 
     const inputChangeHandler = e => setNumberOfDays(e.target.value);
@@ -50,7 +50,7 @@ const StatisticsUser = () => {
     useEffect(() => {
         dispatch(getStatisticsUser(id, days));
 
-        setNumberOfDays(day => days)
+        setNumberOfDays(() => days)
     }, [dispatch, id, days]);
 
     const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
