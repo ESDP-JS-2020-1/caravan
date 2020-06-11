@@ -62,16 +62,21 @@ const EditUser = props => {
 
     const [open, setOpen] = React.useState(false);
 
-    const [user, setUser] = React.useState(null);
+    const [user, setUser] = React.useState(undefined);
     const [coordinate, setCoordinate] = useState({lat: '', lng: ''});
 
     useEffect(() => {
-        if (editClient !== undefined && editClient.role === 'market') setCoordinate(() => editClient.market.coordinates);
+        dispatch(getUser(props.match.params.id))
+    }, [dispatch, props.match.params.id])
 
-        if (editClient === undefined && user === null) dispatch(getUser(props.match.params.id))
-        if(editClient !== undefined && user === null) setUser(() => editClient)
-
-    }, [dispatch, props.match.params.id, editClient, user]);
+    useEffect(() => {
+        if (editClient !== undefined) {
+            if (editClient._id === props.match.params.id && user === undefined) {
+                setUser(() => editClient)
+            }
+            if (editClient._id !== props.match.params.id && editClient.role === 'market') setCoordinate(() => editClient.market.coordinates);
+        }
+    }, [dispatch, editClient, user, props.match.params.id]);
 
     const error = useSelector(state => state.users.error);
 
