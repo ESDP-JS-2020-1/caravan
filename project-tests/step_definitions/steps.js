@@ -29,7 +29,7 @@ When('я заполняю поля формы:', table => {
 });
 
 When('я вижу текст {string}', text => {
-    I.waitForText(text);
+    I.waitForText(text, 10);
 });
 
 When('я попадаю на страницу со списком пользователей', () => {
