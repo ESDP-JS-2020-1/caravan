@@ -52,7 +52,7 @@ const Login = () => {
         password: '',
     });
 
-    const error = useSelector(state => state.users.loginError);
+    const error = useSelector(state => state.users.error);
     const language = useSelector(state => state.language.name);
 
     const dispatch = useDispatch();
