@@ -7,7 +7,7 @@ if (env === 'test') {
 }
 
 if (env === 'production') {
-    url = 'http://198.211.125.161:8000'
+    url = 'https://caravan.sytes.net/api'
 }
 
 export const apiURL = {
