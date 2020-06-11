@@ -80,7 +80,7 @@ const RequestInfo = props => {
         return request.courierList;
     };
 
-    const loading = useSelector(state => state.loading.loading)
+    const loading = useSelector(state => state.loading.loading);
     if (loading) {
         return <Spinner/>
     }
@@ -175,7 +175,7 @@ const RequestInfo = props => {
                             <Typography variant="h6" className={classes.typographyCss}>
                                 <b>{wordList[language].requestInfo.courierPhone}: </b> {request.nominatedCourier.phone}
                             </Typography>
-                            <Typography variant="h6" component={NavLink} to={'/user/' + request.nominatedCourier._id}>
+                            <Typography variant="h6" component={NavLink} to={'/users/' + request.nominatedCourier._id}>
                                 {wordList[language].requestInfo.courierInfo}
                             </Typography>
                             {user.role === 'operator' &&
