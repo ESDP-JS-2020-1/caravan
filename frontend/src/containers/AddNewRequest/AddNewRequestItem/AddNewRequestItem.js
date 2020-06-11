@@ -24,10 +24,8 @@ const AddNewRequestItem = (
 
     const products = useSelector(state => state.products.productsList);
     const options = [];
-          products.forEach(e => e.amount > 0  && !request.find(req => e._id === req.product) ?
+          products.forEach(e => e.amount > 0  && (!request.find(req => e._id === req.product) || e._id === r.product) &&
               options.push(e)
-              :
-              options.push({...e, name: e.name + ' (уже добавлен)'})
           );
     const language = useSelector(state => state.language.name);
 
