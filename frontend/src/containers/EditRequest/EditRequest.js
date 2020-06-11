@@ -21,6 +21,7 @@ import EditRequestItems from "./EditRequestItems";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import {getProductsList} from "../../store/actions/productsActions";
 
 const useStyles = makeStyles((theme) => ({
     heading: {
@@ -70,10 +71,10 @@ const EditRequest = (props) => {
     const error = useSelector(state => state.requests.error);
     const editRequest = useSelector(state => state.requests.oneRequest);
     const language = useSelector(state => state.language.name);
+    const products = useSelector(state => state.products.productsList);
 
     const [expanded, setExpanded] = React.useState(false);
     const [open, setOpen] = useState(false);
-
 
     const inputChangeHandler = (e, i) => {
         let newRequest = [...editRequest.products];
@@ -128,7 +129,8 @@ const EditRequest = (props) => {
 
     useEffect(() => {
         dispatch(createRequestInit());
-        dispatch(fetchRequestEdit(props.match.params.id))
+        dispatch(fetchRequestEdit(props.match.params.id));
+        dispatch(getProductsList());
 
     }, [dispatch, props.match.params.id]);
 
@@ -162,6 +164,7 @@ const EditRequest = (props) => {
                                     onRemove={removeRequest}
                                     index={i}
                                     r={r}
+                                    products={products}
                                 />
                             ))}
                             {error &&

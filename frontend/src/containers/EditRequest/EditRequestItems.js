@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 
 import Grid from "@material-ui/core/Grid";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -13,24 +13,18 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
-
-import {getProductsList} from "../../store/actions/productsActions";
 import FormElement from "../../components/UI/Form/FormElement";
 
 import {wordList} from "../../wordList";
 
 
 const EditRequestItems = (
-    {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange,}
+    {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange, products}
 ) => {
 
-    const products = useSelector(state => state.products.productsList);
     const language = useSelector(state => state.language.name);
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getProductsList());
-    }, [dispatch]);
+
     return (
         <Grid container alignItems='center' spacing={1}>
             <Grid item xs={11}>
