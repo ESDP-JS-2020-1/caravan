@@ -43,7 +43,7 @@ const StatisticsProduct = () => {
     const dispatch = useDispatch();
     const {id, days} = useParams();
 
-    const statistics = useSelector(state => state.statistics.statistics);
+    const statistics = useSelector(state => state.statistics.productStatistic);
     const language = useSelector(state => state.language.name);
 
     const inputChangeHandler = e => setNumberOfDays(e.target.value);
