@@ -88,12 +88,10 @@ const AddNewRequest = () => {
     };
 
     const autoCompleteChangeHandler = (value, i) => {
-        if (value.name.search('(уже добавлен)') === -1) {
             let newRequest = {...request};
             newRequest.products[i].product = value._id;
             newRequest.products[i].productInfo = value;
             setRequest(newRequest);
-        }
     };
 
     const handleChange = (panel) => (event, isExpanded) => {
