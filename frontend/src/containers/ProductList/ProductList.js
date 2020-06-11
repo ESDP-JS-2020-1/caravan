@@ -206,9 +206,7 @@ const ProductList = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <Hidden xlUp>
                                      {productsList}
-                                    </Hidden>
                                 </TableBody>
                             </Table>
                         </TableContainer>
