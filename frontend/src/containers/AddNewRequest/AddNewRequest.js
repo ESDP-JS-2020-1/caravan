@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddNewRequest = () => {
     const classes = useStyles();
+    const products = useSelector(state => state.products.productsList);
 
     const dispatch = useDispatch();
     const language = useSelector(state => state.language.name);
@@ -194,6 +195,7 @@ const AddNewRequest = () => {
                                         className={classes.formButton}
                                         variant='contained'
                                         color='primary'
+                                        disabled={products.length === request.products.length}
                                     >
                                         {wordList[language].addNewRequest.addRequestBtn}
                                     </Button>
