@@ -36,7 +36,6 @@ export default function CheckboxListSecondary(props) {
         dispatch(nominatedRequest(value._id, props.request.request._id));
         props.onClose()
     };
-    console.log(props.courierList());
 
     return (
         <List dense className={classes.root}>

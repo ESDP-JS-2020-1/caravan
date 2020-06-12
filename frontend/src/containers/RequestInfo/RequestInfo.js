@@ -140,36 +140,37 @@ const RequestInfo = props => {
                     <Box className={classes.boxPd} border={1} borderRadius={6}>
                         <ExpansionPanel>
                             <ExpansionPanelSummary
-                                expandIcon={<ExpandMoreIcon/>}
+                                expandIcon={<ExpandMoreIcon />}
                                 aria-controls="panel1a-content"
                                 id="panel1a-header"
                             >
-                                <Typography
-                                    className={classes.heading}><b>{wordList[language].requestInfo.requestInfoProducts}</b></Typography>
+                                <Typography className={classes.heading}><b>{wordList[language].requestInfo.requestInfoProducts}</b></Typography>
                             </ExpansionPanelSummary>
                             <ExpansionPanelDetails>
                                 {request.request.products.map((elem, id) => (
 
-                                    <Paper key={id}
-                                           style={{width: '100%', display: 'flex', padding: '10px', flexWrap: 'wrap'}}>
-                                        <Typography variant="h6" style={{marginRight: '10px'}}>
-                                            <b>{wordList[language].requestInfo.requestInfoProductsTitle}:</b> {elem.product.name}
-                                        </Typography>
-                                        <Typography style={{marginRight: '10px'}} variant="h6" component="h2">
-                                            <b>{wordList[language].requestInfo.requestInfoProductsQty}:</b> {elem.amount}
-                                        </Typography>
-                                        <Typography style={{marginRight: '10px'}} variant="h6" component="h2">
-                                            <b>
-                                                {wordList[language].requestInfo.requestInfoRefrigerator}:
-                                            </b> {elem.product.isRefrigeratorRequired ?
-                                            (wordList[language].requestInfo.refrigeratorNec)
-                                            : (wordList[language].requestInfo.refrigeratorNotNec)}
-                                        </Typography>
-                                    </Paper>
+                                       <Paper key={id} style={{width:'100%',display:'flex',padding:'10px',flexWrap:'wrap'}}>
+                                            <Typography variant="h6" style={{marginRight: '10px'}}>
+                                                <b>{wordList[language].requestInfo.requestInfoProductsTitle}:</b> {elem.product.name}
+                                            </Typography>
+                                            <Typography style={{marginRight: '10px'}} variant="h6" component="h2">
+                                                <b>{wordList[language].requestInfo.requestInfoProductsQty}:</b> {elem.amount}
+                                            </Typography>
+                                            <Typography style={{marginRight: '10px'}} variant="h6" component="h2">
+                                                <b>
+                                                    {wordList[language].requestInfo.requestInfoRefrigerator}:
+                                                </b> {elem.product.isRefrigeratorRequired ?
+                                                (wordList[language].requestInfo.refrigeratorNec)
+                                                : (wordList[language].requestInfo.refrigeratorNotNec)}
+                                            </Typography>
+                                       </Paper>
 
                                 ))}
                             </ExpansionPanelDetails>
                         </ExpansionPanel>
+
+
+
                     </Box>
                 </>}
 
@@ -214,12 +215,6 @@ const RequestInfo = props => {
                                 {wordList[language].requestInfo.deleteCourierBtn}
                             </Button>}
                         </CardContent>
-                        {request.request.status === 'closed' && (
-                            <Button color="secondary" variant="contained"
-                                    onClick={removeClosedRequest}>
-                                {wordList[language].requestInfo.deleteClosedRequest}
-                            </Button>
-                        )}
                     </Card>
                 </>}
 
@@ -238,6 +233,7 @@ const RequestInfo = props => {
                     onClose={closeModal}
                     title={'Выберите курьера'}
                 >
+
                     {!request.isNominated && request.courierList && <List
                         courierList={courierList}
                         request={request}

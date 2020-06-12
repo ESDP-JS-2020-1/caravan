@@ -60,7 +60,7 @@ const UserInfo = props => {
             }
         }
     });
-    const coord = userInfo && userInfo.market && userInfo.market.coordinates;
+   let coord = userInfo && userInfo.market && JSON.parse(userInfo.market.coordinates);
 
     const loading = useSelector(state => state.loading.loading)
     if (loading) {
@@ -99,7 +99,7 @@ const UserInfo = props => {
                                 variant='h5'><b>{wordList[language].userInfo.userInfoCoord} </b>lat: {coord.lat} ,
                                 lng: {coord.lng}</Typography>
 
-                            <div style={{height: '300px'}}>
+                           {coord.lat && <div style={{height: '300px'}}>
                                 <Map center={[coord.lat, coord.lng]} zoom={10}
                                      style={{background: '#000', height: '100%', width: '100%'}}>
                                     <TileLayer
@@ -108,7 +108,7 @@ const UserInfo = props => {
 
                                     <Marker position={[coord.lat, coord.lng]}/>
                                 </Map>
-                            </div>
+                            </div>}
 
                         </>}
 
