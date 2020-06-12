@@ -136,7 +136,7 @@ const Navigation = () => {
                 </NavLink>
             )}
             {user && user.role === 'admin' && (
-                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/history">
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/history/1/10">
                     <List>
                         <ListItem button>
                             <ListItemIcon>{<HistoryIcon/>}</ListItemIcon>
