@@ -200,10 +200,8 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 });
 
 router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
-
     try {
         const requestOne = await Request.findOne({_id: req.params.id});
-
         if (!requestOne) {
             return res.status(404).send({message: 'Request not found'})
         }
@@ -223,7 +221,24 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
         }
 
         requestOne.isRemoved = true;
-        requestOne.date = Date.now()
+        requestOne.date = Date.now();
+        requestOne.save(req);
+
+        return res.send({message: 'Delete'})
+    } catch (e) {
+        res.status(500).send(e)
+    }
+});
+
+router.delete('/close/:id', [auth, permit('deleteRequest')], async (req, res) => {
+    try {
+        const requestOne = await Request.findOne({_id: req.params.id});
+        if (!requestOne) {
+            return res.status(404).send({message: 'Request not found'})
+        }
+
+        requestOne.isRemoved = true;
+        requestOne.date = Date.now();
         requestOne.save(req);
 
         return res.send({message: 'Delete'})

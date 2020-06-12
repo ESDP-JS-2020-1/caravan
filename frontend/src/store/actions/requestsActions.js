@@ -129,3 +129,21 @@ export const deleteRequestEdit = (id, data) => {
 
     }
 };
+export const deleteClosedRequest = (id, data) => {
+    return async (dispatch, getState) => {
+        try {
+            const language = getState().language.name;
+            await axiosApi.delete('/requests/close/' + id, {data});
+            dispatch(putSuccess());
+            dispatch(push('/'));
+            notification.addNotification({
+                title: (wordList[language].requestsActions.deleteRequestTitle),
+                message: (wordList[language].requestsActions.deleteRequestMessage),
+                ...config.notification
+            });
+        } catch (e) {
+            dispatch(putFailure(e))
+        }
+
+    }
+};

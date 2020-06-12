@@ -215,6 +215,7 @@ export const wordList = {
             fridgeAvail: 'Есть',
             fridgeNotAvail: 'Отсутствует',
             nomBtn: 'Назначить',
+            deleteClosedRequest: 'Удалить заявку'
         },
         requestList: {
             tableUser: 'Пользователь',
@@ -513,6 +514,7 @@ export const wordList = {
             fridgeAvail: 'Бар',
             fridgeNotAvail: 'Жок',
             nomBtn: 'Дайында',
+            deleteClosedRequest: 'Өтүнүчтү жок кыллу'
         },
         requestList: {
             tableUser: 'Колдонуучу',
