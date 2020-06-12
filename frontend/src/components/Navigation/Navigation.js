@@ -154,7 +154,7 @@ const Navigation = () => {
             <AppBar position="static" color='primary'>
                 <Toolbar>
                     <Hidden mdUp>
-                        {['left'].map((anchor) => (
+                        {user && ['left'].map((anchor) => (
                             <IconButton onClick={toggleDrawer(anchor, !state[anchor])} key={anchor} edge="start"
                                         className={classes.menuButton} color="inherit" aria-label="menu">
                                 <MenuIcon/>

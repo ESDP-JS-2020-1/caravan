@@ -13,7 +13,6 @@ import {setLanguage} from "../../../store/actions/languageActions";
 import Hidden from "@material-ui/core/Hidden";
 
 import AuthUserToolBar from "./authUserToolBar";
-import NoAuthUserToolBar from "./noAuthToolBar";
 import {wordList} from "../../../wordList";
 import {checkPermission} from "../../../CheckPermission";
 
@@ -162,7 +161,6 @@ const ToolBar = () => {
                 <MenuItem onClick={() => switchLanguage('kg')}>Кыргызча</MenuItem>
             </Menu>
             {user && <AuthUserToolBar/>}
-            {!user && <NoAuthUserToolBar/>}
         </>
     );
 };
