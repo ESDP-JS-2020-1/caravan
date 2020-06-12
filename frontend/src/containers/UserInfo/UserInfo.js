@@ -67,7 +67,7 @@ const UserInfo = props => {
         return <Spinner/>
     }
 
-    return (
+    return  (
         <Container>
             <Paper className={classes.paper} elevation={3}>
                 <MuiThemeProvider theme={theme}>

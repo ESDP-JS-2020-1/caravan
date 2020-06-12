@@ -13,6 +13,8 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import List from "../../components/UI/List/List"
 
 import {
     closeRequest,
@@ -25,6 +27,11 @@ import {
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import Modal from "../../components/UI/Modal/Modal";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Popover from "@material-ui/core/Popover";
 
 const useStyles = makeStyles({
     flex: {
@@ -48,7 +55,7 @@ const useStyles = makeStyles({
     },
     paper: {
         width: '70%',
-        padding: '20px',
+        padding: '15px',
         margin: '0 auto',
         marginTop: '5%'
     },
@@ -72,9 +79,9 @@ const RequestInfo = props => {
         dispatch(getRequest(props.match.params.id))
     }, [dispatch, props.match.params.id]);
 
-    const [showCouriers, setShowCouriers] = useState(false);
+    const [close, setClose] = useState(false);
+    const closeModal = () => setClose(!close);
 
-    const showCouriersHandler = () => setShowCouriers(!showCouriers);
     const courierList = () => {
         if (request.request.products.find(elem => elem.isRefrigeratorRequired === true) !== undefined) return request.courierList.filter(courier => courier.carRefrigerator === true);
         return request.courierList;
@@ -86,7 +93,7 @@ const RequestInfo = props => {
     }
 
     return (
-        <Container>
+        <Container style={{padding:'0'}} >
             <Paper className={classes.paper} elevation={3}>
                 <Box className={classes.typography} component={'span'}>
                     <Typography className={classes.typographyText} variant="h6" gutterBottom>
@@ -129,28 +136,39 @@ const RequestInfo = props => {
                     <Divider/>
 
                     <Box className={classes.boxPd} border={1} borderRadius={6}>
-                        <Typography
-                            variant='h5'><b>{wordList[language].requestInfo.requestInfoProducts}: </b></Typography>
-                        {request.request.products.map((elem, id) => (
-                            <Card key={id}>
-                                <CardContent>
-                                    <Typography variant="h6" style={{marginRight: '10px'}}>
-                                        <b>{wordList[language].requestInfo.requestInfoProductsTitle}:</b> {elem.product.name}
-                                    </Typography>
-                                    <Typography variant="h6" component="h2">
-                                        <b>{wordList[language].requestInfo.requestInfoProductsQty}:</b> {elem.amount}
-                                    </Typography>
-                                    <Typography variant="h6" component="h2">
-                                        <b>
-                                            {wordList[language].requestInfo.requestInfoRefrigerator}:
-                                        </b> {elem.product.isRefrigeratorRequired ?
-                                        (wordList[language].requestInfo.refrigeratorNec)
-                                        : (wordList[language].requestInfo.refrigeratorNotNec)}
-                                    </Typography>
-                                </CardContent>
-                                <Divider style={{border: '1px solid black'}}/>
-                            </Card>
-                        ))}
+                        <ExpansionPanel>
+                            <ExpansionPanelSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography className={classes.heading}><b>{wordList[language].requestInfo.requestInfoProducts}</b></Typography>
+                            </ExpansionPanelSummary>
+                            <ExpansionPanelDetails>
+                                {request.request.products.map((elem, id) => (
+
+                                       <Paper key={id} style={{width:'100%',display:'flex',padding:'10px',flexWrap:'wrap'}}>
+                                            <Typography variant="h6" style={{marginRight: '10px'}}>
+                                                <b>{wordList[language].requestInfo.requestInfoProductsTitle}:</b> {elem.product.name}
+                                            </Typography>
+                                            <Typography style={{marginRight: '10px'}} variant="h6" component="h2">
+                                                <b>{wordList[language].requestInfo.requestInfoProductsQty}:</b> {elem.amount}
+                                            </Typography>
+                                            <Typography style={{marginRight: '10px'}} variant="h6" component="h2">
+                                                <b>
+                                                    {wordList[language].requestInfo.requestInfoRefrigerator}:
+                                                </b> {elem.product.isRefrigeratorRequired ?
+                                                (wordList[language].requestInfo.refrigeratorNec)
+                                                : (wordList[language].requestInfo.refrigeratorNotNec)}
+                                            </Typography>
+                                       </Paper>
+
+                                ))}
+                            </ExpansionPanelDetails>
+                        </ExpansionPanel>
+
+
+
                     </Box>
                 </>}
 
@@ -203,37 +221,24 @@ const RequestInfo = props => {
                     className={classes.margin}
                     variant='contained'
                     color='primary'
-                    onClick={showCouriersHandler}
+                    onClick={closeModal}
                 >
                     {wordList[language].requestInfo.nominateCourierBtn}
                 </Button>}
 
-                {showCouriers && !request.isNominated &&
-                <Box style={{padding: '10px'}} border={1} borderRadius={6} borderColor='#cccccc'>
-                    {request.courierList && courierList().map((elem, id) => (
-                        <Card key={id}>
-                            <CardContent className={classes.flex}>
-                                <Typography variant="h6" style={{marginRight: '10px'}}>
-                                    <b>{wordList[language].requestInfo.courierName}: </b> {elem.displayName}
-                                </Typography>
-                                <Typography variant="h6" style={{marginRight: '10px'}}>
-                                    <b>{wordList[language].requestInfo.courierPhone}: </b> {elem.phone}
-                                </Typography>
-                                <Typography variant="h6" style={{marginRight: '10px'}}>
-                                    <b>
-                                        {wordList[language].requestInfo.requestInfoRefrigerator}:
-                                    </b> {elem.courier.carRefrigerator ?
-                                    (wordList[language].requestInfo.fridgeAvail)
-                                    : (wordList[language].requestInfo.fridgeNotAvail)}
-                                </Typography>
-                                <Button
-                                    onClick={() => dispatch(nominatedRequest(elem._id, request.request._id))}
-                                    variant='contained'
-                                >{wordList[language].requestInfo.nomBtn}</Button>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </Box>}
+                <Modal
+                    open={close}
+                    onClose={closeModal}
+                    title={'Выберите курьера'}
+                >
+
+                    {!request.isNominated && request.courierList && <List
+                        courierList={courierList}
+                        request={request}
+                        onClose={closeModal}
+                    />}
+                </Modal>
+
             </Paper>
         </Container>
     );
