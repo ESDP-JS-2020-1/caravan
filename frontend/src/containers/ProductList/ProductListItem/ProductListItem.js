@@ -34,6 +34,11 @@ const UserListItem = props => {
         }
     }));
 
+    let color = 'black';
+    if (props.amount === 0) {
+        color = 'red'
+    }
+
     const classes = useStyles();
     const language = useSelector(state => state.language.name);
     return (
@@ -43,7 +48,7 @@ const UserListItem = props => {
                                         src={apiURL.url + '/uploads/productImage/' + props.image}/>}
             </TableCell>
             <TableCell className={classes.offPadding}>{props.title}</TableCell>
-            <TableCell className={classes.offPadding}>{props.amount}</TableCell>
+            <TableCell className={classes.offPadding} style={{color: color}}>{props.amount}</TableCell>
             <TableCell className={classes.offPadding}>{props.productType}</TableCell>
             <TableCell className={classes.offPadding}>{props.price}</TableCell>
             <TableCell className={classes.offPadding}>
