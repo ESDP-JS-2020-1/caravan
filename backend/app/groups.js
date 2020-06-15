@@ -3,7 +3,7 @@ const express = require('express');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
-const permission = require('../permissionsForUsers');
+const permission = require('../permissions');
 
 const Group = require('../models/Group');
 const router = express.Router();
@@ -29,7 +29,7 @@ router.get('/', isAuth, permit('getGroup'), async (req, res) => {
 
 router.get('/permissions', isAuth, permit('getGroup'), async (req, res) => {
     try {
-        res.send(permission);
+        res.send(Object.values(permission));
     } catch (e) {
         res.status(500).send(e)
     }
