@@ -6,9 +6,11 @@ const Request = require('../models/Request');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
+const permissions = require('../permissions')
+
 const router = express.Router();
 
-router.post('/', isAuth, permit('addRequest'), async (req, res) => {
+router.post('/', isAuth, permit(permissions.ADD_REQUEST), async (req, res) => {
     try {
         const whiteList = {
             courier: req.body.courier,
@@ -31,7 +33,7 @@ router.post('/', isAuth, permit('addRequest'), async (req, res) => {
     }
 });
 
-router.delete('/:id', isAuth, permit('addRequest'), async (req, res) => {
+router.delete('/:id', isAuth, permit(permissions.ADD_REQUEST), async (req, res) => {
     try {
         await NominatedRequest.deleteOne({request: req.params.id});
 
