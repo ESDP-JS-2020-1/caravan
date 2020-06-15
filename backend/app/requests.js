@@ -7,9 +7,11 @@ const NominatedRequest = require('../models/NominatedRequest');
 const auth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
+const permissions = require('../permissions');
+
 const router = express.Router();
 
-router.get('/removed', auth, permit('getTrash'), async (req, res) => {
+router.get('/removed', auth, permit(permissions.GET_TRASH), async (req, res) => {
     try {
         const removed = await Request.find({ isRemoved: true });
 
@@ -19,7 +21,7 @@ router.get('/removed', auth, permit('getTrash'), async (req, res) => {
     }
 })
 
-router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
+router.post('/close/:id', [auth, permit(permissions.CLOSE_REQUEST)], async (req, res) => {
     try {
         const request = await Request.findOne({_id: req.params.id});
 
@@ -35,7 +37,7 @@ router.post('/close/:id', [auth, permit('closeRequest')], async (req, res) => {
     }
 });
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', auth, permit(permissions.GET_REQUEST), async (req, res) => {
     try {
         const request = await Request.findOne({_id: req.params.id})
             .populate(['user', 'products.product']);
@@ -56,7 +58,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-router.get('/', auth, async (req, res) => {
+router.get('/', auth, permit(permissions.GET_REQUEST), async (req, res) => {
     try {
         if (req.currentUser.role === 'market') {
 
@@ -94,7 +96,7 @@ router.get('/', auth, async (req, res) => {
     }
 });
 
-router.post('/', [auth, permit('addRequest')], async (req, res) => {
+router.post('/', [auth, permit(permissions.ADD_REQUEST)], async (req, res) => {
     try {
         const request = req.body;
 
@@ -140,7 +142,7 @@ router.post('/', [auth, permit('addRequest')], async (req, res) => {
     }
 });
 
-router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
+router.put('/:id', [auth, permit(permissions.EDIT_REQUEST)], async (req, res) => {
     try {
         const request = req.body;
 
@@ -199,7 +201,7 @@ router.put('/:id', [auth, permit('editRequest')], async (req, res) => {
 
 });
 
-router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
+router.delete('/:id', [auth, permit(permissions.DELETE_REQUEST)], async (req, res) => {
     try {
         const requestOne = await Request.findOne({_id: req.params.id});
         if (!requestOne) {
@@ -230,7 +232,7 @@ router.delete('/:id', [auth, permit('deleteRequest')], async (req, res) => {
     }
 });
 
-router.delete('/close/:id', [auth, permit('deleteRequest')], async (req, res) => {
+router.delete('/close/:id', [auth, permit(permissions.DELETE_REQUEST)], async (req, res) => {
     try {
         const requestOne = await Request.findOne({_id: req.params.id});
         if (!requestOne) {
