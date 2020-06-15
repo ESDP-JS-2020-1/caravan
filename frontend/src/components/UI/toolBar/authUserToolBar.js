@@ -68,13 +68,14 @@ const AuthUserToolBar = () => {
 			>
 				<ListItem disabled>{wordList[language].authUserToolBar.greeting}, {user.displayName}!</ListItem>
 				<Divider/>
+				{checkPermission('getUser') &&
 				<MenuItem
 					component={NavLink}
 					to={`/users/${user._id}`}
 					onClick={handleClose}
 				>
 					{wordList[language].authUserToolBar.accountBtn}
-				</MenuItem>
+				</MenuItem>}
 				{checkPermission('getStatistic') &&<MenuItem
 					component={NavLink}
 					to={`/users/stat/${user._id}/7`}
