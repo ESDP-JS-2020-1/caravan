@@ -15,6 +15,7 @@ import {getUser} from "../../store/actions/usersActions";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import {wordList} from "../../wordList";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import {NavLink} from "react-router-dom";
 
 
 const useStyles = makeStyles({
@@ -85,6 +86,35 @@ const UserInfo = props => {
 
                         <Typography variant='h5'><b>{wordList[language].userInfo.userInfoPhone} </b>{userInfo.phone}
                         </Typography>
+
+                        {userInfo.groups[0] && <>
+                            <Divider/>
+
+                            <Typography variant='h5'><b> Список групп </b>
+                            </Typography>
+                            <ul>
+                                {userInfo.groups.map(group => (
+                                    <li key={group._id}>
+                                        <NavLink to={'/groups/' + group._id} style={{textDecoration: 'none'}}>
+                                            {group.name}
+                                        </NavLink>
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <Divider/>
+
+                            <Typography variant='h5'><b> Список разрешений </b>
+                            </Typography>
+                            <ul>
+                                {userInfo.permissions.map((permission, id) => (
+                                    <li key={id}>
+                                        {permission}
+                                    </li>
+                                ))}
+                            </ul>
+                        </>}
+
                         <Divider/>
                         {userInfo.role === 'market' && <>
                             <Typography
