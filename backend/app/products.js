@@ -4,9 +4,11 @@ const Product = require('../models/Product');
 const upload = require('../multer');
 const permit = require('../middleware/permit');
 
+const permissions = require('../permissions');
+
 const router = express.Router();
 
-router.get('/removed', auth, permit('getTrash'), async (req, res) => {
+router.get('/removed', auth, permit(permissions.GET_TRASH), async (req, res) => {
     try {
         const removed = await Product.find({ isRemoved: true });
 
@@ -44,7 +46,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-router.post('/', [auth, permit('addProduct'), upload.single('image')], async (req, res) => {
+router.post('/', [auth, permit(permissions.ADD_PRODUCT), upload.single('image')], async (req, res) => {
     try {
         if (req.file) {
             req.body.image = req.file.filename
@@ -61,7 +63,7 @@ router.post('/', [auth, permit('addProduct'), upload.single('image')], async (re
     }
 });
 
-router.put('/:id', auth, permit('editProduct'), upload.single('file'), async (req, res) => {
+router.put('/:id', auth, permit(permissions.EDIT_PRODUCT), upload.single('file'), async (req, res) => {
     try {
         const product = req.body;
 
@@ -82,7 +84,7 @@ router.put('/:id', auth, permit('editProduct'), upload.single('file'), async (re
     }
 });
 
-router.delete('/:id', auth, permit('deleteProduct'), async (req, res) => {
+router.delete('/:id', auth, permit(permissions.DELETE_PRODUCT), async (req, res) => {
     try {
         const productOne = await Product.findOne({_id: req.params.id});
 
