@@ -21,4 +21,6 @@ module.exports = {
 
     VIEW_HISTORY_PERMISSION: 'viewHistory',
     GET_STATISTIC_PERMISSION: 'getStatistic',
+
+    GET_TRASH: 'getTrash'
 };
