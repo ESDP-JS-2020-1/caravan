@@ -3,12 +3,14 @@ const express = require('express');
 const
     Product = require('../models/Product'),
     User = require('../models/User'),
-    Request = require('../models/Request');
-const isAuth = require('../middleware/isAuth');
+    Request = require('../models/Request'),
+    permissions = require('../permissions'),
+    permit = require('../middleware/permit'),
+    isAuth = require('../middleware/isAuth');
 
 const router = express.Router();
 
-router.get('/product/:id/:date', isAuth, async (req, res) => {
+router.get('/product/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
     try {
         const id = req.params.id;
 
@@ -32,7 +34,7 @@ router.get('/product/:id/:date', isAuth, async (req, res) => {
     }
 });
 
-router.get('/user/:id/:date', isAuth, async (req, res) => {
+router.get('/user/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
     try {
 
         const createRelevantData = (array) => {
