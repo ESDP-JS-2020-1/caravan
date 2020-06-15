@@ -5,17 +5,15 @@ const History = require('../models/History');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
+const permissions = require('../permissions')
+
 const router = express.Router();
 
-router.get('/:page/:limit', isAuth, permit('viewHistory'), async (req, res) => {
+router.get('/:page/:limit', isAuth, permit(permissions.VIEW_HISTORY), async (req, res) => {
     try {
-        // const historyLength = await History.find();
         const aggregateQuery = History.aggregate();
 
-        // const pageAmount = Math.ceil(historyLength.length / req.params.limit);
-
         let page = req.params.page;
-            // page = pageAmount - (page - 1)
 
         const history = await History.aggregatePaginate(aggregateQuery, {
             page: page,
@@ -26,7 +24,6 @@ router.get('/:page/:limit', isAuth, permit('viewHistory'), async (req, res) => {
 
         res.send(history)
     } catch (e) {
-        console.log(e)
         res.status(500).send(e)
     }
 });
