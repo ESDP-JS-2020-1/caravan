@@ -6,9 +6,11 @@ const upload = require('../multer');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
+const permissions = require('../permissions');
+
 const router = express.Router();
 
-router.get('/removed', isAuth, permit('getTrash'), async (req, res) => {
+router.get('/removed', isAuth, permit(permissions.GET_TRASH), async (req, res) => {
     try {
         const removed = await User.find({ isRemoved: true });
 
@@ -18,7 +20,7 @@ router.get('/removed', isAuth, permit('getTrash'), async (req, res) => {
     }
 })
 
-router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req, res) => {
+router.post('/', isAuth, permit(permissions.GET_STATISTIC), upload.single('avatar'), async (req, res) => {
     try {
         const user = req.body;
 
@@ -64,7 +66,7 @@ router.post('/', isAuth, permit('addUser'), upload.single('avatar'), async (req,
     }
 });
 
-router.get('/', isAuth, async (req, res) => {
+router.get('/', isAuth, permit(permissions.GET_USER), async (req, res) => {
     try {
         if (req.query.role) {
             const users = await User.find({role: req.query.role}).populate('group').select({token: 0});
@@ -79,7 +81,7 @@ router.get('/', isAuth, async (req, res) => {
     }
 });
 
-router.get('/:id', isAuth, async (req, res) => {
+router.get('/:id', isAuth, permit(permissions.GET_USER), async (req, res) => {
     try {
         let user = await User.findOne({_id: req.params.id}).populate('group').select({token: 0});
 
@@ -105,7 +107,7 @@ router.get('/:id', isAuth, async (req, res) => {
     }
 });
 
-router.put('/edit/:id', isAuth, permit('editUser'), upload.single('avatar'), async (req, res) => {
+router.put('/edit/:id', isAuth, permit(permissions.EDIT_USER), upload.single('avatar'), async (req, res) => {
     const user = req.body;
 
 
@@ -200,7 +202,7 @@ router.delete('/sessions', async (req, res) => {
 
 });
 
-router.delete('/:id', isAuth, permit('deleteUser'), async (req, res) => {
+router.delete('/:id', isAuth, permit(permissions.DELETE_USER), async (req, res) => {
     try {
         const id = req.params.id;
 
