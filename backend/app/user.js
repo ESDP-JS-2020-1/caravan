@@ -18,7 +18,7 @@ router.get('/removed', isAuth, permit(permissions.GET_TRASH), async (req, res) =
     } catch (e) {
         res.status(500).send(e);
     }
-})
+});
 
 router.post('/', isAuth, permit(permissions.GET_STATISTIC), upload.single('avatar'), async (req, res) => {
     try {
@@ -213,7 +213,7 @@ router.delete('/:id', isAuth, permit(permissions.DELETE_USER), async (req, res) 
             return res.status(401).send({message: "You cannot delete yourself"});
 
         user.isRemoved = true;
-        user.date = Date.now()
+        user.date = Date.now();
         user.save(req);
 
         res.send('success')
