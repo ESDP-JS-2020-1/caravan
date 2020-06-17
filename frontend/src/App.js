@@ -1,6 +1,4 @@
 import React from 'react';
-
-import Container from "@material-ui/core/Container";
 import ReactNotification from 'react-notifications-component'
 import {Route, Switch} from "react-router-dom";
 
@@ -29,6 +27,7 @@ import EditGroup from "./containers/EditGroup/EditGroup";
 import StatisticsProduct from "./containers/Statistics/StatisticsProduct";
 import StatisticsUser from "./containers/Statistics/StatisticsUser";
 import Trash from "./containers/Trash/Trash";
+import WsTest from "./containers/WsTest/WsTest";
 
 
 function App() {
@@ -36,7 +35,7 @@ function App() {
         <div>
             <ReactNotification/>
             <Navigation/>
-            <Container>
+            {/*<Container>*/}
                 <Switch>
                     <PrivateRoute path="/" exact component={ProductList}/>
                     <Route path="/login" exact component={Login}/>
@@ -66,8 +65,9 @@ function App() {
                     <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
 
                     <PrivateRoute path="/trash/:type" roles={['getTrash']} component={Trash}/>
+                    <Route path="/ws" exact component={WsTest}/>
                 </Switch>
-            </Container>
+            {/*</Container>*/}
         </div>
     );
 }

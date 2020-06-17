@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const expressWs = require('express-ws');
 
 const config = require('./config');
 
@@ -11,8 +12,10 @@ const requests = require('./app/requests');
 const nominateRequest = require('./app/nominatedRequest');
 const groups = require('./app/groups');
 const statistic = require('./app/statistics');
+const locations = require('./app/locations');
 
 const app = express();
+expressWs(app);
 
 app.use(cors());
 app.use(express.json());
@@ -28,6 +31,7 @@ const run = async () => {
     app.use('/nominateRequest', nominateRequest);
     app.use('/groups', groups);
     app.use('/stat', statistic);
+    app.use('/locations', locations);
 
     app.listen(config.port)
 };

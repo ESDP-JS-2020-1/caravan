@@ -10,15 +10,17 @@ import {
     LOGIN_USER_SUCCESS,
     LOGOUT_USER,
     REGISTER_USER_FAILURE,
-    REGISTER_USER_SUCCESS
+    REGISTER_USER_SUCCESS, USERS_ONLINE
 } from "../actions/actionsTypes";
 
 const initialState = {
     user: null,
     users: [],
+    usersOnline: null,
     coordinates: {},
     client: null,
-    error: null
+    error: null,
+    coordinate: null
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -51,6 +53,11 @@ const usersReducer = (state = initialState, action) => {
             return {...state, error: action.error.response.data.message};
         case CREATE_COORDINATE_SUCCESS:
             return {...state, coordinates: action.data};
+
+        case USERS_ONLINE:
+            return {...state, usersOnline: action.data}
+        case 'ADD_COORDINATES':
+            return {...state, coordinate: action.data}
         default:
             return state;
     }

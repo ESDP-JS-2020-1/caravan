@@ -29,7 +29,8 @@
     "react-scripts": "3.4.1",
     "react-toastify": "^5.5.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "websocket": "^1.0.31"
   },
   "scripts": {
     "start": "react-scripts start",
