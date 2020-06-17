@@ -53,7 +53,10 @@ const useStyles = makeStyles((theme) => ({
     avatar: {
         width: "180px",
         height: "50px"
-    }
+    },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+    },
 }));
 
 
@@ -151,7 +154,7 @@ const Navigation = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static" color='primary'>
+            <AppBar position="static" color='primary' className={classes.appBar}>
                 <Toolbar>
                     <Hidden mdUp>
                         {user && ['left'].map((anchor) => (

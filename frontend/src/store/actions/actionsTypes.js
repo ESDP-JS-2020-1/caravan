@@ -81,3 +81,7 @@ export const GET_TRASH_FAILURE = 'GET_TRASH_FAILURE';
 
 export const LOADING_START = 'LOADING_START';
 export const LOADING_STOP = 'LOADING_STOP';
+
+// WS actions
+
+export const USERS_ONLINE = 'USERS_ONLINE'
