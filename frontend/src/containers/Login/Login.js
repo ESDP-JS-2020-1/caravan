@@ -14,6 +14,10 @@ import FormElement from "../../components/UI/Form/FormElement";
 import {loginUser} from "../../store/actions/usersActions";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {wordList} from "../../wordList";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import {Visibility, VisibilityOff} from "@material-ui/icons";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
 
 
 const useStyles = makeStyles({
@@ -40,6 +44,9 @@ const useStyles = makeStyles({
     gridItem: {
         margin: '0 auto',
         marginTop: '5%'
+    },
+    inputInput: {
+        width: '100%'
     }
 });
 
@@ -51,6 +58,14 @@ const Login = () => {
         username: '',
         password: '',
     });
+
+    const [showPassword, setShowPassword] = useState({
+        showPassword: false,
+    });
+
+    const handleClickShowPassword = () => {
+        setShowPassword({ ...showPassword, showPassword: !showPassword.showPassword });
+    };
 
     const error = useSelector(state => state.users.error);
     const language = useSelector(state => state.language.name);
@@ -90,15 +105,25 @@ const Login = () => {
                             autoComplete="current-username"
                             placeholder={wordList[language].login.usernamePlaceholder}
                         />
-                        <FormElement
+                        <OutlinedInput
+                            className={classes.inputInput}
+                            variant="outlined"
                             required
-                            propertyName="password"
-                            title={wordList[language].login.password}
+                            name="password"
+                            placeholder={wordList[language].login.password}
+                            type={showPassword.showPassword ? 'text' : 'password'}
                             value={state.password}
                             onChange={inputChangeHandler}
-                            type="password"
-                            autoComplete="current-password"
-                            placeholder={wordList[language].login.passwordPlaceholder}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                    >
+                                        {showPassword.showPassword ? <Visibility /> : <VisibilityOff />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
                         />
                         <Box>
                             {error && (
