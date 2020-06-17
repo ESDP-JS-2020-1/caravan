@@ -81,6 +81,13 @@ const AddProduct = () => {
         setProduct(newProduct)
     };
 
+    const autoCompleteChangeHandler = (e, i, value) => {
+        let newProduct = [...product];
+        newProduct[i].productType = value;
+
+        setProduct(newProduct);
+    };
+
     const checkboxChangeHandler = (e, i) => {
         let newProduct = [...product];
         newProduct[i].isRefrigeratorRequired = !newProduct[i].isRefrigeratorRequired;
@@ -152,6 +159,7 @@ const AddProduct = () => {
                                         expanded={expanded}
                                         classes={classes}
                                         onChange={inputChangeHandler}
+                                        autoChange={autoCompleteChangeHandler}
                                         checkboxChangeHandler={checkboxChangeHandler}
                                         handleChange={handleChange}
                                         fileChange={fileChangeHandler}

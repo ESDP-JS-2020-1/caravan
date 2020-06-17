@@ -52,10 +52,8 @@ router.post('/', [auth, permit(permissions.ADD_PRODUCT), upload.single('image')]
             req.body.image = req.file.filename
         }
 
-        const products = req.body;
-
-        const product = new Product(products)
-        product.save(req)
+        const product = new Product(req.body);
+        product.save(req);
 
         return res.send({message: 'success'});
     } catch (e) {

@@ -14,13 +14,20 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 import FormElement from "../../../components/UI/Form/FormElement";
 import {wordList} from "../../../wordList";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 
 const AddProductItem = (
-    {checkboxChangeHandler, onChange, index, expanded, classes, p, product, onRemove, handleChange, fileChange}
+    {checkboxChangeHandler, onChange, index, expanded, classes, p, product, onRemove, autoChange, handleChange, fileChange}
 ) => {
 
     const language = useSelector(state => state.language.name);
+
+    const productsType = [
+        {title: 'кг'},
+        {title: 'литр'},
+    ];
 
     return (
         <Grid container alignItems='center' spacing={1}>
@@ -60,12 +67,15 @@ const AddProductItem = (
                                     value={product[index].amount}
                                     onChange={(e) => onChange(e, index)}
                                 />
-                                <FormElement
-                                    id='productType'
-                                    required
-                                    propertyName='productType'
-                                    title={wordList[language].addProductItem.inputType}
-                                    onChange={(e) => onChange(e, index)}
+                                <Autocomplete
+                                    id="productType"
+                                    freeSolo
+                                    onChange={(e, value) => autoChange(e, index, value)}
+                                    options={productsType.map((option) => option.title)}
+                                    renderInput={(params) => (
+                                        <TextField {...params} label={wordList[language].addProductItem.inputType}
+                                                   margin="normal" variant="outlined" id="productType"/>
+                                    )}
                                 />
                             </Grid>
                             <Grid item>
