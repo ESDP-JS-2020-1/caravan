@@ -22,6 +22,9 @@ import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
 import Spinner from "../../components/UI/Spinner/Spinner";
 
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import InfoIcon from '@material-ui/icons/Info';
+
 
 const useStyles = makeStyles({
     typography: {
@@ -102,9 +105,9 @@ const GroupInfo = props => {
                                         <b>{wordList[language].groupInfo.groupUserName}:</b> {elem.user.displayName}
                                     </Typography>
                                     {checkPermission('getUser') &&
-                                    <Button variant='contained' component={NavLink} to={`/users/${elem.user._id}`}>
-                                        {wordList[language].groupInfo.groupUserInfo}
-                                    </Button>}
+                                    <IconButton variant='contained' component={NavLink} to={`/users/${elem.user._id}`}>
+                                        <InfoIcon/>
+                                    </IconButton>}
                                     {checkPermission('editGroup') && <IconButton
                                         id={'deleteUser' + id}
                                         style={{margin: '0 0 0 5px'}}
@@ -116,8 +119,8 @@ const GroupInfo = props => {
                             </Card>
                         ))}
                     </Box>}
-
-                    {usersList && usersList[0] &&
+                    {window.innerWidth > 1200 &&
+                    usersList && usersList[0] &&
                     <Box style={{padding: '15px', marginTop: '20px'}} border={1} borderRadius={6}>
                         <Typography variant='h5'><b>{wordList[language].groupInfo.addUserToGroup}: </b></Typography>
                         {usersList.map((elem, id) => (
@@ -137,7 +140,33 @@ const GroupInfo = props => {
                                 </CardContent>
                             </Card>
                         ))}
-                    </Box>}
+                    </Box>
+                    }
+                    {window.innerWidth <= 1200 &&
+                    usersList && usersList[0] &&
+                    <Box style={{padding: '10px', marginTop: '15px'}} border={1} borderRadius={6}>
+                        <Typography style={{fontSize: '18px'}} variant='h5'><b>{wordList[language].groupInfo.addUserToGroup}: </b></Typography>
+                        {usersList.map((elem, id) => (
+                            <Card key={id}>
+                                <CardContent style={{display: 'flex', flexDirection: 'column', margin: '0 auto'}}>
+                                    <Typography variant="h6" style={{marginRight: '10px', fontSize: '16px'}}>
+                                        <b>{wordList[language].groupInfo.addUserToGroupUserName}:</b> {elem.displayName}
+                                    </Typography>
+                                    <Box component='div'>
+                                        {checkPermission('getUser') &&
+                                        <IconButton style={{marginLeft: 'auto'}} variant='contained' component={NavLink}
+                                                to={`/users/${elem._id}`}><InfoIcon/></IconButton>}
+                                        {checkPermission('addGroup') &&
+                                        <IconButton style={{marginLeft: '5px'}}
+                                                onClick={() => dispatch(addUserToGroup(props.match.params.id, elem._id))}
+                                                variant='contained'
+                                                color='primary'><GroupAddIcon/></IconButton>}
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </Box>
+                    }
                 </>}
                 {checkPermission('deleteGroup') && <Button
                     style={{margin: '15px 0'}}
