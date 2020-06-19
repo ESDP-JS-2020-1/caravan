@@ -61,7 +61,7 @@ const UserInfo = props => {
             }
         }
     });
-   let coord = userInfo && userInfo.market && JSON.parse(userInfo.market.coordinates);
+   let coord = userInfo && userInfo.market && userInfo.market.coordinates;
 
     const loading = useSelector(state => state.loading.loading)
     if (loading) {
