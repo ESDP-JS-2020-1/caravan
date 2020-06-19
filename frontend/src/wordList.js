@@ -13,7 +13,9 @@ export const wordList = {
             searchProduct: 'Поиск продуктов',
             addNewProduct: 'Добавить новые продукты',
             productListTitle: 'Список продуктов',
-            statisticBtn: 'Смотреть статистику'
+            statisticBtn: 'Смотреть статистику',
+            statLabel: 'Количество дней',
+            errorMessage: 'Пожалуйста введите данные'
         },
         loginBtn: 'Вход',
         authUserToolBar: {
@@ -312,7 +314,9 @@ export const wordList = {
             searchProduct: 'Продукцияны издөө',
             addNewProduct: 'Жаңы продукттарды кошуу',
             productListTitle: 'Продукт тизмеси',
-            statisticBtn: 'Статистиканы көрүү'
+            statisticBtn: 'Статистиканы көрүү',
+            statLabel: 'Күндүн саны',
+            errorMessage: 'Сураныч маалыматтарды киргизиңиз'
         },
         loginBtn: 'Кирүү',
         authUserToolBar: {

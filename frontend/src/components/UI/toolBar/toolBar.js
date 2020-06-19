@@ -71,6 +71,18 @@ const ToolBar = () => {
                             {wordList[language].navigation.historyList}
                             </span>
                     </Button>}
+                    {checkPermission('getStatistic') && <Button
+                        color='primary'
+                        component={NavLink}
+                        to='/statistics'
+                        exact
+                        activeClassName='Mui-disabled'
+                        className={classes.button}
+                    >
+                            <span className={classes.line}>
+                            Статистика
+                            </span>
+                    </Button>}
                     {checkPermission('getTrash') && <Button
                         color='primary'
                         component={NavLink}

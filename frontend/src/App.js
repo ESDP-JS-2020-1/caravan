@@ -28,6 +28,7 @@ import StatisticsProduct from "./containers/Statistics/StatisticsProduct";
 import StatisticsUser from "./containers/Statistics/StatisticsUser";
 import Trash from "./containers/Trash/Trash";
 import WsTest from "./containers/WsTest/WsTest";
+import Statistics from "./containers/Statistics/Statistics";
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
                     <PrivateRoute path="/product/add" exact roles={['addProduct']} component={AddProduct}/>
                     <PrivateRoute path="/product/edit/:id" exact roles={['editProduct']} component={EditProduct}/>
                     <PrivateRoute path="/product/stat/:id/:days" exact roles={['getStatistic']} component={StatisticsProduct}/>
+                    <PrivateRoute path="/statistics" exact roles={['getStatistic']} component={Statistics}/>
 
                     <PrivateRoute path="/history/:page/:limit" exact roles={['viewHistory']} component={Histories}/>
 

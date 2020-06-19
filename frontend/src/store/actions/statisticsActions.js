@@ -20,6 +20,15 @@ export const getStatisticsProduct = (productId, day) => async dispatch => {
     }
 };
 
+export const getStatisticsProducts = (productId, day) => async dispatch => {
+    try {
+        const response = await axiosApi.get(`/stat/product/${productId}/${day}`);
+        dispatch(getProductStatisticSuccess(response.data));
+    } catch (e) {
+        dispatch(getProductStatisticError(e))
+    }
+};
+
 export const getStatisticsUser = (userId, day) => async dispatch => {
     try {
         const response = await axiosApi.get(`/stat/user/${userId}/${day}`);
