@@ -154,7 +154,7 @@ const ProductList = () => {
 
     return (
         <Grid container direction='column' spacing={5}>
-            <Grid>
+            <Grid item>
                 <Typography paragraph variant='h1'>
                     Главная страница
                 </Typography>
