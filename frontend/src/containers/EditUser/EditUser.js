@@ -74,7 +74,7 @@ const EditUser = props => {
             if (editClient._id === props.match.params.id && user === undefined) {
                 setUser(() => editClient)
             }
-            if (editClient._id !== props.match.params.id && editClient.role === 'market') setCoordinate(() => editClient.market.coordinates);
+            if (editClient.role === 'market') setCoordinate(() => editClient.market.coordinates);
         }
     }, [dispatch, editClient, user, props.match.params.id]);
 
@@ -260,9 +260,9 @@ const EditUser = props => {
                                 </Grid>
                                 <Grid>
                                     <div style={{height: '300px'}}>
-                                        <Map onChange={addMarker}
+                                        <Map onClick={addMarker}
                                              center={coordinate.lat ? [coordinate.lat, coordinate.lng] : [42.87658326294315, 74.6050579195933]}
-                                             zoom={10} style={{background: '#000', height: '100%', width: '100%'}}>
+                                             zoom={11} style={{background: '#000', height: '100%', width: '100%'}}>
                                             <TileLayer
                                                 url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
                                             />
