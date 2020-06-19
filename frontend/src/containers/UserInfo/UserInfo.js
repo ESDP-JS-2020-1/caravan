@@ -17,6 +17,8 @@ import {wordList} from "../../wordList";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import {NavLink} from "react-router-dom";
 
+import {apiURL} from "../../config";
+
 
 const useStyles = makeStyles({
     flex: {
@@ -37,6 +39,12 @@ const useStyles = makeStyles({
         padding: '20px',
         margin: '0 auto',
         marginTop: '5%'
+    },
+    avatar: {
+        width: '50%'
+    },
+    avatarImage: {
+        width: '100%'
     }
 });
 
@@ -61,14 +69,14 @@ const UserInfo = props => {
             }
         }
     });
-   let coord = userInfo && userInfo.market && userInfo.market.coordinates;
+    let coord = userInfo && userInfo.market && userInfo.market.coordinates;
 
     const loading = useSelector(state => state.loading.loading)
     if (loading) {
         return <Spinner/>
     }
 
-    return  (
+    return (
         <Container>
             <Paper className={classes.paper} elevation={3}>
                 <MuiThemeProvider theme={theme}>
@@ -78,6 +86,15 @@ const UserInfo = props => {
                         </Typography>
                     </Box>
                     {userInfo && <>
+                        {userInfo.avatar && <div className={classes.avatar}>
+                            <Paper>
+                                <img
+                                    src={apiURL.url+'/uploads/userAvatar/'+userInfo.avatar}
+                                    className={classes.avatarImage}
+                                    alt={userInfo.displayName}
+                                />
+                            </Paper>
+                        </div>}
                         <Typography variant='h5'> <b>{wordList[language].userInfo.userInfoRole} </b>{userInfo.role}
                         </Typography>
 
@@ -129,7 +146,7 @@ const UserInfo = props => {
                                 variant='h5'><b>{wordList[language].userInfo.userInfoCoord} </b>lat: {coord.lat} ,
                                 lng: {coord.lng}</Typography>
 
-                           {coord.lat && <div style={{height: '300px'}}>
+                            {coord.lat && <div style={{height: '300px'}}>
                                 <Map center={[coord.lat, coord.lng]} zoom={10}
                                      style={{background: '#000', height: '100%', width: '100%'}}>
                                     <TileLayer
