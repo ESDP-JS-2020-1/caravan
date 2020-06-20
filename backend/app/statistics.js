@@ -8,13 +8,14 @@ const
 
 const router = express.Router();
 
-router.get('/product/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
+router.get('/product/:id', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
     try {
         const id = req.params.id;
+        const {from, to} = req.query
 
         const data = await Request.find({
             products: {$elemMatch: {product: id}},
-            date: {$gte: new Date(new Date() - req.params.date * 60 * 60 * 24 * 1000)},
+            date: {"$gte": new Date(from), "$lt": new Date(to)},
             status: 'closed'
         }).select({products: 1, date: 1});
 
@@ -30,7 +31,7 @@ router.get('/product/:id/:date', isAuth, permit(permissions.GET_STATISTIC), asyn
     }
 });
 
-router.get('/user/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
+router.get('/user/:id', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
     try {
 
         const createRelevantData = (array) => {
@@ -42,10 +43,11 @@ router.get('/user/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (
         }
 
         const id = req.params.id;
+        const {from, to} = req.query
 
         const data = await Request.find({
             user: id,
-            date: {$gte: new Date(new Date() - req.params.date * 60 * 60 * 24 * 1000)}
+            date: {"$gte": new Date(from), "$lt": new Date(to)}
         }).select({products: 1, date: 1});
 
         const statistic = createRelevantData(data);
