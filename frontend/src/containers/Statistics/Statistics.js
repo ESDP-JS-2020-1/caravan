@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getProductsList} from "../../store/actions/productsActions";
-import {getStatisticsProducts} from "../../store/actions/statisticsActions";
+import {getStatistics, statisticInit} from "../../store/actions/statisticsActions";
 import moment from "moment";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import Box from "@material-ui/core/Box";
@@ -13,6 +13,7 @@ import {Bar} from "react-chartjs-2";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import {toast, ToastContainer} from "react-toastify";
+import {getUsers} from "../../store/actions/usersActions";
 
 const Statistics = () => {
 
@@ -27,62 +28,60 @@ const Statistics = () => {
     };
 
     const [numberOfDays, setNumberOfDays] = useState('');
-    const [findProduct, setFindProduct] = useState('');
+    const [type, setType] = useState({name: 'Продукты', type: 'product'})
+    const [value, setValue] = useState(null)
 
     const dispatch = useDispatch();
 
-    const statistics = useSelector(state => state.statistics.productStatistic);
+    const statistics = useSelector(state => state.statistics.statistic);
     const language = useSelector(state => state.language.name);
     const products = useSelector(state => state.products.productsList);
+    const users = useSelector(state => state.users.users);
 
-    const defaultProps = {
-        options: products,
-        getOptionLabel: (option) => option.name,
-    };
-
-    const getStatistics = () => {
-        if (findProduct === '' || numberOfDays === '') {
+    const fetchStatistics = () => {
+        if (!value || !numberOfDays) {
             toast.error(wordList[language].productList.errorMessage);
         } else {
-            dispatch(getStatisticsProducts(findProduct._id, numberOfDays));
-            setFindProduct('');
-            setNumberOfDays('');
+            dispatch(getStatistics(value._id, numberOfDays, type.type));
         }
     };
 
     const inputChangeHandler = e => setNumberOfDays(e.target.value);
+    const valueChangeHandler = (e, value) => setValue(value)
+    const typeChangeHandler = (e, value) => {
+        setType(value)
+        setValue(null)
+    }
 
-    const autoCompleteChangeHandler = (e, value) => {
-        setFindProduct(value);
-    };
+    const addOptions = () => {
+        if (type.type === 'user') return users
+         if (type.type === 'product') return products
+    }
+    const addLabel = (label) => {
+        if (type.type === 'user') return label.displayName
+        if (type.type === 'product') return label.name
+    }
+    const getData = type => {
+        if (type === 'user') dispatch(getUsers())
+        if (type === 'product') dispatch(getProductsList());
+    }
 
     useEffect(() => {
-        dispatch(getProductsList());
-    }, [dispatch]);
-
-    const dateFormat = 'MMMM Do YYYY, h:mm:ss a';
-
-    const amounts = statistics && statistics.statistic.map(elem => {
-        return parseInt(elem.product.amount);
-    });
-
-    const dates = statistics && statistics.statistic.map(elem => moment(elem.date).format(dateFormat));
-    const colors = statistics && statistics.statistic.map(() => createRandomColor());
+        getData(type.type)
+        dispatch(statisticInit())
+    }, [type, dispatch])
 
     const data = {
-        labels: dates,
+        labels: statistics && statistics.map(elem => moment(elem.date).format('MMMM Do YYYY, h:mm:ss a')),
         datasets: [{
             label: '# of Votes',
-            data: amounts,
-            backgroundColor: colors,
+            data: statistics && statistics.map(elem => parseInt(elem.amount)),
+            backgroundColor: statistics && statistics.map(() => createRandomColor()),
             borderWidth: 1
         }]
     };
 
     const loading = useSelector(state => state.loading.loading);
-    if (loading) {
-        return <Spinner/>
-    }
 
     return (
         <Box mt={1}>
@@ -93,45 +92,61 @@ const Statistics = () => {
                         <Typography variant='h2'>
                             {wordList[language].statistic.statisticTitle}
                         </Typography>
-                        {statistics && (
-                            <Typography variant='h3'>
-                                ({statistics.product.name})
-                            </Typography>
-                        )}
                     </Grid>
-                    <Grid item xs={6}>
-                        <Grid container alignItems='center' spacing={1}>
-                            <Grid item xs>
-                                <Box ml={2}>
-                                    <Autocomplete
-                                        {...defaultProps}
-                                        id="debug"
-                                        debug
-                                        onChange={(e, value) => autoCompleteChangeHandler(e, value)}
-                                        renderInput={(params) =>
-                                            <TextField {...params}
-                                                       label={wordList[language].productList.searchProduct}
-                                                       variant="outlined"
-                                                       margin="normal"/>}
-                                    />
-                                </Box>
-                            </Grid>
-                            <Grid item>
-                                <TextField
-                                    type="number"
-                                    name='numberOfDays'
-                                    onChange={inputChangeHandler}
-                                    label={wordList[language].productList.statLabel}
-                                />
-                            </Grid>
-                            <Grid item>
-                                <Button variant='contained' color='primary'
-                                        onClick={getStatistics}
-                                >
-                                    {wordList[language].search}
-                                </Button>
-                            </Grid>
-                        </Grid>
+                </Grid>
+                <Grid item container direction='column' spacing={1} xs={4}>
+                    <Grid item xs>
+                        <Box ml={2}>
+                            <Autocomplete
+                                options={[
+                                    {name: 'Продукты', type: 'product'},
+                                    {name: 'Пользователи', type: 'user'}
+                                ]}
+                                getOptionLabel={(option) => option.name}
+                                value={type}
+                                id="debug"
+                                debug
+                                onChange={(e, value) => typeChangeHandler(e, value)}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                               label={'Тип'}
+                                               variant="outlined"
+                                               margin="normal"
+                                    />}
+                            />
+                        </Box>
+                    </Grid>
+                    <Grid item xs>
+                        <Box ml={2}>
+                            <Autocomplete
+                                options={addOptions()}
+                                getOptionLabel={addLabel}
+                                id="debug"
+                                debug
+                                value={value}
+                                onChange={(e, value) => valueChangeHandler(e, value)}
+                                renderInput={(params) =>
+                                    <TextField {...params}
+                                               label={'Документ'}
+                                               variant="outlined"
+                                               margin="normal"
+                                    />}
+                            />
+                        </Box>
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            type="number"
+                            name='numberOfDays'
+                            onChange={inputChangeHandler}
+                            label={wordList[language].productList.statLabel}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Button variant='contained' color='primary'
+                                onClick={fetchStatistics}>
+                            {wordList[language].search}
+                        </Button>
                     </Grid>
                 </Grid>
                 <Grid item>
@@ -140,25 +155,28 @@ const Statistics = () => {
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Bar
-                        data={data}
-                        width={100}
-                        height={500}
-                        options={{
-                            maintainAspectRatio: false,
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
-                        }}
-                    />
+                    {loading ?
+                        <Spinner/> :
+                        <Bar
+                            data={data}
+                            width={100}
+                            height={500}
+                            options={{
+                                maintainAspectRatio: false,
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }}
+                        />}
                 </Grid>
             </Grid>
         </Box>
-    );
+    )
+        ;
 };
 
 export default Statistics;
