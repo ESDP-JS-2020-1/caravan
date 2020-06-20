@@ -24,8 +24,6 @@ import GroupInfo from "./containers/GroupInfo/GroupInfo";
 import "./index.css"
 import './App.css';
 import EditGroup from "./containers/EditGroup/EditGroup";
-import StatisticsProduct from "./containers/Statistics/StatisticsProduct";
-import StatisticsUser from "./containers/Statistics/StatisticsUser";
 import Trash from "./containers/Trash/Trash";
 import WsTest from "./containers/WsTest/WsTest";
 import Statistics from "./containers/Statistics/Statistics";
@@ -46,12 +44,10 @@ function App() {
                     <PrivateRoute path="/users/:id" roles={['getUser']} exact component={UserInfo}/>
                     <PrivateRoute path="/users/role/:id" roles={['getUser']} exact component={UsersList}/>
                     <PrivateRoute path="/users/edit/:id" roles={['editUser']} exact component={EditUser}/>
-                    <PrivateRoute path="/users/stat/:id/:days" exact roles={['getStatistic']} component={StatisticsUser}/>
 
                     <PrivateRoute path="/products" exact component={ProductList}/>
                     <PrivateRoute path="/product/add" exact roles={['addProduct']} component={AddProduct}/>
                     <PrivateRoute path="/product/edit/:id" exact roles={['editProduct']} component={EditProduct}/>
-                    <PrivateRoute path="/product/stat/:id/:days" exact roles={['getStatistic']} component={StatisticsProduct}/>
                     <PrivateRoute path="/statistics" exact roles={['getStatistic']} component={Statistics}/>
 
                     <PrivateRoute path="/history/:page/:limit" exact roles={['viewHistory']} component={Histories}/>
