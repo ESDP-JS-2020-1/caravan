@@ -27,7 +27,10 @@ const Statistics = () => {
         return `rgba(${r},${g},${b},${opacityFactor})`
     };
 
-    const [numberOfDays, setNumberOfDays] = useState('');
+    const [range, setRange] = useState({
+        from: moment(new Date()).format('YYYY-MM-DD'),
+        to: moment(new Date()).format('YYYY-MM-DD')
+    });
     const [type, setType] = useState({name: 'Продукты', type: 'product'})
     const [value, setValue] = useState(null)
 
@@ -39,14 +42,14 @@ const Statistics = () => {
     const users = useSelector(state => state.users.users);
 
     const fetchStatistics = () => {
-        if (!value || !numberOfDays) {
+        if (!value || !range.to || range.form) {
             toast.error(wordList[language].productList.errorMessage);
         } else {
-            dispatch(getStatistics(value._id, numberOfDays, type.type));
+            dispatch(getStatistics(value._id, range, type.type));
         }
     };
 
-    const inputChangeHandler = e => setNumberOfDays(e.target.value);
+    const inputChangeHandler = e => setRange({...range, [e.target.name]: e.target.value});
     const valueChangeHandler = (e, value) => setValue(value)
     const typeChangeHandler = (e, value) => {
         setType(value)
@@ -55,7 +58,7 @@ const Statistics = () => {
 
     const addOptions = () => {
         if (type.type === 'user') return users
-         if (type.type === 'product') return products
+        if (type.type === 'product') return products
     }
     const addLabel = (label) => {
         if (type.type === 'user') return label.displayName
@@ -134,13 +137,25 @@ const Statistics = () => {
                             />
                         </Box>
                     </Grid>
-                    <Grid item>
-                        <TextField
-                            type="number"
-                            name='numberOfDays'
-                            onChange={inputChangeHandler}
-                            label={wordList[language].productList.statLabel}
-                        />
+                    <Grid item container spacing={2}>
+                        <Grid item>
+                            <TextField
+                                id="from" label={'От'}
+                                name='from' type="date"
+                                onChange={inputChangeHandler}
+                                value={range.from} variant='outlined'
+                                InputLabelProps={{shrink: true}}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <TextField
+                                id="to" label={'До'}
+                                name='to' type="date"
+                                onChange={inputChangeHandler}
+                                value={range.to} variant='outlined'
+                                InputLabelProps={{shrink: true}}
+                            />
+                        </Grid>
                     </Grid>
                     <Grid item>
                         <Button variant='contained' color='primary'
@@ -158,8 +173,7 @@ const Statistics = () => {
                     {loading ?
                         <Spinner/> :
                         <Bar
-                            data={data}
-                            width={100}
+                            data={data} width={100}
                             height={500}
                             options={{
                                 maintainAspectRatio: false,
