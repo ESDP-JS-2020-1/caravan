@@ -1,8 +1,6 @@
 const express = require('express');
 
 const
-    Product = require('../models/Product'),
-    User = require('../models/User'),
     Request = require('../models/Request'),
     permissions = require('../permissions'),
     permit = require('../middleware/permit'),
@@ -23,12 +21,10 @@ router.get('/product/:id/:date', isAuth, permit(permissions.GET_STATISTIC), asyn
         const statistic = data.map((elem, index) => {
             const product = elem.products.filter(product => product.product.toString() === id.toString())[0];
             const date = data[index].date;
-            return {product, date}
+            return {...product._doc, date}
         }).flat();
 
-        const product = await Product.findOne({_id: req.params.id});
-
-        res.send({statistic, product})
+        res.send(statistic)
     } catch (e) {
         res.status(500).send(e)
     }
@@ -54,9 +50,7 @@ router.get('/user/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (
 
         const statistic = createRelevantData(data);
 
-        const user = await User.findOne({_id: req.params.id});
-
-        res.send({user, statistic})
+        res.send(statistic)
     } catch (e) {
         res.status(500).send(e)
     }
