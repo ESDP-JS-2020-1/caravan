@@ -1,16 +1,15 @@
-import {GET_PRODUCT_STATISTIC_SUCCESS, GET_USER_STATISTIC_SUCCESS} from "../actions/actionsTypes";
+import {GET_STATISTIC_SUCCESS, STATISTIC_INIT} from "../actions/actionsTypes";
 
 const initialState = {
-    productStatistic: null,
-    userStatistic: null
+    statistic: null,
 };
 
 const statisticsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_PRODUCT_STATISTIC_SUCCESS:
-            return {...state, productStatistic: action.productStatistic};
-        case GET_USER_STATISTIC_SUCCESS:
-            return {...state, userStatistic: action.userStatistic};
+        case GET_STATISTIC_SUCCESS:
+            return {...state, statistic: action.productStatistic};
+        case STATISTIC_INIT:
+            return {...state, statistic: null}
         default:
             return state
     }
