@@ -8,9 +8,9 @@ export const getStatisticError = error => ({type: GET_STATISTIC_ERROR, error});
 
 export const statisticInit = () => ({type: STATISTIC_INIT})
 
-export const getStatistics = (id, day, type) => async dispatch => {
+export const getStatistics = (id, range, type) => async dispatch => {
     try {
-        const response = await axiosApi.get(`/stat/${type}/${id}/${day}`);
+        const response = await axiosApi.get(`/stat/${type}/${id}?from=${range.from}&to=${range.to}`);
         dispatch(getStatisticSuccess(response.data));
 
         dispatch(push(`/statistics`))
