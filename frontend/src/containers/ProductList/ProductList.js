@@ -252,7 +252,7 @@ const ProductList = () => {
                                     const userData = user.market;
                                     const lat = userData.coordinates.lat
                                     const lng = userData.coordinates.lng
-                                    return <Marker position={[lat, lng]}>
+                                    return <Marker position={[lat, lng]} key={user._id}>
                                         <Popup>
                                             <div className={classes.popup}>
                                                 {checkPermission('getUser') ? <NavLink to={`/users/${user._id}`}>
