@@ -19,7 +19,6 @@ import FormElement from "../../components/UI/Form/FormElement";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
 import {Map, Marker, TileLayer} from "react-leaflet";
-import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 const useStyles = makeStyles(() => ({
@@ -141,11 +140,6 @@ const EditUser = props => {
             setCoordinate({...coordinate, lat: event.latlng.lat, lng: event.latlng.lng});
         }
     };
-
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
 
     return (
         <Container>

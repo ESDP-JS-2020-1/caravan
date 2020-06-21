@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         left: '0',
         width: '100%',
         height: '100%',
-        zIndex: -1
+        zIndex: theme.zIndex.drawer + 1,
     },
     spinner: {
         position: 'absolute',
@@ -22,13 +22,12 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        margin: "-40px 0 0 -40px"
+        margin: "-40px 0 0 -40px",
     },
     spinnerItem: {
         marginBottom: '10px'
     },
     backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     }
 }));

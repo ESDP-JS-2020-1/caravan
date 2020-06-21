@@ -3,7 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProductsList} from "../../store/actions/productsActions";
 import {getStatistics, statisticInit} from "../../store/actions/statisticsActions";
 import moment from "moment";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -83,8 +82,6 @@ const Statistics = () => {
             borderWidth: 1
         }]
     };
-
-    const loading = useSelector(state => state.loading.loading);
 
     return (
         <Box mt={1}>
@@ -170,22 +167,20 @@ const Statistics = () => {
                     </Typography>
                 </Grid>
                 <Grid item>
-                    {loading ?
-                        <Spinner/> :
-                        <Bar
-                            data={data} width={100}
-                            height={500}
-                            options={{
-                                maintainAspectRatio: false,
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }}
-                        />}
+                    <Bar
+                        data={data} width={100}
+                        height={500}
+                        options={{
+                            maintainAspectRatio: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }}
+                    />
                 </Grid>
             </Grid>
         </Box>

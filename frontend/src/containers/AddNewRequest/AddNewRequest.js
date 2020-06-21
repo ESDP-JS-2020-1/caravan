@@ -14,7 +14,6 @@ import {createRequest, createRequestInit} from "../../store/actions/requestsActi
 import AddNewRequestItem from "./AddNewRequestItem/AddNewRequestItem";
 import {wordList} from "../../wordList";
 import Alert from "@material-ui/lab/Alert";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import {getProductsList} from "../../store/actions/productsActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -135,11 +134,6 @@ const AddNewRequest = () => {
         }
     });
     const sum = totalPriceArray.reduce((total, amount) => total + amount);
-
-    const loading = useSelector(state => state.loading.loading);
-    if (loading) {
-        return <Spinner/>
-    }
 
     return (
         <Container>

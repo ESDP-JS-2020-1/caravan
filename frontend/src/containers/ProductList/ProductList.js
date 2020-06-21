@@ -25,7 +25,6 @@ import {checkPermission} from "../../CheckPermission";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Box from "@material-ui/core/Box";
 import {Hidden} from "@material-ui/core";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import MainPageMap from "./MainPageMap/MainPageMap";
 
 
@@ -131,11 +130,6 @@ const ProductList = () => {
 
         )
     });
-
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
 
     return (
         <Grid container direction='column' spacing={5}>

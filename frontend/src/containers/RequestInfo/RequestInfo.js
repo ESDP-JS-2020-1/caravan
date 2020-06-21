@@ -17,7 +17,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from "../../components/UI/List/List"
 
 import {
-    closeRequest, deleteClosedRequest,
+    closeRequest,
+    deleteClosedRequest,
     deleteNominatedRequest,
     getRequest,
 } from "../../store/actions/requestsActions";
@@ -25,7 +26,6 @@ import {
 
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import Modal from "../../components/UI/Modal/Modal";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
@@ -84,11 +84,6 @@ const RequestInfo = props => {
         if (request.request.products.find(elem => elem.isRefrigeratorRequired === true) !== undefined) return request.courierList.filter(courier => courier.carRefrigerator === true);
         return request.courierList;
     };
-
-    const loading = useSelector(state => state.loading.loading);
-    if (loading) {
-        return <Spinner/>
-    }
 
     const removeClosedRequest = () => {
         dispatch(deleteClosedRequest(props.match.params.id, request.sumPrice))

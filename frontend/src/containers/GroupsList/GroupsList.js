@@ -20,7 +20,6 @@ import {checkPermission} from "../../CheckPermission";
 import Box from "@material-ui/core/Box";
 import GroupCardItem from "./GroupCardItem";
 import {makeStyles} from "@material-ui/core/styles";
-import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 const useStyles = makeStyles(() => ({
@@ -40,11 +39,6 @@ const GroupsList = () => {
     useEffect(() => {
         dispatch(getGroups())
     }, [dispatch]);
-
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
 
     const groupsList = groups && groups.map((elem, index) => (
         <GroupListItem

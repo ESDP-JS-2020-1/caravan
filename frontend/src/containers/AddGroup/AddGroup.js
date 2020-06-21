@@ -13,7 +13,6 @@ import {addNewGroup, getPermissions} from "../../store/actions/groupActions";
 import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
 import Alert from "@material-ui/lab/Alert";
-import Spinner from "../../components/UI/Spinner/Spinner";
 
 const useStyles = makeStyles({
     formBtn: {
@@ -74,7 +73,7 @@ const AddGroup = () => {
             const perms = {};
             permissions.forEach(e => perms[e] = false);
 
-            setCheckboxes(e => ({...perms}));
+            setCheckboxes(() => ({...perms}));
         }
     }, [dispatch, permissions, checkboxes]);
 
@@ -84,11 +83,6 @@ const AddGroup = () => {
         info.permissions = {...checkboxes};
         dispatch(addNewGroup(info))
     };
-
-    const loading = useSelector(state => state.loading.loading);
-    if (loading) {
-        return <Spinner/>
-    }
 
     return (
         <Container>

@@ -20,7 +20,6 @@ import {
 import EditRequestItems from "./EditRequestItems";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import {getProductsList} from "../../store/actions/productsActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -133,11 +132,6 @@ const EditRequest = (props) => {
         dispatch(getProductsList());
 
     }, [dispatch, props.match.params.id]);
-
-    const loading = useSelector(state => state.loading.loading);
-    if (loading) {
-        return <Spinner/>
-    }
 
     return (
         <Container>

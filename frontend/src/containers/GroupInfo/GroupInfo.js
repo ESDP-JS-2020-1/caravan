@@ -20,7 +20,6 @@ import {getUsers} from "../../store/actions/usersActions";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
-import Spinner from "../../components/UI/Spinner/Spinner";
 
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import InfoIcon from '@material-ui/icons/Info';
@@ -69,11 +68,6 @@ const GroupInfo = props => {
 
     const [open, setOpen] = useState(false);
     const handleOpenAndClose = () => (setOpen(!open));
-
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
 
     return (
         <>
