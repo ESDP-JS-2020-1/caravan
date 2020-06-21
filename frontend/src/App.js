@@ -27,14 +27,36 @@ import EditGroup from "./containers/EditGroup/EditGroup";
 import Trash from "./containers/Trash/Trash";
 import WsTest from "./containers/WsTest/WsTest";
 import Statistics from "./containers/Statistics/Statistics";
+import Container from "@material-ui/core/Container";
+import Copyright from "./components/Copyright/Copyright";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh'
+    },
+    contentBlock: {
+      marginBottom: 'auto'
+    },
+    footer: {
+        padding: theme.spacing(3, 2),
+        marginTop: 'auto',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+    },
+}));
 
 
 function App() {
+    const classes = useStyles();
     return (
-        <div>
-            <ReactNotification/>
-            <Navigation/>
-            {/*<Container>*/}
+        <div className={classes.root}>
+            <div className={classes.contentBlock}>
+                <ReactNotification/>
+                <Navigation/>
+                {/*<Container>*/}
                 <Switch>
                     <PrivateRoute path="/" exact component={ProductList}/>
                     <Route path="/login" exact component={Login}/>
@@ -65,7 +87,13 @@ function App() {
                     <PrivateRoute path="/trash/:type" roles={['getTrash']} component={Trash}/>
                     <Route path="/ws" exact component={WsTest}/>
                 </Switch>
+            </div>
             {/*</Container>*/}
+            <footer className={classes.footer}>
+                <Container maxWidth="sm">
+                    <Copyright/>
+                </Container>
+            </footer>
         </div>
     );
 }

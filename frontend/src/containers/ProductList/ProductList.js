@@ -108,16 +108,12 @@ const ProductList = () => {
     const card = productList.map((elem, i) => {
         return (
             <ProductCard
-                userInfo={user}
-                key={elem._id}
-                title={elem.name}
-                amount={elem.amount}
+                userInfo={user} key={elem._id}
+                title={elem.name} amount={elem.amount}
                 productType={elem.productType}
-                price={elem.price}
-                image={elem.image}
+                price={elem.price} image={elem.image}
                 isRefrigeratorRequired={elem.isRefrigeratorRequired}
-                id={elem._id}
-                index={i}
+                id={elem._id} index={i}
             />
         )
     });
@@ -125,13 +121,10 @@ const ProductList = () => {
     const productsList = productList.map((elem) => {
         return (
             <ProductListItem
-                userInfo={user}
-                key={elem._id}
-                title={elem.name}
-                amount={elem.amount}
+                userInfo={user} key={elem._id}
+                title={elem.name} amount={elem.amount}
                 productType={elem.productType}
-                price={elem.price}
-                image={elem.image}
+                price={elem.price} image={elem.image}
                 isRefrigeratorRequired={elem.isRefrigeratorRequired}
                 id={elem._id}
             />
@@ -227,7 +220,7 @@ const ProductList = () => {
                     </Grid>
                 </Hidden>
             </Grid>
-            <MainPageMap users={users} />
+            <MainPageMap users={users}/>
         </Grid>
     );
 };
