@@ -26,7 +26,9 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import Box from "@material-ui/core/Box";
 import {Hidden} from "@material-ui/core";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {Map, Marker, Popup, TileLayer} from "react-leaflet";
+import {LayersControl, Map, Marker, Popup, TileLayer} from "react-leaflet";
+
+const {BaseLayer} = LayersControl
 
 
 const useStyles = makeStyles((theme) => ({
@@ -76,10 +78,10 @@ const useStyles = makeStyles((theme) => ({
     table: {
         overflow: 'visible'
     },
-     map: {
+    map: {
         height: '720px',
-         padding: '15px'
-     },
+        padding: '15px'
+    },
     popup: {
         display: "flex",
         flexDirection: 'column'
@@ -246,24 +248,39 @@ const ProductList = () => {
                         <Map center={[42.8746, 74.5698]} zoom={12}
                              style={{background: '#000', height: '100%', width: '100%'}}
                         >
-                            <TileLayer url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}/>
-                            {users && users.map(user => {
-                                if (user.role === 'market') {
-                                    const userData = user.market;
-                                    const lat = userData.coordinates.lat
-                                    const lng = userData.coordinates.lng
-                                    return <Marker position={[lat, lng]} key={user._id}>
-                                        <Popup>
-                                            <div className={classes.popup}>
-                                                {checkPermission('getUser') ? <NavLink to={`/users/${user._id}`}>
-                                                    {userData.companyName}
-                                                </NavLink> : <b>{userData.companyName}</b>}
-                                                <span>{userData.address}</span>
-                                            </div>
-                                        </Popup>
-                                    </Marker>
-                                }
-                            })}
+                            <LayersControl position="topright">
+                                <BaseLayer checked name="OpenStreetMap.Mapnik">
+                                    <TileLayer
+                                        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    />
+                                </BaseLayer>
+                                <BaseLayer name="OpenStreetMap.BlackAndWhite">
+                                    <TileLayer
+                                        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                        url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+                                    />
+                                </BaseLayer>
+
+                                {users && users.map(user => {
+                                    if (user.role === 'market') {
+                                        const userData = user.market;
+                                        const lat = userData.coordinates.lat
+                                        const lng = userData.coordinates.lng
+                                        return <Marker position={[lat, lng]} key={user._id}>
+                                            <Popup>
+                                                <div className={classes.popup}>
+                                                    {checkPermission('getUser') ?
+                                                        <NavLink to={`/users/${user._id}`}>
+                                                            {userData.companyName}
+                                                        </NavLink> : <b>{userData.companyName}</b>}
+                                                    <span>{userData.address}</span>
+                                                </div>
+                                            </Popup>
+                                        </Marker>
+                                    }
+                                })}
+                            </LayersControl>
                         </Map>
                     </Paper>
                 </Grid>

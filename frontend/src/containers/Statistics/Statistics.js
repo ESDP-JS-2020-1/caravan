@@ -97,7 +97,7 @@ const Statistics = () => {
                         </Typography>
                     </Grid>
                 </Grid>
-                <Grid item container direction='column' spacing={1} xs={4}>
+                <Grid item container direction='column' spacing={1} xs>
                     <Grid item xs>
                         <Box ml={2}>
                             <Autocomplete
