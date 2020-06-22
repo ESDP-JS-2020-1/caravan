@@ -1,32 +1,20 @@
-import {GET_PRODUCT_STATISTIC_SUCCESS, GET_PRODUCT_STATISTIC_ERROR, GET_USER_STATISTIC_SUCCESS} from "./actionsTypes";
+import {GET_STATISTIC_ERROR, GET_STATISTIC_SUCCESS, STATISTIC_INIT} from "./actionsTypes";
 import axiosApi from "../../axiosAPI";
 
 import {push} from 'connected-react-router';
 
-export const getProductStatisticSuccess = productStatistic => ({type: GET_PRODUCT_STATISTIC_SUCCESS, productStatistic});
-export const getProductStatisticError = error => ({type: GET_PRODUCT_STATISTIC_ERROR, error});
+export const getStatisticSuccess = productStatistic => ({type: GET_STATISTIC_SUCCESS, productStatistic});
+export const getStatisticError = error => ({type: GET_STATISTIC_ERROR, error});
 
-export const getUserStatisticSuccess = userStatistic => ({type: GET_USER_STATISTIC_SUCCESS, userStatistic});
-export const getUserStatisticError = error => ({type: GET_USER_STATISTIC_SUCCESS, error});
+export const statisticInit = () => ({type: STATISTIC_INIT})
 
-export const getStatisticsProduct = (productId, day) => async dispatch => {
+export const getStatistics = (id, range, type) => async dispatch => {
     try {
-        const response = await axiosApi.get(`/stat/product/${productId}/${day}`);
-        dispatch(getProductStatisticSuccess(response.data));
+        const response = await axiosApi.get(`/stat/${type}/${id}?from=${range.from}&to=${range.to}`);
+        dispatch(getStatisticSuccess(response.data));
 
-        dispatch(push(`/product/stat/${productId}/${day}`))
+        dispatch(push(`/statistics`))
     } catch (e) {
-        dispatch(getProductStatisticError(e))
-    }
-};
-
-export const getStatisticsUser = (userId, day) => async dispatch => {
-    try {
-        const response = await axiosApi.get(`/stat/user/${userId}/${day}`);
-        dispatch(getUserStatisticSuccess(response.data));
-
-        dispatch(push(`/users/stat/${userId}/${day}`))
-    } catch (e) {
-        dispatch(getUserStatisticError(e))
+        dispatch(getStatisticError(e))
     }
 };

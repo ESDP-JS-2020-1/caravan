@@ -178,6 +178,11 @@ When('я нажму на кнопку {string}', btnName => {
     I.click(btnName);
 });
 
+When('я выберу местоположение в карте', () => {
+    I.click('.leaflet-tile');
+    I.wait(3)
+});
+
 Then('я вижу сообщение {string}', () => {
     I.waitForText('Заявка создана успешно');
 });
@@ -222,6 +227,10 @@ When('я заполняю  поля формы:', (table) => {
 
 When('нажимаю на кнопку {string}', (btnName) => {
     I.click(btnName);
+});
+
+When('добавляю пользователя в группу', () => {
+    I.click('#addUserToGroup');
 });
 
 Then('я вижу текст после изминений {string}', (text) => {

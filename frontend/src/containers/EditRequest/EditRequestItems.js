@@ -68,7 +68,7 @@ const EditRequestItems = (
                                                 name='title'
                                                 title='Название'
                                             />
-                                            {r.product && <><b>На складе есть: </b> {r.product.amount}</>}
+                                            {r.product && <><b>{wordList[language].editRequestItems.storageQty} </b> {r.product.amount}</>}
                                         </>}
                                     />
                                 </Grid>

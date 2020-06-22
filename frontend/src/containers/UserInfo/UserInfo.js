@@ -14,8 +14,9 @@ import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import {getUser} from "../../store/actions/usersActions";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import {wordList} from "../../wordList";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import {NavLink} from "react-router-dom";
+
+import {apiURL} from "../../config";
 
 
 const useStyles = makeStyles({
@@ -37,6 +38,12 @@ const useStyles = makeStyles({
         padding: '20px',
         margin: '0 auto',
         marginTop: '5%'
+    },
+    avatar: {
+        width: '50%'
+    },
+    avatarImage: {
+        width: '100%'
     }
 });
 
@@ -61,14 +68,9 @@ const UserInfo = props => {
             }
         }
     });
-   let coord = userInfo && userInfo.market && JSON.parse(userInfo.market.coordinates);
+    let coord = userInfo && userInfo.market && userInfo.market.coordinates;
 
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
-
-    return  (
+    return (
         <Container>
             <Paper className={classes.paper} elevation={3}>
                 <MuiThemeProvider theme={theme}>
@@ -78,6 +80,15 @@ const UserInfo = props => {
                         </Typography>
                     </Box>
                     {userInfo && <>
+                        {userInfo.avatar && <div className={classes.avatar}>
+                            <Paper>
+                                <img
+                                    src={apiURL.url+'/uploads/userAvatar/'+userInfo.avatar}
+                                    className={classes.avatarImage}
+                                    alt={userInfo.displayName}
+                                />
+                            </Paper>
+                        </div>}
                         <Typography variant='h5'> <b>{wordList[language].userInfo.userInfoRole} </b>{userInfo.role}
                         </Typography>
 
@@ -90,7 +101,7 @@ const UserInfo = props => {
                         {userInfo.groups[0] && <>
                             <Divider/>
 
-                            <Typography variant='h5'><b> Список групп </b>
+                            <Typography variant='h5'><b> {wordList[language].userInfo.groupsList} </b>
                             </Typography>
                             <ul>
                                 {userInfo.groups.map(group => (
@@ -104,7 +115,7 @@ const UserInfo = props => {
 
                             <Divider/>
 
-                            <Typography variant='h5'><b> Список разрешений </b>
+                            <Typography variant='h5'><b> {wordList[language].userInfo.permissionsList} </b>
                             </Typography>
                             <ul>
                                 {userInfo.permissions.map((permission, id) => (
@@ -129,7 +140,7 @@ const UserInfo = props => {
                                 variant='h5'><b>{wordList[language].userInfo.userInfoCoord} </b>lat: {coord.lat} ,
                                 lng: {coord.lng}</Typography>
 
-                           {coord.lat && <div style={{height: '300px'}}>
+                            {coord.lat && <div style={{height: '300px'}}>
                                 <Map center={[coord.lat, coord.lng]} zoom={10}
                                      style={{background: '#000', height: '100%', width: '100%'}}>
                                     <TileLayer

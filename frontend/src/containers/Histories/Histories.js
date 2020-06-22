@@ -19,7 +19,6 @@ import Pagination from "@material-ui/lab/Pagination";
 import Hidden from "@material-ui/core/Hidden";
 import HistoriesListItem from "./HistoriesListItem/HistoriesListItem";
 import Grid from "@material-ui/core/Grid";
-import Spinner from "../../components/UI/Spinner/Spinner";
 
 const useStyles = makeStyles({
     root: {
@@ -54,11 +53,6 @@ const Histories = props => {
         dispatch(getHistoriesList(props.match.params.page, props.match.params.limit));
     }, [dispatch, props.match.params.page, props.match.params.limit]);
 
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
-
     const historyList = (
         histories && histories.docs.map((history) => {
             const info = history.info.data;
@@ -73,7 +67,7 @@ const Histories = props => {
                 />
             )
         })
-    )
+    );
 
     return histories && (
         <div className={classes.root}>
@@ -102,7 +96,7 @@ const Histories = props => {
                     </Hidden>
                 </> :
                 <Typography variant='h3'>
-                    {'В истории пока ничего нет!'}
+                    {wordList[language].histories.title}
                 </Typography>}
             {histories.totalPages > 1 && (
                 <Pagination

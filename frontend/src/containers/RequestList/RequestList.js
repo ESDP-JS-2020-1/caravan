@@ -15,7 +15,6 @@ import {getRequests} from "../../store/actions/requestsActions";
 import {wordList} from "../../wordList";
 import Grid from "@material-ui/core/Grid";
 import RequestCardItem from "./RequestCardItem";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import Hidden from "@material-ui/core/Hidden";
 
 const RequestList = () => {
@@ -28,11 +27,6 @@ const RequestList = () => {
 	useEffect(() => {
 		dispatch(getRequests());
 	}, [dispatch]);
-
-	const loading = useSelector(state => state.loading.loading);
-	if (loading) {
-		return <Spinner/>
-	}
 
 	let requestsList = requests.map((elem) => (
 		<RequestListItem

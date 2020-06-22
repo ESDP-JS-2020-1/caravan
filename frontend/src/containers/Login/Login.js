@@ -12,7 +12,6 @@ import {makeStyles} from "@material-ui/core/styles";
 
 import FormElement from "../../components/UI/Form/FormElement";
 import {loginUser} from "../../store/actions/usersActions";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import {wordList} from "../../wordList";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
@@ -64,7 +63,7 @@ const Login = () => {
     });
 
     const handleClickShowPassword = () => {
-        setShowPassword({ ...showPassword, showPassword: !showPassword.showPassword });
+        setShowPassword({...showPassword, showPassword: !showPassword.showPassword});
     };
 
     const error = useSelector(state => state.users.error);
@@ -79,11 +78,6 @@ const Login = () => {
 
         dispatch(loginUser(state))
     };
-
-    const loading = useSelector(state => state.loading.loading);
-    if (loading) {
-        return <Spinner/>
-    }
 
     return (
         <Container>
@@ -120,7 +114,7 @@ const Login = () => {
                                         aria-label="toggle password visibility"
                                         onClick={handleClickShowPassword}
                                     >
-                                        {showPassword.showPassword ? <Visibility /> : <VisibilityOff />}
+                                        {showPassword.showPassword ? <Visibility/> : <VisibilityOff/>}
                                     </IconButton>
                                 </InputAdornment>
                             }
@@ -131,10 +125,8 @@ const Login = () => {
                             )}
                         </Box>
                         <Box component="span" className={classes.formBtn}>
-                            {loading ? (<Spinner classsName={classes.button}/>) : (
-                                <Button className={classes.button} variant="contained" type="submit" color="primary"
-                                        id="btn2">{wordList[language].login.loginBtn}</Button>
-                            )}
+                            <Button className={classes.button} variant="contained" type="submit" color="primary"
+                                    id="btn2">{wordList[language].login.loginBtn}</Button>
                         </Box>
                     </form>
                 </Box>

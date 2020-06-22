@@ -22,7 +22,6 @@ import TextField from "@material-ui/core/TextField";
 
 import {getTrash} from "../../store/actions/trashActions";
 import {wordList} from "../../wordList";
-import Spinner from "../../components/UI/Spinner/Spinner";
 
 const Trash = () => {
 
@@ -64,11 +63,6 @@ const Trash = () => {
         {value: 'products', title: (wordList[language].trash.trashType4)},
         {value: 'groups', title: (wordList[language].trash.trashType5)},
     ];
-
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
 
     return trash && (
         <Container>

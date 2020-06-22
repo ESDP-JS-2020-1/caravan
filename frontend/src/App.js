@@ -24,51 +24,81 @@ import GroupInfo from "./containers/GroupInfo/GroupInfo";
 import "./index.css"
 import './App.css';
 import EditGroup from "./containers/EditGroup/EditGroup";
-import StatisticsProduct from "./containers/Statistics/StatisticsProduct";
-import StatisticsUser from "./containers/Statistics/StatisticsUser";
 import Trash from "./containers/Trash/Trash";
 import WsTest from "./containers/WsTest/WsTest";
+import Statistics from "./containers/Statistics/Statistics";
+import Container from "@material-ui/core/Container";
+import Copyright from "./components/Copyright/Copyright";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import {useSelector} from "react-redux";
+import Spinner from "./components/UI/Spinner/Spinner";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh'
+    },
+    contentBlock: {
+        marginBottom: 'auto'
+    },
+    footer: {
+        padding: theme.spacing(3, 2),
+        marginTop: 'auto',
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+    },
+}));
 
 
 function App() {
+    const classes = useStyles();
+    const loading = useSelector(state => state.loading.loading);
     return (
-        <div>
-            <ReactNotification/>
-            <Navigation/>
-            {/*<Container>*/}
-                <Switch>
-                    <PrivateRoute path="/" exact component={ProductList}/>
-                    <Route path="/login" exact component={Login}/>
+        <>
+            {loading && <Spinner/>}
+            <div className={classes.root}>
+                <div className={classes.contentBlock}>
+                    <ReactNotification/>
+                    <Navigation/>
+                    <Switch>
+                        <PrivateRoute path="/" exact component={ProductList}/>
+                        <Route path="/login" exact component={Login}/>
 
-                    <PrivateRoute path="/users" roles={['getUser']} exact component={UsersList}/>
-                    <PrivateRoute path="/users/new" roles={['addUser']} exact component={AddUser}/>
-                    <PrivateRoute path="/users/:id" roles={['getUser']} exact component={UserInfo}/>
-                    <PrivateRoute path="/users/role/:id" roles={['getUser']} exact component={UsersList}/>
-                    <PrivateRoute path="/users/edit/:id" roles={['editUser']} exact component={EditUser}/>
-                    <PrivateRoute path="/users/stat/:id/:days" exact roles={['getStatistic']} component={StatisticsUser}/>
+                        <PrivateRoute path="/users" roles={['getUser']} exact component={UsersList}/>
+                        <PrivateRoute path="/users/new" roles={['addUser']} exact component={AddUser}/>
+                        <PrivateRoute path="/users/:id" roles={['getUser']} exact component={UserInfo}/>
+                        <PrivateRoute path="/users/role/:id" roles={['getUser']} exact component={UsersList}/>
+                        <PrivateRoute path="/users/edit/:id" roles={['editUser']} exact component={EditUser}/>
 
-                    <PrivateRoute path="/products" exact component={ProductList}/>
-                    <PrivateRoute path="/product/add" exact roles={['addProduct']} component={AddProduct}/>
-                    <PrivateRoute path="/product/edit/:id" exact roles={['editProduct']} component={EditProduct}/>
-                    <PrivateRoute path="/product/stat/:id/:days" exact roles={['getStatistic']} component={StatisticsProduct}/>
+                        <PrivateRoute path="/products" exact component={ProductList}/>
+                        <PrivateRoute path="/product/add" exact roles={['addProduct']} component={AddProduct}/>
+                        <PrivateRoute path="/product/edit/:id" exact roles={['editProduct']} component={EditProduct}/>
+                        <PrivateRoute path="/statistics" exact roles={['getStatistic']} component={Statistics}/>
 
-                    <PrivateRoute path="/history/:page/:limit" exact roles={['viewHistory']} component={Histories}/>
+                        <PrivateRoute path="/history/:page/:limit" exact roles={['viewHistory']} component={Histories}/>
 
-                    <PrivateRoute path="/requests" exact component={RequestList}/>
-                    <PrivateRoute path="/requests/new" roles={['addRequest']} exact component={AddNewRequest}/>
-                    <PrivateRoute path="/requests/:id" exact component={RequestInfo}/>
-                    <PrivateRoute path="/requests/edit/:id" exact roles={['editRequest']} component={EditRequest}/>
+                        <PrivateRoute path="/requests" exact component={RequestList}/>
+                        <PrivateRoute path="/requests/new" roles={['addRequest']} exact component={AddNewRequest}/>
+                        <PrivateRoute path="/requests/:id" exact component={RequestInfo}/>
+                        <PrivateRoute path="/requests/edit/:id" exact roles={['editRequest']} component={EditRequest}/>
 
-                    <PrivateRoute path="/groups" exact component={GroupsList}/>
-                    <PrivateRoute path="/groups/new" exact roles={['addGroup']} component={AddGroup}/>
-                    <PrivateRoute path="/groups/edit/:id" roles={['editGroup']} exact component={EditGroup}/>
-                    <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
+                        <PrivateRoute path="/groups" exact component={GroupsList}/>
+                        <PrivateRoute path="/groups/new" exact roles={['addGroup']} component={AddGroup}/>
+                        <PrivateRoute path="/groups/edit/:id" roles={['editGroup']} exact component={EditGroup}/>
+                        <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
 
-                    <PrivateRoute path="/trash/:type" roles={['getTrash']} component={Trash}/>
-                    <Route path="/ws" exact component={WsTest}/>
-                </Switch>
-            {/*</Container>*/}
-        </div>
+                        <PrivateRoute path="/trash/:type" roles={['getTrash']} component={Trash}/>
+                        <Route path="/ws" exact component={WsTest}/>
+                    </Switch>
+                </div>
+                <footer className={classes.footer}>
+                    <Container maxWidth="sm">
+                        <Copyright/>
+                    </Container>
+                </footer>
+            </div>
+        </>
     );
 }
 

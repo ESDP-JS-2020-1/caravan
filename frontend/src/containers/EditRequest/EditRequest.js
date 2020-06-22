@@ -20,7 +20,6 @@ import {
 import EditRequestItems from "./EditRequestItems";
 import Modal from "../../components/UI/Modal/Modal";
 import {wordList} from "../../wordList";
-import Spinner from "../../components/UI/Spinner/Spinner";
 import {getProductsList} from "../../store/actions/productsActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -134,11 +133,6 @@ const EditRequest = (props) => {
 
     }, [dispatch, props.match.params.id]);
 
-    const loading = useSelector(state => state.loading.loading);
-    if (loading) {
-        return <Spinner/>
-    }
-
     return (
         <Container>
             <Grid className={classes.gridItem} item xs={12} lg={8} sm={7} ml={8}>
@@ -170,7 +164,7 @@ const EditRequest = (props) => {
                             {error &&
                             <Alert severity="error">
                                 {error === 'One of products in request has more products than is in stock!' ?
-                                    'В одном из продуктов заявки вы выбрали больше товара чем имеется на скалде!' :
+                                    (wordList[language].editRequest.error) :
                                     error}
                             </Alert>
                             }

@@ -17,6 +17,7 @@ import TableCell from "@material-ui/core/TableCell";
 import {fade, makeStyles} from "@material-ui/core/styles";
 
 import {getProductsList} from "../../store/actions/productsActions";
+import {getUsers} from '../../store/actions/usersActions'
 import ProductListItem from "./ProductListItem/ProductListItem";
 import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
@@ -24,7 +25,7 @@ import {checkPermission} from "../../CheckPermission";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import Box from "@material-ui/core/Box";
 import {Hidden} from "@material-ui/core";
-import Spinner from "../../components/UI/Spinner/Spinner";
+import MainPageMap from "./MainPageMap/MainPageMap";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,12 +83,13 @@ const ProductList = () => {
     const dispatch = useDispatch();
 
     const products = useSelector(state => state.products.productsList);
+    const users = useSelector(state => state.users.users);
     const user = useSelector(state => state.users.user);
     const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getProductsList());
-
+        dispatch(getUsers())
     }, [dispatch]);
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -101,20 +103,16 @@ const ProductList = () => {
         setSearch({search: e.target.value});
     };
 
-    const productList = products.filter(word => word.name.search(new RegExp( search.search , 'i')) !== -1);
+    const productList = products.filter(word => word.name.search(new RegExp(search.search, 'i')) !== -1);
     const card = productList.map((elem, i) => {
         return (
             <ProductCard
-                userInfo={user}
-                key={elem._id}
-                title={elem.name}
-                amount={elem.amount}
+                userInfo={user} key={elem._id}
+                title={elem.name} amount={elem.amount}
                 productType={elem.productType}
-                price={elem.price}
-                image={elem.image}
+                price={elem.price} image={elem.image}
                 isRefrigeratorRequired={elem.isRefrigeratorRequired}
-                id={elem._id}
-                index={i}
+                id={elem._id} index={i}
             />
         )
     });
@@ -122,13 +120,10 @@ const ProductList = () => {
     const productsList = productList.map((elem) => {
         return (
             <ProductListItem
-                userInfo={user}
-                key={elem._id}
-                title={elem.name}
-                amount={elem.amount}
+                userInfo={user} key={elem._id}
+                title={elem.name} amount={elem.amount}
                 productType={elem.productType}
-                price={elem.price}
-                image={elem.image}
+                price={elem.price} image={elem.image}
                 isRefrigeratorRequired={elem.isRefrigeratorRequired}
                 id={elem._id}
             />
@@ -136,14 +131,9 @@ const ProductList = () => {
         )
     });
 
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
-
     return (
-        <>
-            <Grid container direction='column' spacing={1}>
+        <Grid container direction='column' spacing={5}>
+            <Grid item container direction='column' spacing={1}>
                 <Grid item>
                     <Grid container justify='space-between' alignItems='center'>
                         <Grid item>
@@ -166,14 +156,14 @@ const ProductList = () => {
                     </Grid>
                     <Hidden mdUp>
                         <Grid item>
-                        <Box m={1}> <FormElement
-                            type='search'
-                            propertyName='search'
-                            title={wordList[language].productList.searchProduct}
-                            value={search.search}
-                            onChange={changeSearch}
-                        /></Box>
-                    </Grid>
+                            <Box m={1}> <FormElement
+                                type='search'
+                                propertyName='search'
+                                title={wordList[language].productList.searchProduct}
+                                value={search.search}
+                                onChange={changeSearch}
+                            /></Box>
+                        </Grid>
                     </Hidden>
                 </Grid>
                 <Hidden smDown> <Grid item>
@@ -206,7 +196,7 @@ const ProductList = () => {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                     {productsList}
+                                    {productsList}
                                 </TableBody>
                             </Table>
                         </TableContainer>
@@ -219,7 +209,8 @@ const ProductList = () => {
                     </Grid>
                 </Hidden>
             </Grid>
-        </>
+            <MainPageMap users={users}/>
+        </Grid>
     );
 };
 

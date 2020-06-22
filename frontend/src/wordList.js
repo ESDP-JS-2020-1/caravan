@@ -13,7 +13,9 @@ export const wordList = {
             searchProduct: 'Поиск продуктов',
             addNewProduct: 'Добавить новые продукты',
             productListTitle: 'Список продуктов',
-            statisticBtn: 'Смотреть статистику'
+            statisticBtn: 'Смотреть статистику',
+            statLabel: 'Количество дней',
+            errorMessage: 'Пожалуйста введите данные'
         },
         loginBtn: 'Вход',
         authUserToolBar: {
@@ -153,12 +155,14 @@ export const wordList = {
             modalEditTitle: 'Вы уверены что хотите удалить эту заявку?',
             modalBtnNeg: 'Нет',
             modalBtnPos: 'Да',
+            error: 'В одном из продуктов заявки вы выбрали больше товара чем имеется на складе!'
         },
         editRequestItems: {
             title: 'Название: ',
             qty: 'Количество: ',
             chooseProd: 'Выберите продукт',
-            inputQty: 'Количество'
+            inputQty: 'Количество',
+            storageQty: 'На складе есть:'
         },
         editUser: {
             editUserTitle: 'Редактирование пользователя',
@@ -188,6 +192,10 @@ export const wordList = {
             deleteLabel: 'Удаление',
             addLabel: 'Добавление',
             editLabel: 'Редактирование',
+            title: 'В истории пока ничего нет',
+            editType: 'редактировал',
+            deleteType: 'удалил',
+            addType: 'добавил'
         },
         requestInfo: {
             requestInfoTitle: 'Информация о заявке',
@@ -215,7 +223,8 @@ export const wordList = {
             fridgeAvail: 'Есть',
             fridgeNotAvail: 'Отсутствует',
             nomBtn: 'Назначить',
-            deleteClosedRequest: 'Удалить заявку'
+            deleteClosedRequest: 'Удалить заявку',
+            modal: 'Выберите экспедитора'
         },
         requestList: {
             tableUser: 'Пользователь',
@@ -240,6 +249,8 @@ export const wordList = {
             userInfoFridge: 'Наличие холодильника',
             fridgeAvail: 'Есть',
             fridgeNotAvail: 'Отсутствует',
+            groupsList: 'Список групп',
+            permissionsList: 'Список разрешений'
         },
         productsActions: {
             addProductTitle: 'Добавление продукта',
@@ -270,7 +281,13 @@ export const wordList = {
         statistic: {
             statisticTitle: 'Статистика покупок',
             statisticSearchFieldTitle: 'Получить статистику за указанное количество дней',
-            salesStatistics: 'Статистика продаж'
+            salesStatistics: 'Статистика продаж',
+            optionName1: 'Продукты',
+            optionName2: 'Пользователи',
+            labelType: 'Тип',
+            labelDoc: 'Документ',
+            labelFrom: 'От',
+            labelTo: 'До',
         },
         editGroup: {
             title: 'Название',
@@ -294,6 +311,9 @@ export const wordList = {
             tableTitle: 'Название',
             tableDate: 'Дата',
             request: 'Заявка'
+        },
+        mainPageMap: {
+            title: 'Карта торговых точек'
         }
     },
 
@@ -312,7 +332,9 @@ export const wordList = {
             searchProduct: 'Продукцияны издөө',
             addNewProduct: 'Жаңы продукттарды кошуу',
             productListTitle: 'Продукт тизмеси',
-            statisticBtn: 'Статистиканы көрүү'
+            statisticBtn: 'Статистиканы көрүү',
+            statLabel: 'Күндүн саны',
+            errorMessage: 'Сураныч маалыматтарды киргизиңиз'
         },
         loginBtn: 'Кирүү',
         authUserToolBar: {
@@ -383,7 +405,7 @@ export const wordList = {
             addGroupBtn: 'Кошуу'
         },
         addNewRequest: {
-            productsBtn: 'Жеткиликтүү нерсе',
+            productsBtn: 'Жеткиликтүү продукттар',
             createRequestTitle: 'Өтүнүч түзүү',
             commentTitle: 'Түшүндүрмө',
             addRequestBtn: 'Кошуу',
@@ -430,7 +452,7 @@ export const wordList = {
         editProduct: {
             editProductTitle: 'Продуктту түзөтүү',
             inputTitle: 'Аты',
-            inputQty: 'Саны',
+            inputQty: 'Канча продуктту кошсо керек',
             inputPrice: 'Баасы',
             inputRefrigerator: 'Ташуу үчүн муздаткыч керекпи?',
             inputImg: 'Сүрөтү',
@@ -451,13 +473,15 @@ export const wordList = {
             deleteRequestBtn: 'Өтүнүчтү жок кылуу',
             modalBtnNeg: 'Жок',
             modalBtnPos: 'Ооба',
-            modalEditTitle: 'Бул Өтүнүчтү  чын эле алып салгыңыз келеби?',
+            modalEditTitle: 'Бул өтүнүчтү  чын эле алып салгыңыз келеби?',
+            error: 'Колдонмонун продукттун биринде сиз кампага караганда көбүрөөк товарды тандадыңыз!'
         },
         editRequestItems: {
             title: 'Аты: ',
             qty: 'Саны: ',
             chooseProd: 'Продуктту тандаңыз',
-            inputQty: 'Саны'
+            inputQty: 'Саны',
+            storageQty: 'Кампада:'
         },
         editUser: {
             editUserTitle: 'Колдонуучу түзөтүүсү',
@@ -487,6 +511,10 @@ export const wordList = {
             deleteLabel: 'Жок кылуу',
             addLabel: 'Кошуу',
             editLabel: 'Түзөтүү',
+            title: 'Азырынча тарыхта эч нерсе жок',
+            editType: 'түзөттү',
+            deleteType: 'жок кылды',
+            addType: 'кошту'
         },
         requestInfo: {
             requestInfoTitle: 'Өтүнүч жөнүндө маалымат',
@@ -514,7 +542,8 @@ export const wordList = {
             fridgeAvail: 'Бар',
             fridgeNotAvail: 'Жок',
             nomBtn: 'Дайында',
-            deleteClosedRequest: 'Өтүнүчтү жок кыллу'
+            deleteClosedRequest: 'Өтүнүчтү жок кыллу',
+            modal: 'Экспедиторду тандаңыз'
         },
         requestList: {
             tableUser: 'Колдонуучу',
@@ -539,6 +568,8 @@ export const wordList = {
             userInfoFridge: 'Муздаткычтын болушу',
             fridgeAvail: 'Бар',
             fridgeNotAvail: 'Жок',
+            groupsList: 'Топтордун тизмеси',
+            permissionsList: 'Уруксаттардын тизмеси'
         },
         productsActions: {
             addProductTitle: 'Продуктту кошуу',
@@ -569,7 +600,13 @@ export const wordList = {
         statistic: {
             statisticTitle: 'Сатып алуу статистикасы',
             statisticSearchFieldTitle: 'Киргизилген күндөрдүн санын статистикасын алуу',
-            salesStatistics: 'Сатуу статистикасы'
+            salesStatistics: 'Сатуу статистикасы',
+            optionName1: 'Продукттар',
+            optionName2: 'Колдонуучулар',
+            labelType: 'Түрү',
+            labelDoc: 'Документ',
+            labelFrom: 'Чейин',
+            labelTo: 'Чейин',
         },
         editGroup: {
             title: 'Аты',
@@ -593,6 +630,9 @@ export const wordList = {
             tableTitle: 'Аты',
             tableDate: 'Датасы',
             request: 'Өтүнүч'
+        },
+        mainPageMap: {
+            title: 'Соода түйүндөрүнүн картасы'
         }
     }
 };

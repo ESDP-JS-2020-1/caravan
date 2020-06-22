@@ -1,8 +1,6 @@
 const express = require('express');
 
 const
-    Product = require('../models/Product'),
-    User = require('../models/User'),
     Request = require('../models/Request'),
     permissions = require('../permissions'),
     permit = require('../middleware/permit'),
@@ -10,31 +8,30 @@ const
 
 const router = express.Router();
 
-router.get('/product/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
+router.get('/product/:id', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
     try {
         const id = req.params.id;
+        const {from, to} = req.query
 
         const data = await Request.find({
             products: {$elemMatch: {product: id}},
-            date: {$gte: new Date(new Date() - req.params.date * 60 * 60 * 24 * 1000)},
+            date: {"$gte": new Date(from), "$lt": new Date(to)},
             status: 'closed'
         }).select({products: 1, date: 1});
 
         const statistic = data.map((elem, index) => {
             const product = elem.products.filter(product => product.product.toString() === id.toString())[0];
             const date = data[index].date;
-            return {product, date}
+            return {...product._doc, date}
         }).flat();
 
-        const product = await Product.findOne({_id: req.params.id});
-
-        res.send({statistic, product})
+        res.send(statistic)
     } catch (e) {
         res.status(500).send(e)
     }
 });
 
-router.get('/user/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
+router.get('/user/:id', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
     try {
 
         const createRelevantData = (array) => {
@@ -46,17 +43,16 @@ router.get('/user/:id/:date', isAuth, permit(permissions.GET_STATISTIC), async (
         }
 
         const id = req.params.id;
+        const {from, to} = req.query
 
         const data = await Request.find({
             user: id,
-            date: {$gte: new Date(new Date() - req.params.date * 60 * 60 * 24 * 1000)}
+            date: {"$gte": new Date(from), "$lt": new Date(to)}
         }).select({products: 1, date: 1});
 
         const statistic = createRelevantData(data);
 
-        const user = await User.findOne({_id: req.params.id});
-
-        res.send({user, statistic})
+        res.send(statistic)
     } catch (e) {
         res.status(500).send(e)
     }

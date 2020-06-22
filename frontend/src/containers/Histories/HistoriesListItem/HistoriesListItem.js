@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     chip: {
         width: '98%'
     }
-})
+});
 
 const HistoriesListItem = (
     {info, schemaNameInPlural, history}
@@ -61,23 +61,24 @@ const HistoriesListItem = (
     const determineType = (type) => {
         switch (type) {
             case 'edit':
-                return 'редактировал';
+                return (wordList[language].histories.editType);
             case 'delete':
-                return 'удалил';
+                return (wordList[language].histories.deleteType);
             case 'add':
-                return 'добавил';
+                return (wordList[language].histories.addType);
             default:
                 return 'Not found';
         }
-    }
+    };
+
     const determineInfo = (info) => {
         if (info.displayName) return  info.displayName;
         if (info.name) return  info.name;
         if (info.status) return  'заявку';
-    }
+    };
 
-    let text = ''
-    let chipType = 'default'
+    let text = '';
+    let chipType = 'default';
     const userName = history.user.displayName;
     let operationType = determineType(history.type);
     let documentInfo = determineInfo(info);
