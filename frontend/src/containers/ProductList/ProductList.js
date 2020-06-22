@@ -133,11 +133,6 @@ const ProductList = () => {
 
     return (
         <Grid container direction='column' spacing={5}>
-            <Grid item>
-                <Typography paragraph variant='h1'>
-                    Главная страница
-                </Typography>
-            </Grid>
             <Grid item container direction='column' spacing={1}>
                 <Grid item>
                     <Grid container justify='space-between' alignItems='center'>
