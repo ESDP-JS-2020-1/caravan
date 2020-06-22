@@ -17,10 +17,6 @@ const sendToAllUsers = connections => {
     });
 }
 
-const createRandomCoordinates = () => {
-    return Math.floor(Math.random() * 20) + 50
-}
-
 const connections = {};
 
 router.ws('/', (ws) => {
@@ -29,16 +25,12 @@ router.ws('/', (ws) => {
     ws.on('message', async msg => {
         msg = JSON.parse(msg) || msg;
 
-
-        setInterval(() => {
-            const data = {
-                "lat": createRandomCoordinates(),
-                "lng": createRandomCoordinates()
-            };
+        if (msg.type === 'COURIER_LOCATION') {
             Object.keys(connections).forEach(conn => {
+                const data = msg;
                 connections[conn].send(JSON.stringify({type: 'ADD_COORDINATES', data}));
             });
-        }, 2000)
+        }
 
         if (msg.type === 'CONNECT_USER') {
             connections[id] = ws;
