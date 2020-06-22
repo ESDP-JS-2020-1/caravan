@@ -154,6 +154,7 @@ const GroupInfo = props => {
                                         <IconButton style={{marginLeft: '5px'}}
                                                 onClick={() => dispatch(addUserToGroup(props.match.params.id, elem._id))}
                                                 variant='contained'
+                                                id="addUserToGroup"
                                                 color='primary'><GroupAddIcon/></IconButton>}
                                     </Box>
                                 </CardContent>

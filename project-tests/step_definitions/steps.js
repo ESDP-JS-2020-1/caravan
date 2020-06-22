@@ -229,6 +229,10 @@ When('нажимаю на кнопку {string}', (btnName) => {
     I.click(btnName);
 });
 
+When('добавляю пользователя в группу', () => {
+    I.click('#addUserToGroup');
+});
+
 Then('я вижу текст после изминений {string}', (text) => {
     I.waitForText(text);
 });
