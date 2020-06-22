@@ -101,7 +101,7 @@ const UserInfo = props => {
                         {userInfo.groups[0] && <>
                             <Divider/>
 
-                            <Typography variant='h5'><b> Список групп </b>
+                            <Typography variant='h5'><b> {wordList[language].userInfo.groupsList} </b>
                             </Typography>
                             <ul>
                                 {userInfo.groups.map(group => (
@@ -115,7 +115,7 @@ const UserInfo = props => {
 
                             <Divider/>
 
-                            <Typography variant='h5'><b> Список разрешений </b>
+                            <Typography variant='h5'><b> {wordList[language].userInfo.permissionsList} </b>
                             </Typography>
                             <ul>
                                 {userInfo.permissions.map((permission, id) => (
