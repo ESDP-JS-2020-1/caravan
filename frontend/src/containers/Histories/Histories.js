@@ -67,7 +67,7 @@ const Histories = props => {
                 />
             )
         })
-    )
+    );
 
     return histories && (
         <div className={classes.root}>
@@ -96,7 +96,7 @@ const Histories = props => {
                     </Hidden>
                 </> :
                 <Typography variant='h3'>
-                    {'В истории пока ничего нет!'}
+                    {wordList[language].histories.title}
                 </Typography>}
             {histories.totalPages > 1 && (
                 <Pagination
