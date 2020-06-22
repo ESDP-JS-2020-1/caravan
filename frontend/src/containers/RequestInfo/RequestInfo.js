@@ -173,7 +173,7 @@ const RequestInfo = props => {
                 {request.nominatedCourier && <>
 
                     {checkPermission('closeRequest') && request.request.status === 'performed' && <>
-                        <Button variant='contained' color='primary'
+                        <Button variant='contained' color='primary' style={{marginTop: '8px'}}
                                 onClick={() => dispatch(closeRequest(request.request._id))}>
                             {wordList[language].requestInfo.closeBtn}
                         </Button>
@@ -235,7 +235,7 @@ const RequestInfo = props => {
                 <Modal
                     open={close}
                     onClose={closeModal}
-                    title={'Выберите курьера'}
+                    title={wordList[language].requestInfo.modal}
                 >
 
                     {!request.isNominated && request.courierList && <List
