@@ -30,8 +30,8 @@ const Statistics = () => {
         from: moment(new Date()).format('YYYY-MM-DD'),
         to: moment(new Date()).format('YYYY-MM-DD')
     });
-    const [type, setType] = useState({name: 'Продукты', type: 'product'})
-    const [value, setValue] = useState(null)
+    const [type, setType] = useState({name: 'Продукты', type: 'product'});
+    const [value, setValue] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -49,29 +49,31 @@ const Statistics = () => {
     };
 
     const inputChangeHandler = e => setRange({...range, [e.target.name]: e.target.value});
-    const valueChangeHandler = (e, value) => setValue(value)
+    const valueChangeHandler = (e, value) => setValue(value);
     const typeChangeHandler = (e, value) => {
-        setType(value)
+        setType(value);
         setValue(null)
-    }
+    };
 
     const addOptions = () => {
-        if (type.type === 'user') return users
+        if (type.type === 'user') return users;
         if (type.type === 'product') return products
-    }
+    };
+
     const addLabel = (label) => {
-        if (type.type === 'user') return label.displayName
+        if (type.type === 'user') return label.displayName;
         if (type.type === 'product') return label.name
-    }
+    };
+
     const getData = type => {
-        if (type === 'user') dispatch(getUsers())
+        if (type === 'user') dispatch(getUsers());
         if (type === 'product') dispatch(getProductsList());
-    }
+    };
 
     useEffect(() => {
-        getData(type.type)
+        getData(type.type);
         dispatch(statisticInit())
-    }, [type, dispatch])
+    }, [type, dispatch]);
 
     const data = {
         labels: statistics && statistics.map(elem => moment(elem.date).format('MMMM Do YYYY, h:mm:ss a')),
@@ -99,8 +101,8 @@ const Statistics = () => {
                         <Box ml={2}>
                             <Autocomplete
                                 options={[
-                                    {name: 'Продукты', type: 'product'},
-                                    {name: 'Пользователи', type: 'user'}
+                                    {name: (wordList[language].statistic.optionName1), type: 'product'},
+                                    {name: (wordList[language].statistic.optionName2), type: 'user'}
                                 ]}
                                 getOptionLabel={(option) => option.name}
                                 value={type}
@@ -109,7 +111,7 @@ const Statistics = () => {
                                 onChange={(e, value) => typeChangeHandler(e, value)}
                                 renderInput={(params) =>
                                     <TextField {...params}
-                                               label={'Тип'}
+                                               label={wordList[language].statistic.labelType}
                                                variant="outlined"
                                                margin="normal"
                                     />}
@@ -127,7 +129,7 @@ const Statistics = () => {
                                 onChange={(e, value) => valueChangeHandler(e, value)}
                                 renderInput={(params) =>
                                     <TextField {...params}
-                                               label={'Документ'}
+                                               label={wordList[language].statistic.labelDoc}
                                                variant="outlined"
                                                margin="normal"
                                     />}
@@ -137,7 +139,7 @@ const Statistics = () => {
                     <Grid item container spacing={2}>
                         <Grid item>
                             <TextField
-                                id="from" label={'От'}
+                                id="from" label={wordList[language].statistic.labelFrom}
                                 name='from' type="date"
                                 onChange={inputChangeHandler}
                                 value={range.from} variant='outlined'
@@ -146,7 +148,7 @@ const Statistics = () => {
                         </Grid>
                         <Grid item>
                             <TextField
-                                id="to" label={'До'}
+                                id="to" label={wordList[language].statistic.labelTo}
                                 name='to' type="date"
                                 onChange={inputChangeHandler}
                                 value={range.to} variant='outlined'
