@@ -63,16 +63,24 @@ router.get('/user_request/:id/:page/:limit', [auth, permit(permissions.GET_REQUE
     try {
         let arr = {};
 
-        const userRequest = await Request.find({user:req.params.id,status:'closed'}).populate(['products.product', 'user']);
+        const userRequest = await Request.find({
+            user: req.params.id,
+            status: 'closed'
+        }).populate(['products.product', 'user']);
 
 
-        if (userRequest){
-            const userProduct = userRequest.flatMap((elem=>(
-                elem.products.map(elem2=>({amount:elem2.amount, product:elem2.product, date:elem.date,user:elem.user})))));
+        if (userRequest) {
+            const userProduct = userRequest.flatMap((elem => (
+                elem.products.map(elem2 => ({
+                    amount: elem2.amount,
+                    product: elem2.product,
+                    date: elem.date,
+                    user: elem.user
+                })))));
 
             const indexEnd = req.params.page * req.params.limit;
             const indexStart = indexEnd - req.params.limit;
-            arr.docs = userProduct.slice(indexStart,indexEnd);
+            arr.docs = userProduct.slice(indexStart, indexEnd);
             arr.totalPages = Math.ceil(userProduct.length / req.params.limit)
         }
 
