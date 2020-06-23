@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const addToHistory = require('../plugins/addToHistory');
+const aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 
 const Schema = mongoose.Schema;
 
@@ -39,7 +40,7 @@ const RequestSchema = new Schema({
 const schemaName = 'Request';
 
 RequestSchema.plugin(addToHistory, {schemaName});
-
+RequestSchema.plugin(aggregatePaginate);
 const Request = mongoose.model(schemaName, RequestSchema);
 
 module.exports = Request;

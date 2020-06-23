@@ -2,7 +2,7 @@ import {
     CREATE_REQUEST_ERROR,
     CREATE_REQUEST_INIT, FETCH_REQUEST_FAILURE,
     FETCH_REQUEST_SUCCESS,
-    GET_REQUEST_ERROR,
+    GET_REQUEST_ERROR, GET_REQUEST_INFO_FAILURE, GET_REQUEST_INFO_SUCCESS,
     GET_REQUEST_SUCCESS,
     GET_REQUESTS_ERROR,
     GET_REQUESTS_SUCCESS, PUT_REQUEST_FAILURE
@@ -12,7 +12,8 @@ const initialState = {
     error: null,
     list: [],
     request: {},
-    oneRequest: []
+    oneRequest: [],
+    requestInfo:[]
 };
 
 const requestsReducer = (state = initialState, action) => {
@@ -35,6 +36,10 @@ const requestsReducer = (state = initialState, action) => {
             return {...state, error: action.error};
         case PUT_REQUEST_FAILURE:
             return {...state, error: action.error};
+        case GET_REQUEST_INFO_SUCCESS:
+            return {...state,requestInfo: action.data};
+        case GET_REQUEST_INFO_FAILURE:
+            return {...state,error: action.error};
         default:
             return state;
     }

@@ -38,7 +38,7 @@ router.post('/', isAuth, permit(permissions.GET_STATISTIC), upload.single('avata
 
         if (createUser.role === 'market') createUser.market = {
             address: user.address,
-            coordinates: user.coordinates,
+            coordinates: JSON.parse(user.coordinates),
             companyName: user.companyName,
         };
 
