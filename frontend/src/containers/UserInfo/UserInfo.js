@@ -15,6 +15,8 @@ import {getUser} from "../../store/actions/usersActions";
 import {Map, Marker, TileLayer} from "react-leaflet";
 import {wordList} from "../../wordList";
 import {NavLink} from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 import {apiURL} from "../../config";
 
@@ -68,10 +70,25 @@ const UserInfo = props => {
             }
         }
     });
+<<<<<<< HEAD
     let coord = userInfo && userInfo.market && userInfo.market.coordinates;
+=======
+    let coord = userInfo && userInfo.market && userInfo.market.coordinates
+
+    const loading = useSelector(state => state.loading.loading)
+    if (loading) {
+        return <Spinner/>
+    }
+>>>>>>> marketinfo
 
     return (
         <Container>
+            <Box component="div" m={2}>
+                <Button component={NavLink} to={`/users/${props.match.params.id}/market_info/1/10`} variant="contained"
+                        color="primary">
+                    Заказы пользователя
+                </Button>
+            </Box>
             <Paper className={classes.paper} elevation={3}>
                 <MuiThemeProvider theme={theme}>
                     <Box className={classes.typography} component={'span'}>

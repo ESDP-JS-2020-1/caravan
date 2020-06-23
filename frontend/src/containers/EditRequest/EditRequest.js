@@ -100,7 +100,7 @@ const EditRequest = (props) => {
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
-
+   // console.log(editRequest)
     const addRequest = (e) => {
         e.preventDefault();
 
@@ -111,7 +111,7 @@ const EditRequest = (props) => {
             amount: ''
         }] : [{product: '', amount: ''}];
 
-
+        console.log(newRequest);
         dispatch(fetchSuccess(newRequest))
     };
     const openAndClosed = () => (setOpen(!open));

@@ -26,13 +26,13 @@ export default function CheckboxListSecondary(props) {
     const dispatch = useDispatch();
 
 
-    const linkInfo = (e, value) => {
-
+    const linkInfo = (e,value) => {
         if (e.target.className !== 'material-icons MuiIcon-root') {
             dispatch(push(`/users/${value._id}`))
         }
     };
     const appointCourier = (value) => {
+        console.log(props.request.request._id,value._id);
         dispatch(nominatedRequest(value._id, props.request.request._id));
         props.onClose()
     };
@@ -56,7 +56,7 @@ export default function CheckboxListSecondary(props) {
 
                         <IconButton onClick={() => appointCourier(value)} aria-label="delete">
                             <Icon style={{fontSize: 30}}>add_circle</Icon>
-                        </IconButton>
+                        </IconButton >
                     </ListItem>
                 );
             })}

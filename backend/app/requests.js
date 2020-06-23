@@ -3,7 +3,7 @@ const Request = require('../models/Request');
 const User = require('../models/User');
 const Product = require('../models/Product');
 const NominatedRequest = require('../models/NominatedRequest');
-
+const mongoose = require('mongoose');
 const auth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
@@ -11,15 +11,16 @@ const permissions = require('../permissions');
 
 const router = express.Router();
 
-router.get('/removed', auth, permit(permissions.GET_TRASH), async (req, res) => {
+router.get('/removed', [auth, permit(permissions.GET_TRASH)], async (req, res) => {
     try {
-        const removed = await Request.find({ isRemoved: true });
+        const removed = await Request.find({isRemoved: true});
 
         res.send(removed);
     } catch (e) {
         res.status(500).send(e);
     }
-})
+});
+
 
 router.post('/close/:id', [auth, permit(permissions.CLOSE_REQUEST)], async (req, res) => {
     try {
@@ -57,7 +58,37 @@ router.get('/:id', auth, permit(permissions.GET_REQUEST), async (req, res) => {
         res.status(400).send(e);
     }
 });
+router.get('/user_request/:id/:page/:limit', [auth, permit(permissions.GET_REQUEST)], async (req, res) => {
 
+    try {
+        let arr = {};
+
+        const userRequest = await Request.find({
+            user: req.params.id,
+            status: 'closed'
+        }).populate(['products.product', 'user']);
+
+
+        if (userRequest) {
+            const userProduct = userRequest.flatMap((elem => (
+                elem.products.map(elem2 => ({
+                    amount: elem2.amount,
+                    product: elem2.product,
+                    date: elem.date,
+                    user: elem.user
+                })))));
+
+            const indexEnd = req.params.page * req.params.limit;
+            const indexStart = indexEnd - req.params.limit;
+            arr.docs = userProduct.slice(indexStart, indexEnd);
+            arr.totalPages = Math.ceil(userProduct.length / req.params.limit)
+        }
+
+        res.send(arr)
+    } catch (e) {
+        res.status(400).send(e);
+    }
+});
 router.get('/', auth, permit(permissions.GET_REQUEST), async (req, res) => {
     try {
         if (req.currentUser.role === 'market') {
@@ -101,7 +132,7 @@ router.post('/', [auth, permit(permissions.ADD_REQUEST)], async (req, res) => {
         const request = req.body;
 
         for (let i = 0; i < request.products.length; i++) {
-            if(request.products[i].amount < 1) return res.status(400).send( {error: 'Amount of product request is not valid'} );
+            if (request.products[i].amount < 1) return res.status(400).send({error: 'Amount of product request is not valid'});
         }
 
         request.products = request.products.map(elem => ({
@@ -147,7 +178,7 @@ router.put('/:id', [auth, permit(permissions.EDIT_REQUEST)], async (req, res) =>
         const request = req.body;
 
         for (let i = 0; i < request.products.length; i++) {
-            if(request.products[i].amount < 1) return res.status(400).send( {response: {data: {error: 'Amount of product request is not valid'}}} );
+            if (request.products[i].amount < 1) return res.status(400).send({response: {data: {error: 'Amount of product request is not valid'}}});
         }
 
         const requestOne = await Request.findOne({_id: req.params.id}).populate('user');

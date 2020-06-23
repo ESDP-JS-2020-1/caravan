@@ -9,7 +9,7 @@ import {
     CREATE_REQUEST_SUCCESS,
     FETCH_REQUEST_FAILURE,
     FETCH_REQUEST_SUCCESS,
-    GET_REQUEST_ERROR,
+    GET_REQUEST_ERROR, GET_REQUEST_INFO_FAILURE, GET_REQUEST_INFO_SUCCESS,
     GET_REQUEST_SUCCESS,
     GET_REQUESTS_ERROR,
     GET_REQUESTS_SUCCESS, PUT_REQUEST_FAILURE,
@@ -29,6 +29,9 @@ export const createRequestError = error => ({type: CREATE_REQUEST_ERROR, error})
 
 export const getRequestSuccess = request => ({type: GET_REQUEST_SUCCESS, request});
 export const getRequestError = error => ({type: GET_REQUEST_ERROR, error});
+
+export const getRequestInfoSuccess = data=>({type:GET_REQUEST_INFO_SUCCESS,data});
+export const getRequestInfoFailure = error =>({type:GET_REQUEST_INFO_FAILURE,error});
 
 export const getRequestsSuccess = requests => ({type: GET_REQUESTS_SUCCESS, requests});
 export const getRequestsError = error => ({type: GET_REQUESTS_ERROR, error});
@@ -145,5 +148,15 @@ export const deleteClosedRequest = (id, data) => {
             dispatch(putFailure(e))
         }
 
+    }
+};
+export  const getMarketInfo = (id,page,limit)=>{
+    return async dispatch =>{
+        try {
+            const response = await axiosApi.get(`/requests/user_request/${id}/${page}/${limit}`);
+            dispatch(getRequestInfoSuccess(response.data))
+        }catch (e) {
+            dispatch(getRequestInfoFailure(e))
+        }
     }
 };

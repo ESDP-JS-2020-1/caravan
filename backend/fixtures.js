@@ -40,7 +40,7 @@ const run = async () => {
         market: {
             address: 'adress',
             companyName: '123',
-            coordinates: {lat: 49.554215, lng: 79.4555555}
+            coordinates:{lat: 49.554215, lng: 79.4555555}
         }
     }, {
         username: 'Courier1337',
