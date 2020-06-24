@@ -44,10 +44,10 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 'auto'
     },
     footer: {
+        height: '150px',
         padding: theme.spacing(3, 2),
         marginTop: 'auto',
-        backgroundColor:
-            theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+        backgroundColor: '#0d47a1'
     },
 }));
 
@@ -65,6 +65,7 @@ function App() {
                     <Navigation/>
                     <Switch>
                         <PrivateRoute path="/" exact component={ProductList}/>
+            
                         <Route path="/login" exact component={Login}/>
 
                         <PrivateRoute path="/users/:id/market_info/:page/:limit" roles={['getRequest']} exact component={MarketInfo}/>
@@ -93,10 +94,11 @@ function App() {
 
                         <PrivateRoute path="/trash/:type" roles={['getTrash']} component={Trash}/>
                         <Route path="/ws" exact component={WsTest}/>
+        
                     </Switch>
                 </div>
                 <footer className={classes.footer}>
-                    <Container maxWidth="sm">
+                    <Container style={{margin: '0 auto', width: '331px'}} maxWidth="sm">
                         <Copyright/>
                     </Container>
                 </footer>
