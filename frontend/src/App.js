@@ -98,7 +98,7 @@ function App() {
                     </Switch>
                 </div>
                 <footer className={classes.footer}>
-                    <Container style={{margin: '0 auto', width: '331px'}} maxWidth="sm">
+                    <Container style={{margin: '0 auto', width: '330px'}} maxWidth="sm">
                         <Copyright/>
                     </Container>
                 </footer>
