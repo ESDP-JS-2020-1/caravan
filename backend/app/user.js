@@ -219,6 +219,8 @@ router.delete('/:id', isAuth, permit(permissions.DELETE_USER), async (req, res) 
         if (user._id.toString() === req.currentUser._id.toString())
             return res.status(401).send({message: "You cannot delete yourself"});
 
+
+
         user.isRemoved = true;
         user.date = Date.now();
         user.save(req);

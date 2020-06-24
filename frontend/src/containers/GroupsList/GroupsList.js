@@ -40,15 +40,16 @@ const GroupsList = () => {
         dispatch(getGroups())
     }, [dispatch]);
 
-    const groupsList = groups && groups.map((elem, index) => (
-        <GroupListItem
+    const groupsList = groups && groups.map((elem, index) => {
+        const amount = elem.list.filter(e => !!e.user).length
+        return <GroupListItem
             index={index}
             key={elem._id}
             id={elem._id}
             name={elem.name}
-            amount={elem.list.length}
+            amount={amount}
         />
-    ));
+    });
     const groupsCard = groups && groups.map((elem, index) => (
         <GroupCardItem
             index={index}

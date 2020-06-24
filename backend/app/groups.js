@@ -20,7 +20,10 @@ router.get('/removed', isAuth, permit(permissions.GET_TRASH), async (req, res) =
 
 router.get('/', isAuth, permit(permissions.GET_GROUP), async (req, res) => {
     try {
-        const groups = await Group.find({isRemoved: false});
+        const groups = await Group.find({isRemoved: false}).populate({
+            path: 'list.user',
+            match: { isRemoved: false}
+        });
         res.send(groups);
     } catch (e) {
         res.status(500).send(e)
@@ -37,9 +40,16 @@ router.get('/permissions', isAuth, permit(permissions.GET_GROUP), async (req, re
 
 router.get('/:id', isAuth, permit(permissions.GET_GROUP), async (req, res) => {
     try {
-        const group = await Group.findOne({_id: req.params.id}).populate('list.user');
+        const group = await Group.findOne({_id: req.params.id}).populate({
+            path: 'list.user',
+            match: { isRemoved: false}
+        });
 
-        res.send(group);
+        const list = group.list.filter(e => !!e.user)
+
+        const data = {...group._doc, list}
+
+        res.send(data);
     } catch (e) {
         res.status(404).send(e)
     }
