@@ -16,9 +16,9 @@ import {Map, Marker, TileLayer} from "react-leaflet";
 import {wordList} from "../../wordList";
 import {NavLink} from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 
 import {apiURL} from "../../config";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 
 const useStyles = makeStyles({
@@ -70,16 +70,12 @@ const UserInfo = props => {
             }
         }
     });
-<<<<<<< HEAD
-    let coord = userInfo && userInfo.market && userInfo.market.coordinates;
-=======
     let coord = userInfo && userInfo.market && userInfo.market.coordinates
 
     const loading = useSelector(state => state.loading.loading)
     if (loading) {
         return <Spinner/>
     }
->>>>>>> marketinfo
 
     return (
         <Container>
