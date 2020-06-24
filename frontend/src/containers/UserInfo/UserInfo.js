@@ -18,8 +18,6 @@ import {NavLink} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 import {apiURL} from "../../config";
-import Spinner from "../../components/UI/Spinner/Spinner";
-
 
 const useStyles = makeStyles({
     flex: {
@@ -70,15 +68,7 @@ const UserInfo = props => {
             }
         }
     });
-
-
-    let coord = userInfo && userInfo.market && userInfo.market.coordinates
-
-    const loading = useSelector(state => state.loading.loading)
-    if (loading) {
-        return <Spinner/>
-    }
-
+    let coord = userInfo && userInfo.market && userInfo.market.coordinates;
 
     return (
         <Container>
