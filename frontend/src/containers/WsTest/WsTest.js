@@ -45,9 +45,9 @@ const WsTest = () => {
     const classes = useStyles();
 
     const user = useSelector(state => state.users.user);
-    const usersOnline = useSelector(state => state.users.usersOnline)
-    const coordinate = useSelector(state => state.users.coordinate)
-    const dispatch = useDispatch()
+    const usersOnline = useSelector(state => state.users.usersOnline);
+    const coordinate = useSelector(state => state.users.coordinate);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const webSocket = new WebSocket('ws://localhost:8000/locations');
@@ -57,7 +57,7 @@ const WsTest = () => {
         };
 
         webSocket.onmessage = msg => {
-            const action = JSON.parse(msg.data)
+            const action = JSON.parse(msg.data);
             dispatch(action)
         };
 
@@ -66,7 +66,7 @@ const WsTest = () => {
             webSocket.close()
         }
 
-    }, [])
+    }, [dispatch, user]);
 
     return (
         <div className={classes.root}>
@@ -138,5 +138,6 @@ const WsTest = () => {
             </main>
         </div>
     );
-}
+};
+
 export default WsTest;
