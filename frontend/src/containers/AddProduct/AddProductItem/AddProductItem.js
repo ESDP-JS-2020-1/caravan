@@ -27,7 +27,8 @@ const AddProductItem = (
     const productsType = [
         {title: 'кг'},
         {title: 'литр'},
-        {title: 'грамм'}
+        {title: 'грамм'},
+        {title: 'штук'}
     ];
 
     return (
