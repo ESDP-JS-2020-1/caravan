@@ -55,7 +55,7 @@ router.post('/', [auth, permit(permissions.ADD_PRODUCT), upload.single('image')]
         const product = new Product(req.body);
         product.save(req);
 
-        return res.send({message: 'success'});
+        return res.send({message: 'Продукт успешно добавлен'});
     } catch (e) {
         res.status(500).send(e);
     }

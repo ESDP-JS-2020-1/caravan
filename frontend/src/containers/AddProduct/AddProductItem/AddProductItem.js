@@ -82,6 +82,7 @@ const AddProductItem = (
                             </Grid>
                             <Grid item>
                                 <FormElement
+                                    type="number"
                                     id='price'
                                     propertyName='price'
                                     title={wordList[language].addProductItem.inputPrice}

@@ -93,18 +93,18 @@ const run = async () => {
     const [product1] = await Product.create({
         name: 'Продукт-1',
         amount: '10',
-        price: '1000 coм',
+        price: 1000,
         isRefrigeratorRequired: true,
         productType: 'кг'
     }, {
         name: 'Продукт-2',
         amount: '15',
-        price: '1001 coм',
+        price: 1001,
         productType: 'кг'
     }, {
         name: 'Продукт-3',
         amount: '20',
-        price: '500 coм',
+        price: 500,
         productType: 'кг'
     });
 

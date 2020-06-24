@@ -88,10 +88,10 @@ const AddNewRequest = () => {
     };
 
     const autoCompleteChangeHandler = (value, i) => {
-            let newRequest = {...request};
-            newRequest.products[i].product = value._id;
-            newRequest.products[i].productInfo = value;
-            setRequest(newRequest);
+        let newRequest = {...request};
+        newRequest.products[i].product = value._id;
+        newRequest.products[i].productInfo = value;
+        setRequest(newRequest);
     };
 
     const handleChange = (panel) => (event, isExpanded) => {
@@ -125,11 +125,10 @@ const AddNewRequest = () => {
         dispatch(createRequestInit())
     }, [dispatch]);
 
-    const totalPriceArray = [1];
+    const totalPriceArray = [0];
     request.products.forEach(product => {
         if (product.productInfo.price) {
-            const slicePrice = product.productInfo.price.slice(0, -3);
-            const totalPrice = parseInt(slicePrice) * product.amount;
+            const totalPrice = product.productInfo.price * product.amount;
             totalPriceArray.push(totalPrice)
         }
     });
@@ -180,7 +179,7 @@ const AddNewRequest = () => {
                             <Grid item>
                                 <Grid item>
                                     <Typography>{wordList[language].addNewRequest.totalPrice}
-                                        {sum === 1 ? 0 : sum - 1
+                                        {sum
                                         } Сом</Typography>
                                 </Grid>
                                 <Box className={classes.formBtn} component="span">
