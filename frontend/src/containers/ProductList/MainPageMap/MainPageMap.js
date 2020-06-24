@@ -69,7 +69,7 @@ const MainPageMap = (
                                     const userData = user.market;
                                     const lat = userData.coordinates.lat;
                                     const lng = userData.coordinates.lng;
-                                    return <Marker position={[lat, lng]} key={user._id}>
+                                    return  <Marker position={[lat, lng]} key={user._id}>
                                         <Popup>
                                             <div className={classes.popup}>
                                                 {checkPermission('getUser') ?
@@ -81,6 +81,7 @@ const MainPageMap = (
                                         </Popup>
                                     </Marker>
                                 }
+                                return null
                             })}
                         </LayersControl>
                     </Map>
