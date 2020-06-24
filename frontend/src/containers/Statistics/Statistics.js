@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getProductsList} from "../../store/actions/productsActions";
 import {getStatistics, statisticInit} from "../../store/actions/statisticsActions";
@@ -65,15 +65,16 @@ const Statistics = () => {
         if (type.type === 'product') return label.name
     };
 
-    const getData = type => {
+    const getData = useCallback( type => {
         if (type === 'user') dispatch(getUsers());
         if (type === 'product') dispatch(getProductsList());
-    };
+    }, [dispatch]);
+
 
     useEffect(() => {
         getData(type.type);
         dispatch(statisticInit())
-    }, [type, dispatch]);
+    }, [type, dispatch, getData]);
 
     const data = {
         labels: statistics && statistics.map(elem => moment(elem.date).format('MMMM Do YYYY, h:mm:ss a')),
