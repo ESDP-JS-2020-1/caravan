@@ -44,7 +44,7 @@ const MarketInfo = (props) => {
 
     useEffect(() => {
         dispatch(getMarketInfo(props.match.params.id, props.match.params.page, props.match.params.limit))
-    }, [dispatch, props.match.params.page, props.match.params.limit]);
+    }, [dispatch, props.match.params.id, props.match.params.page, props.match.params.limit]);
 
     return (
         <div  style={{margin:'20px'}}>
@@ -69,7 +69,7 @@ const MarketInfo = (props) => {
                                             <TableCell component="th" scope="row">
                                                 {req.product.name}
                                             </TableCell>
-                                            <TableCell align="right">{req.amount +' '+ '(' +req.product.productType+')'}</TableCell>
+                                            <TableCell align="right">{`${req.amount} (${req.product.productType})`}</TableCell>
                                             <TableCell align="right">
                                                 {moment(req.date).format('MMMM Do YYYY, h:mm:ss a')}
                                             </TableCell>
