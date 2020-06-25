@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 const UserCardItem = props => {
     const classes = useStyles();
+    useEffect(()=>{
+
+    },[props.user.avatar]);
     return (
         <Grid item xs={12} sm={6} md={4} className={classes.padding}>
             <Card className={classes.root}>

@@ -66,9 +66,9 @@ router.get('/user_request/:id/:page/:limit', [auth, permit(permissions.GET_REQUE
         const userRequest = await Request.find({
             user: req.params.id,
             status: 'closed'
-        }).populate(['products.product', 'user']);
+        }).populate(['products.product', 'user'])
 
-
+        console.log(userRequest.length);
         if (userRequest) {
             const userProduct = userRequest.flatMap((elem => (
                 elem.products.map(elem2 => ({

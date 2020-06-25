@@ -54,7 +54,7 @@ const UsersList = props => {
 
     useEffect(() => {
         dispatch(getUsers(props.match.params.id))
-    }, [dispatch, props.match.params.id]);
+    }, [dispatch, props.match.params.id ]);
 
     const [search, setSearch] = useState({search: ''});
 

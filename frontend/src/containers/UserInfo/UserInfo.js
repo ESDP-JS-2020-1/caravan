@@ -70,12 +70,15 @@ const UserInfo = props => {
             }
         }
     });
+
+
     let coord = userInfo && userInfo.market && userInfo.market.coordinates
 
     const loading = useSelector(state => state.loading.loading)
     if (loading) {
         return <Spinner/>
     }
+
 
     return (
         <Container>

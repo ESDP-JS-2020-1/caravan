@@ -3,7 +3,7 @@ const auth = require('../middleware/isAuth');
 const Product = require('../models/Product');
 const upload = require('../multer');
 const permit = require('../middleware/permit');
-
+const fs = require('fs');
 const permissions = require('../permissions');
 
 const router = express.Router();
@@ -67,13 +67,19 @@ router.put('/:id', auth, permit(permissions.EDIT_PRODUCT), upload.single('file')
 
         const productOne = await Product.findOne({_id: req.params.id});
 
-        if (req.file) product.image = req.file.filename;
+        if (req.file){
+            fs.unlink('./public/uploads/productImage/'+ productOne.image,function(err){
+                if(err)  console.log(err);
+                console.log('file deleted successfully');
+            });
+            productOne.image = req.file.filename;
+        }
 
         productOne.name = product.name;
         if (product.addProduct) productOne.amount = parseInt(productOne.amount) + parseInt(product.addProduct);
         productOne.price = product.price;
         productOne.isRefrigeratorRequired = product.isRefrigeratorRequired;
-        productOne.image = product.image;
+
 
         productOne.save(req);
         return res.send(productOne);

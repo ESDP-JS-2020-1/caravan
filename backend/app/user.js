@@ -5,7 +5,7 @@ const Group = require('../models/Group');
 const upload = require('../multer');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
-
+const fs =require('fs');
 const permissions = require('../permissions');
 
 const router = express.Router();
@@ -109,7 +109,7 @@ router.get('/:id', isAuth, permit(permissions.GET_USER), async (req, res) => {
 
 router.put('/edit/:id', isAuth, permit(permissions.EDIT_USER), upload.single('avatar'), async (req, res) => {
     const user = req.body;
-
+    console.log(req.body)
 
     try {
         const editableUser = await User.findOne({_id: req.params.id});
@@ -130,9 +130,16 @@ router.put('/edit/:id', isAuth, permit(permissions.EDIT_USER), upload.single('av
             }
         }
 
-        if (req.file) user.avatar = req.file.filename;
+        if (req.file){
+            fs.unlink('./public/uploads/userAvatar/'+ editableUser.avatar,function(err){
+                if(err)  console.log(err);
+                console.log('file deleted successfully');
 
-        if (user.avatar) editableUser.avatar = user.avatar;
+            });
+
+            editableUser.avatar = req.file.filename;
+        }
+
 
         if (user.password) {
             const salt = await bcrypt.genSalt(10);

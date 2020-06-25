@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
             cb(null, config.productImage);
         }
     },
-    filename: (req, file, cb) => {
+    filename: async (req, file, cb) => {
         cb(null, nanoid() + path.extname(file.originalname));
     }
 });
