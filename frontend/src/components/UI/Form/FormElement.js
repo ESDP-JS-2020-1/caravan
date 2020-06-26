@@ -166,7 +166,8 @@ const FormElement = props => {
                     fullWidth
                 >
                     {props.options.map(option => (
-                        <MenuItem id={option+'Option'} value={option} key={option}>{option}</MenuItem>
+
+                        <MenuItem id={option.label+'Option'} value={option.value} key={option.label}>{option.label}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

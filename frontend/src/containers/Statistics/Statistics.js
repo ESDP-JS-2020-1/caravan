@@ -33,6 +33,7 @@ const Statistics = () => {
     const [type, setType] = useState({name: 'Продукты', type: 'product'});
     const [value, setValue] = useState(null);
 
+
     const dispatch = useDispatch();
 
     const statistics = useSelector(state => state.statistics.statistic);
@@ -65,7 +66,7 @@ const Statistics = () => {
         if (type.type === 'product') return label.name
     };
 
-    const getData = useCallback( type => {
+    const getData = useCallback(type => {
         if (type === 'user') dispatch(getUsers());
         if (type === 'product') dispatch(getProductsList());
     }, [dispatch]);
@@ -156,6 +157,7 @@ const Statistics = () => {
                                 InputLabelProps={{shrink: true}}
                             />
                         </Grid>
+
                     </Grid>
                     <Grid item>
                         <Button variant='contained' color='primary'

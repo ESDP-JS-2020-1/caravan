@@ -22,6 +22,11 @@ const EditRequestItems = (
     {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange, products}
 ) => {
 
+    const options = [];
+
+    products.forEach(e => e.amount > 0  && (!request.products.find(req => e._id === req.product._id) || e._id === r.product._id) &&
+        options.push(e)
+    );
     const language = useSelector(state => state.language.name);
 
 
@@ -52,7 +57,7 @@ const EditRequestItems = (
                                 <Grid item>
                                     <Autocomplete
                                         id={'free-solo-demo' + index}
-                                        options={products}
+                                        options={options}
                                         value={products.find(elem => elem.name === r.product.name)}
                                         getOptionLabel={option => option.name}
                                         className={classes.autocomplete}
