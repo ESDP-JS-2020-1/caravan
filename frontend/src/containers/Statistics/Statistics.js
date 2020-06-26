@@ -171,9 +171,9 @@ const Statistics = () => {
                         {wordList[language].statistic.salesStatistics}
                     </Typography>
                 </Grid>
-                <Grid item>
+                <Grid item xs>
                     <Bar
-                        data={data} width={100}
+                        data={data} width={10}
                         height={500}
                         options={{
                             maintainAspectRatio: false,
