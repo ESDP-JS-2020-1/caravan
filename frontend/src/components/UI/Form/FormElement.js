@@ -167,7 +167,7 @@ const FormElement = props => {
                 >
                     {props.options.map(option => (
 
-                        <MenuItem id={option.label+'Option'} value={option.value} key={option.label}>{option.label}</MenuItem>
+                        <MenuItem id={option+'Option'} value={option} key={option}>{option}</MenuItem>
                     ))}
                 </Select>
             </FormControl>
