@@ -15,6 +15,7 @@
     "esri-leaflet-geocoder": "^2.3.2",
     "history": "^4.10.1",
     "leaflet": "^1.6.0",
+    "leaflet-routing-machine": "^3.2.12",
     "material-table": "^1.57.2",
     "material-ui-phone-number": "^2.2.6",
     "moment": "^2.24.0",
@@ -39,6 +40,7 @@
     "eject": "react-scripts eject",
     "start:test": "REACT_APP_ENV=test PORT=3010 BROWSER=none react-scripts start"
   },
+  "homepage": "./",
   "eslintConfig": {
     "extends": "react-app"
   },

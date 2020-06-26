@@ -10,9 +10,9 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import {NavLink} from "react-router-dom";
 import Divider from "@material-ui/core/Divider";
-import {Map, Marker, Popup, TileLayer} from "react-leaflet";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import LeafletMap from "../../components/LeafletMap/LeafletMap";
 
 const drawerWidth = 240;
 
@@ -56,7 +56,7 @@ const WsTest = () => {
     const [center, setCenter] = useState([42.8746, 74.5698])
     const [zoom, setZoom] = useState(12)
     const [tracking, setTracking] = useState(false)
-    const [shop, setShop] = useState(null)
+    const [currentOrder, setCurrentOrder] = useState(null)
 
     const user = useSelector(state => state.users.user);
     const usersOnline = useSelector(state => state.users.usersOnline);
@@ -65,12 +65,17 @@ const WsTest = () => {
 
     const trackUser = data => {
         const orderData = data.user.currentRequest;
-        const currentShop = orderData.user.market;
+        let currentShop = orderData.user.market;
+            currentShop = [currentShop.coordinates.lat, currentShop.coordinates.lng]
         setCenter([data.location.lat, data.location.lng]);
         setZoom(10);
         setTracking(true);
         if (Object.keys(orderData).length > 0) {
-            setShop(currentShop)
+            const currentUser = data.user._id
+            setCurrentOrder({
+                user: currentUser,
+                shop: currentShop
+            })
         }
     }
 
@@ -139,28 +144,20 @@ const WsTest = () => {
                 </div>
             </div>
             <main className={classes.content}>
-                <Map center={center} zoom={zoom}
-                     style={{background: '#000', height: '100%', width: '100%'}}>
-                    <TileLayer
-                        url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
+                { currentOrder === null && coordinate && coordinate.length > 0 && <LeafletMap
+                    type={'locations'}
+                    locations={coordinate}
+                /> }
+
+                {/*{currentOrder && coordinate && coordinate.find(e => e.user._id === currentOrder.user.user._id)}*/}
+                { currentOrder !== null && coordinate && coordinate.length > 0 &&  <>
+                    <LeafletMap
+                        type={'routing'}
+                        myLocation={currentOrder.user}
+                        to={currentOrder.shop}
+                        locations={coordinate}
                     />
-
-                    {shop && <Marker position={[shop.coordinates.lat, shop.coordinates.lng]}>
-                        <Popup>
-                            <span>{shop.companyName}</span>
-                        </Popup>
-                    </Marker>}
-
-                    {coordinate && coordinate.map(c => {
-                        return (
-                            <Marker position={[c.location.lat, c.location.lng]}>
-                                <Popup>
-                                    <span>{c.user.displayName}</span>
-                                </Popup>
-                            </Marker>
-                        )
-                    })}
-                </Map>
+                </>}
             </main>
         </div>
     );
