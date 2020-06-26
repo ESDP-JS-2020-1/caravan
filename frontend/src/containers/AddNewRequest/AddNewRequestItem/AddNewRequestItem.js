@@ -21,7 +21,7 @@ import {wordList} from "../../../wordList";
 const AddNewRequestItem = (
     {onChange, onAutoCompleteChange, index, expanded, classes, r, request, onRemove, handleChange}
 ) => {
-
+    console.log(request);
     const products = useSelector(state => state.products.productsList);
     const options = [];
           products.forEach(e => e.amount > 0  && (!request.find(req => e._id === req.product) || e._id === r.product) &&

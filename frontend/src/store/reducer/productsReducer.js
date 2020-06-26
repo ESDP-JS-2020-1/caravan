@@ -10,7 +10,7 @@ import {
 const initialState = {
     productsList: [],
     error: null,
-    editProduct: null,
+    editProduct: [],
 };
 
 const productsReducer = (state = initialState, action) => {

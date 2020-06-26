@@ -11,7 +11,7 @@ const router = express.Router();
 router.get('/product/:id', isAuth, permit(permissions.GET_STATISTIC), async (req, res) => {
     try {
         const id = req.params.id;
-        const {from, to} = req.query
+        const {from, to} = req.query;
 
         const data = await Request.find({
             products: {$elemMatch: {product: id}},
@@ -28,6 +28,7 @@ router.get('/product/:id', isAuth, permit(permissions.GET_STATISTIC), async (req
         res.send(statistic)
     } catch (e) {
         res.status(500).send(e)
+
     }
 });
 
