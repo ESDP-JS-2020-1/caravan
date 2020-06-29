@@ -133,6 +133,23 @@ const ProductList = () => {
 
     return (
         <Grid container direction='column' spacing={5}>
+            <Grid item container justify='space-between' alignItems='center'>
+                <Grid item>
+                    <Typography variant='h2' paragraph>
+                        Главная страница
+                    </Typography>
+                </Grid>
+                {checkPermission('downloadApp') && <Grid item>
+                    <Button
+                        color='primary'
+                        variant='contained'
+                        component={NavLink}
+                        to='/downloadApp'
+                    >
+                        Скачать приложение для отслеживания геолокации
+                    </Button>
+                </Grid>}
+            </Grid>
             <Grid item container direction='column' spacing={1}>
                 <Grid item>
                     <Grid container justify='space-between' alignItems='center'>

@@ -35,6 +35,7 @@ import Copyright from "./components/Copyright/Copyright";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSelector} from "react-redux";
 import Spinner from "./components/UI/Spinner/Spinner";
+import DownloadApp from "./containers/DownloadApp/DownloadApp";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 'auto'
     },
     footer: {
-        height: '150px',
+        maxHeight: '150px',
         padding: theme.spacing(3, 2),
         marginTop: 'auto',
         backgroundColor: '#0d47a1'
@@ -95,6 +96,9 @@ function App() {
                         <PrivateRoute path="/groups/:id" exact component={GroupInfo}/>
 
                         <PrivateRoute path="/trash/:type" roles={['getTrash']} component={Trash}/>
+
+                        <PrivateRoute path="/downloadApp" roles={['downloadApp']} component={DownloadApp}/>
+
                         <Route path="/ws" exact component={WsTest}/>
         
                     </Switch>
