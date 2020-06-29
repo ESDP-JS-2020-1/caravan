@@ -75,7 +75,7 @@ const UserInfo = props => {
             <Box component="div" m={2}>
                 <Button component={NavLink} to={`/users/${props.match.params.id}/market_info/1/10`} variant="contained"
                         color="primary">
-                    Заказы пользователя
+                    {wordList[language].userInfo.requestsBtn}
                 </Button>
             </Box>
             <Paper className={classes.paper} elevation={3}>

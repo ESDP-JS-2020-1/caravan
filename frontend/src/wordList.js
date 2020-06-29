@@ -250,7 +250,8 @@ export const wordList = {
             fridgeAvail: 'Есть',
             fridgeNotAvail: 'Отсутствует',
             groupsList: 'Список групп',
-            permissionsList: 'Список разрешений'
+            permissionsList: 'Список разрешений',
+            requestsBtn: 'Заказы пользователя'
         },
         productsActions: {
             addProductTitle: 'Добавление продукта',
@@ -569,7 +570,8 @@ export const wordList = {
             fridgeAvail: 'Бар',
             fridgeNotAvail: 'Жок',
             groupsList: 'Топтордун тизмеси',
-            permissionsList: 'Уруксаттардын тизмеси'
+            permissionsList: 'Уруксаттардын тизмеси',
+            requestsBtn: 'Колдонуучунун буйругу'
         },
         productsActions: {
             addProductTitle: 'Продуктту кошуу',
