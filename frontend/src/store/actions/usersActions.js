@@ -62,7 +62,7 @@ export const addUser = user => async (dispatch, getState) => {
             ...config.notification
         });
     } catch (e) {
-        dispatch(addUserFailure(e))
+        dispatch(addUserFailure(e.response.data))
     }
 };
 

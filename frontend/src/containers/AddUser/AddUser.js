@@ -115,7 +115,7 @@ const AddUser = () => {
             }
         });
         data.append('group', group);
-        dispatch(addUser(data))
+        dispatch(addUser(data));
     };
 
     return (
@@ -132,8 +132,6 @@ const AddUser = () => {
                             <Grid item>
                                 <FormElement
                                     id='username'
-                                    error={error}
-                                    helperText={error && error.keyValue['username'] ? `Пользователь с таким логином уже существует` : ''}
                                     required
                                     propertyName='username'
                                     title={wordList[language].addUser.inputLogin}
@@ -276,7 +274,7 @@ const AddUser = () => {
                                 />
                             </Grid>
                             {error && <Grid item>
-                                <Alert severity='error'>{'Произошла ошибка!'}</Alert>
+                                <Alert severity='error'>{error.errmsg || error.message}</Alert>
                             </Grid>}
                             <Grid item>
                                 <Box className={classes.formBtn} component="span">

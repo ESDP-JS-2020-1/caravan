@@ -5,14 +5,14 @@ const Group = require('../models/Group');
 const upload = require('../multer');
 const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
-const fs =require('fs');
+const fs = require('fs');
 const permissions = require('../permissions');
 
 const router = express.Router();
 
 router.get('/removed', isAuth, permit(permissions.GET_TRASH), async (req, res) => {
     try {
-        const removed = await User.find({ isRemoved: true });
+        const removed = await User.find({isRemoved: true});
 
         res.send(removed);
     } catch (e) {
@@ -32,6 +32,10 @@ router.post('/', isAuth, permit(permissions.GET_STATISTIC), upload.single('avata
             phone: user.phone,
         };
 
+        if (createUser.role === 'market' && user.coordinates === 'undefined') {
+
+            return res.status(404).send({message: 'Please provide coordinates!'})
+        }
         if (req.file) {
             createUser.avatar = req.file.filename
         }
@@ -58,11 +62,12 @@ router.post('/', isAuth, permit(permissions.GET_STATISTIC), upload.single('avata
         if (!group) return res.status(404).send({message: 'Group not found!'});
         group.map(async list => {
             list.list.push({user: newUser._id});
-           await list.save()
+            await list.save()
         });
 
     } catch (e) {
         res.status(500).send(e)
+
     }
 });
 
@@ -130,9 +135,9 @@ router.put('/edit/:id', isAuth, permit(permissions.EDIT_USER), upload.single('av
             }
         }
 
-        if (req.file){
-            fs.unlink('./public/uploads/userAvatar/'+ editableUser.avatar,function(err){
-                if(err)  console.log(err);
+        if (req.file) {
+            fs.unlink('./public/uploads/userAvatar/' + editableUser.avatar, function (err) {
+                if (err) console.log(err);
                 console.log('file deleted successfully');
 
             });
@@ -218,7 +223,6 @@ router.delete('/:id', isAuth, permit(permissions.DELETE_USER), async (req, res) 
         if (!user) return res.status(404).send({message: "User not found"});
         if (user._id.toString() === req.currentUser._id.toString())
             return res.status(401).send({message: "You cannot delete yourself"});
-
 
 
         user.isRemoved = true;

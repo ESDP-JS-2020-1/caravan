@@ -47,7 +47,7 @@ const usersReducer = (state = initialState, action) => {
         case GET_USERS_FAILURE:
             return {...state, error: action.error};
         case ADD_USER_FAILURE:
-            return {...state, error: action.error.response.data};
+            return {...state, error: action.error};
 
         case DELETE_USER_FAILURE:
             return {...state, error: action.error.response.data.message};
