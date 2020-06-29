@@ -315,6 +315,11 @@ export const wordList = {
         },
         mainPageMap: {
             title: 'Карта торговых точек'
+        },
+        marketInfo: {
+            title: 'Название продукта',
+            qty: 'Количество',
+            date: 'Дата'
         }
     },
 
@@ -635,6 +640,11 @@ export const wordList = {
         },
         mainPageMap: {
             title: 'Соода түйүндөрүнүн картасы'
+        },
+        marketInfo: {
+            title: 'Продукттун аты',
+            qty: 'Саны',
+            date: 'Датасы'
         }
     }
 };

@@ -14,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 
 import moment from "moment";
 import Typography from "@material-ui/core/Typography";
+import {wordList} from "../../wordList";
 
 
 const useStyles = makeStyles({
@@ -41,6 +42,7 @@ const MarketInfo = (props) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const info = useSelector(state => state.requests.requestInfo);
+    const language = useSelector(state => state.language.name);
 
     useEffect(() => {
         dispatch(getMarketInfo(props.match.params.id, props.match.params.page, props.match.params.limit))
@@ -57,9 +59,9 @@ const MarketInfo = (props) => {
                     <Table  aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Название продукта</TableCell>
-                                <TableCell align="right">Количество</TableCell>
-                                <TableCell align="right">Дата</TableCell>
+                                <TableCell>{wordList[language].marketInfo.title}</TableCell>
+                                <TableCell align="right">{wordList[language].marketInfo.qty}</TableCell>
+                                <TableCell align="right">{wordList[language].marketInfo.date}</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
