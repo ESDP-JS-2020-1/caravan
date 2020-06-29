@@ -100,9 +100,8 @@ const EditProduct = (props) => {
                         {editProduct && <Grid container direction='column' spacing={1}>
                             <FormElement
                                 propertyName={'name'}
-                                title={wordList[language].editProduct.inputTitle}
+                                title={wordList[language].editProduct.inputTitle + ': ' +editProduct.name}
                                 onChange={changeHandler}
-                                value={editProduct.name}
                             />
 
                             <span style={{padding: '10px 0 20px', fontSize: '20px'}} >
@@ -114,26 +113,22 @@ const EditProduct = (props) => {
                                 propertyName={'addProduct'}
                                 title={wordList[language].editProduct.inputQty}
                                 onChange={changeHandler}
-                                value={editProduct.addProduct}
                             />
                             <FormElement
                                 propertyName={'price'}
-                                title={wordList[language].editProduct.inputPrice}
+                                title={wordList[language].editProduct.inputPrice + ': ' + editProduct.price + ' сом'}
                                 onChange={changeHandler}
-                                value={editProduct.price}
                             />
                             <FormElement
                                 propertyName={'isRefrigeratorRequired'}
                                 title={wordList[language].editProduct.inputRefrigerator}
                                 onChange={checkboxChangeHandler}
-                                value={editProduct.isRefrigeratorRequired}
                                 type="checkbox"
                             />
                             <FormElement
                                 propertyName='file'
                                 title={wordList[language].editProduct.inputImg}
                                 onChange={fileChangeHandler}
-                                value={editProduct.avatar}
                                 type="file"
                             />
                             {error && <Grid item>
