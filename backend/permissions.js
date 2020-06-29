@@ -22,5 +22,7 @@ module.exports = {
     VIEW_HISTORY: 'viewHistory',
     GET_STATISTIC: 'getStatistic',
 
-    GET_TRASH: 'getTrash'
+    GET_TRASH: 'getTrash',
+
+    DOWNLOAD_APP: 'downloadApp'
 };
