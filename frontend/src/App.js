@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: 'auto'
     },
     footer: {
-        height: '150px',
+        maxHeight: '150px',
         padding: theme.spacing(3, 2),
         marginTop: 'auto',
         backgroundColor: '#0d47a1'
