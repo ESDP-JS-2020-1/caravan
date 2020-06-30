@@ -19,7 +19,8 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        height: window.innerHeight - 100
+        height: '800px',
+        width: '100%'
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         flexGrow: 1,
+        height: '100%',
         padding: theme.spacing(3),
     },
     UsersTitle: {
@@ -81,20 +83,16 @@ const WsTest = () => {
 
     useEffect(() => {
         const webSocket = new WebSocket(`ws://localhost:8000/locations?userRole=${user.role}`);
-
         webSocket.onopen = () => {
             webSocket.send(JSON.stringify({type: 'CONNECT_USER', user}))
         };
-
         webSocket.onmessage = msg => {
             const action = JSON.parse(msg.data);
             dispatch(action)
         };
-
         return () => {
             webSocket.close()
         }
-
     }, [dispatch, user]);
 
     return (
@@ -110,6 +108,8 @@ const WsTest = () => {
                 <div className={classes.drawerContainer}>
                     <List>
                         {coordinate && coordinate.map(item => {
+                            const hasRequest = Object.keys(item.user.currentRequest).length > 0;
+
                             return (
                                 <ListItem
                                     button
@@ -131,11 +131,11 @@ const WsTest = () => {
                                             </ListItemAvatar>
                                             <ListItemText primary={item.user.displayName} />
                                         </Grid>
-                                        <Grid item xs>
+                                        {hasRequest && <Grid item xs>
                                             <Button className={classes.trackUser} onClick={() => trackUser(item)}>
                                                 Отследить
                                             </Button>
-                                        </Grid>
+                                        </Grid>}
                                     </Grid>
                                 </ListItem>
                             )
