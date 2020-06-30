@@ -101,14 +101,15 @@ const Statistics = () => {
                 <Grid item container direction='column' spacing={1} xs>
                     <Grid item xs>
                         <Box ml={2}>
-                            <Autocomplete
-                                options={[
-                                    {name: (wordList[language].statistic.optionName1), type: 'product'},
-                                    {name: (wordList[language].statistic.optionName2), type: 'user'}
-                                ]}
+                              <Autocomplete
+                                  options={[
+                                      {name: (wordList[language].statistic.optionName1), type: 'product'},
+                                      {name: (wordList[language].statistic.optionName2), type: 'user'}
+                                  ]}
+                                getOptionSelected={(options,value)=>options.name === value.name}
                                 getOptionLabel={(option) => option.name}
                                 value={type}
-                                id="debug"
+                                id="debug1"
                                 debug
                                 onChange={(e, value) => typeChangeHandler(e, value)}
                                 renderInput={(params) =>
