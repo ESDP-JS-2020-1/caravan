@@ -41,7 +41,7 @@ router.ws('/', (ws) => {
             sendToCurrentUser(msg, id, 'ADD_COORDINATES')
 
             Object.keys(connections).forEach(conn => {
-                if (msg.courier.currentRequest && msg.courier.currentRequest.user._id.toString() === connections[conn].data.user._id.toString() && connections[conn].data.user.role === 'market') {
+                if (Object.keys(msg.courier.currentRequest).length > 0 && msg.courier.currentRequest.user._id.toString() === connections[conn].data.user._id.toString() && connections[conn].data.user.role === 'market') {
                     sendToCurrentUser([{location: msg.location, user: msg.courier}], conn, 'ADD_COORDINATES')
                 } else if (connections[conn].data.user.role !== 'courier') {
                     const data = Object.keys(couriers).map(courier => couriers[courier].data)
