@@ -99,7 +99,7 @@ function App() {
 
                         <PrivateRoute path="/downloadApp" roles={['downloadApp']} component={DownloadApp}/>
 
-                        <Route path="/ws" exact component={WsTest}/>
+                        <PrivateRoute path="/courierLocation" exact component={WsTest} roles={['viewCourierLocation']}/>
         
                     </Switch>
                 </div>
