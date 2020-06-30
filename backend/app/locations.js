@@ -2,6 +2,8 @@ const express = require('express');
 const expressWs = require('express-ws');
 const {nanoid} = require('nanoid');
 
+const permissions = require('../permissions')
+
 const router = express.Router();
 
 expressWs(router);
@@ -18,6 +20,10 @@ const sendToAllUsers = connections => {
     });
 }
 
+const sendToCurrentUser = (data, id, type) => {
+    connections[id].send(JSON.stringify({type: type, data}));
+}
+
 const connections = {};
 const couriers = {}
 
@@ -29,20 +35,20 @@ router.ws('/', (ws) => {
 
         if (msg.type === 'COURIER_LOCATION') {
 
-
             couriers[id] = ws;
             couriers[id].data = {location: msg.location, user: msg.courier};
 
-            const data = msg;
-            connections[id].send(JSON.stringify({type: 'ADD_COORDINATES', data}));
+            sendToCurrentUser(msg, id, 'ADD_COORDINATES')
 
             Object.keys(connections).forEach(conn => {
-                if (connections[conn].data.user.role !== 'courier') {
+                if (msg.courier.currentRequest && msg.courier.currentRequest.user._id.toString() === connections[conn].data.user._id.toString() && connections[conn].data.user.role === 'market') {
+                    sendToCurrentUser([{location: msg.location, user: msg.courier}], conn, 'ADD_COORDINATES')
+                } else if (connections[conn].data.user.role !== 'courier') {
                     const data = Object.keys(couriers).map(courier => couriers[courier].data)
                     connections[conn].send(JSON.stringify({type: 'ADD_COORDINATES', data}));
                 }
-            });
 
+            });
         }
 
         if (msg.type === 'CONNECT_USER') {
@@ -50,7 +56,13 @@ router.ws('/', (ws) => {
             connections[id].data = {}
             connections[id].data.user = msg.user;
 
-            sendToAllUsers(connections)
+            const user = connections[id].data.user;
+
+            if (!user.permissions.includes(permissions.VIEW_COURIER_LOCATION)) {
+                delete connections[id];
+            } else {
+                sendToAllUsers(connections)
+            }
         }
     });
 
