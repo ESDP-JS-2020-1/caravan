@@ -24,5 +24,7 @@ module.exports = {
 
     GET_TRASH: 'getTrash',
 
-    DOWNLOAD_APP: 'downloadApp'
+    DOWNLOAD_APP: 'downloadApp',
+
+    VIEW_COURIER_LOCATION: 'viewCourierLocation'
 };
