@@ -39,6 +39,15 @@ export const getUser = id => async dispatch => {
     }
 };
 
+export const getMarketsLocations = () => async dispatch => {
+    try {
+        const resp = await axiosApi.get('/users/locations');
+        dispatch(getUsersSuccess(resp.data))
+    } catch (e) {
+        dispatch(getUsersFailure(e))
+    }
+}
+
 export const getUsers = role => async dispatch => {
     try {
         if (role) {
