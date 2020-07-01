@@ -3,6 +3,7 @@ module.exports = {
     ADD_USER: 'addUser',
     DELETE_USER: 'deleteUser',
     EDIT_USER: 'editUser',
+    GET_MARKETS_LOCATIONS : 'getMarketsLocations',
 
     ADD_PRODUCT: 'addProduct',
     DELETE_PRODUCT: 'deleteProduct',
