@@ -15,9 +15,7 @@ import Button from "@material-ui/core/Button";
 import AddIcon from '@material-ui/icons/Add';
 import TableCell from "@material-ui/core/TableCell";
 import {fade, makeStyles} from "@material-ui/core/styles";
-
-import {getProductsList} from "../../store/actions/productsActions";
-import {getUsers} from '../../store/actions/usersActions'
+import {getMarketsLocations} from '../../store/actions/usersActions'
 import ProductListItem from "./ProductListItem/ProductListItem";
 import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
@@ -26,6 +24,7 @@ import ProductCard from "../../components/ProductCard/ProductCard";
 import Box from "@material-ui/core/Box";
 import {Hidden} from "@material-ui/core";
 import MainPageMap from "./MainPageMap/MainPageMap";
+import {getProductsList} from "../../store/actions/productsActions";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -87,9 +86,11 @@ const ProductList = () => {
     const user = useSelector(state => state.users.user);
     const language = useSelector(state => state.language.name);
 
+    console.log(products);
+
     useEffect(() => {
         dispatch(getProductsList());
-        dispatch(getUsers())
+        dispatch(getMarketsLocations())
     }, [dispatch]);
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -226,7 +227,7 @@ const ProductList = () => {
                     </Grid>
                 </Hidden>
             </Grid>
-            <MainPageMap users={users}/>
+            {checkPermission('getMarketsLocations') && <MainPageMap users={users}/>}
         </Grid>
     );
 };
