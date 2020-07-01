@@ -71,6 +71,15 @@ router.post('/', isAuth, permit(permissions.GET_STATISTIC), upload.single('avata
     }
 });
 
+router.get('/locations', isAuth, permit(permissions.GET_MARKETS_LOCATIONS), async (req, res) => {
+    try {
+        const users = await User.find({isRemoved: false, role: 'market'}).populate('group').select({token: 0});
+        return res.send(users)
+    } catch (e) {
+        res.status(500).send(e)
+    }
+});
+
 router.get('/', isAuth, permit(permissions.GET_USER), async (req, res) => {
     try {
         if (req.query.role) {
