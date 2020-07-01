@@ -36,6 +36,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {useSelector} from "react-redux";
 import Spinner from "./components/UI/Spinner/Spinner";
 import DownloadApp from "./containers/DownloadApp/DownloadApp";
+import PageNotFound from "./containers/PageNotFound/PageNotFound";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -100,6 +101,8 @@ function App() {
                         <PrivateRoute path="/downloadApp" roles={['downloadApp']} component={DownloadApp}/>
 
                         <PrivateRoute path="/courierLocation" exact component={WsTest} roles={['viewCourierLocation']}/>
+
+                        <Route component={PageNotFound}/>
         
                     </Switch>
                 </div>
