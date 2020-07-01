@@ -97,6 +97,7 @@ const AddNewRequestItem = (
                                 <FormElement
                                     required
                                     id={'amount'}
+                                    type="number"
                                     propertyName='amount'
                                     title={wordList[language].addNewRequestItem.btnQty}
                                     value={request[index].amount}

@@ -86,7 +86,7 @@ const run = async () => {
         list: [{user: user3}],
         permissions:
             [
-                ' getRequest', 'addRequest',
+                'getRequest', 'addRequest',
             ]
     });
 

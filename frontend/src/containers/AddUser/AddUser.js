@@ -14,7 +14,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
 import FormElement from "../../components/UI/Form/FormElement";
-import {addUser} from "../../store/actions/usersActions";
+import {addUser, addUserInit} from "../../store/actions/usersActions";
 import MapDisplay from "../Map/DeviceMap";
 import {wordList} from "../../wordList";
 import Autocomplete from "@material-ui/lab/Autocomplete";
@@ -87,7 +87,8 @@ const AddUser = () => {
     const language = useSelector(state => state.language.name);
 
     useEffect(() => {
-        dispatch(getGroups())
+        dispatch(getGroups());
+        dispatch(addUserInit());
     }, [dispatch]);
 
     const groupArray = [];

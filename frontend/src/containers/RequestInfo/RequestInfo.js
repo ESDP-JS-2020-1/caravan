@@ -222,7 +222,7 @@ const RequestInfo = props => {
                     }
                 </>}
 
-                {!request.isNominated &&
+                {!request.isNominated && checkPermission('closeRequest') &&
                 <Button
                     className={classes.margin}
                     variant='contained'

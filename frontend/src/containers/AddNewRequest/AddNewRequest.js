@@ -127,8 +127,8 @@ const AddNewRequest = () => {
 
     const totalPriceArray = [0];
     request.products.forEach(product => {
-        if (product.productInfo.price) {
-            const totalPrice = product.productInfo.price * product.amount;
+        if (product.productInfo.price ) {
+            const totalPrice = product.productInfo.price * Math.abs(product.amount) ;
             totalPriceArray.push(totalPrice)
         }
     });

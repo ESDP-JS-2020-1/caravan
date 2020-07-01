@@ -1,5 +1,5 @@
 import {
-    ADD_USER_FAILURE,
+    ADD_USER_FAILURE, ADD_USER_INIT,
     CREATE_COORDINATE_SUCCESS,
     DELETE_USER_FAILURE,
     GET_USER_FAILURE,
@@ -53,11 +53,12 @@ const usersReducer = (state = initialState, action) => {
             return {...state, error: action.error.response.data.message};
         case CREATE_COORDINATE_SUCCESS:
             return {...state, coordinates: action.data};
-
+        case ADD_USER_INIT:
+            return {...state,error: null,coordinates: null};
         case USERS_ONLINE:
-            return {...state, usersOnline: action.data}
+            return {...state, usersOnline: action.data};
         case 'ADD_COORDINATES':
-            return {...state, coordinate: action.data}
+            return {...state, coordinate: action.data};
         default:
             return state;
     }

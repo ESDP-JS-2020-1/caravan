@@ -114,7 +114,6 @@ router.get('/:id', isAuth, permit(permissions.GET_USER), async (req, res) => {
 
 router.put('/edit/:id', isAuth, permit(permissions.EDIT_USER), upload.single('avatar'), async (req, res) => {
     const user = req.body;
-    console.log(req.body)
 
     try {
         const editableUser = await User.findOne({_id: req.params.id});
@@ -138,7 +137,6 @@ router.put('/edit/:id', isAuth, permit(permissions.EDIT_USER), upload.single('av
         if (req.file) {
             fs.unlink('./public/uploads/userAvatar/' + editableUser.avatar, function (err) {
                 if (err) console.log(err);
-                console.log('file deleted successfully');
 
             });
 
