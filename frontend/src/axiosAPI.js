@@ -2,6 +2,7 @@ import axios from 'axios';
 import {apiURL} from "./config";
 import {store} from "./store/configureStore";
 import {loadingStart, loadingStop} from "./store/actions/loadingActions";
+import {logoutUser} from "./store/actions/usersActions";
 
 const {dispatch} = store;
 
@@ -10,6 +11,9 @@ const axiosApi = axios.create({
 });
 
 const errorHandler = error => {
+    if (error.response.data.error === "Access denied") {
+        dispatch(logoutUser())
+    }
     dispatch(loadingStop());
     return Promise.reject(error)
 }
