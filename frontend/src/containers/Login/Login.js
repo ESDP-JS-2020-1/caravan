@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useDispatch, useSelector} from "react-redux";
 
@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
 
 import FormElement from "../../components/UI/Form/FormElement";
-import {loginUser} from "../../store/actions/usersActions";
+import {loginUser, LoginUserInit} from "../../store/actions/usersActions";
 import {wordList} from "../../wordList";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
@@ -75,9 +75,12 @@ const Login = () => {
 
     const submitFormHandler = event => {
         event.preventDefault();
-
         dispatch(loginUser(state))
     };
+
+    useEffect(() => {
+        dispatch(LoginUserInit());
+    }, [dispatch]);
 
     return (
         <Container>

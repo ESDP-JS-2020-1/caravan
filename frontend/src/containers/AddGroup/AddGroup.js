@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 import {Container} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 
-import {addNewGroup, getPermissions} from "../../store/actions/groupActions";
+import {addGroupInit, addNewGroup, getPermissions} from "../../store/actions/groupActions";
 import FormElement from "../../components/UI/Form/FormElement";
 import {wordList} from "../../wordList";
 import Alert from "@material-ui/lab/Alert";
@@ -67,6 +67,7 @@ const AddGroup = () => {
     const changeCheckboxesInfo = e => setCheckboxes({...checkboxes, [e.target.name]: !checkboxes[e.target.name]});
 
     useEffect(() => {
+        dispatch(addGroupInit());
         if (checkboxes === undefined && permissions === undefined) dispatch(getPermissions());
 
         if (permissions && checkboxes === undefined) {

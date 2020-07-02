@@ -85,6 +85,7 @@ export const LOADING_START = 'LOADING_START';
 export const LOADING_STOP = 'LOADING_STOP';
 
 export const ADD_USER_INIT = 'ADD_USER_INIT';
+export const ADD_GROUP_INIT = 'ADD_GROUP_INIT';
 // WS actions
 
-export const USERS_ONLINE = 'USERS_ONLINE'
+export const USERS_ONLINE = 'USERS_ONLINE';

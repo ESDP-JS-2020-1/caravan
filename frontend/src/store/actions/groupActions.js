@@ -1,7 +1,7 @@
 import axiosApi from "../../axiosAPI";
 import {push} from 'connected-react-router';
 import {
-    ADD_GROUP_FAILURE,
+    ADD_GROUP_FAILURE, ADD_GROUP_INIT,
     ADD_GROUP_SUCCESS,
     GET_GROUP_ERROR,
     GET_GROUP_SUCCESS,
@@ -22,6 +22,7 @@ export const getGroupsError = error => ({type: GET_GROUPS_ERROR, error});
 
 export const getGroupSuccess = group => ({type: GET_GROUP_SUCCESS, group});
 export const getGroupError = error => ({type: GET_GROUP_ERROR, error});
+export const addGroupInit = () => ({type: ADD_GROUP_INIT});
 
 export const getPermissions = () => async dispatch => {
     const permissions = await axiosApi.get('/groups/permissions');

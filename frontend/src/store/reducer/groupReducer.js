@@ -1,5 +1,5 @@
 import {
-    ADD_GROUP_FAILURE,
+    ADD_GROUP_FAILURE, ADD_GROUP_INIT,
     GET_GROUP_ERROR, GET_GROUP_SUCCESS,
     GET_GROUPS_ERROR, GET_GROUPS_SUCCESS, GET_PERMISSIONS_SUCCESS,
 } from "../actions/actionsTypes";
@@ -19,6 +19,8 @@ const groupReducer = (state = initialState, action) => {
             return {...state, groups: action.groups};
         case GET_GROUPS_ERROR:
             return {...state, error: action.error};
+        case ADD_GROUP_INIT:
+            return {...state, error: null};
 
         case GET_PERMISSIONS_SUCCESS:
             return {...state, permissions: action.permission};
