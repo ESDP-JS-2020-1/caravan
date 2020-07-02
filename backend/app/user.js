@@ -7,6 +7,8 @@ const isAuth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 const fs = require('fs');
 const permissions = require('../permissions');
+const NominatedRequest = require('../models/NominatedRequest')
+const Request = require('../models/Request')
 
 const router = express.Router();
 
@@ -231,6 +233,13 @@ router.delete('/:id', isAuth, permit(permissions.DELETE_USER), async (req, res) 
         if (user._id.toString() === req.currentUser._id.toString())
             return res.status(401).send({message: "You cannot delete yourself"});
 
+        const nominatedOrders = await NominatedRequest.find({courier: user._id})
+        for (let i = 0; i < nominatedOrders.length; i++) {
+            const request = await Request.findOne({_id: nominatedOrders[i].request._id});
+            request.status = 'pending';
+            request.save();
+            nominatedOrders[i].delete()
+        }
 
         user.isRemoved = true;
         user.date = Date.now();

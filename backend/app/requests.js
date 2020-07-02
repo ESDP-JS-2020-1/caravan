@@ -3,7 +3,6 @@ const Request = require('../models/Request');
 const User = require('../models/User');
 const Product = require('../models/Product');
 const NominatedRequest = require('../models/NominatedRequest');
-const mongoose = require('mongoose');
 const auth = require('../middleware/isAuth');
 const permit = require('../middleware/permit');
 
@@ -45,9 +44,12 @@ router.get('/:id', auth, permit(permissions.GET_REQUEST), async (req, res) => {
 
         const sumPrice = request.products.reduce((sum, num) => sum + (parseInt(num.product.price) * parseInt(num.amount)), 0);
 
-        const courierList = await User.find({role: 'courier'});
+        const courierList = await User.find({role: 'courier', isRemoved: false});
 
-        const isNominated = await NominatedRequest.findOne({request: req.params.id}).populate('courier');
+        const isNominated = await NominatedRequest.findOne({request: req.params.id}).populate({
+            path: 'courier',
+            match: { isRemoved: false}
+        });
 
         const data = {request, courierList, isNominated: !!isNominated, sumPrice};
 
