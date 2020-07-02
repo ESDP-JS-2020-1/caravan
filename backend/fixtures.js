@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const config = require("./config");
 
+const permissions = require('./permissions');
+
 const User = require('./models/User');
 const Product = require('./models/Product');
 const Group = require('./models/Group');
@@ -59,34 +61,30 @@ const run = async () => {
     await Group.create({
         name: 'Admin group',
         list: [{user: user1}],
-        permissions:
-            [
-                'addUser', 'deleteUser', 'editUser',
-                'addProduct', 'getStatistic', 'deleteProduct', 'editProduct',
-                'getGroup', 'editGroup', 'addGroup', 'deleteGroup',
-                'addRequest', 'deleteRequest', 'editRequest',
-                'viewHistory', 'getUser', 'getRequest', 'closeRequest', 'getTrash'
-            ]
+        permissions
     }, {
         name: 'Courier group',
         list: [{user: user1}, {user: user4}],
         permissions:
             [
-                'getRequest'
+                permissions.VIEW_COURIER_LOCATION
             ]
     }, {
         name: 'Operator group',
         list: [{user: user2}],
         permissions:
             [
-                'getRequest', 'getUser', 'getGroup', 'viewHistory', 'addRequest', 'deleteRequest'
+                permissions.GET_REQUEST, permissions.GET_USER,
+                permissions.GET_GROUP, permissions.VIEW_HISTORY,
+                permissions.ADD_REQUEST, permissions.DELETE_REQUEST
             ]
     }, {
         name: 'Market group',
         list: [{user: user3}],
         permissions:
             [
-                'getRequest', 'addRequest',
+                permissions.GET_REQUEST,
+                permissions.ADD_REQUEST,
             ]
     });
 
