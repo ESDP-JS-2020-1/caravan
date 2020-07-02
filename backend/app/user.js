@@ -194,6 +194,10 @@ router.post('/sessions', async (req, res) => {
             user.addToken();
             user.save();
 
+            if (user.isRemoved) {
+                return res.status(401).send({message: 'User width this username in removed'})
+            }
+
             res.send(user)
         } catch (e) {
             return res.status(500).send(e)
