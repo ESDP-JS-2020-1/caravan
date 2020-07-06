@@ -13,7 +13,7 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import LeafletMap from "../../components/LeafletMap/LeafletMap";
-import config from "../../config";
+import {apiURL} from "../../config";
 
 const drawerWidth = 240;
 
@@ -83,7 +83,7 @@ const WsTest = () => {
     }
 
     useEffect(() => {
-        const webSocket = new WebSocket(config.wsUrl);
+        const webSocket = new WebSocket(apiURL.wsUrl);
         webSocket.onopen = () => {
             webSocket.send(JSON.stringify({type: 'CONNECT_USER', user}))
         };
