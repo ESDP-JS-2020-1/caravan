@@ -9,7 +9,7 @@ if (env === 'test') {
 
 if (env === 'production') {
     url = 'https://caravan.sytes.net/api'
-    wsUrl = 'ws://caravan.sytes.net/ws/locations'
+    wsUrl = 'wss://caravan.sytes.net/api/locations'
 }
 
 export const apiURL = {
