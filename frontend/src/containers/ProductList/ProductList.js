@@ -137,7 +137,7 @@ const ProductList = () => {
             <Grid item container justify='space-between' alignItems='center'>
                 <Grid item>
                     <Typography variant='h2' paragraph>
-                        Главная страница
+                        {wordList[language].productList.mainPageTitle}
                     </Typography>
                 </Grid>
                 {checkPermission('downloadApp') && <Grid item>
@@ -147,7 +147,7 @@ const ProductList = () => {
                         component={NavLink}
                         to='/downloadApp'
                     >
-                        Скачать приложение для отслеживания геолокации
+                        {wordList[language].productList.downloadAppBtn}
                     </Button>
                 </Grid>}
             </Grid>
