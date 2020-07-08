@@ -85,9 +85,7 @@ const ProductList = () => {
     const users = useSelector(state => state.users.users);
     const user = useSelector(state => state.users.user);
     const language = useSelector(state => state.language.name);
-
-    console.log(products);
-
+    
     useEffect(() => {
         dispatch(getProductsList());
         dispatch(getMarketsLocations())
