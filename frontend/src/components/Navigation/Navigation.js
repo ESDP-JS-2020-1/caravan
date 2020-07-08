@@ -22,6 +22,7 @@ import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Hidden from "@material-ui/core/Hidden";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import DeleteIcon from '@material-ui/icons/Delete';
+import LineWeightIcon from '@material-ui/icons/LineWeight';
 
 import ToolBar from "../UI/toolBar/toolBar";
 import {wordList} from "../../wordList";
@@ -134,6 +135,16 @@ const Navigation = () => {
                         <ListItem button>
                             <ListItemIcon>{<DeleteIcon/>}</ListItemIcon>
                             <ListItemText>{'Корзина'}</ListItemText>
+                        </ListItem>
+                    </List>
+                </NavLink>
+            )}
+            {checkPermission('getStatistic') && (
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/statistics">
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon>{<LineWeightIcon/>}</ListItemIcon>
+                            <ListItemText>{'Статистика'}</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
