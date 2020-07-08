@@ -332,6 +332,10 @@ export const wordList = {
             title2: 'не найдена',
             description: 'Перейти на',
             description2: 'главную страницу'
+        },
+        wsTest: {
+            couriers: 'Курьеры в пути',
+            toSeeCouriersBtn: 'Отследить'
         }
     },
 
@@ -669,6 +673,10 @@ export const wordList = {
             title2: 'табылган жок',
             description: 'Өткүлө',
             description2: 'башкы бетине'
+        },
+        wsTest: {
+            couriers: 'Кайсы экспедитор жолдо',
+            toSeeCouriersBtn: 'Жолун кароо'
         }
     }
 };
