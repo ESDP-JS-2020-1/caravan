@@ -147,6 +147,8 @@ const WsTest = () => {
                 </div>
             </div>
             <main className={classes.content}>
+                { currentOrder === null && !coordinate && <LeafletMap/> }
+
                 { currentOrder === null && coordinate && coordinate.length > 0 && <LeafletMap
                     type={'locations'}
                     locations={coordinate}

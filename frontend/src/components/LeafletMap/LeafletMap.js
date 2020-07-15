@@ -38,6 +38,7 @@ const LeafletMap = ({locations ,myLocation, to, type}) => {
 
             let newRouting = rout ? rout : undefined;
 
+
             if(rout !== undefined) {
                 const coords = locations.find(e => e.user._id === myLocation)
 
@@ -54,6 +55,8 @@ const LeafletMap = ({locations ,myLocation, to, type}) => {
                         to
                     ]
                 }).addTo(mapValue.current);
+
+                newRouting._container.style.display = "None";
 
                 mapValue.current.setView([coords.location.lat, coords.location.lng]);
 
