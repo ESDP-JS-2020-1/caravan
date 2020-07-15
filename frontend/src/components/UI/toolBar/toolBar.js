@@ -59,6 +59,18 @@ const ToolBar = () => {
             <Hidden smDown>
 
                 <>
+                    {checkPermission('viewCourierLocation') && <Button
+                        color='primary'
+                        component={NavLink}
+                        to='/courierLocation'
+                        exact
+                        activeClassName='Mui-disabled'
+                        className={classes.button}
+                    >
+                            <span className={classes.line}>
+                                Геолокация
+                            </span>
+                    </Button>}
                     {checkPermission('viewHistory') && <Button
                         color='primary'
                         component={NavLink}
