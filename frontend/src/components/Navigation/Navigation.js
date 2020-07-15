@@ -23,6 +23,7 @@ import Hidden from "@material-ui/core/Hidden";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LineWeightIcon from '@material-ui/icons/LineWeight';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 import ToolBar from "../UI/toolBar/toolBar";
 import {wordList} from "../../wordList";
@@ -155,6 +156,16 @@ const Navigation = () => {
                         <ListItem button>
                             <ListItemIcon>{<HistoryIcon/>}</ListItemIcon>
                             <ListItemText>{wordList[language].navigation.historyList}</ListItemText>
+                        </ListItem>
+                    </List>
+                </NavLink>
+            )}
+            {checkPermission('viewCourierLocation') && (
+                <NavLink style={{textDecoration: 'none', color: 'black'}} to="/courierLocation">
+                    <List>
+                        <ListItem button>
+                            <ListItemIcon>{<LocationOnIcon/>}</ListItemIcon>
+                            <ListItemText>{'Геолокация'}</ListItemText>
                         </ListItem>
                     </List>
                 </NavLink>
