@@ -32,7 +32,6 @@ export default function CheckboxListSecondary(props) {
         }
     };
     const appointCourier = (value) => {
-        console.log(props.request.request._id,value._id);
         dispatch(nominatedRequest(value._id, props.request.request._id));
         props.onClose()
     };

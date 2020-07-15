@@ -10,8 +10,6 @@ import Grid from "@material-ui/core/Grid";
 import {NavLink} from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import {checkPermission} from "../../CheckPermission";
-import EqualizerIcon from "@material-ui/icons/Equalizer";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,13 +73,6 @@ const UserCardItem = props => {
                     >
                         <VisibilityIcon/>
                     </IconButton>
-                    {checkPermission('getStatistic') &&  <IconButton
-                        variant="contained"
-                        component={NavLink}
-                        to={`/users/stat/${props.id}/7`}
-                    >
-                        <EqualizerIcon/>
-                    </IconButton>}
                 </CardActions>
             </Card>
         </Grid>

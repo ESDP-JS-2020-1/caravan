@@ -13,6 +13,7 @@ import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import LeafletMap from "../../components/LeafletMap/LeafletMap";
+import {wordList} from "../../wordList";
 import {apiURL} from "../../config";
 
 const drawerWidth = 240;
@@ -56,31 +57,32 @@ const useStyles = makeStyles((theme) => ({
 const WsTest = () => {
     const classes = useStyles();
 
-    const [center, setCenter] = useState([42.8746, 74.5698])
-    const [zoom, setZoom] = useState(12)
-    const [tracking, setTracking] = useState(false)
-    const [currentOrder, setCurrentOrder] = useState(null)
+    const [center, setCenter] = useState([42.8746, 74.5698]);
+    const [zoom, setZoom] = useState(12);
+    const [tracking, setTracking] = useState(false);
+    const [currentOrder, setCurrentOrder] = useState(null);
 
     const user = useSelector(state => state.users.user);
     const usersOnline = useSelector(state => state.users.usersOnline);
     const coordinate = useSelector(state => state.users.coordinate);
+    const language = useSelector(state => state.language.name);
     const dispatch = useDispatch();
 
     const trackUser = data => {
         const orderData = data.user.currentRequest;
         let currentShop = orderData.user.market;
-            currentShop = [currentShop.coordinates.lat, currentShop.coordinates.lng]
+            currentShop = [currentShop.coordinates.lat, currentShop.coordinates.lng];
         setCenter([data.location.lat, data.location.lng]);
         setZoom(10);
         setTracking(true);
         if (Object.keys(orderData).length > 0) {
-            const currentUser = data.user._id
+            const currentUser = data.user._id;
             setCurrentOrder({
                 user: currentUser,
                 shop: currentShop
             })
         }
-    }
+    };
 
     useEffect(() => {
         const webSocket = new WebSocket(apiURL.wsUrl);
@@ -103,7 +105,7 @@ const WsTest = () => {
                 className={classes.drawer}
             >
                 <Typography variant='h5' className={classes.UsersTitle}>
-                    Курьеры в пути
+                    {wordList[language].wsTest.couriers}
                 </Typography>
                 <Divider/>
                 <div className={classes.drawerContainer}>
@@ -134,7 +136,7 @@ const WsTest = () => {
                                         </Grid>
                                         {hasRequest && <Grid item xs>
                                             <Button className={classes.trackUser} onClick={() => trackUser(item)}>
-                                                Отследить
+                                                {wordList[language].wsTest.toSeeCouriersBtn}
                                             </Button>
                                         </Grid>}
                                     </Grid>
@@ -150,7 +152,6 @@ const WsTest = () => {
                     locations={coordinate}
                 /> }
 
-                {/*{currentOrder && coordinate && coordinate.find(e => e.user._id === currentOrder.user.user._id)}*/}
                 { currentOrder !== null && coordinate && coordinate.length > 0 &&  <>
                     <LeafletMap
                         type={'routing'}

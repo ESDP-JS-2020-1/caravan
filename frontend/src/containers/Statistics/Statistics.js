@@ -52,13 +52,17 @@ const Statistics = () => {
     const inputChangeHandler = e => setRange({...range, [e.target.name]: e.target.value});
     const valueChangeHandler = (e, value) => setValue(value);
     const typeChangeHandler = (e, value) => {
-        setType(value);
+        if (value) {
+            setType(value);
+        }
         setValue(null)
     };
 
     const addOptions = () => {
-        if (type.type === 'user') return users;
-        if (type.type === 'product') return products
+        if (!!type) {
+            if (type.type === 'user') return users;
+            if (type.type === 'product') return products
+        }
     };
 
     const addLabel = (label) => {

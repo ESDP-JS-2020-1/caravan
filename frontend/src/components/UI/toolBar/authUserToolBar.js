@@ -11,9 +11,6 @@ import Avatar from "@material-ui/core/Avatar";
 
 import {logoutUserGet} from "../../../store/actions/usersActions";
 import {wordList} from "../../../wordList";
-import {checkPermission} from "../../../CheckPermission";
-import {NavLink} from "react-router-dom";
-
 
 
 const AuthUserToolBar = () => {
@@ -67,14 +64,6 @@ const AuthUserToolBar = () => {
 				onClose={handleClose}
 			>
 				<ListItem disabled>{wordList[language].authUserToolBar.greeting}, {user.displayName}!</ListItem>
-				<Divider/>
-				{checkPermission('getStatistic') &&<MenuItem
-					component={NavLink}
-					to={`/users/stat/${user._id}/7`}
-					onClick={handleClose}
-				>
-					{wordList[language].authUserToolBar.statisticBtn}
-				</MenuItem>}
 				<Divider/>
 				<MenuItem onClick={logout}>{wordList[language].authUserToolBar.logoutBtn}</MenuItem>
 			</Menu>

@@ -7,22 +7,25 @@ import AppleIcon from '@material-ui/icons/Apple';
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
+import {wordList} from "../../wordList";
+import {useSelector} from "react-redux";
 
 const useStyle = makeStyles({
     button: {
         width: '300px',
         height: 'auto'
     }
-})
+});
 
 const DownloadApp = () => {
-    const classes = useStyle()
+    const classes = useStyle();
+    const language = useSelector(state => state.language.name);
 
     return (
         <Grid container justify='center' spacing={2}>
             <Grid item>
                 <Typography variant='h3'>
-                    Выберете плвтфурму, на которую хотите скачать приложение
+                    {wordList[language].downloadApp.title}
                 </Typography>
             </Grid>
             <Grid item container justify='center' spacing={2}>
@@ -53,9 +56,7 @@ const DownloadApp = () => {
                 <Container>
                     <Box fontWeight="fontWeightMedium" mt={5}>
                         <Typography>
-                            Это приложение нужно для того, чтобы вы могли отправлять свои геоданные клиентам,
-                            отслеживать своё местоположнеие, отслеживать путь до магазина и выберать выполняемую заявку.
-                            Для запуска приложения выберете вашу платформу, скачайте и предоставте все нужные разрешения
+                            {wordList[language].downloadApp.description}
                         </Typography>
                     </Box>
                 </Container>

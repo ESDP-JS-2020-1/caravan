@@ -12,8 +12,6 @@ import {makeStyles} from "@material-ui/core/styles";
 
 import {apiURL} from "../../../config";
 import {wordList} from "../../../wordList";
-import EqualizerIcon from '@material-ui/icons/Equalizer';
-import Button from "@material-ui/core/Button";
 import {checkPermission} from "../../../CheckPermission";
 
 
@@ -68,15 +66,6 @@ const UserListItem = props => {
                 >
                     <EditIcon/>
                 </IconButton>}
-                {checkPermission('getStatistic') && <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<EqualizerIcon/>}
-                    component={NavLink}
-                    to={`/product/stat/${props.id}/7`}
-                >
-                    {wordList[language].productList.statisticBtn}
-                </Button>}
             </TableCell>
         </TableRow>
     );

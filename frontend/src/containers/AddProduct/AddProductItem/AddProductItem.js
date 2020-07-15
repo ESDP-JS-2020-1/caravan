@@ -43,8 +43,7 @@ const AddProductItem = (
                         id={`panel${index}bh-header`}
                     >
                         <Typography className={classes.heading}>
-                            {wordList[language].addProductItem.inputTitle}: {p.name}
-                            {wordList[language].addProductItem.inputQty}: {p.amount}
+                            {wordList[language].addProductItem.inputTitle}: {p.name} {wordList[language].addProductItem.inputQty}: {p.amount}
                         </Typography>
                     </ExpansionPanelSummary>
                     <ExpansionPanelDetails>

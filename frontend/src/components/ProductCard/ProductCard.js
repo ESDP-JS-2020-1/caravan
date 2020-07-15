@@ -10,7 +10,6 @@ import {NavLink} from "react-router-dom";
 import {wordList} from "../../wordList";
 import {checkPermission} from "../../CheckPermission";
 import Grid from "@material-ui/core/Grid";
-import EqualizerIcon from "@material-ui/icons/Equalizer";
 import EditIcon from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 
@@ -68,16 +67,6 @@ const ProductCard = (props) => {
                                    id={'productEdit' + props.index}
                     >
                         <EditIcon/>
-                    </IconButton>}
-                    {checkPermission('getStatistic')
-                    && <IconButton xs={12} sm={12}
-                                   variant='contained'
-                                   color="primary"
-                                   component={NavLink}
-                                   to={`/product/stat/${props.id}/7`}
-
-                    >
-                        <EqualizerIcon/>
                     </IconButton>}
                 </CardContent>
 

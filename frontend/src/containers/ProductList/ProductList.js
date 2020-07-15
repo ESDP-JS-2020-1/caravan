@@ -85,9 +85,7 @@ const ProductList = () => {
     const users = useSelector(state => state.users.users);
     const user = useSelector(state => state.users.user);
     const language = useSelector(state => state.language.name);
-
-    console.log(products);
-
+    
     useEffect(() => {
         dispatch(getProductsList());
         dispatch(getMarketsLocations())
@@ -137,7 +135,7 @@ const ProductList = () => {
             <Grid item container justify='space-between' alignItems='center'>
                 <Grid item>
                     <Typography variant='h2' paragraph>
-                        Главная страница
+                        {wordList[language].productList.mainPageTitle}
                     </Typography>
                 </Grid>
                 {checkPermission('downloadApp') && <Grid item>
@@ -147,7 +145,7 @@ const ProductList = () => {
                         component={NavLink}
                         to='/downloadApp'
                     >
-                        Скачать приложение для отслеживания геолокации
+                        {wordList[language].productList.downloadAppBtn}
                     </Button>
                 </Grid>}
             </Grid>
