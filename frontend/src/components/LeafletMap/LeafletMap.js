@@ -28,10 +28,8 @@ const LeafletMap = ({locations ,myLocation, to, type}) => {
             layerRef.current.clearLayers();
 
             locations.forEach(e => {
-                L.marker([e.location.lat, e.location.lng]).addTo(layerRef.current)
+                L.marker([e.location.lat, e.location.lng]).bindTooltip(e.user.username).addTo(layerRef.current)
             })
-
-            // mapValue.current.setView(myLocation);
         }
         if(type === statuses.routing) {
             layerRef.current.clearLayers();

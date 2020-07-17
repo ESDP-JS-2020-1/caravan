@@ -152,6 +152,7 @@ const WsTest = () => {
                     </List>
                 </div>
             </div>
+            {console.log(coordinate)}
             <main className={classes.content}>
                 { currentOrder === null && !coordinate && <LeafletMap/> }
 

@@ -40,8 +40,6 @@ router.ws('/', (ws) => {
 
             sendToCurrentUser(msg, id, 'ADD_COORDINATES')
 
-            console.log('123') 
-
             Object.keys(connections).forEach(conn => {
                 if (Object.keys(msg.courier.currentRequest).length > 0 && msg.courier.currentRequest.user._id.toString() === connections[conn].data.user._id.toString() && connections[conn].data.user.role === 'market') {
                     sendToCurrentUser([{location: msg.location, user: msg.courier}], conn, 'ADD_COORDINATES')
@@ -71,7 +69,14 @@ router.ws('/', (ws) => {
     ws.on('close', () => {
         delete connections[id];
         if (!!couriers[id]) delete couriers[id]
+
         sendToAllUsers(connections)
+        if(connections[0]) {
+            Object.keys(connections).forEach(conn => {
+                connections[conn].send(JSON.stringify({type: 'ADD_COORDINATES', couriers}));
+            });
+        }
+
     })
 });
 
