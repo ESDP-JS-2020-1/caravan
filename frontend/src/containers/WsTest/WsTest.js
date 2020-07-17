@@ -107,35 +107,41 @@ const WsTest = () => {
                 <Typography variant='h5' className={classes.UsersTitle}>
                     {wordList[language].wsTest.couriers}
                 </Typography>
+                {currentOrder && <>
+                    <Divider/>
+                    <Button variant="contained" color="secondary" onClick={() => setCurrentOrder(null)}>
+                        Отменить отслеживание
+                    </Button>
+                </>}
                 <Divider/>
                 <div className={classes.drawerContainer}>
                     <List>
-                        {coordinate && coordinate.map(item => {
-                            const hasRequest = Object.keys(item.user.currentRequest).length > 0;
+                        {usersOnline && usersOnline.map((item, index) => {
+                            const hasRequest = Object.keys(item.currentRequest).length > 0;
 
                             return (
                                 <ListItem
                                     button
-                                    key={item.user._id}
+                                    key={item._id}
                                 >
                                     <Grid container spacing={1}>
                                         <Grid
                                             container
                                             item
                                             component={NavLink}
-                                            to={`/users/${item.user._id}`}
+                                            to={`/users/${item._id}`}
                                             alignItems='center'
                                             className={classes.linkToUser}
                                         >
                                             <ListItemAvatar>
                                                 <Avatar
-                                                    src={item.user.avatar ? 'http://localhost:8000/uploads/userAvatar/' + item.user.avatar : ""}
+                                                    src={item.avatar ? 'http://localhost:8000/uploads/userAvatar/' + item.avatar : ""}
                                                 />
                                             </ListItemAvatar>
-                                            <ListItemText primary={item.user.displayName} />
+                                            <ListItemText primary={item.displayName} />
                                         </Grid>
-                                        {hasRequest && <Grid item xs>
-                                            <Button className={classes.trackUser} onClick={() => trackUser(item)}>
+                                        {hasRequest && coordinate?.[index] && <Grid item xs>
+                                            <Button className={classes.trackUser} onClick={() => trackUser(coordinate?.[index])}>
                                                 {wordList[language].wsTest.toSeeCouriersBtn}
                                             </Button>
                                         </Grid>}
