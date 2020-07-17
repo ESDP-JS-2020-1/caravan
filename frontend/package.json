@@ -40,7 +40,7 @@
     "eject": "react-scripts eject",
     "start:test": "REACT_APP_ENV=test PORT=3010 BROWSER=none react-scripts start"
   },
-  "homepage": "./",
+  "homepage": "/",
   "eslintConfig": {
     "extends": "react-app"
   },

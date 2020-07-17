@@ -14,6 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import LeafletMap from "../../components/LeafletMap/LeafletMap";
 import {wordList} from "../../wordList";
+import {apiURL} from "../../config";
 
 const drawerWidth = 240;
 
@@ -84,7 +85,7 @@ const WsTest = () => {
     };
 
     useEffect(() => {
-        const webSocket = new WebSocket(`ws://localhost:8000/locations?userRole=${user.role}`);
+        const webSocket = new WebSocket(apiURL.wsUrl);
         webSocket.onopen = () => {
             webSocket.send(JSON.stringify({type: 'CONNECT_USER', user}))
         };
@@ -106,35 +107,41 @@ const WsTest = () => {
                 <Typography variant='h5' className={classes.UsersTitle}>
                     {wordList[language].wsTest.couriers}
                 </Typography>
+                {currentOrder && <>
+                    <Divider/>
+                    <Button variant="contained" color="secondary" onClick={() => setCurrentOrder(null)}>
+                        Отменить отслеживание
+                    </Button>
+                </>}
                 <Divider/>
                 <div className={classes.drawerContainer}>
                     <List>
-                        {coordinate && coordinate.map(item => {
-                            const hasRequest = Object.keys(item.user.currentRequest).length > 0;
+                        {usersOnline && usersOnline.map((item, index) => {
+                            const hasRequest = Object.keys(item.currentRequest).length > 0;
 
                             return (
                                 <ListItem
                                     button
-                                    key={item.user._id}
+                                    key={item._id}
                                 >
                                     <Grid container spacing={1}>
                                         <Grid
                                             container
                                             item
                                             component={NavLink}
-                                            to={`/users/${item.user._id}`}
+                                            to={`/users/${item._id}`}
                                             alignItems='center'
                                             className={classes.linkToUser}
                                         >
                                             <ListItemAvatar>
                                                 <Avatar
-                                                    src={item.user.avatar ? 'http://localhost:8000/uploads/userAvatar/' + item.user.avatar : ""}
+                                                    src={item.avatar ? 'http://localhost:8000/uploads/userAvatar/' + item.avatar : ""}
                                                 />
                                             </ListItemAvatar>
-                                            <ListItemText primary={item.user.displayName} />
+                                            <ListItemText primary={item.displayName} />
                                         </Grid>
-                                        {hasRequest && <Grid item xs>
-                                            <Button className={classes.trackUser} onClick={() => trackUser(item)}>
+                                        {hasRequest && coordinate?.[index] && <Grid item xs>
+                                            <Button className={classes.trackUser} onClick={() => trackUser(coordinate?.[index])}>
                                                 {wordList[language].wsTest.toSeeCouriersBtn}
                                             </Button>
                                         </Grid>}
@@ -146,6 +153,8 @@ const WsTest = () => {
                 </div>
             </div>
             <main className={classes.content}>
+                { currentOrder === null && !coordinate && <LeafletMap/> }
+
                 { currentOrder === null && coordinate && coordinate.length > 0 && <LeafletMap
                     type={'locations'}
                     locations={coordinate}
