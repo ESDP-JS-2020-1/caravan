@@ -18,7 +18,7 @@
     "leaflet-routing-machine": "^3.2.12",
     "material-table": "^1.57.2",
     "material-ui-phone-number": "^2.2.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
